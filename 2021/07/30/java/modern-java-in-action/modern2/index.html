@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>람다표현식 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="Modern Java in Action">
+    
+    <meta name="description" content="a. 람다란 무엇인가?람다 표현식은 메서드로 전달할 수 있는 익명 함수를 단순화한 것이다!    익명 : 람다 표현식에는 이름이 없다.   함수 : 람다는 메서드와 달리 특정 클래스에 종속되지 않으므로 함수라 부른다.   전달 : 메서드 인수로 전달하거나 변수로 저장할 수 있다.   간결성 : 익명 클래스보다 간결하다.  커스텀 Comparator 객체 구">
+<meta property="og:type" content="article">
+<meta property="og:title" content="람다표현식">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern2/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. 람다란 무엇인가?람다 표현식은 메서드로 전달할 수 있는 익명 함수를 단순화한 것이다!    익명 : 람다 표현식에는 이름이 없다.   함수 : 람다는 메서드와 달리 특정 클래스에 종속되지 않으므로 함수라 부른다.   전달 : 메서드 인수로 전달하거나 변수로 저장할 수 있다.   간결성 : 익명 클래스보다 간결하다.  커스텀 Comparator 객체 구">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-30T00:25:25.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.035Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="Modern Java in Action">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/" title="mudura | 그거 뭐더라" type="application/atom+xml">
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/java/">Java</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-java/modern-java-in-action/modern2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        람다표현식
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/07/30/java/modern-java-in-action/modern2/" class="article-date">
+       <time datetime="2021-07-30T00:25:25.000Z" itemprop="datePublished">2021-07-30</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/07/30/java/modern-java-in-action/modern2/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.035Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/modern-java-in-action/" rel="tag">Modern Java in Action</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="a-람다란-무엇인가"><a href="#a-람다란-무엇인가" class="headerlink" title="a. 람다란 무엇인가?"></a><strong>a. 람다란 무엇인가?</strong></h2><p>람다 표현식은 메서드로 전달할 수 있는 익명 함수를 단순화한 것이다!</p>
+<ul>
+<li>  익명 : 람다 표현식에는 이름이 없다.</li>
+<li>  함수 : 람다는 메서드와 달리 특정 클래스에 종속되지 않으므로 함수라 부른다.</li>
+<li>  전달 : 메서드 인수로 전달하거나 변수로 저장할 수 있다.</li>
+<li>  간결성 : 익명 클래스보다 간결하다.</li>
+</ul>
+<p>커스텀 Comparator 객체 구현 예시로 람다의 힘을 느껴보지!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Apple&gt; byWeight = <span class="keyword">new</span> Comparator&lt;Apple&gt; &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Apple a1, Apple a2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a1.getWeight().compareTo(a2.getWeight());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Ramda</span></span><br><span class="line">Comparator&lt;Apple&gt; byWeight = (Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight());</span><br></pre></td></tr></table></figure>
+
+<p>람다는 크게 세 부분으로 이뤄져있다.</p>
+<ul>
+<li>  파라미터 리스트 : (Apple a1, Apple a2)</li>
+<li>  화살표(-&gt;) : 람다의 파라미터 리스트와 바디를 구분</li>
+<li>  람다 바디 : a1.getWeight().compareTo(a2.getWeight()); 람다의 반환같이 해당하는 표현식.</li>
+</ul>
+<p>람다는 표현식 스타일과 블록 스타일로 나타낼 수 있다.</p>
+<ul>
+<li>표현식 스타일<br>  (parameters) -&gt; expression</li>
+<li>블록 스타일<br>  (parameters)-&gt; { statements; }</li>
+</ul>
+<p>구문(statements)와 표현식(expression)을 잘 구분해서 맞는 스타일대로 작성하기로 바란다!</p>
+<p>아래 다양한 람다 사례를 보며 람다 표현식을 익혀보자!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(List&lt;String&gt; list)-&gt; list.isEmpty()</span><br><span class="line">()-&gt;<span class="keyword">new</span> Apple(<span class="number">10</span>)</span><br><span class="line">(Apple a)-&gt; &#123;</span><br><span class="line">    System.out.println(a.getWeight());</span><br><span class="line">&#125;</span><br><span class="line">(String s)-&gt; s.length()</span><br><span class="line">(<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; a*b</span><br><span class="line">(Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight())</span><br></pre></td></tr></table></figure>
+
+<h2 id="b-어디에-어떻게-람다를-사용할까"><a href="#b-어디에-어떻게-람다를-사용할까" class="headerlink" title="b. 어디에 어떻게 람다를 사용할까?"></a><strong>b. 어디에 어떻게 람다를 사용할까?</strong></h2><h3 id="b-1-함수형-인터페이스"><a href="#b-1-함수형-인터페이스" class="headerlink" title="b-1. 함수형 인터페이스"></a>b-1. 함수형 인터페이스</h3><p>함수형 인터페이슨느 정확히 하나의 추상 메서드를 지정하는 인터페이스다.</p>
+<p>대표적으로 Predicate, Comparator, Runnable 등이 있다.</p>
+<p>(d 항목에서 더 자세히 다뤄본다.)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Predicate</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">test</span> <span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(T o1, T o2)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>#인터페이스는 디폴트 메서드를 포함할 수 있다. 디폴트 메서드를 가지고 있더라도 추상메서드가 오직 하나면 함수형 인터페이스다.</em></p>
+<p>함수형 인터페이스로 뭘 할 수 있을까?</p>
+<p>람다 표현식으로 함수형 인터페이스의 추상 메서드 구현을 직접 전달할 수 있다.</p>
+<p>즉 전체 표현식을 함수형 인터페이스를 구현한 클래스의 인스턴스로 취급할 수 있다!!</p>
+<h3 id="b-2-함수-디스크립터"><a href="#b-2-함수-디스크립터" class="headerlink" title="b-2. 함수 디스크립터"></a>b-2. 함수 디스크립터</h3><p>먼저 함수 디스크립터에 대해 알아보기 전에 메서드 시그니처에 대해 알아보자.</p>
+<p>시그니처란 메소드의 이름과 매개변수 이름을 제외한 나머지이다.</p>
+<p>즉 int sum(int a, double b) , int sum2(int c, double d) 이 두 메소드는 서로 시그니처가 같다.</p>
+<p>함수형 인터페이스의 추상 메서드 시그니처는 람다 표현식의 시그니처를 가리킨다.</p>
+<p>람다 표현식의 시그니처를 서술하는 메서드를 함수 디스크립터라고 부른다.</p>
+<p>(함수형 인터페이스의 추상 메서드 시그니처를 함수 디스크립터라고 부른다.)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Runnable r)</span> </span>&#123;</span><br><span class="line">    r.run();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">process(()-&gt; System.out.println(<span class="string">&quot;This is awesome!!&quot;</span>));</span><br><span class="line"><span class="comment">//process(() -&gt; &#123; System.out.println(&quot;This is awesome!!&quot;);&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p>Runnable 인터페이스의 유일한 추상 메소드인 run 메소드는 인수와 반환값이 없으므로,</p>
+<p>람다 표현식의 함수 디스크립터도 해당 시그니처에 맞춰 작성됐다.</p>
+<p><em>#이때 왜 람다 표현식에 중괄호를 사용하지 않았는지 궁금할텐데, 이는 하나의 void 메소드 호출은 중괄호를 생략한다.</em></p>
+<p><em>@FunctioalInerface는 무엇일까?</em></p>
+<p>다음에 나오는 인터페이스가 함수형 인터페이스임을 알리는 어노테이션.</p>
+<p>함수형 인터페이스가 아닐경우 에러 발생.</p>
+<h2 id="c-람다-활용-실행-어라운드-패턴"><a href="#c-람다-활용-실행-어라운드-패턴" class="headerlink" title="c. 람다 활용 : 실행 어라운드 패턴"></a><strong>c. 람다 활용 : 실행 어라운드 패턴</strong></h2><p>데이터베이스의 파일 처리를 구현한다고 상상해보자 </p>
+<p>자원을 열고(설정), 처리한 다음에, 자원을 닫는(정리) 순으로 구현할 것이다.</p>
+<p>이런 순환 패턴의 코드를 실행 어라운드 패턴이라 부른다.</p>
+<p><em>(다음 예시는 try with resources 구문을 사용했다. 자원을 명시적으로 닫지 않아도 된다.)</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">&quot;data.txt&quot;</span>))) &#123;</span><br><span class="line">        <span class="keyword">return</span> br.readLine();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이 예시를 람다로 간결하게 구현하는 과정을 한번 경험해보자!</p>
+<h3 id="c-1-1단계-동작-파라미터화를-기억하라"><a href="#c-1-1단계-동작-파라미터화를-기억하라" class="headerlink" title="c-1. 1단계, 동작 파라미터화를 기억하라"></a>c-1. 1단계, 동작 파라미터화를 기억하라</h3><p>현재 코드는 파일에서 한번에 한 줄만 읽을 수 있다.</p>
+<p>만약 요구사항이 한번에 두 줄을 읽거나 자주 사용되는 단어를 반환하라는 등으로 바뀌면 어떻게 해야하나?</p>
+<p>그렇다! 설정과 정리 과정은 재사용하고, processFile 메소드만 다른 동작으로 작동할 수 있으면 된다!</p>
+<p>즉 processFile의 동작을 파라미터화 하는 것이다!!!!!</p>
+<p>자 이제 다음 단계부터 차근차근 동작 파라미터화를 구현해보자!</p>
+<h3 id="c-2-2단계-함수형-인터페이스를-이용해서-동작-전달"><a href="#c-2-2단계-함수형-인터페이스를-이용해서-동작-전달" class="headerlink" title="c-2. 2단계, 함수형 인터페이스를 이용해서 동작 전달"></a>c-2. 2단계, 함수형 인터페이스를 이용해서 동작 전달</h3><p>람다로 활용하려면 함수형 인터페이스를 이용해야 한다.</p>
+<p>processFile 의 시그니처와 일치하는 함수형 인터페이스를 만들어야 한다.</p>
+<p>BufferedReaderProcessor라고 정의해 인터페이스를 구현하고, processFile 메서드의 인수로 전달해보자!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BufferReaderProcessor</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">process</span><span class="params">(BufferedReader b)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processFile</span><span class="params">(BufferedReaderProcessor p)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-3-3단계-동작-실행"><a href="#c-3-3단계-동작-실행" class="headerlink" title="c-3. 3단계, 동작 실행"></a>c-3. 3단계, 동작 실행</h3><p>자 이제 BufferedReaderProcessor에 process 메서드의 시그니처와 일치하는 람다를 전달할 수 있다.</p>
+<p>이렇게 하면 함수형 인터페이스의 추상 메소드를 람다가 구체화해서 precessFile에서 실행할 수 있게 된다.</p>
+<p>즉 람다로 구현된 다양한 요구조건들을 받는 그릇이 준비된 셈이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processFile</span><span class="params">(BufferedReaderProcessor p)</span> <span class="keyword">throws</span> IOEXception </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">&quot;data.txt&quot;</span>))) &#123;</span><br><span class="line">        <span class="keyword">return</span> p.process(br);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-4-4단계-람다-전달"><a href="#c-4-4단계-람다-전달" class="headerlink" title="c-4. 4단계, 람다 전달"></a>c-4. 4단계, 람다 전달</h3><p>이제 람다를 이용해서 다양한 동작을 processFile 메서드로 전달할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String oneLine = processFile(BufferedReader br) -&gt; br.readLine());</span><br><span class="line"></span><br><span class="line">String twoLine = processFile(BufferedReader br) -&gt; br.readLine()+br.readLine();</span><br></pre></td></tr></table></figure>
+
+<h2 id="d-함수형-인터페이스-사용"><a href="#d-함수형-인터페이스-사용" class="headerlink" title="d. 함수형 인터페이스 사용"></a><strong>d. 함수형 인터페이스 사용</strong></h2><p>다양한 람다 표현식을 사용하려면 공통의 함수 디스크립터를 기술하는 함수형 인터페이스 집합이 필요하다!</p>
+<p>자바 8에는 java.util.function 패키지로 여러가지 함수형 인터페이스를 제공한다.</p>
+<h3 id="d-1-Predicate"><a href="#d-1-Predicate" class="headerlink" title="d-1. Predicate"></a>d-1. Predicate</h3><p>java.util.function.Predicate<t> 인터페이스는 test라는 추상 메소드를 정의한다!</t></p>
+<p>test는 T 객체를 인수로 받아 불리언을 반환한다!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Predicate</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">test</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">filter</span><span class="params">(List&lt;T&gt; list, Predicate&lt;T&gt; p)</span> </span>&#123;</span><br><span class="line">    List&lt;T&gt; results = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(T t: list) &#123;</span><br><span class="line">        <span class="keyword">if</span>(p.test(t)) &#123;</span><br><span class="line">            results.add(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> results;</span><br><span class="line">&#125;</span><br><span class="line">Predicate&lt;String&gt; nonEmptyStringPredicate = (String s) -&gt; !s.isEmpty();</span><br><span class="line">List&lt;String&gt; nonEmpty = filter(listOfStrings, nonEmptyStringPredicate);</span><br></pre></td></tr></table></figure>
+
+<h3 id="d-2-Consumer"><a href="#d-2-Consumer" class="headerlink" title="d-2. Consumer"></a>d-2. Consumer</h3><p>java.util.function.Consumer<t> 인터페이스는 accept라는 추상 메소드를 정의한다!</t></p>
+<p>accept는 T 객체를 인수로 받아 어떤 동작을 수행하고 반환값은 없다.</p>
+<p>for each를 Consumer로 구현한 사례를 보자</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Consumer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">forEach</span><span class="params">(List&lt;T&gt; list, Consumer&lt;T&gt; c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(T t: list) &#123;</span><br><span class="line">        c.accept(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">forEach(Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>), (Integer i) -&gt; System.out.println(i));</span><br></pre></td></tr></table></figure>
+
+<h3 id="d-3-Function"><a href="#d-3-Function" class="headerlink" title="d-3. Function"></a>d-3. Function</h3><p>java.util.function.Function&lt;T, R&gt; 인터페이스는 추상 메서드 apply를 정의한다</p>
+<p>apply는 T를 인수로 받아 R 객체로 반환한다.</p>
+<p>입력을 출력으로 매핑하는 람다를 정의할 때 사용할 수 있다.</p>
+<p>String 리스트를 인수로 받아, 각 String 길이를 포함하는 Integer 리스트로 변환하는 map메서드 구현 사례를 보자!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Function</span>&lt;<span class="title">T</span>, <span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">R <span class="title">apply</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> &lt;T, R&gt; <span class="function">List&lt;R&gt; <span class="title">map</span><span class="params">(List&lt;T&gt; list, Function&lt;T, R&gt; f)</span> </span>&#123;</span><br><span class="line">    List&lt;R&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(T t: list) &#123;</span><br><span class="line">        result.add(f.apply(t));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt; l = map(Arrays.asList(<span class="string">&quot;lambdas&quot;</span>, <span class="string">&quot;in&quot;</span>, <span class="string">&quot;action&quot;</span>), (String s) -&gt; s.length());</span><br><span class="line"><span class="comment">//[7,2,6]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="d-4-기본형-특화"><a href="#d-4-기본형-특화" class="headerlink" title="d-4. 기본형 특화"></a>d-4. 기본형 특화</h3><p>이 글을 보고 있는 사람들은 아시다시피, 제네릭에는 래퍼클래스(책에서는 참조형이라고 한다) 인스턴스만 사용가능하다. 이런 불편을 박싱과 언박싱으로 해소할 수 있지만, 그럴 경우 불필요한 메모리 소모가 생긴다.</p>
+<p>자바 8에서는 기본형으로 입출력할 때 오토박싱을 피하기 위해 특별한 함수형 인터페이스를 제공한다.</p>
+<p>아래는 IntPredicate를 활용한 예시이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IntPredicate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">IntPredicate evenNumbers = (<span class="keyword">int</span> i) -&gt; i%<span class="number">2</span>==<span class="number">0</span>;</span><br><span class="line">evenNumbers.test(<span class="number">1000</span>); <span class="comment">//참이고 박싱이 진행되지 않음</span></span><br><span class="line"></span><br><span class="line">Predicate&lt;Integer&gt; evenNumbers2 = (<span class="keyword">int</span> i) -&gt; i%<span class="number">2</span>==<span class="number">0</span>;</span><br><span class="line">evenNumbers2.test(<span class="number">1000</span>); <span class="comment">//참이고 박싱이 진행됨</span></span><br></pre></td></tr></table></figure>
+
+<p>Predicate와 IntPredicate의 차이를 알아차리기 바란다!</p>
+<h3 id="d-5-람다와-함수형-인터페이스-예제를-표로-정리"><a href="#d-5-람다와-함수형-인터페이스-예제를-표로-정리" class="headerlink" title="d-5. 람다와 함수형 인터페이스 예제를 표로 정리"></a>d-5. 람다와 함수형 인터페이스 예제를 표로 정리</h3><table style="border-collapse: collapse; width: 100%;" border="1" data-ke-align="alignLeft" data-ke-style="style12"><tbody><tr><td style="width: 33.3333%;">사용 사례</td><td style="width: 33.3333%;">람다 예제</td><td style="width: 33.3333%;">대응하는 함수형 인터페이스</td></tr><tr><td style="width: 33.3333%;">불리언 표현</td><td style="width: 33.3333%;">(List&lt;String&gt; list) -&gt; list.isEmpty()<br>리스트가 비었는지 확인</td><td style="width: 33.3333%;">Predicate&lt;List(String)&gt;</td></tr><tr><td style="width: 33.3333%;">객체 생성</td><td style="width: 33.3333%;">() -&gt; new Apple(10)</td><td style="width: 33.3333%;">Supplier&lt;Apple&gt;</td></tr><tr><td style="width: 33.3333%;">객체 소비</td><td style="width: 33.3333%;">(Apple a) -&gt; System.out.println(a.getWeight())</td><td style="width: 33.3333%;">Consumer&lt;Apple&gt;</td></tr><tr><td style="width: 33.3333%;">객체에서 선택/추출</td><td style="width: 33.3333%;">(String s) -&gt; s.length()</td><td style="width: 33.3333%;">Function&lt;String, Integer&gt;<br>ToIntFunction&lt;String&gt;</td></tr><tr><td style="width: 33.3333%;">두 값 조합</td><td style="width: 33.3333%;">(int a, int b) -&gt; a*b</td><td style="width: 33.3333%;">IntBinaryOperator</td></tr><tr><td style="width: 33.3333%;">두 객체 비교</td><td style="width: 33.3333%;">(Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight())</td><td style="width: 33.3333%;">Comparator&lt;Apple&gt; 또는<br>BiFunction&lt;Apple, Apple, Integer&gt;,<br>ToIntBiFunction&lt;Apple, Apple&gt;</td></tr></tbody></table>
+
+<p><em>복잡하긴 하다.</em></p>
+<h3 id="d-6-예외-람다-함수형-인터페이스의-관계"><a href="#d-6-예외-람다-함수형-인터페이스의-관계" class="headerlink" title="d-6. 예외, 람다, 함수형 인터페이스의 관계"></a>d-6. 예외, 람다, 함수형 인터페이스의 관계</h3><p>함수형 인터페이스는 확인된 예외를 던지는 동작을 허용하지 않는다.</p>
+<p>즉 예외를 던지는 람다 표현식을 만들려면, 함수형 인터페이스에서 예외를 선언하도록 직접 정의하거나, 람다를 try catch문으로 감싸야 한다.</p>
+<p>예외를 처리하는 함수형 인터페이스를 선언하는 예시를 보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BufferedReaderProcessor</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">process</span><span class="params">(BufferedReader b)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br><span class="line">BufferedReaderProcessor p = (BufferedReader br) -&gt; br.readLine();</span><br></pre></td></tr></table></figure>
+
+<p>하지만 이미 자바 API에 정의된 함수형 인터페이스를 사용하려 하는데<br>예외 때문에 다시 직접 만들어 쓰기는 쉽지 않다…</p>
+<p>이럴 때는 람다를 try catch로 감싸는 방법을 사용해보자!!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;BufferedReader, String&gt; f = (BufferedReader b) -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> b.readLine();</span><br><span class="line">    &#125; <span class="keyword">catch</span>(IOException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="e-형식-검사-형식-추론-제약"><a href="#e-형식-검사-형식-추론-제약" class="headerlink" title="e. 형식 검사, 형식 추론, 제약"></a><strong>e. 형식 검사, 형식 추론, 제약</strong></h2><p>람다로 함수형 인터페이스의 인스턴스를 만들 수 있는데,</p>
+<p>정작 람다 표현식 자체에는 어떤 함수형 인터페이스를 구현하는지의 정보가 없다..</p>
+<p>어떻게 알고 인스턴스를 만드는걸까?</p>
+<h3 id="e-1-형식-검사"><a href="#e-1-형식-검사" class="headerlink" title="e-1. 형식 검사"></a>e-1. 형식 검사</h3><p>람다가 사용되는 콘텍스트(람다가 전달될 메서드 파라미터, 람다가 할당되는 변수 등..)을 통해<br>람다의 형식을 추론할 수 있다!</p>
+<p>예시로 이해해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">filter</span><span class="params">(inventory, Predicate&lt;T&gt; p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p.test())&#123;</span><br><span class="line">        inventory.add(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;Apple&gt; heavierThan150g = filter(inventory, (Apple apple) -&gt; apple.getWeight() &gt; <span class="number">150</span>);</span><br></pre></td></tr></table></figure>
+
+<p>위 코드의 형식 확인 과정은 다음과 같다.</p>
+<ol>
+<li>람다가 사용된 콘텍스트는 뭐냐?<br> filter 메서드에서 사용됐으니, filter메서드의 정의를 확인하자!</li>
+<li>대상 형식은 뭐냐? <em>#대상 형식이란, 컨텍스트에서 기대되는 람다의 형식.</em><br> filter 메서드를 보니, 람다에 해당하는 대상형식은 Predicate<apple>이다!</apple></li>
+<li>Predicate<apple> 인터페이스의 추상 메서드는 뭐냐?<br> boolean test(Apple apple)이다! <em>#d-1참고.</em></apple></li>
+<li> 아하! 그러면 해당 람다는 Apple을 받아 boolean을 반환하면 되겠군!</li>
+</ol>
+<h3 id="e-2-같은-람다-다른-함수형-인터페이스"><a href="#e-2-같은-람다-다른-함수형-인터페이스" class="headerlink" title="e-2. 같은 람다, 다른 함수형 인터페이스"></a>e-2. 같은 람다, 다른 함수형 인터페이스</h3><p>앞서 다룬 대상 형식(타겟타입)이란 개념 때문에 같은 람다 표현식도 여러 함수형 인터페이스에 사용할 수 있다!</p>
+<p>물론 이렇게 활용되기 위해서는 해당 추상 메서드에 호환이 되어야 한다.(시그니처가 호환되어야 할 것이다.)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Callable&lt;Integer&gt; c = () -&gt; <span class="number">43</span>;</span><br><span class="line">PrivilegedAction&lt;Integer&lt; p = () -&gt; <span class="number">43</span>;</span><br></pre></td></tr></table></figure>
+
+<p> 위 두 코드에는 같은 람다식이 서로 다른 함수형 인터페이스에 할당 되었다.</p>
+<p>Callable과 PrivilegedAction 모두, 인수를 받지 않고 제네릭 형식 T를 반환하는 추상 메소드가 있어서 가능하다.</p>
+<p><em>#특별한 void 호환 규칙</em></p>
+<p>람다의 바디에 일반 표현식이 있으면 void를 반환하는 함수 디스크립터(시그니처)와 호환된다.</p>
+<p>List의 add는 T를 받아 boolean을 반환하지만 T를 받는 void 형식에도 사용 가능하다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Consumer는 void 반환값을 가지면, 일반 표현식이 와도 괜찮다!</span></span><br><span class="line">Consumer&lt;String&gt; b = s -&gt; list.add(s);</span><br></pre></td></tr></table></figure>
+
+<h3 id="e-3-형식-추론"><a href="#e-3-형식-추론" class="headerlink" title="e-3. 형식 추론"></a>e-3. 형식 추론</h3><p>람다 표현식의 파라미터 형식을 생략해도 컴파일러가 추론할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Apple&gt; greenApple = filter(inventory, apple -&gt; GREEN.equals(apple.getColor()));</span><br></pre></td></tr></table></figure>
+
+<p>apple이 어떤 형식인지 말 안해줘도, filter 메소드을 통해 추론 할 수 있게된다.</p>
+<p>형식을 써주는게 좋을 때도 있고, 생략해야 좋을 때도 있으니, 개발자가 가독성이 좋은 방향으로 선택하길 바란다!</p>
+<h3 id="e-4-지역-변수-사용-람다-캡처링"><a href="#e-4-지역-변수-사용-람다-캡처링" class="headerlink" title="e-4. 지역 변수 사용(람다 캡처링)"></a>e-4. 지역 변수 사용(람다 캡처링)</h3><p>람다 표현식에 자유 변수(파라미터로 넘겨진 변수가 아닌 외부에 정의된 변수)를 활용할 수도 있다!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> portNumber =<span class="number">1337</span>;</span><br><span class="line">Runnable r = () -&gt; System.out.println(portNumber);</span><br></pre></td></tr></table></figure>
+
+<p>람다는 인스턴스 변수, 정적 변수 모두 사용 가능하지만 제약이 있다.</p>
+<p>명시적으로 final 선언되어 있거나, 실질적으로 final 선언된 변수여야만 한다.</p>
+<p>즉 람다는 한번만 할당할 수 있는 지역 변수를 사용할 수 있다.</p>
+<p>다음 예시는 컴파일 에러를 일으킨다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> portNum = <span class="number">1337</span>;</span><br><span class="line">Runnable r = () -&gt; System.out.println(portNum);</span><br><span class="line">portNum=<span class="number">31338</span>; <span class="comment">//error</span></span><br></pre></td></tr></table></figure>
+
+<p><em>그렇다면 왜 제약이</em> <em>있는 건가?</em></p>
+<p>인스턴스 변수와 지역 변수의 태생적 차이 때문!</p>
+<p>인스턴스 변수는 힙에 저장, 지역 변수는 스택에 저장된다.</p>
+<p>람다가 지역 변수에 접근할 수 있는 상황에서 람다가 스레드에서 실행되면,<br>변수를 할당한 스레드가 사라져 변수 할당이 해제되지만, 람다에서 해당 변수를 사용해야 된다.</p>
+<p>즉 자바에서는 원래 변수에 접근하는 개념이 아니라, 원래 변수를 복사본을 제공하는 개념으로 구현한다.</p>
+<p>따라서 복사본의 값이 바뀌면 않아야 되므로, 할당을 한번만 허용하는 것이다.</p>
+<h2 id="f-메서드-참조"><a href="#f-메서드-참조" class="headerlink" title="f. 메서드 참조"></a><strong>f. 메서드 참조</strong></h2><p>메서드 참조를 이용하면 기존의 메서드 정의를 재활용해서 람다처럼 전달할 수 있다.</p>
+<p>때로는 람다보다 메서드 참조가 더 가독성이 좋을 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//람다 표현식</span></span><br><span class="line">inventory.sort((Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight()));</span><br><span class="line"></span><br><span class="line"><span class="comment">//메서드 참조</span></span><br><span class="line">inventory.sort(comparing(Apple::getWeight));</span><br></pre></td></tr></table></figure>
+
+<h3 id="f-1-메서드-참조-요약"><a href="#f-1-메서드-참조-요약" class="headerlink" title="f-1. 메서드 참조 요약"></a>f-1. 메서드 참조 요약</h3><p>메서드 참조는 람다 표현식을 축약한 것이다.</p>
+<p>위 코드에서 (Apple a1, Apple a2) -&gt; …. 을 Apple::getWeight로 줄인 것이다.</p>
+<p>그렇다면 이 코드는 어떤 효과를 가질까?</p>
+<p>람다로 이미 존재하는 메서드를 호출하려고 하면,<br>굳이 그 내용을 설명할 것이 아니라, 해당 메소드명을 직접 참조하는 것이 편리하고 가독성이 좋다.</p>
+<p>(위 코드로 예시를 들면 getWeight메소드이 구현되어 있으면, 굳이 람다로 그 내용을 쓰지말고 메소드 명만 쓰는 메소드 참조를 하자는 것이다.)</p>
+<p>이때 실제 메소드를 호출하는 것은 아니므로 괄호가 없다.</p>
+<p>람다를 축약한 것임을 기억하자.</p>
+<p>단축 표현 예시를 보자</p>
+<table style="border-collapse: collapse; width: 100%;" border="1" data-ke-align="alignLeft" data-ke-style="style12"><tbody><tr><td style="width: 50%;">람다</td><td style="width: 50%;">메서드 참조 단축 표현</td></tr><tr><td style="width: 50%;">(Apple apple) -&gt; apple.getWeight()</td><td style="width: 50%;">Apple::getWeight</td></tr><tr><td style="width: 50%;">() -&gt; Thread.currentThread().dumpStack()</td><td style="width: 50%;">Thread.currentThread()::dumpStack</td></tr><tr><td style="width: 50%;">(str, i) -&gt; str.substring(i)</td><td style="width: 50%;">String::substring</td></tr><tr><td style="width: 50%;">(String s) -&gt; System.out.println(s)<br>(String s) -&gt; this.isValidName(s)</td><td style="width: 50%;">System.out::println<br>this::isValidName</td></tr></tbody></table>
+
+<p><em>당장은 이해가 안되도 차근차근 공부해보자.</em></p>
+<h3 id="f-2-메서드-참조를-만드는-방법"><a href="#f-2-메서드-참조를-만드는-방법" class="headerlink" title="f-2. 메서드 참조를 만드는 방법"></a>f-2. 메서드 참조를 만드는 방법</h3><p>일단 메소드 참조에는 세가지 유형이 있다</p>
+<ol>
+<li>정적 메서드 참조<br> Integer의 parseInt는 Integer::parseInt로 표현 가능하다</li>
+<li>다양한 형식의 인스턴스 메소드 참조<br> String의 toUpperCase는 String::toUpperCase로 표현 가능하다<br> 즉 (String s) -&gt; s.toUpperCase()를 String::toUpperCase로 축약 가능하다.</li>
+<li>기존 객체의 인스턴스 메서드 참조<br> Transaction이라는 객체를 할당받은 expensiveTransaction 지역 변수가 있고, Transaction 객체에는 getValue메서드가 있다고 할 때, expensiveTransaction::getValue라고 표현 가능하다.<br> 즉 () -&gt; expensiveTransaction.getValue()를 expensiveTransaction::getValue라고 축약 가능하다.</li>
+</ol>
+<p>람다 표현식을 메서드 참조로 표현하는 단축 규칙을 보여주는 도표이다.</p>
+<p>[##<em>Image|kage@dUB92e/btq9EO4XvW0/KuP3ujmb0mkTZiKm9VA580/img.jpg|alignCenter|data-origin-width=”825” data-origin-height=”659” data-ke-mobilestyle=”widthOrigin”|||</em>##]</p>
+<h3 id="f-3-생성자-참조"><a href="#f-3-생성자-참조" class="headerlink" title="f-3. 생성자 참조"></a>f-3. 생성자 참조</h3><p>ClassName::new처럼 클래스명과 new 키워드를 이용해서 기존 생성자의 참조를 만들 수 있다.</p>
+<p>이는 정적 메서드의 참조를 만드는 방법과 비슷하다.</p>
+<p>다음 예시들은 다양한 시그니처에 따른 생성자 참조를 보여준다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//람다 스타일, new Apple() 이라는 생성자가 있을 경우</span></span><br><span class="line">Supplier&lt;Apple&gt; c1 = () -&gt; <span class="keyword">new</span> Apple();</span><br><span class="line">Apple a1 = c1.get();</span><br><span class="line"><span class="comment">//생성자 참조</span></span><br><span class="line">Supplier&lt;Apple&gt; c1 = Apple::<span class="keyword">new</span>;</span><br><span class="line">Apple a1 = c1.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">//람다 스타일, new Apple(Integer)</span></span><br><span class="line">Funtion&lt;Integer, Apple&gt; c2 = (weight) -&gt; <span class="keyword">new</span> Apple(weight);</span><br><span class="line">Apple a2 = c2.apply(<span class="number">110</span>)</span><br><span class="line"><span class="comment">//생성자 참조</span></span><br><span class="line">Function&lt;Integer, Apple&gt; c2 = Apple::<span class="keyword">new</span>;</span><br><span class="line">Apple a2 = c2.apply(<span class="number">110</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//람다 스타일, new Apple(String color, Integer)</span></span><br><span class="line">BiFUnction&lt;String, Integer, Apple&gt; c3 = (color, weight) -&gt; <span class="keyword">new</span> Apple(color, weight);</span><br><span class="line">Apple a3 = c3.apply(GREEN, <span class="number">110</span>);</span><br><span class="line"><span class="comment">//생성자 참조</span></span><br><span class="line">BiFunction&lt;Color, Integer, Apple&gt; c3 = Apple::<span class="keyword">new</span></span><br></pre></td></tr></table></figure>
+
+<p>이렇게 인스턴스화하지 않고도 생성자에 접근할 수 있는 기능을 다양한 상황에서 응용해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//사과의 무게 정보와 함께 Apple 생성자 호출</span></span><br><span class="line">List&lt;Integer&gt; weights = Arrays.asList(<span class="number">7</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">10</span>);</span><br><span class="line">List&lt;Apple&gt; apples = map(weights, Apple::<span class="keyword">new</span>);</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Apple&gt; <span class="title">map</span><span class="params">(List&lt;Integer&gt; list, Function&lt;Integer, Apple&gt; f)</span> </span>&#123;</span><br><span class="line">  List&lt;Apple&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span>( Integer i : list) &#123;</span><br><span class="line">    result.add(f.apply(i));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>지금까지는 이미 존재하는 함수형 인터페이스를 활용해 생성자 참조를 했다.</p>
+<p>만약 인수가 세개 이상을 필요로 하는 생성자의 생성자 참조는 어떻게 해야 할지 알아보자!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TriFunction</span>&lt;<span class="title">T</span>, <span class="title">U</span>, <span class="title">V</span>, <span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">R <span class="title">apply</span><span class="params">(T t, U u, V v)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TriFunction&lt;Integer, Integer, Integer, Color&gt; colorFactory = Color::<span class="keyword">new</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="g-람다-메서드-참조-활용하기"><a href="#g-람다-메서드-참조-활용하기" class="headerlink" title="g. 람다, 메서드 참조 활용하기"></a><strong>g. 람다, 메서드 참조 활용하기</strong></h2><p>자 처음에 다룬 사과리스트를 다양한 요구조건에 맞춰 정렬하는 문제를 지금까지 배운 람다와 메서드 참조로 해결해보자!</p>
+<p>우리가 얻을 최종 결과물은 다음과 같다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inventory.sort(comparing(Apple::getWeight));</span><br></pre></td></tr></table></figure>
+
+<h3 id="g-1-1단계-코드-전달"><a href="#g-1-1단계-코드-전달" class="headerlink" title="g-1. 1단계, 코드 전달"></a>g-1. 1단계, 코드 전달</h3><p>우리는 자바 8에 도입된 List API에서 sort 메소드를 활용해 정렬을 해결하기로 했다.</p>
+<p>그런데 sort 메소드에 정렬 전략을 어떻게 도입할 수 있을까?</p>
+<p>일단 sort 메소드의 시그니처를 알아보자</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparator&lt;? <span class="keyword">super</span> E&gt; c)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>위 코드는 Comparator 객체를 인수로 받아 두 사과를 비교한다.</p>
+<p>즉 Comparator 객체에 다양한 동작을 포함시켜서 전략을 도입시킬 수 있을 것이다.</p>
+<p>이제 ‘sort의 동작은 파라미터화 되었다.’ 말할 수 있다.</p>
+<p>즉 sort에 전달된 정렬 전략에 따라 sort의 동작이 달라질 것이다.</p>
+<p>그렇다면 우리는 맨 처음 코드를 다음과 같이 바꿀 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppleComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Apple</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Apple a1, Apple a2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a1.getWeight().compareTo(a2.getWeight());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">inventory.sort(<span class="keyword">new</span> AppleComparator());</span><br></pre></td></tr></table></figure>
+
+<p>자 이제 AppleComparator 클래스의 동작을 바꿔주면 요구조건에 유연하게 대응할 수 있다!</p>
+<h3 id="g-2-2단계-익명-클래스-사용"><a href="#g-2-2단계-익명-클래스-사용" class="headerlink" title="g-2. 2단계, 익명 클래스 사용"></a>g-2. 2단계, 익명 클래스 사용</h3><p>하지만 한번만 사용할 Comparator를 1단계에서 처럼 구현하는 거 보다는 익명 클래스를 이용하는게 나아 보인다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">inventory.sort(<span class="keyword">new</span> Comparator&lt;Apple&gt;() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Apple a1, Apple a2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a1.getWeight().compareTo(a2.getWeight());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="g-3-3단계-람다-표현식-사용"><a href="#g-3-3단계-람다-표현식-사용" class="headerlink" title="g-3. 3단계, 람다 표현식 사용"></a>g-3. 3단계, 람다 표현식 사용</h3><p>하지만 여전히 코드가 장황하다!</p>
+<p>자바 8에서는 함수형 인터페이스(오직 하나의 추상 메서드를 정의하는 인터페이스)를 기대하는 곳 어디에서나 람다표현식을 사용할 수 있다!</p>
+<p>Comparator의 함수 디스크립터(추상 메서드의 시그니처)는 (T, T) -&gt; int다.</p>
+<p>우리의 경우는 사과를 사용하므로, (Apple, Apple) -&gt; int로 표현할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inventory.sort((Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight()));</span><br><span class="line"></span><br><span class="line">inventory.sort((a1, a2) -&gt; a1.getWeight().compareTo(a2.getWeight()));</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 코드를 작성할 수 있는데, 첫 줄은 자바 컴파일러가 inventory의 제네릭 타입에 따라 람다의 파라미터 형식을 추론한다!</p>
+<p>이 코드의 가독성을 더 높여보자!!</p>
+<p>Comparator는 Comparable 키를 추출해서 Comparator 객체로 만드는 Function 함수를 인자로 받는 정적 매서드 comparing을 포함한다!!!</p>
+<p>이 comparing 메소드를 활용해서 더 간단하게 작성할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.Comparator.comparing;</span><br><span class="line">inventory.sort(comparing(apple -&gt; apple.getWeight()));</span><br></pre></td></tr></table></figure>
+
+<p><em>람다표현식은 사과를 비교하는 데 사용할 키를 어떻게 추출할 것인지 지정하는 한 개의 인수만 포함한다.</em></p>
+<h3 id="g-4-4단계-메서드-참조-사용"><a href="#g-4-4단계-메서드-참조-사용" class="headerlink" title="g-4. 4단계, 메서드 참조 사용"></a>g-4. 4단계, 메서드 참조 사용</h3><p>이제 람다 표현식을 메서드 참조를 활용해 더 간단히 만들어보자</p>
+<p>(앞서 본 거 처럼, java.util.Comparator.comparing은 정적으로 임포트했다고 가정하자)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inventory.sort(comparing(Apple::getWeight));</span><br></pre></td></tr></table></figure>
+
+<h2 id="h-람다-표현식을-조합할-수-있는-유용한-메서드"><a href="#h-람다-표현식을-조합할-수-있는-유용한-메서드" class="headerlink" title="h. 람다 표현식을 조합할 수 있는 유용한 메서드"></a><strong>h. 람다 표현식을 조합할 수 있는 유용한 메서드</strong></h2><p>람다 8에서는 몇몇 함수형 인터페이스는 다양한 유틸리티 메서드를 포함한다.</p>
+<p>간단한 여러 개의 람다 표현식을 조합해서 복잡한 람다 표현식을 만들 수 있다는 의미다!!!</p>
+<p>근데 함수형 인터페이스가 추가로 메서드를 제공하는 것에 의문이 생길 수 있다…</p>
+<p>이 때 등장하는 개념이 바로 디폴트 메소드다.(추후에 관련 게시물로 추가 등록)</p>
+<h3 id="h-1-Comparator-조합"><a href="#h-1-Comparator-조합" class="headerlink" title="h-1. Comparator 조합"></a>h-1. Comparator 조합</h3><p>이전에 g-3에서 알아봤듯이, 정적메서드 Comparator.comparing을 이용해서 비교에 사용될 키를 추출하는 Function 기반의 추출하는 Function 기반의 Comparator를 반환할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Apple&gt; c = Comparator.comparing(Apple::getWeight);</span><br></pre></td></tr></table></figure>
+
+<h3 id="h-1-1-역정렬"><a href="#h-1-1-역정렬" class="headerlink" title="h-1-1. 역정렬"></a>h-1-1. 역정렬</h3><p>내림차 정렬은 다른 Comparator 인스턴스를 만들 필요가 없다!</p>
+<p>reverse 디폴트 메소드에 제공되어 있으니 써먹으면 된다.</p>
+<p>(reverse 메소드는 비교자의 순서를 뒤바꾸는 역할을 한다.)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inventory.sort(comparing(Apple::getWeight).reversed());</span><br></pre></td></tr></table></figure>
+
+<h3 id="h-1-2-Comperator-연결"><a href="#h-1-2-Comperator-연결" class="headerlink" title="h-1-2. Comperator 연결"></a>h-1-2. Comperator 연결</h3><p>만약 무게가 같은 두 사과가 존재하면, 어떻게 정렬해야 하는가?</p>
+<p>이런 상황에 대비해, 비교 결과를 더 다듬을 수 있는 두번째 Comparator를 만들어 연결할 수 있다.</p>
+<p>이때 사용되는 thenComparing 메소드를 활용해 두번째 비교자를 받아 사용할 수 있다.</p>
+<p>다음 예시는 무게로 내림차순 정렬을 하고, 만약 같은 무게를 가진 경우, 생산 국가로 다시 정렬하는 예시이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inventory.sort(comparing(Apple::getWeight).reversed().thenComparing(Apple::getCountry));</span><br></pre></td></tr></table></figure>
+
+<h3 id="h-2-Predicate-조합"><a href="#h-2-Predicate-조합" class="headerlink" title="h-2. Predicate 조합"></a>h-2. Predicate 조합</h3><p>Predicate 인터페이스의 경우, 보다 복잡한 프레디케이트를 만들 수 있도록,</p>
+<p>negate, and, or 세가지 메서드를 제공한다. (당연히 얘네는 디폴트 메서드일 것이다.)</p>
+<h3 id="h-2-1-negate"><a href="#h-2-1-negate" class="headerlink" title="h-2-1. negate"></a>h-2-1. negate</h3><p>negate는 부정한다는 의미다.</p>
+<p>negate를 붙이면 앞서 진행됐던 프레디케이트를 반전시킬 수 있다.</p>
+<p>쉽게 말해 여집합을 생각하면 편할 것이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Predicate&lt;Apple&gt; notRedApple = redApple.negate();</span><br></pre></td></tr></table></figure>
+
+<p>빨간 사과를 구분하는 Predicate 인터페이스 redApple 뒤에 negate메소드를 더해주면, 빨갛지 않은 사과만 뽑아낼 수 있다!</p>
+<h3 id="h-2-2-and"><a href="#h-2-2-and" class="headerlink" title="h-2-2. and"></a>h-2-2. and</h3><p>and는 두 람다를 조합할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Predicate&lt;Apple&gt; redAndHeavyApple = redApple.and(apple -&gt; apple.getWeight() &gt; <span class="number">150</span>);</span><br></pre></td></tr></table></figure>
+
+<p>빨간 사과를 구분하는 Predicate 인터페이스 redApple 뒤에 람다를 포함한 and메소드를 연결하면, 빨갛고 무거운 사과를 뽑아낼 수 있다.</p>
+<h3 id="h-2-3-or"><a href="#h-2-3-or" class="headerlink" title="h-2-3. or"></a>h-2-3. or</h3><p>or는 다양한 조건을 만들어 낼 수 있다. 예시로 보면 이해가 빠를 것이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Predicate&lt;Apple&gt; redAndHeavyAppleOrGreen =</span><br><span class="line">    redApple.and(apple -&gt; apple.getWeight() &gt; <span class="number">150</span>).or(apple -&gt; GREEN.equals(a.getColor()));</span><br></pre></td></tr></table></figure>
+
+<h3 id="h-3-Function-조합"><a href="#h-3-Function-조합" class="headerlink" title="h-3. Function 조합"></a>h-3. Function 조합</h3><p>Function 인터페이스는 andThen과 compose 두가지 메소드를 제공한다!</p>
+<h3 id="h-3-1-andThen"><a href="#h-3-1-andThen" class="headerlink" title="h-3-1. andThen"></a>h-3-1. andThen</h3><p>andThen 메소드는 두 개의 Function 인터페이스를 받아, 하나의 인터페이스의 결과물을 다른 인터페이스의 입력값으로 전달하는 역할을 한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;Integer, Integer&gt; f = x -&gt; x+<span class="number">1</span>;</span><br><span class="line">Function&lt;Integer, Integer&gt; g = x -&gt; x*<span class="number">2</span>;</span><br><span class="line">Function&lt;Integer, Integer&gt; h = f.andThen(g);</span><br><span class="line"><span class="keyword">int</span> result = h.apply(<span class="number">1</span>); <span class="comment">//return 4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="h-3-2-compose"><a href="#h-3-2-compose" class="headerlink" title="h-3-2. compose"></a>h-3-2. compose</h3><p>compose 메소드는 인수로 주어진 함수를 먼저 하고, 그 결과를 외부 함수의 인수로 제공한다.</p>
+<p>이 말이 어렵게 느껴지겠지만 예시로 살펴보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;Integer, Integer&gt; f = x -&gt; x+<span class="number">1</span>;</span><br><span class="line">Function&lt;Integer, Integer&gt; g = x -&gt; x*<span class="number">2</span>;</span><br><span class="line">Function&lt;Integer, Integer&gt; h = f.compose(g);</span><br><span class="line"><span class="keyword">int</span> result = h.apply(<span class="number">1</span>); <span class="comment">//return 3</span></span><br></pre></td></tr></table></figure>
+
+<p>andThen의 예시에서는 4가 반환됐는데, compose는 3이 반환 됐다. 이 차이를 살펴보자.</p>
+<p>andThen은 말그대로 f를 하고 g를 해라 라는 의미다. 매우 직관적이다.</p>
+<p>compose는 g를 하고 f를 하라는 거다. 아까 설명을 함수 스타일로 표현하면 f(g(1))이 되어 (1*2)+1이 되므로 3이 반환된 거다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern2/" data-id="ckyq1mih4008e6wa0b4d40vbc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "람다표현식",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "Modern Java in Action",
+        "genre": "Java",
+        "datePublished": "2021-07-30",
+        "dateCreated": "2021-07-30",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern2/",
+        "description": "a. 람다란 무엇인가?람다 표현식은 메서드로 전달할 수 있는 익명 함수를 단순화한 것이다!
+
+  익명 : 람다 표현식에는 이름이 없다.
+  함수 : 람다는 메서드와 달리 특정 클래스에 종속되지 않으므로 함수라 부른다.
+  전달 : 메서드 인수로 전달하거나 변수로 저장할 수 있다.
+  간결성 : 익명 클래스보다 간결하다.
+
+커스텀 Comparator 객체 구",
+        "wordCount": 3725
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="stack-overflow" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-stack-overflow"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/07/30/java/modern-java-in-action/modern3/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            스트림에 대해 간략하게 알아보자
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/07/30/java/modern-java-in-action/modern1/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">동적 파라미터화 코드 전달하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/01/23/secondpctest/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2022/01/23/secondpctest/" class="title">secondPCtest</a></p>
+                            <p class="item-date"><time datetime="2022-01-22T16:35:51.000Z" itemprop="datePublished">2022-01-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/01/06/cs/database/powerofdatabase01/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/computer-science/database/">Database</a></p>
+                            <p class="item-title"><a href="/2022/01/06/cs/database/powerofdatabase01/" class="title">데이터베이스 설계 프로세스</a></p>
+                            <p class="item-date"><time datetime="2022-01-06T13:35:42.000Z" itemprop="datePublished">2022-01-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/19/java/utecoprecourse4/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2021/12/19/java/utecoprecourse4/" class="title">우아한 테크코스 4기 최종 코딩테스트 후기</a></p>
+                            <p class="item-date"><time datetime="2021-12-19T12:39:13.000Z" itemprop="datePublished">2021-12-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/16/java/object/object4/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/java/">Java</a></p>
+                            <p class="item-title"><a href="/2021/12/16/java/object/object4/" class="title">메시지와 인터페이스</a></p>
+                            <p class="item-date"><time datetime="2021-12-16T11:13:44.000Z" itemprop="datePublished">2021-12-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/12/github-study/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2021/12/12/github-study/" class="title">깃 사용법(브랜치 활용 등)</a></p>
+                            <p class="item-date"><time datetime="2021-12-12T13:35:00.000Z" itemprop="datePublished">2021-12-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">43</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">29</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/effective-java/" rel="tag">Effective Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-java-in-action/" rel="tag">Modern Java in Action</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/greedy/" rel="tag">greedy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reshapi-project/" rel="tag">reshapi project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/troubleshooting/" rel="tag">troubleShooting</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" rel="tag">오브젝트</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" rel="tag">우아한 테크 코스</a><span class="tag-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a target="_blank" rel="external nofollow noopener noreferrer" href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern2/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

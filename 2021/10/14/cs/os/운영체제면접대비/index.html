@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>운영체제 면접대비 스터디 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="목차1주차프로세스와 스레드의 차이쓰레드의 동기화 이슈교착 상태와 기아 상태메모리 계층 2주차메모리 할당 방식메모리 단편화메모리 할당 알고리즘가상 메모리요구 페이징페이지 교체 알고리즘 3주차페이징세그멘테이션상호배제 방식뮤텍스세마포어 4주차PCB와 프로세스 컨텍스트컨텍스트 스위칭사용자 수준 스레드 vs 커널 수준 스레드fork와 vfork의 차이점 5주차Rac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="운영체제 면접대비 스터디">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/10/14/cs/os/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="목차1주차프로세스와 스레드의 차이쓰레드의 동기화 이슈교착 상태와 기아 상태메모리 계층 2주차메모리 할당 방식메모리 단편화메모리 할당 알고리즘가상 메모리요구 페이징페이지 교체 알고리즘 3주차페이징세그멘테이션상호배제 방식뮤텍스세마포어 4주차PCB와 프로세스 컨텍스트컨텍스트 스위칭사용자 수준 스레드 vs 커널 수준 스레드fork와 vfork의 차이점 5주차Rac">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-14T05:53:10.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.032Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/" title="mudura | 그거 뭐더라" type="application/atom+xml">
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/os/">OS</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/os/운영체제면접대비" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        운영체제 면접대비 스터디
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/10/14/cs/os/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/" class="article-date">
+       <time datetime="2021-10-14T05:53:10.000Z" itemprop="datePublished">2021-10-14</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/10/14/cs/os/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.032Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h1 id="목차"><a href="#목차" class="headerlink" title="목차"></a>목차</h1><p><strong><a href="#1%EC%A3%BC%EC%B0%A8">1주차</a></strong><br><a href="#%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EC%99%80-%EC%8A%A4%EB%A0%88%EB%93%9C%EC%9D%98-%EC%B0%A8%EC%9D%B4">프로세스와 스레드의 차이</a><br><a href="#%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%8F%99%EA%B8%B0%ED%99%94-%EC%9D%B4%EC%8A%88">쓰레드의 동기화 이슈</a><br><a href="#%EA%B5%90%EC%B0%A9-%EC%83%81%ED%83%9C%EC%99%80-%EA%B8%B0%EC%95%84-%EC%83%81%ED%83%9C">교착 상태와 기아 상태</a><br><a href="#%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B3%84%EC%B8%B5">메모리 계층</a></p>
+<p><strong><a href="#2%EC%A3%BC%EC%B0%A8">2주차</a></strong><br><a href="#%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%95%A0%EB%8B%B9-%EB%B0%A9%EC%8B%9D">메모리 할당 방식</a><br><a href="#%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%8B%A8%ED%8E%B8%ED%99%94">메모리 단편화</a><br><a href="#%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%95%A0%EB%8B%B9-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">메모리 할당 알고리즘</a><br><a href="#%EA%B0%80%EC%83%81-%EB%A9%94%EB%AA%A8%EB%A6%AC">가상 메모리</a><br><a href="#%EC%9A%94%EA%B5%AC-%ED%8E%98%EC%9D%B4%EC%A7%95">요구 페이징</a><br><a href="#%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">페이지 교체 알고리즘</a></p>
+<p><strong><a href="#3%EC%A3%BC%EC%B0%A8">3주차</a></strong><br><a href="#%ED%8E%98%EC%9D%B4%EC%A7%95">페이징</a><br><a href="#%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98">세그멘테이션</a><br><a href="#%EC%83%81%ED%98%B8%EB%B0%B0%EC%A0%9C-%EB%B0%A9%EC%8B%9D">상호배제 방식</a><br><a href="#%EB%AE%A4%ED%85%8D%EC%8A%A4">뮤텍스</a><br><a href="#%EC%84%B8%EB%A7%88%ED%8F%AC%EC%96%B4">세마포어</a></p>
+<p><a href="#4%EC%A3%BC%EC%B0%A8"><strong>4주차</strong></a><br><a href="#PCB%EC%99%80-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8">PCB와 프로세스 컨텍스트</a><br><a href="#%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%8A%A4%EC%9C%84%EC%B9%AD">컨텍스트 스위칭</a><br><a href="#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%88%98%EC%A4%80-%EC%8A%A4%EB%A0%88%EB%93%9C-vs-%EC%BB%A4%EB%84%90-%EC%88%98%EC%A4%80-%EC%8A%A4%EB%A0%88%EB%93%9C">사용자 수준 스레드 vs 커널 수준 스레드</a><br><a href="#fork%EC%99%80-vfork%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90">fork와 vfork의 차이점</a></p>
+<p><a href="#5%EC%A3%BC%EC%B0%A8"><strong>5주차</strong></a><br><a href="#Race-Condition">RaceCondition</a><br><a href="#%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%BD%9C-vs-%EC%84%9C%EB%B8%8C%EB%A3%A8%ED%8B%B4">시스템콜vs서브루틴</a></p>
+<h2 id="1주차"><a href="#1주차" class="headerlink" title="1주차"></a>1주차</h2><h3 id="프로세스와-스레드의-차이"><a href="#프로세스와-스레드의-차이" class="headerlink" title="프로세스와 스레드의 차이"></a>프로세스와 스레드의 차이</h3><p><strong>정의</strong></p>
+<p>프로세스 : 메모리에 올려져 실행 중인 프로그램<br>쓰레드 : 프로세스 안에서 실행되는 흐름 단위</p>
+<p><strong>공유자원 차이</strong></p>
+<p>프로세스 : 프로세스들 끼리는 IPC를 제외하면 공유를 허용하지 않음<br>쓰레드 : code, data, heap은 서로 공유. stack은 서로 독립적.(각자의 흐름을 가져야 함)</p>
+<details>
+<summary>*프로세스 구조*</summary>
+
+<ul>
+<li>code : 컴파일된 코드가 저장(프로그램 끝날 때 해제)</li>
+<li>Data : 선언된 변수가 저장되는 영역 (전역변수, static, 프로그램 끝날 때 해제)<ul>
+<li>BSS(초기화 안된 전역변수) / DATA(초기화 된 전역변수)</li>
+</ul>
+</li>
+<li>heap : 동적으로 할당된 메모리가 저장</li>
+<li>stack : 함수와 관련된 인자나 변수 저장 (다양한 레지스터 사용!)</li>
+</ul>
+</details>
+
+
+<details>
+<summary>*IPC*</summary>
+
+<p>프로세스 간 상태 확인 및 데이터 송수신할 때 사용.</p>
+<p>프로세서마다 공유하는 커널 공간을 통해 데이터를 쓰고 읽음.</p>
+<p>IPC 비용이 커서 멀티 프로세스보다 멀티 스레드를 활용하기도 함.</p>
+</details>
+
+<details>
+  <summary>*Context Switching*</summary>
+프로세스의 상태 정보를 저장하고 복원하는 과정
+
+<p><strong>PCB</strong> : 프로세스의 상태를 저장한 구조체<br>(program counter와 stack pointer 등 다양한 레지스터 저장)<br>스위칭 될 때마다 PCB를 저장하고 로드.<br>서로 자원이 공유되지 않으니, 스위칭 연산이 비싸다.</p>
+<blockquote>
+<p>쓰레드보다 프로세스 바꿀 때가 더 든다. 왜 ? 쓰레드는 공유 자원이라 바꿀게 스레드보다 더 적다.</p>
+</blockquote>
+</details>
+
+<p><strong>약점</strong></p>
+<p>프로세스 : </p>
+<ul>
+<li>서로 자원 공유가 제한됨</li>
+<li> IPC 연산 비용</li>
+<li> 일일히 자원 할당하는 시스템콜 비용</li>
+</ul>
+<p>쓰레드 : </p>
+<ul>
+<li>하나만 잘못되도 프로세스 전체에 악영향</li>
+<li>동기화 이슈</li>
+</ul>
+<details>
+  <summaray>*멀티 프로세스 vs 멀티 쓰레드*</summaray>
+
+<p>멀티 프로세스</p>
+<ul>
+<li>여러 cpu가 동시에 여러개의 프로세스 처리</li>
+<li>메모리 침범 막아서 안전성 높음</li>
+<li>작업량이 많으면 컨텍스트 스위칭으로 인해 성능이 저하</li>
+</ul>
+<p>멀티 스레드</p>
+<ul>
+<li>하나의 프로세스에서 여러 스레드가 각자 하나의 작업을 처리</li>
+<li>자원 공유로 빠른 작업 가능</li>
+<li>스레드 하나가 망하면 한 프로세스가 다같이 망함</li>
+</ul>
+</details>
+
+<h3 id="쓰레드의-동기화-이슈"><a href="#쓰레드의-동기화-이슈" class="headerlink" title="쓰레드의 동기화 이슈"></a>쓰레드의 동기화 이슈</h3><p>상호배재(mutex)</p>
+<ul>
+<li>한 스레드가 공유 자원에 접근하면 다른 스레드가 접근 못하게 하기</li>
+<li>임계 자원(crtical resource) : 접근 제한 자원</li>
+<li>임계 영역(critical section) : 접근 제한 코드. 영역</li>
+</ul>
+<p>세마포어(semaphore)</p>
+<ul>
+<li>공유 자원에 정해진 수의 사용자만 접근 허락</li>
+</ul>
+<h3 id="교착-상태와-기아-상태"><a href="#교착-상태와-기아-상태" class="headerlink" title="교착 상태와 기아 상태"></a>교착 상태와 기아 상태</h3><p>교착 상태(dead lock)</p>
+<ul>
+<li>여러 쓰레드가 서로 상대방의 작업이 끝나길 기다리느라 다음 작업을 못하는 상황</li>
+</ul>
+<p>기아 상태</p>
+<ul>
+<li>우선순위가 낮은 프로세스가 계속 경쟁에 뒤쳐져 원하는 자원을 계속 못받는 상태.</li>
+</ul>
+<p><strong>이슈 해결 방법</strong></p>
+<p>교착 상태</p>
+<ul>
+<li>예방 : 원인을 제거</li>
+<li>회피 : 발생하지 않도록 알고리즘 도입<ul>
+<li>은행원 알고리즘 / 자원할당 알고리즘</li>
+</ul>
+</li>
+<li>회복 : 문제가 발생한 프로세스를 중단, 메모리 해제</li>
+<li>무시 : 해결할 때 생기는 비용이 너무 비싸면 무시</li>
+</ul>
+<blockquote>
+<p>예방이 가장 낭비가 심하다.</p>
+</blockquote>
+<p>기아 상태</p>
+<ul>
+<li>우선순위 수시로 바꿈</li>
+<li>FIFO 기반 스케줄러로 바꿈</li>
+</ul>
+<details>
+  <summary>*교착 상태의 원인*</summary>
+
+<ul>
+<li>상호배제 : 다른 프로세스도 갖고 싶은 걸 자기만 가지려함</li>
+<li>점유대기 : 자원을 가지고 있으면서 다른 자원을 대기</li>
+<li>비선점 : 자원을 가진 프로세스의 자원을 못 뺏음</li>
+<li>순환대기 : 다음 프로세스가 원하는 걸 가지고 있음.</li>
+</ul>
+</details>
+
+<h3 id="메모리-계층"><a href="#메모리-계층" class="headerlink" title="메모리 계층"></a>메모리 계층</h3><p>레지스터 - 캐시 - 메모리 - 하드디스크</p>
+<p>메모리를 필요에 따라 나눈 계층<br>(오른쪽으로 갈 수록 CPU가 느리게 접근)</p>
+<p><strong>레지스터</strong><br>CPU 요청 처리에 필요한 정보를 임시 저장하는 기억장치</p>
+<p><strong>캐시</strong><br>데이터나 값을 미리 복사해놓는 임시 저장소.</p>
+<p><strong>메인 메모리</strong><br>RAM, ROM으로 구성된 명령, 자료를 기억하는 장치.<br>cpu에서 직접 접근가능 하다는게 하드디스크와 다름</p>
+<p><strong>하드디스크</strong><br>비휘발성 순차적 데이터 저장소. 느리지만 저렴.<br>직접 사용하지 못하고 시스템콜로 메모리에 옮겨서 사용.</p>
+<p><strong>계층이 필요한 이유</strong></p>
+<ul>
+<li>디코딩 속도<ul>
+<li>큰 메모리 용량은 디코딩하는데 많은 시간 소요.</li>
+<li>메모리가 작으면 빠르게 디코딩해서 접근 가능</li>
+</ul>
+</li>
+<li>참조의 지역성<ul>
+<li>자주 쓰이는 데이터는 계속 더 자주 쓰임</li>
+</ul>
+</li>
+<li>경제성<ul>
+<li>빠를 수록 비싸서 저렴한 메모리를 효율적으로 활용해야함.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2주차"><a href="#2주차" class="headerlink" title="2주차"></a>2주차</h2><h3 id="메모리-할당-방식"><a href="#메모리-할당-방식" class="headerlink" title="메모리 할당 방식"></a>메모리 할당 방식</h3><p>**연속 할당 방식 **<br>프로그램 전체를 한 공간에 연속적으로 할당.</p>
+<blockquote>
+<p>정적 분할과 동적 분할</p>
+</blockquote>
+<p>정적 분할 : 메모리 영역을 고정된 크기로 미리 나눠놓고 맞는 프로세스를 집어넣는 방식. 내외부단편화 모두 일어남.<br>동적 분할 : 프로세스에 맞게 메모리 영역을 할당함. 외부단편화가 생길 수 있음.</p>
+<p><strong>비연속 할당 방식</strong><br>프로그램을 페이지로 나눈 후, 여러 곳에 흩어져서 할당.</p>
+<h3 id="메모리-단편화"><a href="#메모리-단편화" class="headerlink" title="메모리 단편화"></a>메모리 단편화</h3><p>프로세스를 메모리에 올릴 때 생기는 메모리 낭비 현상.<br>대표적으로 외부 단편화와 내부 단편화가 있다.</p>
+<p><strong>외부 단편화</strong></p>
+<p>어떤 프로세스보다 전체 물리 메모리의 남은 공간이 더 많아도,<br>물리 메모리의 남은 공간들이 연속적이지 못해서 프로세스를 메모리에 올리지 못하는 상황</p>
+<p><strong>내부 단편화</strong></p>
+<p>물리 메모리의 남은 공간에 어떤 프로세스를 할당하고 남은 공간이<br>다른 프로세스를 받아들이지 못해 낭비되는 상황</p>
+<p>메모리 단편화 해결하기</p>
+<p><strong>COMPACTION</strong> 압축</p>
+<p>비어있는 공간을 연속적인 공간으로 재배치.<br>현재 프로세스들을 다른 곳(하드디스크 등)에 복사했다가 다시 메모리에 올려야 함<br>병목현상이나, IO 문제가 발생 가능하다. -&gt; 외부 </p>
+<p><strong>Coalescing holes( 공간 통합)</strong></p>
+<p>프로세스가 끝나고 메모리에서 사라지면, 새로 생긴 빈 공간을 주위 빈공간과 합침.<br>좀 더 큰 프로세스가 올 수 있게 만들고 오버헤드가 낮음</p>
+<h3 id="메모리-할당-알고리즘"><a href="#메모리-할당-알고리즘" class="headerlink" title="메모리 할당 알고리즘"></a>메모리 할당 알고리즘</h3><p>멀티 프로세스 환경에서 여러 프로세스가 동시에 실행된다.<br>단편화 문제를 줄이기 위해 메모리를 할당하는 알고리즘.</p>
+<ul>
+<li>BEST FIT : 현재 물리 메모리의 빈 공간을 모두 탐색해서 가장 낭비가 적은 공간에 프로세스 올림</li>
+<li>FIRST FIT : 현재 물리 메모리에서 프로세스를 올릴 수 있는 빈 공간 중 가장 먼저 찾은 공간에 프로세스 올림</li>
+<li>WORST FIT : 현재 물리 메모리 남은 공간들 중 프로세스를 할당하고도 남은 공간이 가장 큰 공간에 프로세스 올림<br>(남은 공간에 다음에 올 프로세스가 들어올 가능성을 생각한 것.)</li>
+</ul>
+<p><strong>평가</strong></p>
+<p>효율성 : BEST FIT, FIRST FIT &gt; WORST FIT<br>복잡도 : FIRST FIT &gt; BEST FIT , WORST FIT</p>
+<p><strong>FIRST FIT의 50퍼센트 규칙</strong></p>
+<p>전체 메모리에 N개의 블록이 할당되었다고 했을 때 0.5N개의 블록이 외부 단편화되어 사용할 수 없음.<br>총 (1.5N 중 0.5N, 즉 1/3만큼 사용할 수 없게 된다.)</p>
+<h3 id="가상-메모리"><a href="#가상-메모리" class="headerlink" title="가상 메모리"></a>가상 메모리</h3><p>메모리에 로드되어 실행 중인 프로세스가 가상의 메모리 공간을 참조해 거대한 물리 메모리를 사용하는 것처럼 보이게 하는 방식.</p>
+<p>프로세스를 모두 메모리에 할당하기엔 한계가 있다.(리눅스의 프로세스 크기가 4기가.)<br>CPU가 프로세스의 모든 공간을 사용하지는 않는다.</p>
+<p>자주 사용하지 않는 부분은 하드디스크에 저장<br>가상 주소로 통해 메모리에 접근.</p>
+<p><strong>프레임</strong> : 물리 메모리를 구성하는 가장 작은 단위<br><strong>페이지</strong> : 가상 메모리를 구성하는 가장 작은 단위</p>
+<p><strong>MMU</strong> : CPU가 가상 메모리에 접근하고 싶을 때 가상 주소를 실제 물리 주소로 바꾸어 접근</p>
+<p><strong>페이지 폴트</strong> : 프로세스의 페이지 중 일부가 RAM에 올려지지 않은 상황.</p>
+<h3 id="요구-페이징"><a href="#요구-페이징" class="headerlink" title="요구 페이징"></a>요구 페이징</h3><p>페이지 폴트가 발생하면, 가상 메모리에서 해당 페이지를 찾아야 함.(요구페이징)<br>CPU는 프로세스 페이지의 주소를 <strong>페이지 테이블</strong>에 기록했음.</p>
+<p>페이지 테이블의 가상 주소를 보고 요청하면, MMU가 실제 물리 주소로 변환해서<br>하드디스크에 있는 페이지를 물리 메모리에 올려야 한다.</p>
+<h3 id="페이지-교체-알고리즘"><a href="#페이지-교체-알고리즘" class="headerlink" title="페이지 교체 알고리즘"></a>페이지 교체 알고리즘</h3><p>가상 메모리에서 페이지를 가져왔는데, 메모리에 남는 프레임이 없어서 올리지 못하는 경우,<br>메모리의 다른 페이지를 빼서 가상 메모리에 넣고, 가져온 페이지를 물리 메모리에 넣어야 한다.</p>
+<ul>
+<li>OPT : 앞으로 안쓸거 같은 페이지를 교체</li>
+<li>FIFO : 가장 먼저 할당된 페이지를 교체</li>
+<li>LRU least recently used : 오랫동안 덜 쓴 페이지 교체 - 지역성(로컬리티)</li>
+<li>LFU least fre: 사용 빈도가 적은 페이지 교체</li>
+<li>NUR : 최근에 사용안한 페이지 교체</li>
+</ul>
+<h2 id="3주차"><a href="#3주차" class="headerlink" title="3주차"></a>3주차</h2><h3 id="페이징"><a href="#페이징" class="headerlink" title="페이징"></a>페이징</h3><p>비연속할당 방식, 고정 분할 기법의 일종으로 프로세스를 여러 개의 페이지로 나눠 메모리에 흩어져서 할당됨<br>외부 단편화를 막을 수 있지만, 페이지 크기가 커질 수록 내부 단편화도 커짐.(필요한 메모리보다 할당된 메모리가 더 큰 경우)</p>
+<p>페이징을 하기 위해서는 mmu와 페이지테이블이 필요하다.</p>
+<h3 id="세그멘테이션"><a href="#세그멘테이션" class="headerlink" title="세그멘테이션"></a>세그멘테이션</h3><p>페이징은 물리적으로 동일한 크기로 분할하는 기법이지만<br>세그멘테이션은 논리적인 기준으로 분할하는 기법이다.<br>세그멘테이션은 각 세그멘트가 크기가 달라서 메모리에 할당하고 해제하는 과정에서 외부 단편화가 날 수 있다.</p>
+<p>외부 단편화를 방지하기 위해 세그멘트를 페이징하는 paged segmentation 기법을 사용한다.</p>
+<h3 id="상호배제-방식"><a href="#상호배제-방식" class="headerlink" title="상호배제 방식"></a>상호배제 방식</h3><p>공유 자원 접근을 제한하는 방식.</p>
+<h3 id="뮤텍스"><a href="#뮤텍스" class="headerlink" title="뮤텍스"></a>뮤텍스</h3><p>여러 프로세스/스레드가 공유 자원에 접근하는 상황을 막는 상호 배제 락 매커니즘.<br>임계 구역(공유 자원)에 하나의 프로세스/스레드만 접근 가능함</p>
+<h3 id="세마포어"><a href="#세마포어" class="headerlink" title="세마포어"></a>세마포어</h3><p>여러 프로세스/스레드 중 정해진 프로세스/스레드 갯수만큼만 접근을 허락하는 매커니즘.<br>대기 중인 프로세스/스레드가 공유 자원을 사용할 수 있는 지 계속 검사하는 과정이 발생 가능(바쁜 대기)</p>
+<p>세마포어는 뮤텍스가 될 수 있는데, 뮤텍스는 세마포어가 될 수 없다!!!<br>세마포어는 소유가 불가능한데, 뮤텍스가 소유가 가능하다.</p>
+<h2 id="4주차"><a href="#4주차" class="headerlink" title="4주차"></a>4주차</h2><h3 id="PCB와-프로세스-컨텍스트"><a href="#PCB와-프로세스-컨텍스트" class="headerlink" title="PCB와 프로세스 컨텍스트"></a>PCB와 프로세스 컨텍스트</h3><p><strong>프로세스 메타데이터</strong><br>CPU는 프로세스 메타데이터로 프로세스를 식별.<br>Process ID, Process State, Program Counter, Process Context 등…<br>Program Counter = 다음에 실행될 명령어의 주소를 저장.</p>
+<p><strong>PCB(Process Control Block)</strong><br>프로세스 관리를 위한 메타데이터를 저장하는 자료구조. 커널이 관리</p>
+<p><strong>프로세스 컨텍스트</strong><br>CPU가 해당 프로세스를 실행하기 위한 프로세스 데이터 모음.<br>CPU는 레지스터를 기반으로 코드를 실행하므로,<br>프로세서의 상태와 관련된 레지스터 집합을 프로세스 컨텍스트라고 이해.</p>
+<h3 id="컨텍스트-스위칭"><a href="#컨텍스트-스위칭" class="headerlink" title="컨텍스트 스위칭"></a>컨텍스트 스위칭</h3><p>하나의 프로세스가 CPU를 사용하고 있을 때,<br>하던 프로세스 작업을 중단하고 다른 프로세스 작업을 하기 위해,<br>진행 중이던 프로세스의 컨텍스트를 PCB에 저장하고,<br>다음 프로세스를 진행하기 위해 PCB에서 해당 컨텍스트를 가져와 작업을 진행한다.</p>
+<h4 id="프로세스와-쓰레드-컨텍스트-스위칭"><a href="#프로세스와-쓰레드-컨텍스트-스위칭" class="headerlink" title="프로세스와 쓰레드 컨텍스트 스위칭"></a>프로세스와 쓰레드 컨텍스트 스위칭</h4><p>프로세스 : PCB에 프로세스 컨텍스트를 저장.<br>쓰레드 : 프로세스 내부의 TCB에 컨텍스트를 저장.</p>
+<h4 id="컨텍스트-스위칭이-일어나는-경우"><a href="#컨텍스트-스위칭이-일어나는-경우" class="headerlink" title="컨텍스트 스위칭이 일어나는 경우"></a>컨텍스트 스위칭이 일어나는 경우</h4><ol>
+<li>인터럽트 발생</li>
+<li>CPU 사용 허가 시간 모두 소모</li>
+<li>입출력 대기해야 하는 경우</li>
+</ol>
+<h3 id="사용자-수준-스레드-vs-커널-수준-스레드"><a href="#사용자-수준-스레드-vs-커널-수준-스레드" class="headerlink" title="사용자 수준 스레드 vs 커널 수준 스레드"></a>사용자 수준 스레드 vs 커널 수준 스레드</h3><h4 id="커널-수준-스레드"><a href="#커널-수준-스레드" class="headerlink" title="커널 수준 스레드"></a>커널 수준 스레드</h4><p>커널이 생성해서 관리하는 스레드.<br>커널이 직접 관리하므로 권한이 많지만, 그만큼 오버헤드가 일어남</p>
+<p>한 프로세스에 여러 쓰레드를 할당하면, 한 스레드가 블락되도 다른 스레드로 대신하면 됨.</p>
+<p>커널에서 관리하다 보니, 컨텍스트 스위칭도 발생. 오버헤드가 일어남</p>
+<h4 id="사용자-수준-스레드"><a href="#사용자-수준-스레드" class="headerlink" title="사용자 수준 스레드"></a>사용자 수준 스레드</h4><p>사용자 모드에서 동작하는 스레드.<br>사용자 레벨에서 스레드 전용 라이브러리를 이용해서 여러 스레드를 생성.<br>(자바에서 스레드 함수 이용하던지..)</p>
+<p>스케줄링을 커널이 하지 않고 스레드 라이브러리에 따라 스케줄링.</p>
+<p>이 스레드들은 커널의 기능을 사용하지 못하고,<br>커널도 이들의 존재를 모른다.</p>
+<h3 id="fork와-vfork의-차이점"><a href="#fork와-vfork의-차이점" class="headerlink" title="fork와 vfork의 차이점."></a>fork와 vfork의 차이점.</h3><h4 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h4><p>UNIX 계열에서 새로운 프로세스 만드는 함수<br>자식 프로세스가 부모 프로세스를 복제하는 방식</p>
+<h4 id="vfork"><a href="#vfork" class="headerlink" title="vfork"></a>vfork</h4><p>부모 프로세스와 자식 프로세스가 페이지 테이블 공유.<br>복사하지 않고 공유하므로 생성 속도가 빠르지만,<br>공유된 자원을 두고 경쟁할 수 있다. -&gt; 부모 프로세스는 자식이 exit하거나 execute할 때까지 block</p>
+<h2 id="5주차"><a href="#5주차" class="headerlink" title="5주차"></a>5주차</h2><h3 id="Race-Condition"><a href="#Race-Condition" class="headerlink" title="Race Condition"></a>Race Condition</h3><p>공유 자원에 여러 프로세스가 동시에 접근하려고 경쟁하는 상황<br>결과의 순서를 기대할 수 없다</p>
+<h4 id="Race-Condition-attack"><a href="#Race-Condition-attack" class="headerlink" title="Race Condition attack"></a>Race Condition attack</h4><p>Setuid(소유자 권한으로 실행)으로 설정된 파일이 실행 중일 때,<br>생성된 임시파일과 같은 이름의 파일에 심볼릭링크를 만들어서 원본 파일을 지우고<br>새로운 임시 파일이 생성될 때, 심볼릭 링크를 통해 파일 내용을 변경.</p>
+<p>시스템은 변경된 파일을 새롭게 생성된 파일로 착각하고 프로세스 진행.</p>
+<h5 id="레이스컨디션-대응"><a href="#레이스컨디션-대응" class="headerlink" title="레이스컨디션 대응"></a>레이스컨디션 대응</h5><ol>
+<li> 가능하면 임시파일 생성 금지</li>
+<li>파일 생성 시, 동일 파일 존재 시, 파일 생성 혹은 쓰기를 금지</li>
+<li>만들려는 파일에 링크가 걸려있으면 실행중단</li>
+<li>임시파일이 공격자에 의해 삭제되지 않도록 함(umask를 최하 022정도로 유지. 쓰기 권한 제거)</li>
+</ol>
+<h3 id="시스템콜-vs-서브루틴"><a href="#시스템콜-vs-서브루틴" class="headerlink" title="시스템콜 vs 서브루틴"></a>시스템콜 vs 서브루틴</h3><p>커널은 하드웨어를 제어하는 일종의 API.<br>시스템콜은 커널의 서비스를 호출하는 명령어.<br>서브루틴은 프로그래밍 할때 사용하는 대부분의 API.</p>
+<p>서브루틴이 시스템콜을 호출하고 -&gt; 시스템콜이 커널을 호출.<br>-&gt;커널의 수행 결과를 시스템콜로 전달-&gt;시스템콜이 다시 서브루틴에게 보냄</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/10/14/cs/os/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/" data-id="ckyq1migk003m6wa03o090t8z" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "운영체제 면접대비 스터디",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "",
+        "genre": "Computer Science OS",
+        "datePublished": "2021-10-14",
+        "dateCreated": "2021-10-14",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/10/14/cs/os/운영체제면접대비/",
+        "description": "목차1주차프로세스와 스레드의 차이쓰레드의 동기화 이슈교착 상태와 기아 상태메모리 계층
+2주차메모리 할당 방식메모리 단편화메모리 할당 알고리즘가상 메모리요구 페이징페이지 교체 알고리즘
+3주차페이징세그멘테이션상호배제 방식뮤텍스세마포어
+4주차PCB와 프로세스 컨텍스트컨텍스트 스위칭사용자 수준 스레드 vs 커널 수준 스레드fork와 vfork의 차이점
+5주차Rac",
+        "wordCount": 1506
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="stack-overflow" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-stack-overflow"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/10/15/cs/algorithm/theory/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            완전탐색
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/10/11/java/java-basic/java10/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">10. 객체 지향의 사실과 오해 마인드맵 정리</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/01/23/secondpctest/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2022/01/23/secondpctest/" class="title">secondPCtest</a></p>
+                            <p class="item-date"><time datetime="2022-01-22T16:35:51.000Z" itemprop="datePublished">2022-01-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/01/06/cs/database/powerofdatabase01/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/computer-science/database/">Database</a></p>
+                            <p class="item-title"><a href="/2022/01/06/cs/database/powerofdatabase01/" class="title">데이터베이스 설계 프로세스</a></p>
+                            <p class="item-date"><time datetime="2022-01-06T13:35:42.000Z" itemprop="datePublished">2022-01-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/19/java/utecoprecourse4/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2021/12/19/java/utecoprecourse4/" class="title">우아한 테크코스 4기 최종 코딩테스트 후기</a></p>
+                            <p class="item-date"><time datetime="2021-12-19T12:39:13.000Z" itemprop="datePublished">2021-12-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/16/java/object/object4/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/java/">Java</a></p>
+                            <p class="item-title"><a href="/2021/12/16/java/object/object4/" class="title">메시지와 인터페이스</a></p>
+                            <p class="item-date"><time datetime="2021-12-16T11:13:44.000Z" itemprop="datePublished">2021-12-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/12/github-study/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2021/12/12/github-study/" class="title">깃 사용법(브랜치 활용 등)</a></p>
+                            <p class="item-date"><time datetime="2021-12-12T13:35:00.000Z" itemprop="datePublished">2021-12-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">43</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">29</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/effective-java/" rel="tag">Effective Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-java-in-action/" rel="tag">Modern Java in Action</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/greedy/" rel="tag">greedy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reshapi-project/" rel="tag">reshapi project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/troubleshooting/" rel="tag">troubleShooting</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" rel="tag">오브젝트</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" rel="tag">우아한 테크 코스</a><span class="tag-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a target="_blank" rel="external nofollow noopener noreferrer" href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/10/14/cs/os/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>9. 프로세스 구조와 프로세스간 커뮤니케이션 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="프로세스 구조프로세스 구조는 4가지 영역으로 나뉜다.  스택 : 최상단 스택 주소를 가리키는 EBP, 함수 결과를 반환해줄 주소(return address), 함수와 관련된 인자나 변수를 저장하는 영역 힙 : 동적으로 할당된 메모리를 저장하는 영역. (ex. malloc) 이 영역의 메모리 주소를 통해 힙에 저장된 내용을 다른 영역에서 사용! 데이터 : 선">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9. 프로세스 구조와 프로세스간 커뮤니케이션">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/08/09/cs/os/os9/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="프로세스 구조프로세스 구조는 4가지 영역으로 나뉜다.  스택 : 최상단 스택 주소를 가리키는 EBP, 함수 결과를 반환해줄 주소(return address), 함수와 관련된 인자나 변수를 저장하는 영역 힙 : 동적으로 할당된 메모리를 저장하는 영역. (ex. malloc) 이 영역의 메모리 주소를 통해 힙에 저장된 내용을 다른 영역에서 사용! 데이터 : 선">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/os/os9-1.png">
+<meta property="article:published_time" content="2021-08-09T04:34:54.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.032Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/os/os9-1.png">
+    
+
+    
+        <link rel="alternate" href="/" title="mudura | 그거 뭐더라" type="application/atom+xml">
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/os/">OS</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/os/os9" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        9. 프로세스 구조와 프로세스간 커뮤니케이션
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/08/09/cs/os/os9/" class="article-date">
+       <time datetime="2021-08-09T04:34:54.000Z" itemprop="datePublished">2021-08-09</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/08/09/cs/os/os9/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.032Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="프로세스-구조"><a href="#프로세스-구조" class="headerlink" title="프로세스 구조"></a>프로세스 구조</h2><p>프로세스 구조는 4가지 영역으로 나뉜다.<br><img src="/img/os/os9-1.png"></p>
+<ol>
+<li><strong>스택</strong> : 최상단 스택 주소를 가리키는 EBP, 함수 결과를 반환해줄 주소(return address), 함수와 관련된 인자나 변수를 저장하는 영역</li>
+<li><strong>힙</strong> : 동적으로 할당된 메모리를 저장하는 영역. (ex. malloc) 이 영역의 메모리 주소를 통해 힙에 저장된 내용을 다른 영역에서 사용!</li>
+<li><strong>데이터</strong> : 선언된 변수가 저장되는 영역(전역변수가 저장된다.)</li>
+<li><strong>코드</strong> : 컴파일된 소스코드가 저장되는 영역</li>
+</ol>
+<h2 id="스택에-쓰이는-레지스터들-program-counter-stack-pointer-EBP-EAX"><a href="#스택에-쓰이는-레지스터들-program-counter-stack-pointer-EBP-EAX" class="headerlink" title="스택에 쓰이는 레지스터들 :program counter, stack pointer, EBP, EAX"></a>스택에 쓰이는 레지스터들 :program counter, stack pointer, EBP, EAX</h2><p><strong>program counter</strong>(pc)는 cpu 내부의 레지스터 중 하나로, 다음에 실행될 명령어의 주소를 가지고 있다.</p>
+<p><strong>stack pointer는 cpu</strong> 내부 레지스터 중 하나로, 스택에 데이터가 채워진 위치를 가르킨다.</p>
+<p><strong>EBP</strong> 얘도 레지스터인데, 우리가 함수를 작성할 때 함수 안에 다른 함수를 부를때마다 그 전에 stack pointer가 가르키던 주소를 스택에 집어넣고 EBP에도 저장한다.<br>이를 통해 프로그램 진행 중 문제가 생겼을 때, 어떤 함수에서 문제가 발생했는지 알 수 있게 된다.</p>
+<p><strong>EAX</strong> 얘도 레지스터인데, 스택에서 실행된 함수의 반환값을 저장하는 레지스터다!</p>
+<h2 id="데이터-영역은-두-가지로-나뉜다-BSS-DATA"><a href="#데이터-영역은-두-가지로-나뉜다-BSS-DATA" class="headerlink" title="데이터 영역은 두 가지로 나뉜다. (BSS, DATA)"></a>데이터 영역은 두 가지로 나뉜다. (BSS, DATA)</h2><p><strong>BSS</strong> : 초기화되지 않은 전역변수.</p>
+<p><strong>DATA</strong> : 초기화된 전역변수</p>
+<h2 id="컨텍스트-스위칭"><a href="#컨텍스트-스위칭" class="headerlink" title="컨텍스트 스위칭"></a>컨텍스트 스위칭</h2><p><img src="/img/os/os9-3.png"><br>스케쥴러가 어떤 프로세스를 실행하다가, 이를 멈추고 다른 프로세스를 실행시키는 행위를 컨텍스트 스위칭이라 한다!<br>컨텍스트 스위칭은 빈번하게 일어나므로, 빠르게 실행하기 위해 어셈블리어로 작성되어 있는 경우가 많다.</p>
+<p>이때 앞에 배웠던 program counter와 stack pointer이 저장하고 있는 두 주소값을<br><strong>해당 프로세스의 PCB</strong>(Process Control Block. 프로세스의 상태를 저장하는 구조체)라는 곳에 저장해 놓고!<br>다른 프로세스로 넘어가서 작업을 시작하고 이 프로세스의 PCB에도 해당 값을 저장하고,<br>이제 처음에 했던 프로세스를 이어서 하기위해, PCB에 있던 데이터를 가져와 <strong>cpu의 pc와 sp를 업데이트하고 디스패치(ready-&gt;running)한다!</strong></p>
+<h3 id="PCB에-저장되는-내용들"><a href="#PCB에-저장되는-내용들" class="headerlink" title="PCB에 저장되는 내용들"></a>PCB에 저장되는 내용들</h3><p><img src="/img/os/os9-2.png"><br><em>리눅스 PCB 예시</em></p>
+<ol>
+<li>Process ID</li>
+<li>Register value(PC, SP…)</li>
+<li>Scheduling info (Process state. running, block, ready…)</li>
+<li>Memory Info(memory size…)</li>
+</ol>
+<h2 id="프로세스간-커뮤니케이션-IPC-Inter-Process-Communication"><a href="#프로세스간-커뮤니케이션-IPC-Inter-Process-Communication" class="headerlink" title="프로세스간 커뮤니케이션(IPC, Inter Process Communication)"></a>프로세스간 커뮤니케이션(IPC, Inter Process Communication)</h2><p>프로세스들이 서로 마음대로 접근해서 바꾸면? 당연히 문제가 된다!</p>
+<blockquote>
+<p>하지만 프로세스간 통신 해야 될 경우도 분명히 존재한다.</p>
+</blockquote>
+<ul>
+<li>성능을 높이기 위해 여러 프로세스를 만들어서 동시 실행</li>
+<li>이 때 프로세스간 상태 확인 및 데이터 송수신 필요.</li>
+</ul>
+<p>=&gt; 그래서 프로세스간 통신이 필요하다.</p>
+<h3 id="프로세스간-공유하는-파일-사용하기"><a href="#프로세스간-공유하는-파일-사용하기" class="headerlink" title="프로세스간 공유하는 파일 사용하기"></a>프로세스간 공유하는 파일 사용하기</h3><p>프로세스간 코드에 접근할 수는 없지만, 특정 저장매체를 공유할 수 있게 해서,<br><strong>한 프로세스가 전달할 내용을 파일에 쓰고, 다른 프로세스가 해당 파일을 읽는 방식이다.</strong></p>
+<p>하지만 실시간으로 원하는 프로세스에 데이터 전달이 어려움…</p>
+<p><img src="/img/os/os9-4.png"><br>이때, 프로세스들은, 다른 영역이 아닌 커널 공간(이 부분은 다른 프로세스도 비슷하므로)를 공유해 사용한다.<br><strong>IPC는 쉽게 요약하면, 이 커널 공간을 통해 어떻게 공유할 지 결정하는 방법이라 할 수 있다.</strong></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/08/09/cs/os/os9/" data-id="ckyq1migj003k6wa0eocj882m" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "9. 프로세스 구조와 프로세스간 커뮤니케이션",
+        "image": "https://yangdongjue5510.github.io/img/os/os9-1.png",
+        "keywords": "",
+        "genre": "Computer Science OS",
+        "datePublished": "2021-08-09",
+        "dateCreated": "2021-08-09",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/08/09/cs/os/os9/",
+        "description": "프로세스 구조프로세스 구조는 4가지 영역으로 나뉜다.
+
+스택 : 최상단 스택 주소를 가리키는 EBP, 함수 결과를 반환해줄 주소(return address), 함수와 관련된 인자나 변수를 저장하는 영역
+힙 : 동적으로 할당된 메모리를 저장하는 영역. (ex. malloc) 이 영역의 메모리 주소를 통해 힙에 저장된 내용을 다른 영역에서 사용!
+데이터 : 선",
+        "wordCount": 375
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="stack-overflow" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-stack-overflow"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/08/11/cs/os/os10/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            10. 쓰레드
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/08/05/cs/algorithm/problem/al13/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">13. 다이나믹 프로그래밍-3(LCS 문제)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/01/23/secondpctest/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2022/01/23/secondpctest/" class="title">secondPCtest</a></p>
+                            <p class="item-date"><time datetime="2022-01-22T16:35:51.000Z" itemprop="datePublished">2022-01-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/01/06/cs/database/powerofdatabase01/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/computer-science/database/">Database</a></p>
+                            <p class="item-title"><a href="/2022/01/06/cs/database/powerofdatabase01/" class="title">데이터베이스 설계 프로세스</a></p>
+                            <p class="item-date"><time datetime="2022-01-06T13:35:42.000Z" itemprop="datePublished">2022-01-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/19/java/utecoprecourse4/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2021/12/19/java/utecoprecourse4/" class="title">우아한 테크코스 4기 최종 코딩테스트 후기</a></p>
+                            <p class="item-date"><time datetime="2021-12-19T12:39:13.000Z" itemprop="datePublished">2021-12-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/16/java/object/object4/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/java/">Java</a></p>
+                            <p class="item-title"><a href="/2021/12/16/java/object/object4/" class="title">메시지와 인터페이스</a></p>
+                            <p class="item-date"><time datetime="2021-12-16T11:13:44.000Z" itemprop="datePublished">2021-12-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/12/12/github-study/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2021/12/12/github-study/" class="title">깃 사용법(브랜치 활용 등)</a></p>
+                            <p class="item-date"><time datetime="2021-12-12T13:35:00.000Z" itemprop="datePublished">2021-12-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">43</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">29</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/effective-java/" rel="tag">Effective Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-java-in-action/" rel="tag">Modern Java in Action</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/greedy/" rel="tag">greedy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reshapi-project/" rel="tag">reshapi project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/troubleshooting/" rel="tag">troubleShooting</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" rel="tag">오브젝트</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" rel="tag">우아한 테크 코스</a><span class="tag-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a target="_blank" rel="external nofollow noopener noreferrer" href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/08/09/cs/os/os9/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
