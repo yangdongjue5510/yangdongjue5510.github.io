@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>3. 어플리케이션 계층 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="a. 네트워킹 어플리케이션 제작서로 다른 엔드시스템에서 네트워크를 통해 소통하며 작동한다.일반적으로 네트워크에 대해 몰라도 어플리케이션 제작 가능 b. 클라이언트-서버 구조서버 : 항상 연결, 영구적 IP주소, 더 많은 양을 처리하기 위해선 데이터 센터 구비클라이언트 : 간헐적으로 연결, 다이나믹 IP주소 사용(위치에 따라 변경), 직접 통신하진 않음. 통">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. 어플리케이션 계층">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/09/16/cs/network/network3/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. 네트워킹 어플리케이션 제작서로 다른 엔드시스템에서 네트워크를 통해 소통하며 작동한다.일반적으로 네트워크에 대해 몰라도 어플리케이션 제작 가능 b. 클라이언트-서버 구조서버 : 항상 연결, 영구적 IP주소, 더 많은 양을 처리하기 위해선 데이터 센터 구비클라이언트 : 간헐적으로 연결, 다이나믹 IP주소 사용(위치에 따라 변경), 직접 통신하진 않음. 통">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/network/network3-1.png">
+<meta property="article:published_time" content="2021-09-16T12:31:20.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.029Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/network/network3-1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png#%20path%20to%20favicon">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/network/">Network</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/network/network3" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        3. 어플리케이션 계층
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/09/16/cs/network/network3/" class="article-date">
+       <time datetime="2021-09-16T12:31:20.000Z" itemprop="datePublished">2021-09-16</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/09/16/cs/network/network3/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.029Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h3 id="a-네트워킹-어플리케이션-제작"><a href="#a-네트워킹-어플리케이션-제작" class="headerlink" title="a. 네트워킹 어플리케이션 제작"></a>a. 네트워킹 어플리케이션 제작</h3><p>서로 다른 엔드시스템에서 네트워크를 통해 소통하며 작동한다.<br>일반적으로 네트워크에 대해 몰라도 어플리케이션 제작 가능</p>
+<h3 id="b-클라이언트-서버-구조"><a href="#b-클라이언트-서버-구조" class="headerlink" title="b. 클라이언트-서버 구조"></a>b. 클라이언트-서버 구조</h3><p>서버 : 항상 연결, 영구적 IP주소, 더 많은 양을 처리하기 위해선 데이터 센터 구비<br>클라이언트 : 간헐적으로 연결, 다이나믹 IP주소 사용(위치에 따라 변경), 직접 통신하진 않음. 통신의 시작</p>
+<h3 id="c-P2P-peer-to-peer-구조"><a href="#c-P2P-peer-to-peer-구조" class="headerlink" title="c. P2P(peer to peer) 구조"></a>c. P2P(peer to peer) 구조</h3><p>항상 연결된 서버가 없는 구조.<br>엔드시스템끼리 직접 통신 가능<br>자가확장성(self-scalability) : 더 많은 peer가 참여하면 처리 능력도 높아진다.<br>peer들이 연결됐다가 해제됐다가 빈번. 관리 어렵고 IP주소가 자주 바뀜</p>
+<h3 id="d-프로세스"><a href="#d-프로세스" class="headerlink" title="d. 프로세스"></a>d. 프로세스</h3><p>어플리케이션 프로그램이 호스트에서 실행되는 것을 프로세스라 함.<br>동일한 호스트 내에서 두 프로세스가 소통할 때 : inter-process communication<br>다른 호스트끼리 프로세스들이 소통할 때 : exchanging messages</p>
+<h3 id="e-소켓"><a href="#e-소켓" class="headerlink" title="e. 소켓"></a>e. 소켓</h3><p><img src="/img/network/network3-1.png"><br>소켓은 쉽게 API로 이해하자.<br>소켓은 어플리케이션 하위 계층(네트워크 링크…)를 몰라도 호스트끼리 연결될 수 있게 돕는다.<br>메세지만 내가 작성하고 나머지 연결하는 일은 소켓이 한다.</p>
+<h3 id="f-포트넘버"><a href="#f-포트넘버" class="headerlink" title="f. 포트넘버"></a>f. 포트넘버</h3><p>IP는 호스트의 위치를 나타내는 주소라고 했다.<br>그런데 호스트에도 다양한 프로세스가 존재하는데<br>내가 받은 메시지가 어떤 프로세스에 줘야하는 지는 포트넘버를 통해 이뤄진다.</p>
+<h3 id="g-어플리케이션-프로토콜의-역할"><a href="#g-어플리케이션-프로토콜의-역할" class="headerlink" title="g. 어플리케이션 프로토콜의 역할"></a>g. 어플리케이션 프로토콜의 역할</h3><p>헤더의 메시지 타입 정의(request인지 response인지)<br>메시지의 어디까지를 헤더로 하고 어디까지를 페이로드로 정할지.(필드 지정)<br>메시지의 정의(100110를 request로 정의하자..)<br>언제 어떻게 메시지를 보내고 답변하는 규칙 수립</p>
+<h3 id="h-어플리케이션-프로토콜의-종류"><a href="#h-어플리케이션-프로토콜의-종류" class="headerlink" title="h. 어플리케이션 프로토콜의 종류"></a>h. 어플리케이션 프로토콜의 종류</h3><p>오픈 프로토콜 : RFC에 정의된 프로토콜, 상호연동성 확보, ex.http, smtp<br>사설 프로토콜 : 서비스만하고 프로토콜은 공개하지 않는 경우  ex.스카이프…</p>
+<h3 id="i-어플리케이션이-필요로-하는-요소"><a href="#i-어플리케이션이-필요로-하는-요소" class="headerlink" title="i. 어플리케이션이 필요로 하는 요소"></a>i. 어플리케이션이 필요로 하는 요소</h3><p>1. data integrity : 정확한 메시지 전달해야 하는지, 그 정도는 아닌지를 파악<br>2. timing : 딜레이가 낮은 것이 중요한지(실시간 게임)<br>3. throughput(bps) : 일정한 속도로 전송받아야 하는지 (스트리밍 서비스)<br>4. security</p>
+<h3 id="j-TCP-UDP-간단하게-알아보기"><a href="#j-TCP-UDP-간단하게-알아보기" class="headerlink" title="j. TCP UDP 간단하게 알아보기"></a>j. TCP UDP 간단하게 알아보기</h3><p>TCP는 data integrity를 제공<br>그 외는 제공하지 않으므로 어플리케이션에서 해결해야 한다.(ex.버퍼링)<br>UDP는 data integrity를 미제공</p>
+<h3 id="k-SSL"><a href="#k-SSL" class="headerlink" title="k. SSL"></a>k. SSL</h3><p>보안을 담당하는 어플리케이션 SSL<br>수송 계층(TCP, UDP)에서는 보안을 지원하지 않아서 SSL같은 어플리케이션에서 해결해야 한다.</p>
+<h3 id="l-web"><a href="#l-web" class="headerlink" title="l. web"></a>l. web</h3><p>web : HTML 베이스, 여러가지 오브젝트 포함<br>URL을 통해 식별(<a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.someschool.edu(호스트이름)/someDept/pic.gif(%ED%8C%A8%EC%8A%A4%EC%9D%B4%EB%A6%84)">http://www.someschool.edu(호스트이름)/someDept/pic.gif(패스이름)</a>)</p>
+<h3 id="n-http"><a href="#n-http" class="headerlink" title="n. http"></a>n. http</h3><p>http : hypertext transfer protocol<br>TCP를 사용. 포트번호 80번을 사용.<br>stateless =상태를 기억하지 않음<br>=서버는 클라이언트를 기억하지 않는다. 이전에 통신됐던 클라이언트도 기억해내지 못한다.</p>
+<h3 id="m-http-종류"><a href="#m-http-종류" class="headerlink" title="m. http 종류"></a>m. http 종류</h3><p>non-persistent HTTP<br>연결할 때 하나의 오브젝트만 TCP를 통해 전달할 수 있음<br>여러개의 오브젝트를 전달하려면 여러번 연결을 해야함</p>
+<p>persistent HTTP<br>한 TCP연결로 여러 오브젝트를 보낼 수 있음</p>
+<h3 id="o-http-연결"><a href="#o-http-연결" class="headerlink" title="o. http 연결"></a>o. http 연결</h3><p>RTT = 패캣이 클라에서 출발해 서버를 거쳐 다시 클라로 올 때 걸리는 시간.</p>
+<p>HTTP 연결하려면..<br>초기 TCP연결을 위한 최초 RTT<br>요청 HTTP와 응답 HTTP<br>2RTT(persist HTTP)<br>2RTT+file transmission time(non-persist HTTP)</p>
+<h3 id="p-HTTP-요청-메시지"><a href="#p-HTTP-요청-메시지" class="headerlink" title="p. HTTP 요청 메시지"></a>p. HTTP 요청 메시지</h3><p>ASCII 형식에 따름.<br><img src="/img/network/network3-2.png"><br>헤더예시</p>
+<p><img src="/img/network/network3-3.png"><br>일반적인 헤더 모양</p>
+<h3 id="q-업로딩-형식-입력"><a href="#q-업로딩-형식-입력" class="headerlink" title="q. 업로딩 형식 입력"></a>q. 업로딩 형식 입력</h3><p>method 부분에 어떤 것이 오느냐에 따라 달라진다.<br>POST method : input을 entity body에 넣어서 전달<br>GET method(URL method) : input을 request line의 URL에 넣어서 전달<br>(겟 메소드를 사용시 주소창에 ?와 &amp;이 생김)</p>
+<h3 id="r-메소드-타입"><a href="#r-메소드-타입" class="headerlink" title="r. 메소드 타입"></a>r. 메소드 타입</h3><p>HTTP/1.0 : GET, POST, HEAD<br>HTTP/1.1 : GET, POST, HEAD, PUT, DELETE</p>
+<h3 id="s-HTTP-응답-메시지"><a href="#s-HTTP-응답-메시지" class="headerlink" title="s. HTTP 응답 메시지"></a>s. HTTP 응답 메시지</h3><p><img src="/img/network/network3-4.png"></p>
+<h3 id="t-HTTP-응답-상태-코드"><a href="#t-HTTP-응답-상태-코드" class="headerlink" title="t. HTTP 응답 상태 코드"></a>t. HTTP 응답 상태 코드</h3><p>첫번 째 줄 두번째 요소를 담당.<br>OK(200) 요구 전달완료. 요구한 오브젝트가 있음<br>Moved Permanently(301) 요구한 오브젝트가 이동되었음. 해당 위치를 담았음<br>Bad Request(400) 서버가 요구 메시지를 이해하지 못했음<br>Not Found(404) 요구 문서를 서버에서 찾을 수 없음<br>505 HTTP Version Not Supported</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/09/16/cs/network/network3/" data-id="ckyq1migd00236wa02kqo1ovk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "3. 어플리케이션 계층",
+        "image": "https://yangdongjue5510.github.io/img/network/network3-1.png",
+        "keywords": "",
+        "genre": "Computer Science Network",
+        "datePublished": "2021-09-16",
+        "dateCreated": "2021-09-16",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/09/16/cs/network/network3/",
+        "description": "a. 네트워킹 어플리케이션 제작서로 다른 엔드시스템에서 네트워크를 통해 소통하며 작동한다.일반적으로 네트워크에 대해 몰라도 어플리케이션 제작 가능
+b. 클라이언트-서버 구조서버 : 항상 연결, 영구적 IP주소, 더 많은 양을 처리하기 위해선 데이터 센터 구비클라이언트 : 간헐적으로 연결, 다이나믹 IP주소 사용(위치에 따라 변경), 직접 통신하진 않음. 통",
+        "wordCount": 538
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/09/16/cs/network/network4/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            4. 어플리케이션(쿠키, 캐쉬, DNS, CDN, 이메일)
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/09/16/cs/network/network2/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">2. 프로토콜</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/09/16/cs/network/network3/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

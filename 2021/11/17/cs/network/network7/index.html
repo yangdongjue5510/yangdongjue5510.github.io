@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>7. 네트워크 계층(IP) | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="a. IPv4 데이터그램 헤더 버전 번호 : 4비트. 데이터그램의 ip 프로토콜 버전 명시. 헤더 길이 : ip 데이터그램에서 실제 페이로드가 시작되는 곳을 결정.(데체로 헤더는 20바이트) 서비스 타입 : IPv4의 서비스 타입을 구별(실시간 데이터그램인가 아닌가 등) 데이터그램 길이 : 헤더를 포함한 전체 데이터그램 길이 식별자 , 플래그, 단편화 오프">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7. 네트워크 계층(IP)">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/11/17/cs/network/network7/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. IPv4 데이터그램 헤더 버전 번호 : 4비트. 데이터그램의 ip 프로토콜 버전 명시. 헤더 길이 : ip 데이터그램에서 실제 페이로드가 시작되는 곳을 결정.(데체로 헤더는 20바이트) 서비스 타입 : IPv4의 서비스 타입을 구별(실시간 데이터그램인가 아닌가 등) 데이터그램 길이 : 헤더를 포함한 전체 데이터그램 길이 식별자 , 플래그, 단편화 오프">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.kakaocdn.net/dn/c2JaDj/btq4qAK2iFT/Kms6bFZUha3wxTzWkBNKR0/img.png">
+<meta property="article:published_time" content="2021-11-17T11:21:40.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.030Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.kakaocdn.net/dn/c2JaDj/btq4qAK2iFT/Kms6bFZUha3wxTzWkBNKR0/img.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png#%20path%20to%20favicon">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/network/">Network</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/network/network7" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        7. 네트워크 계층(IP)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/11/17/cs/network/network7/" class="article-date">
+       <time datetime="2021-11-17T11:21:40.000Z" itemprop="datePublished">2021-11-17</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/11/17/cs/network/network7/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.030Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h3 id="a-IPv4-데이터그램-헤더"><a href="#a-IPv4-데이터그램-헤더" class="headerlink" title="a. IPv4 데이터그램 헤더"></a><strong>a. IPv4 데이터그램 헤더</strong></h3><p><img src="https://blog.kakaocdn.net/dn/c2JaDj/btq4qAK2iFT/Kms6bFZUha3wxTzWkBNKR0/img.png" alt="img"></p>
+<p>버전 번호 : 4비트. 데이터그램의 ip 프로토콜 버전 명시.</p>
+<p>헤더 길이 : ip 데이터그램에서 실제 페이로드가 시작되는 곳을 결정.(데체로 헤더는 20바이트)</p>
+<p>서비스 타입 : IPv4의 서비스 타입을 구별(실시간 데이터그램인가 아닌가 등)</p>
+<p>데이터그램 길이 : 헤더를 포함한 전체 데이터그램 길이</p>
+<p>식별자 , 플래그, 단편화 오프셋 : 단편화에 사용됨.</p>
+<p>TTL : 라우터가 데이터그램을 처리할 때마다 감소. TTL 필드 값이 0이 되면 라우터가 데이터그램을 폐기</p>
+<p>프로토콜 : 데이터 부분이 전달될 목적지의 전송 계층의 특정 프로토콜을 명시</p>
+<p>헤더 체크섬 : 비트 오류를 탐지.</p>
+<p>출발지와 목적지 IP 주소</p>
+<p>옵션</p>
+<p>데이터(페이로드)</p>
+<h3 id="b-IPv4-데이터그램-단편화"><a href="#b-IPv4-데이터그램-단편화" class="headerlink" title="b. IPv4 데이터그램 단편화"></a><strong>b. IPv4 데이터그램 단편화</strong></h3><p>MTU : 링크 계층 프레임이 전달할 수 있는 최대 데이터 양</p>
+<p>문제 : 송신지와 목적지 간의 경로를 따르는 각 링크가 다른 링크 계층 프로토콜을 사용할 수 있고 각 프로토콜이 서로 다른 MTU를 가질 수 있게 됨.</p>
+<p>해결 : IP 데이터그램의 페이로드를 두 개 이상의 더 작은 IP 데이터그램으로 분할하고 각자 링크 계층 프레임으로 캡슐화.</p>
+<p>이렇게 나눠진 데이터그램을 조각(fragment)라고 부른다.</p>
+<p>그렇다면 이렇게 나눠진 조각들을 언제 재결합 하는가? =&gt; end system에서 데이터그램 재결합!</p>
+<p>목적지 호스트가 받은 데이터그램이 어떤 조각인지 파악하려면? =&gt; 헤더에 식별자, 플래그, 단편화 오프셋을 활용!</p>
+<h4 id="b-1-식별자-플래그-단편화-오프셋"><a href="#b-1-식별자-플래그-단편화-오프셋" class="headerlink" title="b-1 식별자, 플래그, 단편화 오프셋"></a>b-1 식별자, 플래그, 단편화 오프셋</h4><p>식별자는 단편화된 데이터그램끼리는 같은 값을 지닌다.</p>
+<p>플래그는 목적지 호스트가 데이터그램의 마지각 조각을 수신했음을 알리기 위한 장치. 마지막 조각은 0을, 아닌 조각은 1을 가짐.</p>
+<p>단편화 오프셋는 조각의 분실방지와 순서대로 재결합을 위한 장치. 원본 데이터그램 내에 조각의 시작 위치를 나타냄.(예시에서는 8비트이므로 원본 위치에서 8을 나눈 값을 입력.)</p>
+<p><img src="https://blog.kakaocdn.net/dn/9BuK3/btq4ry61IjP/MikCAMGbNbcZ5Fwb2hNE6k/img.png" alt="img"></p>
+<h3 id="c-IPv4-주소체계-서브넷"><a href="#c-IPv4-주소체계-서브넷" class="headerlink" title="c. IPv4 주소체계(서브넷)"></a><strong>c. IPv4 주소체계(서브넷)</strong></h3><p><img src="https://blog.kakaocdn.net/dn/cr2k9S/btq4uGXzzxe/G5kBtY7KsYBAIEeFkoykK0/img.png" alt="img"></p>
+<p>인터페이스 = 호스트와 물리적 링크 사이의 경계</p>
+<p><img src="https://blog.kakaocdn.net/dn/bEKM5O/btq4vQ6JWsg/tBaxlK7EuylKFMWJYAk2Wk/img.png" alt="img"></p>
+<p>십진 표기법 = 32비트 ip주소를 각 바이트를 십진수로 표현하고 각 바이트를 점으로 구별.</p>
+<p>모든 호스트와 라우터는 IP 데이터그램을 송수신할 수 있으므로 각 호스트와 라우터 인터페이스가 IP 주소를 갖도록 함.</p>
+<p><img src="https://blog.kakaocdn.net/dn/I5iii/btq4rzLFeiO/SA3o2o9hU0IVgkcS3i8j9K/img.png" alt="img"></p>
+<p>서브넷 = 인터페이들과 하나의 라우터 인터페이스로 연결된 네트워크</p>
+<p>서브넷 마스크 = 32비트 주소 중 서브넷 주소를 가르키는 부분(/24일 경우 왼쪽 24비트가 서브넷 주소임)</p>
+<p>네트워크 마스크 = 255.255.255.0 (이 네트워크 마스크와 and 연산을 하게 되어 나타나게 되는 주소가 서브넷)</p>
+<p>하지만 서브넷은 여러 호스트를 라우터 인터페이스에 연결하는 것만을 의미하진 않음.</p>
+<p>각 서브넷은 호스트나 라우터에서 각 인터페이스를 분리하여 생긴 고립된 네트워크를 의미.</p>
+<p><img src="https://blog.kakaocdn.net/dn/co6KAT/btq4vQZX18D/4TYywTk6oV0p3fkb40F3c1/img.png" alt="img"></p>
+<h3 id="d-클래스-주소체계"><a href="#d-클래스-주소체계" class="headerlink" title="d. 클래스 주소체계"></a><strong>d. 클래스 주소체계</strong></h3><p>클래스 주소체계 : ip 주소의 네트워크 부분을 8, 16, 24비트로 제한. 해당 서브넷 주소를 갖는 서브넷을 A, B, C 클래스 네트워크로 분류.</p>
+<p><img src="https://blog.kakaocdn.net/dn/bRmVjk/btq4qzk6jiG/w73SKkojmNdWhlFhs7MDN0/img.png" alt="img"></p>
+<p>하지만 서브넷의 주소넷 부족 현상. 호스트 id 낭비 발생.</p>
+<h3 id="e-CIDR"><a href="#e-CIDR" class="headerlink" title="e. CIDR"></a><strong>e. CIDR</strong></h3><p>ip가 십진수 형태의 a.b.c.d/x로 표현. 이때 x는 ip주소의 네트워크 부분을 표시하며 프리픽스라 함.</p>
+<p>따라서 x는 네트워크 id</p>
+<p>32-x는 호스트 id를 담당.</p>
+<p>라우터가 CIDR을 찾아갈때 포워드 테이블의 네트워크 마스크와 and 연산을 하여 목적지와 일치하는 prefix가 가장 길게 일치하는 것과 연결.</p>
+<h4 id="e-1-CIDR-경로-집약"><a href="#e-1-CIDR-경로-집약" class="headerlink" title="e-1 CIDR 경로 집약"></a>e-1 CIDR 경로 집약</h4><p>여러 네트워크를 알리기 위해 하나의 네트워크 접두사를 사용하는 것.</p>
+<p>ex)32비트의 ip 주소를 할당하는 과정을 지켜보자.</p>
+<p>먼저 8개의 조직을 가진 곳에 ip를 할당해야 된다고 가정하자.</p>
+<p>이때 a라는 ISP가 큰 인터넷 연결을 위해 할당받는다. 현재 예시에서는 20비트를 할당받는다 하자.</p>
+<p>그러면 우리는 자체 서브넷을 x.y.z.0/20으로 표현 가능하다.</p>
+<p>그렇다면 이 조직들이 어떤 ip를 할당 받았는지를 알려야한다.</p>
+<p>근데 이를 굳이 일일히 굳이 이 서브넷의 조직이 8개임을 굳이 알릴 필요가 없개된다.</p>
+<p>그냥 x.y.z.0/20으로 표현해도 일맥상통한다. 즉 주소가 더 간편해졌다.(경로 집약되었다.)</p>
+<p><img src="https://blog.kakaocdn.net/dn/F3Dyb/btq4WK0eFWz/MlSKkoyJDna09GXoFxrQ4k/img.png" alt="img">Fly-By-Night-ISP가 200.23.16.0/20만 알려도 된다. </p>
+<p>이때 만약 어떤 조직이 다른 ISP로 연결되야 되는 경우는 어떻게 될까?</p>
+<p>다른 ISP는 이제 자신의 서브넷 뿐만 아니라 자신에게 옮겨온 조직의 ip도 알려야한다.</p>
+<p><img src="https://blog.kakaocdn.net/dn/W0tYy/btq4XyF6iBH/4le2XzK8B8g3otKiih8utK/img.png" alt="img"></p>
+<h3 id="f-특별한-IP주소"><a href="#f-특별한-IP주소" class="headerlink" title="f. 특별한 IP주소"></a><strong>f. 특별한 IP주소</strong></h3><p>0.0.0.0 = 새로운 호스트가 DHCP 서버에 주소 할당 요청할 때</p>
+<p>255.255.255.255= 해당 네트워크의 모든 호스트가 수신. 해당 서브넷에서는 사용. 외부로는 전달 x</p>
+<p>127.x.y.z = 네트워크 계층에서 하위로 전달하지 말고 다시 상위 계층으로 보내라는 의미.</p>
+<p>사설아이피 : 해당 서브넷에서만 사용되는 아이피</p>
+<p>directed broadcast adress : 라우터가 broadcast 해야할 때. 라우터의 네트워크 마지막 주소로 x.y.z.255</p>
+<p>network address : 네트워크 블록에서 맨 처음 주소로. x.y.z.0</p>
+<h3 id="g-동적-호스트-구성-프로토콜-DHCP"><a href="#g-동적-호스트-구성-프로토콜-DHCP" class="headerlink" title="g. 동적 호스트 구성 프로토콜 (DHCP)"></a><strong>g. 동적 호스트 구성 프로토콜 (DHCP)</strong></h3><p>자동으로 호스트에 IP 주소를 할당하는 기능.</p>
+<p>각 서브넷은 DHCP 서버를 갖는다.</p>
+<p>DHCP 서버가 없는 서브넷은 DHCP 연결 에이전트(라우터)가 DHCP 서버 주소를 알려줘 DHCP를 이용할 수 있게한다.</p>
+<p>UDP 포트넘버 67을 사용</p>
+<p><img src="https://blog.kakaocdn.net/dn/Sklt4/btq4XE0nHBN/ihu3O8jB8GKIkEk0d4lcHK/img.png" alt="img"></p>
+<p><img src="https://blog.kakaocdn.net/dn/em7oGL/btq4X6CornQ/wbAiJ0ZdDsyyW70bojDvQK/img.png" alt="img"></p>
+<p>DHCP discover : DHCP 서버가 있나요?</p>
+<p>-DHCP 발견 메시지를 포함하는 IP 데이터그램을 서브넷에 연결된 모든 노드로 브로드캐스팅</p>
+<p>-목적지 IP 주소를 255.255.255.255, 출발지 IP 주소를 0.0.0.0로 설정해서 브로드캐스팅</p>
+<p>DHCP offer : 제가 DHCP서버입니다! 당신이 쓸 수 있는 IP주소를 드립니다.</p>
+<p>-DHCP 제공 메시지를 ip브로드캐스트 주소(255.255.255.255)로 서브넷에 모든 노드로 브로드캐스팅</p>
+<p>-메시지에는 발견 메시지의 트랜잭션 ID, 클라이언트에 제공된 IP 주소, 네트워크 마스크, IP 주소 임대 기간을 포함</p>
+<p>-여러 DHCP 서버가 ip를 제공할 경우 최적의 위치에 있는 서버를 선택</p>
+<p>DHCP request : 좋아요 이 주소로 할게요!</p>
+<p>-받은 ip주소와 임대 기간을 확인차 전송</p>
+<p>DHCP ack : 좋아요 이 주소 쓰시면 돼요!</p>
+<p>-요청된 파라미터를 확인차 전송</p>
+<h3 id="h-네트워크-주소-변환-NAT"><a href="#h-네트워크-주소-변환-NAT" class="headerlink" title="h. 네트워크 주소 변환 (NAT)"></a><strong>h. 네트워크 주소 변환 (NAT)</strong></h3><p>ip 주소 할당량이 부족해지는 상황이 발생하면 어떻게 해결해야될까?</p>
+<p>NAT를 활용하여 사설 ip를 할당하는 것.</p>
+<p><img src="https://blog.kakaocdn.net/dn/entwIb/btq4Xx1vklj/kSvvZKnUSXrYwUaonlrnYK/img.png" alt="img"></p>
+<p>NAT 가능한 라우터에 의해 public ip와 사설 ip가 나눠져 있는 걸 알 수 있다.</p>
+<p>이때 NAT을 활용하는 라우터는 외부에서는 라우터가 아닌 하나의 IP 주소를 가지는 하나의 장비로 인식된다.</p>
+<p>홈 네트워크의 여러 ip주소들은 DHCP로 할당받는다.</p>
+<p>홈 네트워크 내부에 있는 장비들은 포트번호로 구별한다.</p>
+<p>포트번호는 홈네트워크에서 전송할 때 NAT 변환 테이블로 할당한다.</p>
+<p><img src="https://blog.kakaocdn.net/dn/77zDL/btq4Ykgn1Pe/OfAYkW42pKhb3OJVxC85AK/img.png" alt="img"></p>
+<p>하지만 외부의 클라가 NAT 안에 있는 서버에 접근할 수 없게 된다.(NAT 변환테이블은 NAT에서 데이터 보낼 때 할당되므로)</p>
+<p>\1. NAT 변환 테이블에 필요한 포트를 미리 써놓기? =&gt; 유지보수가 힘들어진다.</p>
+<p>\2. NAT 변환 테이블에 장치를 자동으로 등록</p>
+<p>\3. relay방식. 중간에 전달 서버를 만들어 중간 서버가 NAT 내부 IP와 포트번호 전달.</p>
+<p><img src="https://blog.kakaocdn.net/dn/zkXaI/btq4YPmHd0k/kiVLR05TkQLjW5vhg0pgHK/img.png" alt="img"></p>
+<h3 id="i-IPv6"><a href="#i-IPv6" class="headerlink" title="i. IPv6"></a><strong>i. IPv6</strong></h3><p>IPv4의 32비트 주소 공간이 빠르게 고갈되어 등장한 128비트 프로토콜</p>
+<p>간소한 헤더를 사용해 더 빨리 처리하도록 했다.</p>
+<p><img src="https://blog.kakaocdn.net/dn/yYAJD/btq4W03126r/oechgWJhqrCjEHDJLMnOJ0/img.png" alt="img"></p>
+<p>트래픽 클래스 : 특정 응용 프로그램의 우선 순위 부여</p>
+<p>흐름 라벨 : 데이터그램 흐름을 인식</p>
+<p>다음 헤더 : 전송 프로토콜을 구분 TCP, UDP</p>
+<p>홉 제한 : 라우터가 데이터그램을 전달할 때마다 1씩 감소. 0보다 작아지면 데이터그램을 버림</p>
+<p><img src="https://blog.kakaocdn.net/dn/8CPii/btq4XhdpLFW/hMIWuSAnK0j2nRVKzatSPk/img.png" alt="img"></p>
+<p>IPv4에서 IPv6으로 전환하는 터널링.</p>
+<p>IPv6 사이에 있는 IPv4 라우터들을 터널로 칭함.</p>
+<p>IPv6의 데이터그램을 IPv4 데이터그램의 필드에 넣는다.</p>
+<h3 id="j-소프트웨어-기반-네트워크-SDN"><a href="#j-소프트웨어-기반-네트워크-SDN" class="headerlink" title="j. 소프트웨어 기반 네트워크 SDN"></a><strong>j. 소프트웨어 기반 네트워크 SDN</strong></h3><p>각 패킷 스위치의 검색 추가 작업 테이블을 보여주며 테이블은 원격 컨트롤을 통해 계산, 설치 및 업데이트</p>
+<p><img src="https://blog.kakaocdn.net/dn/l2DzE/btq4XfUcism/NYANWo2nScj6yfbMaRYlD1/img.png" alt="img"></p>
+<p>각 라우터마다 가지고 있는 플로우 테이블을 통해 다양한 행동을 취한다.</p>
+<p>헤더세트와 일치하는 패캣을 카운터 세트에 업데이트하고 플로우 테이블 요소와 일치하면 행동을 처리</p>
+<p><img src="https://blog.kakaocdn.net/dn/H55Cl/btq4XD1Dy1z/aw5TP8o8wCYqcVpppZOuDk/img.png" alt="img"></p>
+<p>match+action : 서로 다른 종류의 장비를 통일</p>
+<p>라우터 match = longest IP prefix + action = forward out a link</p>
+<p>스위치 match = 목적지 MAC 주소 + action = forward or flood</p>
+<p>방화벽 match = ip 주소와 TCP UDP 포트번호 + action = 수용 혹은 거부</p>
+<p>NAT match = IP 주소와 포트 + action = 주소와 포트를 재작성</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/11/17/cs/network/network7/" data-id="ckyq1mige002b6wa0bvvl31ow" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "7. 네트워크 계층(IP)",
+        "image": "https://yangdongjue5510.github.iohttps://blog.kakaocdn.net/dn/c2JaDj/btq4qAK2iFT/Kms6bFZUha3wxTzWkBNKR0/img.png",
+        "keywords": "",
+        "genre": "Computer Science Network",
+        "datePublished": "2021-11-17",
+        "dateCreated": "2021-11-17",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/11/17/cs/network/network7/",
+        "description": "a. IPv4 데이터그램 헤더
+버전 번호 : 4비트. 데이터그램의 ip 프로토콜 버전 명시.
+헤더 길이 : ip 데이터그램에서 실제 페이로드가 시작되는 곳을 결정.(데체로 헤더는 20바이트)
+서비스 타입 : IPv4의 서비스 타입을 구별(실시간 데이터그램인가 아닌가 등)
+데이터그램 길이 : 헤더를 포함한 전체 데이터그램 길이
+식별자 , 플래그, 단편화 오프",
+        "wordCount": 1008
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/11/17/cs/network/network8/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            8. 네트워크 계층 :제어 평면(라우팅 알고리즘)
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/11/17/cs/network/networkinterview/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">네트워크 면접 대비 스터디</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/11/17/cs/network/network7/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

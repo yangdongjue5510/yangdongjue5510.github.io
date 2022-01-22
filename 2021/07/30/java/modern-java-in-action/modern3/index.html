@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>스트림에 대해 간략하게 알아보자 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="Modern Java in Action">
+    
+    <meta name="description" content="a. 스트림이 뭘까?스트림은 자바 8 API에 새로 추가된 기능이다. 스트림을 이용하면 선언형(데이터를 처리하는 임시 구현 코드 대신 질의로 표현이 가능)으로 컬렉션 데이터를 처리할 수 있다. 쉽게 말하면, 스트림은 데이터 컬렉션 반복을 멋지게 처리하는 기능이라고 생각하자. 또한 스트림을 사용하면 멀티스레드 코드를 쓰지 않고도 투명하게 데이터를 병럴로 처리">
+<meta property="og:type" content="article">
+<meta property="og:title" content="스트림에 대해 간략하게 알아보자">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern3/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. 스트림이 뭘까?스트림은 자바 8 API에 새로 추가된 기능이다. 스트림을 이용하면 선언형(데이터를 처리하는 임시 구현 코드 대신 질의로 표현이 가능)으로 컬렉션 데이터를 처리할 수 있다. 쉽게 말하면, 스트림은 데이터 컬렉션 반복을 멋지게 처리하는 기능이라고 생각하자. 또한 스트림을 사용하면 멀티스레드 코드를 쓰지 않고도 투명하게 데이터를 병럴로 처리">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-30T00:36:18.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.035Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="Modern Java in Action">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png#%20path%20to%20favicon">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/java/">Java</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-java/modern-java-in-action/modern3" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        스트림에 대해 간략하게 알아보자
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/07/30/java/modern-java-in-action/modern3/" class="article-date">
+       <time datetime="2021-07-30T00:36:18.000Z" itemprop="datePublished">2021-07-30</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/07/30/java/modern-java-in-action/modern3/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.035Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/modern-java-in-action/" rel="tag">Modern Java in Action</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="a-스트림이-뭘까"><a href="#a-스트림이-뭘까" class="headerlink" title="a. 스트림이 뭘까?"></a><strong>a. 스트림이 뭘까?</strong></h2><p>스트림은 자바 8 API에 새로 추가된 기능이다.</p>
+<p>스트림을 이용하면 선언형(데이터를 처리하는 임시 구현 코드 대신 질의로 표현이 가능)으로 컬렉션 데이터를 처리할 수 있다.</p>
+<p>쉽게 말하면, 스트림은 데이터 컬렉션 반복을 멋지게 처리하는 기능이라고 생각하자.</p>
+<p>또한 스트림을 사용하면 멀티스레드 코드를 쓰지 않고도 투명하게 데이터를 병럴로 처리할 수 있다.(추후 알아보자)</p>
+<p>일단 코드로 이해해보자</p>
+<p>먼저 요리 중 저칼로리 요리명을 반환하고, 칼로리 기준으로 요리를 정렬하는 자바 7 코드를 보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//요소 필터링</span></span><br><span class="line">List&lt;Dish&gt; lowCaloricDishes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (Dish dish : menu) &#123;</span><br><span class="line">    <span class="keyword">if</span>(dish.getCalories() &lt; <span class="number">400</span>) &#123;</span><br><span class="line">        lowCaloricDishes.add(dish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//요소 정렬</span></span><br><span class="line">Collections.sort(lowCaloricDishes, <span class="keyword">new</span> Comparator&lt;Dish&gt;() &#123; <span class="comment">//익명 클래스</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Dish dish1, Dish dish2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Integer.compare(dish1.getCalories(), dish2.getCalories());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//요소 이름을 저장</span></span><br><span class="line">List&lt;String&gt; lowCaloricDishesName = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(Dish dish : lowCaloricDishes) &#123;</span><br><span class="line">    lowCaloricDishesName.add(dish.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이 코드를 보면 요소 정렬하면서 lowCaloricDishes라는 가비지 변수를 사용했다.</p>
+<p>lowCaloricDishes는 그저 정렬된 요소를 임시로 저장했다가 새로운 리스트인 lowCaloricDishesName에 전달해주는 역할을 한다.</p>
+<p>자바 8에서는 이런 컨테이너 역할을 하는 중간 변수 구현을 라이브러리 내에서 모두 처리한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.Comparator.comparing;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.stream.Collections.toList;</span><br><span class="line">List&lt;String&gt; lowCaloricDishesName = menu.stream()</span><br><span class="line">                                        .filtered(d -&gt; d.getCalories() &lt; <span class="number">400</span>)</span><br><span class="line">                                        .sorted(Comparing(Dish::getCalories))</span><br><span class="line">                                        .map(Dish::getName)</span><br><span class="line">                                        .collect(toList());</span><br></pre></td></tr></table></figure>
+
+<p><em>stream()을 parallelStream()으로 바꾸면, 멀티코어 아키텍처에서 병렬로 실행할 수 있다.(추후 게시물로 공부하자)</em></p>
+<p>그렇다면 스트림을 사용하면 어떤게 좋을까?</p>
+<ol>
+<li>선언형으로 코드를 구현할 수 있다.<br> 즉, 반복문이나 조건문같은 제어블록을 사용해서 상황에 따라 어떻게 행동할 지 구현할 필요없이, 동작의 수행을 지정할 수 있다.<br> 선언형 코드와 동작 파라미터화를 활용하면 요구사항에 쉽게 대응할 수 있다.(람다만 적절하게 바꿔주면 된다!)</li>
+<li>여러 빌딩 블록 연산을 연결해서 복잡한 데이터 처리 파이프라인을 만들 수 있다.<br> 위 예시에서처럼 filtered, sorted, map, collect등 연결해 더 복잡한 파이프라인을 만들 수 있다.</li>
+<li>고수준 빌딩 블록(filter, sorted, map, collect 등..)은 특정 스레딩 모델에 제한되지 않고 사용가능 하다.<br> 이 블록들은 멀티코어 아키텍처를 최대한 투명하게 활용할 수 있게 구현되어 있다. 덕분에 데이터 처리 과정을 병렬화하면서 스레드와 락을 걱정할 필요가 없다.</li>
+</ol>
+<p>마지막으로 스트림의 특징을 요약하면서 다음 챕터로 넘어가자!</p>
+<ol>
+<li> 선언형 : 더 간결, 가독성 상승</li>
+<li> 조립 가능 : 유연성</li>
+<li> 병렬화 : 성능 향상</li>
+</ol>
+<h2 id="b-스트림-시작하기"><a href="#b-스트림-시작하기" class="headerlink" title="b. 스트림 시작하기"></a><strong>b. 스트림 시작하기</strong></h2><p>스트림에 대해 공부하기 앞서, 스트림이 정확하게 어떤 것을 의미하는 지 살펴보고 가자.</p>
+<p>스트림이란 ‘데이터 처리 연산을 지원하도록 소스에서 추출된 연속된 요소’를 의미한다.</p>
+<p>무슨 말인지 아직도 모르겠다… 정의에 나온 단어 하나하나 파악해보자</p>
+<ul>
+<li>연속된 요소?<br>  컬렉션과 마찬가지로 스트림은 특정 요소 형식으로 이뤄진 연속된 값 집합의 인터페이스를 제공한다.<br>  컬렉션은 요소 저장 및 접근 연산이 주를 이루지만, 스트림은 요소들의 표현이나 계산식이 주를 이룬다.</li>
+<li>소스?<br>  스트림은 컬렉션, 배열, 입출력 자원 등 데이터 제공 소스로부터 데이터를 소비한다.<br>  컬렉션에서 요소들을 스트림에 연결하면, 컬렉션에 저장된 순서대로 스트림 요소가 소비된다는 의미!</li>
+<li>데이터 처리 연산?<br>  스트림은 함수형 프로그래밍 언어나 데이터베이스와 비슷한 연산을 지원한다.(filter, map, reduce, find, match, sort…)</li>
+</ul>
+<p>스트림의 정의는 이렇게 이해할 수 있게 됐다.</p>
+<p>한편 스트림의 두 가지 중요한 특징도 짚고 넘어가자!</p>
+<ul>
+<li>파이프라이닝<br>  대부분의 스트림 연산은 스트림 연산끼리 연결해서 커다란 파이프 라인을 구성할 수 있도록, 스트림 자신을 반환한다!</li>
+<li>내부 반복<br>  반복자를 이용해서 명시적으로 반복하는 컬렉션과는 달리 스트림은 내부 반복을 지원한다.</li>
+</ul>
+<p>지금까지 배운 내용을 코드로 이해해 보자</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.stream.Collectors.toList;</span><br><span class="line">List&lt;String&gt; threeHighCaloricDishNames =</span><br><span class="line">    menu.stream() <span class="comment">//List&lt;Dish&gt; menu에서 스트림얻음</span></span><br><span class="line">        .filter(dish -&gt; dish.getCalories() &gt; <span class="number">300</span>) <span class="comment">//고칼로리 필터링</span></span><br><span class="line">        .map(Dish::getName) <span class="comment">//필터링 된 요리를 이름을 추출</span></span><br><span class="line">        .limit(<span class="number">3</span>) <span class="comment">//선착순 세개만 저장</span></span><br><span class="line">        .collect(toList()); <span class="comment">//결과를 다른 리스트로 저장</span></span><br><span class="line">System.out.println(threeHighCaloricDishNames);</span><br></pre></td></tr></table></figure>
+
+<p>이 코드를 도표로 나타내면 다음과 같다</p>
+<p>[##<em>Image|kage@bhCDUs/btq9TEvcCqe/zfB1YOZVyffzyU46TnHLVK/img.png|alignCenter|data-origin-width=”715” data-origin-height=”506” width=”666” height=”471” data-ke-mobilestyle=”widthOrigin”|||</em>##]</p>
+<h2 id="c-스트림과-컬렉션"><a href="#c-스트림과-컬렉션" class="headerlink" title="c. 스트림과 컬렉션"></a><strong>c. 스트림과 컬렉션</strong></h2><p>자 이제, 스트림과 컬렉션을 비교해보자.</p>
+<p>앞서 살펴본 것처럼 스트림과 컬렉션은 모두 연속된 요소 형식의 값을 저장하는 자료구조의 인터페이스를 제공한다.</p>
+<p>연속된 이란 의미는 아무렇게나 값에 접근할 수 있는 것이 아닌 순차적으로 값에 접근한다는 의미다.</p>
+<p>스트림과 컬렉션을 DVD와 비디오스트리밍의 관계로 이해할 수 있다.</p>
+<table style="border-collapse: collapse; width: 100%;" border="1" data-ke-align="alignLeft" data-ke-style="style4"><tbody><tr><td style="width: 50%;">DVD(컬렉션)</td><td style="width: 50%;">비디오스트리밍(스트림)</td></tr><tr><td style="width: 50%;">전체 자료구조가 저장되어 있음</td><td style="width: 50%;">전체가 저장되어 있지않고 사용할 일부만 받아와 사용</td></tr></tbody></table>
+
+<h3 id="c-1-데이터를-언제-계산하는가"><a href="#c-1-데이터를-언제-계산하는가" class="headerlink" title="c-1. 데이터를 언제 계산하는가"></a>c-1. 데이터를 언제 계산하는가</h3><p>컬렉션과 스트림의 가장 큰 차이를 보이는 게 바로 데이터를 언제 계산하는 지이다.</p>
+<p>컬렉션은 모든 데이터를 메모리에 저장하는 자료구조다.<br>즉 컬렉션에 어떤 값을 추가하거나, 삭제하려 할 때마다 컬렉션의 모든 값이 메모리에 저장되어야하고,</p>
+<p>추가하려는 값은 미리 계산되어야 한다.</p>
+<p>스트림은 이론적으로 요청할 때만 요소를 계산하는 고정된 자료구조다.</p>
+<p>고정됐다는 의미는 요소를 삭제하거나 제거할 수 없다는 의미다.</p>
+<p>사용자가 요청하는 값만 스트림에서 추출하는 것이 핵심이다.</p>
+<p>구글검색을 한다고 가정했을 때</p>
+<p>모든 검색 결과를 가져올 때까지 기다리는 방식이 컬렉션이고,</p>
+<p>가장 연관있는 10개를 먼저 보여주고 그 다음 페이지로 넘어가면 그 때 다음 10개를 가져오는 방식이 스트림이라고 이해하자!</p>
+<h3 id="c-2-딱-한-번만-탐색할-수-있다"><a href="#c-2-딱-한-번만-탐색할-수-있다" class="headerlink" title="c-2. 딱 한 번만 탐색할 수 있다."></a>c-2. 딱 한 번만 탐색할 수 있다.</h3><p>반복자(iterator)와 마찬가지로 스트림도 단 한번만 탐색할 수 있다.</p>
+<p>어떤 요소가 한 스트림에서 이미 탐색됐을 때, 그 요소에 다시 접근하려면 새로운 스트림으로 접근해야 한다는 의미다.</p>
+<p>(물론 데이터 소스도 반복 접근이 가능해야 한다. 입출력 소스 처럼 반복 사용할 수 없는 경우 스트림을 새로 만들어도 접근 불가능이다.)</p>
+<h3 id="c-3-외부-반복-내부-반복"><a href="#c-3-외부-반복-내부-반복" class="headerlink" title="c-3. 외부 반복, 내부 반복"></a>c-3. 외부 반복, 내부 반복</h3><p>컬렉션 인터페이스를 사용하려면 사용자가 직접 요소를 반복해야 한다.(반복문을 써서)</p>
+<p>이를 외부 반복이라고 한다.</p>
+<p>하지만 스트림은 내부 반복을 사용한다.</p>
+<p>내부 반복은 반복을 알아서 처리하고, 결과 스트림 값을 어딘가에 저장하는 방식이다.</p>
+<p>함수에 동작만 결정하면 반복과 저장은 알아서 해준다는 의미다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(Dish dish: menu) &#123;</span><br><span class="line">    names.add(dish.getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;String&gt; names = menu.stream()</span><br><span class="line">                     .map(Dish::getName)</span><br><span class="line">                     .collect(toList());</span><br></pre></td></tr></table></figure>
+
+<h4 id="내부-반복이-외부-반복보다-편리한-이유는-무엇일까"><a href="#내부-반복이-외부-반복보다-편리한-이유는-무엇일까" class="headerlink" title="내부 반복이 외부 반복보다 편리한 이유는 무엇일까?"></a>내부 반복이 외부 반복보다 편리한 이유는 무엇일까?</h4><p>방에 쓰레기를 주우라고 명령할 때 외부 반복은 마치</p>
+<p>쓰레기가 있니? - 왼쪽에 쓰레기가 있네요- 주우렴 - 다시 쓰레기가 아직도 있니 - 오른쪽에도 쓰레기가 있네요 - 주우렴- ….</p>
+<p>이런식인데, 내부 반복은</p>
+<p>방에 있는 쓰레기를 모두 주우렴 - 주웠어요.</p>
+<p>이렇게 실행된다.</p>
+<p>또한 내부 반복은 쓰레기를 두 손으로 동시에 주울 수도 있고(투명한 병렬 처리), 쓰레기통을 가끼이 두고 빨리 처리 할 수 있다.(최적화)</p>
+<p>내부반복과 외부반복은 라이브러리가 반복을 자기 안에서 해결하느냐 마느냐로 구분한다고 이해하자.</p>
+<p>하지만 스트림의 내부 반복은 반복을 숨겨주는 연산 리스트가 미리 정의되어 있어야 한다.(filter, map..)</p>
+<h2 id="d-스트림-연산"><a href="#d-스트림-연산" class="headerlink" title="d. 스트림 연산"></a><strong>d. 스트림 연산</strong></h2><p>스트림 연산은 크게 중간 연산, 최종 연산 두 가지로 나누어진다.</p>
+<h3 id="d-1-중간-연산"><a href="#d-1-중간-연산" class="headerlink" title="d-1. 중간 연산"></a>d-1. 중간 연산</h3><p>중간 연산은 다른 스트림을 반환하는 연산이다. (filter, map…)</p>
+<p>중간 연산의 가장 중요한 특징은 최종 연산을 스트림 파이프라인에 실행하기 전까지는 아무 연산도 수행하지 않는다는 것이다.</p>
+<p>중간 연산이 연결되어 합쳐지고, 이 것을 최종 연상으로 한번에 처리한다.</p>
+<table style="border-collapse: collapse; width: 100%; height: 114px;" border="1" data-ke-align="alignLeft" data-ke-style="style12"><tbody><tr style="height: 20px;"><td style="width: 20%; height: 20px;">연산</td><td style="width: 20%; height: 20px;">형식</td><td style="width: 20%; height: 20px;">반환 형식</td><td style="width: 20%; height: 20px;">연산의 인수</td><td style="width: 20%; height: 20px;">함수 디스크립터</td></tr><tr style="height: 20px;"><td style="width: 20%; height: 20px;">filter</td><td style="width: 20%; height: 20px;">중간</td><td style="width: 20%; height: 20px;">Stream&lt;T&gt;</td><td style="width: 20%; height: 20px;">Predicate&lt;T&gt;</td><td style="width: 20%; height: 20px;">T -&gt; boolean</td></tr><tr style="height: 20px;"><td style="width: 20%; height: 20px;">map</td><td style="width: 20%; height: 20px;">중간</td><td style="width: 20%; height: 20px;">Stream&lt;R&gt;</td><td style="width: 20%; height: 20px;">Function&lt;T, R&gt;</td><td style="width: 20%; height: 20px;">T -&gt; R</td></tr><tr style="height: 18px;"><td style="width: 20%; height: 18px;">limit</td><td style="width: 20%; height: 18px;">중간</td><td style="width: 20%; height: 18px;">Stream&lt;T&gt;</td><td style="width: 20%; height: 18px;">&nbsp;</td><td style="width: 20%; height: 18px;">&nbsp;</td></tr><tr style="height: 18px;"><td style="width: 20%; height: 18px;">sorted</td><td style="width: 20%; height: 18px;">중간</td><td style="width: 20%; height: 18px;">Stream&lt;T&gt;</td><td style="width: 20%; height: 18px;">Comparator&lt;T&gt;</td><td style="width: 20%; height: 18px;">(T, T) -&gt; int</td></tr><tr style="height: 18px;"><td style="width: 20%; height: 18px;">distinct</td><td style="width: 20%; height: 18px;">중간</td><td style="width: 20%; height: 18px;">Stream&lt;T&gt;</td><td style="width: 20%; height: 18px;">&nbsp;</td><td style="width: 20%; height: 18px;">&nbsp;</td></tr></tbody></table>
+
+<h3 id="d-2-최종-연산"><a href="#d-2-최종-연산" class="headerlink" title="d-2. 최종 연산"></a>d-2. 최종 연산</h3><p>최종 연산은 스트림 파이프라인에서 결과를 도출한다. 보통 최종 연산에서는 스트림이 아닌 List, Integer, void 등 도출된다.</p>
+<table style="border-collapse: collapse; width: 100%; height: 98px;" border="1" data-ke-align="alignLeft" data-ke-style="style12"><tbody><tr style="height: 20px;"><td style="width: 20.4651%; height: 20px;">연산</td><td style="width: 12.907%; height: 20px;">형식</td><td style="width: 15.5814%; height: 20px;">반환 형식</td><td style="width: 51.0465%; height: 20px;">목적</td></tr><tr style="height: 40px;"><td style="width: 20.4651%; height: 40px;">forEach</td><td style="width: 12.907%; height: 40px;">최종</td><td style="width: 15.5814%; height: 40px;">void</td><td style="width: 51.0465%; height: 40px;">스트림 각 요소를 람다를 적용하면서 소비</td></tr><tr style="height: 20px;"><td style="width: 20.4651%; height: 20px;">count</td><td style="width: 12.907%; height: 20px;">최종</td><td style="width: 15.5814%; height: 20px;">long</td><td style="width: 51.0465%; height: 20px;">스트림 요소 갯수 반환</td></tr><tr style="height: 18px;"><td style="width: 20.4651%; height: 18px;">collect</td><td style="width: 12.907%; height: 18px;">최종</td><td style="width: 15.5814%; height: 18px;">collection</td><td style="width: 51.0465%; height: 18px;">스트림을 리스트, 맵, 정수 형식 컬렉션으로 만든다</td></tr></tbody></table>
+
+<h4 id="스트림-이용-과정은-다음-세가지로-요약-가능하다"><a href="#스트림-이용-과정은-다음-세가지로-요약-가능하다" class="headerlink" title="스트림 이용 과정은 다음 세가지로 요약 가능하다."></a>스트림 이용 과정은 다음 세가지로 요약 가능하다.</h4><ul>
+<li>  질의를 수행할 데이터 소스(컬렉션, 배열, 입출력 소스)</li>
+<li>  스트림 파이프라인을 구성할 중간 연산 연결</li>
+<li>  스트림 파이프라인을 실행하고 결과를 만들 최종 연산</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern3/" data-id="ckyq1mih4008i6wa01nz9hb14" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "스트림에 대해 간략하게 알아보자",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "Modern Java in Action",
+        "genre": "Java",
+        "datePublished": "2021-07-30",
+        "dateCreated": "2021-07-30",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern3/",
+        "description": "a. 스트림이 뭘까?스트림은 자바 8 API에 새로 추가된 기능이다.
+스트림을 이용하면 선언형(데이터를 처리하는 임시 구현 코드 대신 질의로 표현이 가능)으로 컬렉션 데이터를 처리할 수 있다.
+쉽게 말하면, 스트림은 데이터 컬렉션 반복을 멋지게 처리하는 기능이라고 생각하자.
+또한 스트림을 사용하면 멀티스레드 코드를 쓰지 않고도 투명하게 데이터를 병럴로 처리",
+        "wordCount": 1590
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/07/30/java/modern-java-in-action/modern4/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            스트림 더 알아보기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/07/30/java/modern-java-in-action/modern2/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">람다표현식</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern3/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>5. 스택과큐 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="a. 스택 Stack차례대로 삽입하고 최근에 저장된 값을 삭제(FILO) push스택에 값 추가pop가장 나중에 push된 값을 스택에서 제거하고 반환top가장 나중에 push된 값을 제거하지 않고 반환__len__스택의 저장된 요소 갯수를 반환isEmpty스택에 요소가 존재하는지 참거짓  1234567891011121314151617181920212223">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. 스택과큐">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds5/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. 스택 Stack차례대로 삽입하고 최근에 저장된 값을 삭제(FILO) push스택에 값 추가pop가장 나중에 push된 값을 스택에서 제거하고 반환top가장 나중에 push된 값을 제거하지 않고 반환__len__스택의 저장된 요소 갯수를 반환isEmpty스택에 요소가 존재하는지 참거짓  1234567891011121314151617181920212223">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-28T11:00:30.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.028Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png#%20path%20to%20favicon">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/data-structure/">Data Structure</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/datastructure/ds5" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        5. 스택과큐
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/07/28/cs/datastructure/ds5/" class="article-date">
+       <time datetime="2021-07-28T11:00:30.000Z" itemprop="datePublished">2021-07-28</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/07/28/cs/datastructure/ds5/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.028Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h3 id="a-스택-Stack"><a href="#a-스택-Stack" class="headerlink" title="a. 스택 Stack"></a><strong>a. 스택 Stack</strong></h3><p>차례대로 삽입하고 최근에 저장된 값을 삭제(FILO)</p>
+<table style="border-collapse: collapse; width: 100%; height: 100px;" border="1" data-ke-align="alignLeft" data-ke-style="style4"><tbody><tr style="height: 20px;"><td style="width: 50%; height: 20px;">push</td><td style="width: 50%; height: 20px;">스택에 값 추가</td></tr><tr style="height: 20px;"><td style="width: 50%; height: 20px;">pop</td><td style="width: 50%; height: 20px;">가장 나중에 push된 값을 스택에서 제거하고 반환</td></tr><tr style="height: 20px;"><td style="width: 50%; height: 20px;">top</td><td style="width: 50%; height: 20px;">가장 나중에 push된 값을 제거하지 않고 반환</td></tr><tr style="height: 20px;"><td style="width: 50%; height: 20px;">__len__</td><td style="width: 50%; height: 20px;">스택의 저장된 요소 갯수를 반환</td></tr><tr style="height: 20px;"><td style="width: 50%; height: 20px;">isEmpty</td><td style="width: 50%; height: 20px;">스택에 요소가 존재하는지 참거짓</td></tr></tbody></table>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># stack_queue.py 에 저장</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">		self.items = []	<span class="comment"># 데이터 저장을 위한 리스트 준비</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, val</span>):</span></span><br><span class="line">		self.items.append(val)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">try</span>:	<span class="comment"># pop할 아이템이 없으면</span></span><br><span class="line">			<span class="keyword">return</span> self.items.pop()</span><br><span class="line">		<span class="keyword">except</span> IndexError:	<span class="comment"># indexError 발생</span></span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;Stack is empty&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">top</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			<span class="keyword">return</span> self.items[-<span class="number">1</span>]</span><br><span class="line">		<span class="keyword">except</span> IndexError:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;Stack is empty&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span>	<span class="comment"># len()로 호출하면 stack의 item 수 반환</span></span><br><span class="line"> 		<span class="keyword">return</span> <span class="built_in">len</span>(self.items)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">return</span> self.__len__() == <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># for test</span></span><br><span class="line">S = Stack()</span><br><span class="line">S.push(<span class="number">10</span>)</span><br><span class="line">S.push(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(S.top())</span><br><span class="line"><span class="built_in">print</span>(S.pop())</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(S))</span><br><span class="line"><span class="built_in">print</span>(S.isEmpty())</span><br></pre></td></tr></table></figure>
+
+<h3 id="b-스택-활용"><a href="#b-스택-활용" class="headerlink" title="b. 스택 활용"></a><strong>b. 스택 활용</strong></h3><h4 id="b-1-괄호짝-맞추기"><a href="#b-1-괄호짝-맞추기" class="headerlink" title="b-1. 괄호짝 맞추기"></a>b-1. 괄호짝 맞추기</h4><p>입력 값 : 괄호로 이뤄져 있는 문자열 ex. ()()()</p>
+<p>반환 값 : 괄호 짝이 맞는지 참 거짓 ex. True</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">		self.item=[]</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, a</span>):</span></span><br><span class="line">		self.item.append(a)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			<span class="keyword">return</span> self.item.pop()</span><br><span class="line">		<span class="keyword">except</span> IndexError:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;Stack is empty.&#x27;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">top</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			<span class="keyword">return</span> self.item[-<span class="number">1</span>]</span><br><span class="line">		<span class="keyword">except</span> IndexError:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;Stack is empty.&#x27;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">len</span>(self.item)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">len</span>(self.item)==<span class="number">0</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># pseudo code</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parChecker</span>(<span class="params">parSeq</span>):</span></span><br><span class="line">	S=Stack()</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> parSeq:</span><br><span class="line">		<span class="keyword">if</span> i ==<span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">			S.push(<span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">		<span class="keyword">elif</span> i ==<span class="string">&#x27;)&#x27;</span>:</span><br><span class="line">			<span class="keyword">if</span> S.isEmpty():</span><br><span class="line">				<span class="built_in">print</span>(<span class="literal">False</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">			<span class="keyword">else</span> : </span><br><span class="line">				S.pop()</span><br><span class="line">	<span class="keyword">if</span> S.isEmpty():</span><br><span class="line">		<span class="built_in">print</span>(<span class="literal">True</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">	<span class="keyword">else</span> : </span><br><span class="line">		<span class="built_in">print</span>(<span class="literal">False</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">parSeq=<span class="built_in">list</span>(<span class="built_in">input</span>())</span><br><span class="line">parChecker(parSeq)</span><br></pre></td></tr></table></figure>
+
+<h4 id="b-2-infix-수식을-postfix로-바꾸기"><a href="#b-2-infix-수식을-postfix로-바꾸기" class="headerlink" title="b-2. infix 수식을 postfix로 바꾸기"></a>b-2. infix 수식을 postfix로 바꾸기</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">				self.items = []</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, val</span>):</span></span><br><span class="line">				self.items.append(val)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			<span class="keyword">return</span> self.items.pop()</span><br><span class="line">		<span class="keyword">except</span> IndexError:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;Stack is empty&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">top</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			<span class="keyword">return</span> self.items[-<span class="number">1</span>]</span><br><span class="line">		<span class="keyword">except</span> IndexError:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;Stack is empty&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">len</span>(self.items)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">return</span> self.__len__() == <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">infix_to_postfix</span>(<span class="params">infix</span>):</span></span><br><span class="line">	opstack = Stack()</span><br><span class="line">	outstack = []</span><br><span class="line">	token_list = infix.split()</span><br><span class="line">			<span class="comment"># 연산자의 우선순위 설정</span></span><br><span class="line">	prec = &#123;&#125;</span><br><span class="line">	prec[<span class="string">&#x27;(&#x27;</span>] = <span class="number">0</span></span><br><span class="line">	prec[<span class="string">&#x27;+&#x27;</span>] = <span class="number">1</span></span><br><span class="line">	prec[<span class="string">&#x27;-&#x27;</span>] = <span class="number">1</span></span><br><span class="line">	prec[<span class="string">&#x27;*&#x27;</span>] = <span class="number">2</span></span><br><span class="line">	prec[<span class="string">&#x27;/&#x27;</span>] = <span class="number">2</span></span><br><span class="line">	prec[<span class="string">&#x27;^&#x27;</span>] = <span class="number">3</span></span><br><span class="line">	<span class="keyword">for</span> token <span class="keyword">in</span> token_list:</span><br><span class="line">		<span class="keyword">if</span> token == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">			opstack.push(token)</span><br><span class="line">		<span class="keyword">elif</span> token == <span class="string">&#x27;)&#x27;</span>:</span><br><span class="line">			<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">				<span class="keyword">if</span> opstack.top()==<span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">				    opstack.pop()</span><br><span class="line">				    <span class="keyword">break</span></span><br><span class="line">				<span class="keyword">else</span> :</span><br><span class="line">					outstack.append(opstack.pop())</span><br><span class="line">		<span class="keyword">elif</span> token <span class="keyword">in</span> <span class="string">&#x27;+-/*^&#x27;</span>:</span><br><span class="line">			<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">				<span class="keyword">if</span> opstack.isEmpty():</span><br><span class="line">					opstack.push(token)</span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">				<span class="keyword">elif</span> prec[opstack.top()]&gt;=prec[token]:</span><br><span class="line">					    outstack.append(opstack.pop())</span><br><span class="line">				<span class="keyword">else</span>:</span><br><span class="line">					opstack.push(token)</span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">		<span class="keyword">else</span>: <span class="comment"># operand일 때</span></span><br><span class="line">			outstack.append(token)</span><br><span class="line">			<span class="comment"># opstack 에 남은 모든 연산자를 pop 후 outstack에 append</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(opstack.__len__()):</span><br><span class="line">		outstack.append(opstack.pop())</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot; &quot;</span>.join(outstack)</span><br><span class="line"></span><br><span class="line">infix_expr = <span class="built_in">input</span>()</span><br><span class="line">postfix_expr = infix_to_postfix(infix_expr)</span><br><span class="line"><span class="built_in">print</span>(postfix_expr)</span><br></pre></td></tr></table></figure>
+
+<h4 id="b-3-Postfix-계산"><a href="#b-3-Postfix-계산" class="headerlink" title="b-3. Postfix 계산"></a>b-3. Postfix 계산</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">		self.items=[]</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, val</span>):</span></span><br><span class="line">		<span class="keyword">return</span> self.items.append(val)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			<span class="keyword">return</span> self.items.pop()</span><br><span class="line">		<span class="keyword">except</span> IndexError:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;stack is empty&#x27;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">top</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			<span class="keyword">return</span> self.items[self.items.<span class="built_in">len</span>()-<span class="number">1</span>]</span><br><span class="line">		<span class="keyword">except</span> IndexError:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;stack is empty&#x27;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">return</span> self.items.<span class="built_in">len</span>()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_postfix</span>(<span class="params">postfix</span>):</span></span><br><span class="line">	opstack = Stack()</span><br><span class="line">	token_list = postfix.split()</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> token_list:</span><br><span class="line">		<span class="keyword">if</span> i <span class="keyword">in</span> <span class="string">&#x27;+-*/^&#x27;</span>:</span><br><span class="line">			a=opstack.pop()</span><br><span class="line">			b=opstack.pop()</span><br><span class="line">			<span class="keyword">if</span> i ==<span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">				opstack.push(a+b)</span><br><span class="line">			<span class="keyword">elif</span> i ==<span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">				opstack.push(b-a)</span><br><span class="line">			<span class="keyword">elif</span> i ==<span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">				opstack.push(a*b)</span><br><span class="line">			<span class="keyword">elif</span> i ==<span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">				opstack.push(b/a)</span><br><span class="line">			<span class="keyword">elif</span> i ==<span class="string">&#x27;^&#x27;</span>:</span><br><span class="line">				opstack.push(b**a)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			opstack.push(<span class="built_in">int</span>(i))</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&#x27;%.4f&#x27;</span>%opstack.pop())</span><br><span class="line"></span><br><span class="line">postfix=<span class="built_in">input</span>()</span><br><span class="line">compute_postfix(postfix)</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-인터뷰-문제"><a href="#c-인터뷰-문제" class="headerlink" title="c. 인터뷰 문제"></a><strong>c. 인터뷰 문제</strong></h3><p>1. 스택을 하나 혹은 두개 사용해 push, pop, min 세 연산 모두 O(1) 시간에 수행되도록 하려면?</p>
+<p>2. 스택 두 개를 써서 큐를 구현해라.(enqueue, dequeue를 구현하라)</p>
+<h3 id="a-큐-Queue"><a href="#a-큐-Queue" class="headerlink" title="a. 큐 Queue"></a><strong>a. 큐 Queue</strong></h3><p>가장 최근에 저장된 값 다음에 저장.</p>
+<p>반환은 가장 먼저 저장된 값부터. FIFO(First in First out)원칙.</p>
+<table style="border-collapse: collapse; width: 100%;" border="1" data-ke-align="alignLeft"><tbody><tr><td style="width: 50%;">enqueue</td><td style="width: 50%;">큐의 오른쪽에 삽입(push와 같음)</td></tr><tr><td style="width: 50%;">dequeue</td><td style="width: 50%;">가장 왼쪽에 저장된 값을 삭제 후 리턴</td></tr><tr><td style="width: 50%;">front</td><td style="width: 50%;">가장 왼쪽에 저장된 값을 삭제하지 않고 리턴</td></tr><tr><td style="width: 50%;">isEmpty</td><td style="width: 50%;">큐가 비어져있는지 참거짓</td></tr><tr><td style="width: 50%;">len</td><td style="width: 50%;">큐의 요소 갯수 반환</td></tr></tbody></table>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span>:</span></span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">         self.items=[]</span><br><span class="line">         self.front_index=<span class="number">0</span> <span class="comment">#다음 dequeue될 값의 인덱스</span></span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">enqueue</span>(<span class="params">self, val</span>):</span></span><br><span class="line">         self.items.append(val)</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">dequeue</span>(<span class="params">self</span>):</span></span><br><span class="line">         <span class="keyword">if</span> <span class="built_in">len</span>(self.items)==<span class="number">0</span> <span class="keyword">or</span> self.front_index==<span class="built_in">len</span>(self.items):</span><br><span class="line">             <span class="built_in">print</span>(<span class="string">&quot;Queue is empty&quot;</span>)</span><br><span class="line">         <span class="keyword">else</span> : </span><br><span class="line">             x = self.items[self.front_index]</span><br><span class="line">             self.front_index +=<span class="number">1</span></span><br><span class="line">             <span class="keyword">return</span> x</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">front</span>(<span class="params">self</span>):</span></span><br><span class="line">         <span class="keyword">if</span> <span class="built_in">len</span>(self.items) ==<span class="number">0</span> <span class="keyword">or</span> self.front_index == <span class="built_in">len</span>(self.items):</span><br><span class="line">             <span class="built_in">print</span>(<span class="string">&quot;queue is empty&quot;</span>)</span><br><span class="line">         <span class="keyword">else</span>:</span><br><span class="line">             <span class="keyword">return</span> self.items[self.front_index]</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">len</span>(self.items)-self.front_index</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">len</span>(self)</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>dequeue를 상수시간에 실행하기 위해선 dequeue가 될 값의 인덱스를 저장하고 관리해야 한다.</em></strong></p>
+<p>-&gt; dequeue가 되면, 그 값을 실제로 지우는 것이 아닌 front_index값을 하나 늘려가며 다음 dequeue 될 예정 값의 인덱스를 가르키도록 관리한다.</p>
+<p>실제로 dequeue될 때마다 값을 삭제시키면, 모든 값들을 한 칸씩 왼쪽으로 이동하는 시간이 소요되게 된다.O(n)</p>
+<h3 id="a-1-큐-활용-Josephus-game"><a href="#a-1-큐-활용-Josephus-game" class="headerlink" title="a-1. 큐 활용 : Josephus game"></a><strong>a-1. 큐 활용 : Josephus game</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Queue <span class="comment">#큐 클래스 import. 이 부분은 달라질 수 있음</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Josephus</span>(<span class="params">n, k</span>):</span></span><br><span class="line">    Q=Queue()</span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n+<span class="number">1</span>):</span><br><span class="line">        Q.enqueue(v)</span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(Q)&gt;<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, k):</span><br><span class="line">            Q.enqueue(Q.dequeue())</span><br><span class="line">        Q.dequeue() <span class="comment">#k번째 수 제거</span></span><br><span class="line">    <span class="keyword">return</span> Q.dequeue()</span><br></pre></td></tr></table></figure>
+
+<h3 id="b-Dequeue"><a href="#b-Dequeue" class="headerlink" title="b. Dequeue"></a><strong>b. Dequeue</strong></h3><p>왼쪽과 오른쪽에서 모두 삽입과 삭제가 가능한 큐</p>
+<p>두 가지 버전의 pop과 push 연산을 구현</p>
+<p>python collections 모듈에 deque 클래스로 구현되어 있음(덱으로 발음)</p>
+<p>오른쪽 push : append / 왼쪽 push : appendleft</p>
+<p>오른쪽 pop : pop / 왼쪽 pop : popleft</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds5/" data-id="ckyq1mig9001d6wa05woggpzw" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "5. 스택과큐",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "",
+        "genre": "Computer Science Data Structure",
+        "datePublished": "2021-07-28",
+        "dateCreated": "2021-07-28",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds5/",
+        "description": "a. 스택 Stack차례대로 삽입하고 최근에 저장된 값을 삭제(FILO)
+push스택에 값 추가pop가장 나중에 push된 값을 스택에서 제거하고 반환top가장 나중에 push된 값을 제거하지 않고 반환__len__스택의 저장된 요소 갯수를 반환isEmpty스택에 요소가 존재하는지 참거짓
+
+1234567891011121314151617181920212223",
+        "wordCount": 1640
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/07/28/cs/datastructure/ds6/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            6. 이진트리
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/07/28/cs/datastructure/ds4/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">4. 해쉬테이블</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds5/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

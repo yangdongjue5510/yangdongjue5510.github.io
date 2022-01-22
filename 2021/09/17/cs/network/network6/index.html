@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>6. 네트워크 계층(라우터) | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="a. 네트워크 계층의 목적.세그먼트를 받아서 데이터그램으로 만들고, 각 라우터들이 헤더필드를 검사하여 알맞은 곳으로 데이터를 전달.forwarding : 라우터의 입력부터 출력까지 필요한 기능들routing: 소스로부터 목적지까지의 경로를 결정(routing algorithms) b. Data Plane과 control planedata plane : 라우">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6. 네트워크 계층(라우터)">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/09/17/cs/network/network6/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. 네트워크 계층의 목적.세그먼트를 받아서 데이터그램으로 만들고, 각 라우터들이 헤더필드를 검사하여 알맞은 곳으로 데이터를 전달.forwarding : 라우터의 입력부터 출력까지 필요한 기능들routing: 소스로부터 목적지까지의 경로를 결정(routing algorithms) b. Data Plane과 control planedata plane : 라우">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/network/network6-1.png">
+<meta property="article:published_time" content="2021-09-17T04:06:01.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.030Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/network/network6-1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png#%20path%20to%20favicon">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/network/">Network</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/network/network6" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        6. 네트워크 계층(라우터)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/09/17/cs/network/network6/" class="article-date">
+       <time datetime="2021-09-17T04:06:01.000Z" itemprop="datePublished">2021-09-17</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/09/17/cs/network/network6/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.030Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h3 id="a-네트워크-계층의-목적"><a href="#a-네트워크-계층의-목적" class="headerlink" title="a. 네트워크 계층의 목적."></a><strong>a. 네트워크 계층의 목적.</strong></h3><p>세그먼트를 받아서 데이터그램으로 만들고, 각 라우터들이 헤더필드를 검사하여 알맞은 곳으로 데이터를 전달.<br>forwarding : 라우터의 입력부터 출력까지 필요한 기능들<br>routing: 소스로부터 목적지까지의 경로를 결정(routing algorithms)</p>
+<h3 id="b-Data-Plane과-control-plane"><a href="#b-Data-Plane과-control-plane" class="headerlink" title="b. Data Plane과 control plane"></a><strong>b. Data Plane과 control plane</strong></h3><p>data plane : 라우터가 자신이 가진 정보(routing table, forwarding table)를 활용해 경로 결정하는 기능(routing, forwarding)<br>control plane : 소스-목적지에서 어떤 라우터를 만나게 할 것인가를 결정.(traditional routing algorithms과 software defined networking(sdn)방식 존재)</p>
+<p>b-1. traditional routing algorithms방식<br>각 라우터마다 가지고 잇는 라우팅 알고리즘이 control plane에서 상호작용하여<br>routing table을 각 라우터마다 만들어낸다.<br>데이터가 각 라우터에 올 때마다,  라우터는 라우팅테이블을 활용해 경로를 결정한다.(data plane)</p>
+<p>b-2. SDN 방식<br>따로 만들어진 remote controller(control plane에 속함)가 각 라우터(data plane)에 있는 control agents(ca)를 제어. 각 라우터들은 서로 상호작용하지 않음.(중앙집중 방식)<br>flow of datagram : datagram의 집합.</p>
+<h2 id="라우터"><a href="#라우터" class="headerlink" title="라우터"></a>라우터</h2><h3 id="a-라우터"><a href="#a-라우터" class="headerlink" title="a. 라우터"></a><strong>a. 라우터</strong></h3><p><img src="/img/network/network6-1.png"></p>
+<p>라우터를 간단하게 도식화한 그림이다.<br>녹색, 청색, 적색 네모가 묶인 것을 네트워크 인터페이스라고 부른다.<br>들어오는 통로를 input ports, 나가는 통로를 output ports라고 부른다.<br>라우팅 프로세서에 의해 스위칭패브릭이 아웃풋 포트를 지정해 보낸다.(포워딩)</p>
+<h3 id="b-input-port-fucntions"><a href="#b-input-port-fucntions" class="headerlink" title="b. input port fucntions"></a><strong>b. input port fucntions</strong></h3><p><img src="/img/network/network6-2.png"></p>
+<p>line termination : 라우터의 물리 계층. 전자기 신호를 비트로 바꿔주는 역할<br>data link layer : 데이터들을 모아 한 프레임으로 만듬(프레이밍), 그 외에도 많은 역할.(이더넷도 여기에 포함)<br>ip (빨간색 박스) : lookup, (포워딩 테이블을 보고 포워딩 해야할 곳을 찾는 행위), forwarding, queueing(보낼 정보들을 저장.) *이때 lookup&amp;forwarding은 목적지만 활용하는 경우(destination-based), 헤더의 다른 필드를 활용하는 경우(generalized. sdn)</p>
+<p>b-1 matching : 현재 내가 전달해야되는 패캣의 헤더에 있는 목적지 주소와 포워딩 테이블을 매칭<br>Longest prefix matching : ip주소를 2진수로 표현하여, 앞부터 하나씩 비교하여, 더 길게 일치하는 것을 선정.</p>
+<p><img src="/img/network/network6-3.png"></p>
+<p>b-2. Switching fabric<br>메모리 방식 : 입력값을 메모리에 저장하여 출력 하는 곳에서 읽어들임.<br>버스 방식 : 복도처럼 길을 뚫어놓은 상황. 동시에 여러 곳에서 전송할 수 없음. 대기시간이 길어짐.<br>크로스바 방식 : 스위치를 사용하여 사용할 경우에만 해당 경로에 스위치를 켜서 작동시킴.</p>
+<p><img src="/img/network/network6-4.png"></p>
+<p>b-3. input port queuing<br>입력 쪽에서 큐잉을 사용하면 효과적이긴 하지만..<br>Head of the Line(HOL) 블로킹 문제가 생김.</p>
+<p><img src="/img/network/network6-5.png"></p>
+<p>세번째 입력포트에서 초록색 데이터는 자기 앞의 빨간색 때문에 쓸데없이 기다리고 있다.<br>만약 세번째 입력포트에서 초록색과 빨간색을 서로 바꾸면 그런 딜레이는 사라질 것.</p>
+<h3 id="c-output-ports"><a href="#c-output-ports" class="headerlink" title="c. output ports"></a><strong>c. output ports</strong></h3><p><img src="/img/network/network6-6.png"></p>
+<p>input port랑 거꾸로 작동한다고 생각하자.<br>output queuing은 congestion을 일으킬 수 있고 delay나 lost가 생길 수 있다.<br>queuing은 저장한 데이터를 순서를 정해 내보낼 수 있다.(스케줄링)</p>
+<p>c-1 Scheduling mechanisms, priority<br>버퍼가 얼마나 찼을때 어떤 걸 버릴 것인가, 어떤걸 언제 보낼 것인가를 정함<br>priority scheduling :우선순위에 따라 버퍼를 여러개 운영하여 우선순위를 먼저 보냄.<br><img src="/img/network/network6-7.png"></p>
+<p>Round Robin scheduling : 온 순서대로 하되, 한쪽 데이터만 보내지 않고 골고루 보내는 방식<br><img src="/img/network/network6-8.png"></p>
+<p>Weighted Fair Queuing : Round Robin을 기반으로 하되, 데이터들을 가중치를 부여하여 차이를 두는 방식<br><img src="/img/network/network6-9.png"></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/09/17/cs/network/network6/" data-id="ckyq1migf002d6wa07c1cenua" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "6. 네트워크 계층(라우터)",
+        "image": "https://yangdongjue5510.github.io/img/network/network6-1.png",
+        "keywords": "",
+        "genre": "Computer Science Network",
+        "datePublished": "2021-09-17",
+        "dateCreated": "2021-09-17",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/09/17/cs/network/network6/",
+        "description": "a. 네트워크 계층의 목적.세그먼트를 받아서 데이터그램으로 만들고, 각 라우터들이 헤더필드를 검사하여 알맞은 곳으로 데이터를 전달.forwarding : 라우터의 입력부터 출력까지 필요한 기능들routing: 소스로부터 목적지까지의 경로를 결정(routing algorithms)
+b. Data Plane과 control planedata plane : 라우",
+        "wordCount": 405
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/09/17/spring/blog/blog19/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            19.[블로그 프로젝트] 인덱스 글목록 페이징
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/09/16/cs/network/network5/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">5. 수송계층</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/09/17/cs/network/network6/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

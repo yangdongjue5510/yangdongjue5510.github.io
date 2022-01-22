@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>10. 최단경로 알고리즘(벨만포트, 다익스트라) | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="최단 경로 알고리즘아주 중요한 그래프 문제.엣지에 가중치가 부여된 상황에서 특정 노드에서 다른 노드로 가는 최적의 경로를 찾는 문제.  특징  노드 s에서 v까지 최단 경로 중 엣지(u, v)가 포함되면, 이 경로에서 s부터 u까지 부분도 역시 최단 경로다.M(v)를 s에서 v까지 최단 경로라고 길이라고 하면,M(V) &#x3D; M(u)+min(u,v) 인 셈이다">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10. 최단경로 알고리즘(벨만포트, 다익스트라)">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/08/03/cs/datastructure/ds10/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="최단 경로 알고리즘아주 중요한 그래프 문제.엣지에 가중치가 부여된 상황에서 특정 노드에서 다른 노드로 가는 최적의 경로를 찾는 문제.  특징  노드 s에서 v까지 최단 경로 중 엣지(u, v)가 포함되면, 이 경로에서 s부터 u까지 부분도 역시 최단 경로다.M(v)를 s에서 v까지 최단 경로라고 길이라고 하면,M(V) &#x3D; M(u)+min(u,v) 인 셈이다">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-03T10:52:04.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.028Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png#%20path%20to%20favicon">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/data-structure/">Data Structure</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/datastructure/ds10" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        10. 최단경로 알고리즘(벨만포트, 다익스트라)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/08/03/cs/datastructure/ds10/" class="article-date">
+       <time datetime="2021-08-03T10:52:04.000Z" itemprop="datePublished">2021-08-03</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/08/03/cs/datastructure/ds10/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.028Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="최단-경로-알고리즘"><a href="#최단-경로-알고리즘" class="headerlink" title="최단 경로 알고리즘"></a>최단 경로 알고리즘</h2><p>아주 중요한 그래프 문제.<br>엣지에 가중치가 부여된 상황에서 특정 노드에서 다른 노드로 가는 최적의 경로를 찾는 문제.</p>
+<blockquote>
+<p>특징</p>
+</blockquote>
+<p>노드 s에서 v까지 최단 경로 중 엣지(u, v)가 포함되면, 이 경로에서 s부터 u까지 부분도 역시 최단 경로다.<br>M(v)를 s에서 v까지 최단 경로라고 길이라고 하면,<br><strong>M(V) = M(u)+min(u,v)</strong> 인 셈이다! (DP식과 비슷하다?)</p>
+<h3 id="벨만포드-알고리듬"><a href="#벨만포드-알고리듬" class="headerlink" title="벨만포드 알고리듬"></a>벨만포드 알고리듬</h3><p><strong>relax라는 연산을 배워보자. 아주 중요하다!</strong></p>
+<p>d[v] : M[v]를 저장하기 위한 배열 (무한대로 초기화)<br>p[v] : s-v최단 경로에서 v직전에 오는 노드를 저장하기 위한 배열</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">relax</span>(<span class="params">u,v</span>):</span></span><br><span class="line">    <span class="keyword">if</span> d[v] &gt; d[u] + cost(u,v):</span><br><span class="line">        d[v] = d[u] + cost(u,v)</span><br><span class="line">        p[v] = u</span><br></pre></td></tr></table></figure>
+<ul>
+<li>모든 노드 v에 대해 d[v]가 최단경로(M[v])를 저장할 때까지 relax를 반복!</li>
+<li>만약 d[u] = M[u]일때, 엣지 (u, v)에 대해 relax 함수를 호출하면, d[v] = M[v]가 된다!</li>
+</ul>
+<p>이런 식으로 하나하나 relax 해가면 어떤 특정 노드까지 최단 경로를 찾을 수 있다!</p>
+<p><strong>벨만 포드 알고리즘 psuedo code</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Bellamn</span>-<span class="title">Ford</span>(<span class="params">G = (<span class="params">V, E</span>)</span>):</span></span><br><span class="line">    d = [inf]*n, d[s]=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n):</span><br><span class="line">        <span class="keyword">for</span> each edge e = (u, v): <span class="comment">#매번 엣지마다</span></span><br><span class="line">            relax(u,v)</span><br><span class="line">    <span class="keyword">return</span> d</span><br></pre></td></tr></table></figure>
+<p>(n-1) * all edges…<br>벨만포드는 O(nm)=O(n^3)의 복잡도를 가진다.</p>
+<h2 id="다익스트라-알고리듬"><a href="#다익스트라-알고리듬" class="headerlink" title="다익스트라 알고리듬"></a>다익스트라 알고리듬</h2><p>다익스트라 알고리즘에서는 현재까지 d[v]값 중 최소 값을 고르면 d[v] = M(v)이다.(greedy)<br>d[v]가 결정되고 나서 인접한 이웃노드들에게 relax하면 그들의 d값도 다 갱신될 수 있다!</p>
+<p>모든 d[v] 중 최소 값이 매번 필요하므로, minHeap, 즉 최소값이 최상단노드가 되는 힙이 필요하다!<br>minHeap에는 deleteMin과 decreaseKey 연산이 필요하다.</p>
+<ul>
+<li>deleteMin: 말 그대로 힙의 최상단 노드를 제거하고 다시 힙정렬하는 연산</li>
+<li>decreaseKey : 힙의 어떤 노드의 키값을 변경(인하)하고 힙정렬하는 연산</li>
+</ul>
+<p>다익스트라 알고리즘은</p>
+<ol>
+<li>각 노드까지 최단 경로 중 가장 작은 값을 제거</li>
+<li>가장 작은 값의 노드 이웃노드를 상대로 벨만 포트 식 진행</li>
+<li>이웃 노드들의 값이 달라지면 반영.(물론 더 작아진 경우만 반영)</li>
+<li>모든 노드가 힙에서 사라질 때까지 다시 1번부터 반복</li>
+</ol>
+<p>psuedo code로 구현해보자.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Dijkstra</span>(<span class="params">G</span>):</span></span><br><span class="line">    n, m = numbers of nodes <span class="keyword">and</span> edges of G</span><br><span class="line">    s = source node, simply <span class="number">0</span></span><br><span class="line">    d = [<span class="number">0</span>, inf, inf, ... inf]</span><br><span class="line">    parent = [<span class="number">0</span>, <span class="literal">None</span>, <span class="literal">None</span>, ... , <span class="literal">None</span>]</span><br><span class="line">    H = make_heap(nodes v of G <span class="keyword">with</span> key d[v])</span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(H): <span class="comment">#heap에 아무것도 없을때까지.</span></span><br><span class="line">        u = H.deleteMin() <span class="comment">#heap의 최상위 노드, 즉 최소값 제거</span></span><br><span class="line">        <span class="keyword">for</span> each v adjacent to u : <span class="comment">#최소값 갖는 노드와 인접한 노드 v</span></span><br><span class="line">            <span class="keyword">if</span>(u, v) <span class="keyword">is</span> an edge of G:</span><br><span class="line">                <span class="keyword">if</span> d[u]+cost(u,v)&lt; d[v] : <span class="comment">#벨만포트 식!</span></span><br><span class="line">                    d[v] = d[u] + cost(u, v)</span><br><span class="line">                    parent[v] = u</span><br><span class="line">                    H.decreaseKey(v, d[v]) <span class="comment"># 값을 수정시키고 힙의 위치 알맞게 조절</span></span><br><span class="line">    <span class="keyword">return</span> dist, parent</span><br></pre></td></tr></table></figure>
+<p>다익스트라 알고리즘의 수행시간?<br>make_heap : n* insert<br>while loop : n * deleteMin<br>for loop : m * decreaseKey<br>=&gt; 어떤 힙을 쓰느냐에 따라 다르다!</p>
+<p>minHeap = O((n+m)log n)!<br>FibonacciHeap = O(n log n + m)</p>
+<h2 id="All-to-All-shortest-Path-problem"><a href="#All-to-All-shortest-Path-problem" class="headerlink" title="All to All shortest Path problem"></a>All to All shortest Path problem</h2><p>지금까지는 source to All 최단 경로를 구하는 알고리즘이었다.</p>
+<p>이젠 모든 노드쌍에 대해 최단 노드를 구해보자.</p>
+<ol>
+<li>for each node s in V: Dijkstra(s) = O(다익스트라 연산 * n)= O(n * m * log n) =O(n^3)</li>
+<li>DP 방법. Floyd-Warshell 알고리즘</li>
+</ol>
+<h3 id="Floyd-Warshell-알고리즘"><a href="#Floyd-Warshell-알고리즘" class="headerlink" title="Floyd Warshell 알고리즘"></a>Floyd Warshell 알고리즘</h3><p>sp(a, b) = 노드 a, b의 최단 경로이고, d(a,b)는 해당 경로의 최단 경로 비용이라고 할 때,</p>
+<p>sp(i,j) = sp(i,k) + sp(k,j) 이므로,<br>d(i,j) = d(i,k) + d(k,j)가 성립한다! =&gt;DP식!</p>
+<p>px(a, b)를 px(a, b) = p(x-1)(a, x)+p(x-1)(x, b)를 만족하는 중간 노드 값 x에 대한 식이라고 하면,<br>pn(a, b) = p(n-1)(a, n) + p(n-1)(n, b)<br>즉 dn(a, b) = <em>d(n-1)(a, n) + d(n-1)(n, b) 혹은 d(n-1)(a,b). 이 두 값 중 최솟값</em>이 되겟다.</p>
+<p>이 식을 기반으로 n이 0일때, 1일때 dp테이블을 작성해 나아간다.</p>
+<p>이를 간단하게 구현하는 과정을 설명하자면</p>
+<ol>
+<li>d를 표현하기 위한 2차원 리스트(n*n)를 무한대로 초기화해서 선언</li>
+<li>d 초기에는 만약 (i,j)가 엣지가 존재하면 d[i,j]를 해당 엣지 가중치로 할당</li>
+<li>for k in range(1,n+1)로 4번을 루프 돌린다.</li>
+<li>모든 (i,j)에 대해 d[i][j] = min(d[i][j], d[i][k]+d[k][j])</li>
+</ol>
+<p>이 과정을 마치고 나면 (i,j)에 대해 최소 경로를 얻을 수 있다!</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/08/03/cs/datastructure/ds10/" data-id="ckyq1mig800166wa0fvv36uf7" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "10. 최단경로 알고리즘(벨만포트, 다익스트라)",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "",
+        "genre": "Computer Science Data Structure",
+        "datePublished": "2021-08-03",
+        "dateCreated": "2021-08-03",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/08/03/cs/datastructure/ds10/",
+        "description": "최단 경로 알고리즘아주 중요한 그래프 문제.엣지에 가중치가 부여된 상황에서 특정 노드에서 다른 노드로 가는 최적의 경로를 찾는 문제.
+
+특징
+
+노드 s에서 v까지 최단 경로 중 엣지(u, v)가 포함되면, 이 경로에서 s부터 u까지 부분도 역시 최단 경로다.M(v)를 s에서 v까지 최단 경로라고 길이라고 하면,M(V) = M(u)+min(u,v) 인 셈이다",
+        "wordCount": 827
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/08/04/cs/algorithm/theory/al8/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            8. 기본 정렬 알고리즘
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/08/03/cs/datastructure/ds9/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">9. 그래프</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/08/03/cs/datastructure/ds10/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

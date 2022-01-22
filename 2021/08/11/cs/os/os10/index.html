@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>10. 쓰레드 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="ThreadLigth Weight Process라고도 하는 데, 프로세스와 비슷하지만 프로세스보다 가벼운 존재다. 프로세스 : 프로세스끼리는 서로 데이터에 접근 불가스레드 :    - 하나의 프로세스 안에서 여러 스레드 생성 가능    - 스레드들은 동시에 실행 가능    - 프로세스 안에 있으므로 해당 프로세스 데이터를 모두 접근 가능  쓰레드는 어떤 프">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10. 쓰레드">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/08/11/cs/os/os10/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="ThreadLigth Weight Process라고도 하는 데, 프로세스와 비슷하지만 프로세스보다 가벼운 존재다. 프로세스 : 프로세스끼리는 서로 데이터에 접근 불가스레드 :    - 하나의 프로세스 안에서 여러 스레드 생성 가능    - 스레드들은 동시에 실행 가능    - 프로세스 안에 있으므로 해당 프로세스 데이터를 모두 접근 가능  쓰레드는 어떤 프">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/os/os10-1.png">
+<meta property="article:published_time" content="2021-08-11T04:09:16.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.031Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/os/os10-1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png#%20path%20to%20favicon">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/os/">OS</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/os/os10" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        10. 쓰레드
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/08/11/cs/os/os10/" class="article-date">
+       <time datetime="2021-08-11T04:09:16.000Z" itemprop="datePublished">2021-08-11</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/08/11/cs/os/os10/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.031Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h2><p>Ligth Weight Process라고도 하는 데, 프로세스와 비슷하지만 프로세스보다 가벼운 존재다.</p>
+<p><strong>프로세스</strong> : 프로세스끼리는 서로 데이터에 접근 불가<br><strong>스레드</strong> :<br>    - 하나의 프로세스 안에서 여러 스레드 생성 가능<br>    - 스레드들은 동시에 실행 가능<br>    - 프로세스 안에 있으므로 해당 프로세스 데이터를 모두 접근 가능</p>
+<p><img src="/img/os/os10-1.png"></p>
+<p>쓰레드는 어떤 프로세스 안에서 code, data, heap 영역은 공유하지만,<br>각자 개인의 스택 영역을 가진다.(프로세스의 스택 영역은 공유하지 않는다.)<br><img src="/img/os/os10-2.png"></p>
+<h3 id="멀티-프로세싱과-쓰레드"><a href="#멀티-프로세싱과-쓰레드" class="headerlink" title="멀티 프로세싱과 쓰레드"></a>멀티 프로세싱과 쓰레드</h3><p>멀티 태스킹 : 한 cpu가 여러 프로세스를 시분할 하여 돌아가며 작업 수행<br>멀티 프로세싱 : 여러 cpu가 프로세스들을 병렬로 작업 수행. -&gt; 이 작업은 쓰레드를 여러개로 만들면 가능한 일!</p>
+<h2 id="쓰레드-장단점"><a href="#쓰레드-장단점" class="headerlink" title="쓰레드 장단점"></a>쓰레드 장단점</h2><blockquote>
+<p>장점</p>
+</blockquote>
+<p><strong>1. 사용자에 대한 응답성 향상</strong><br><img src="/img/os/os10-3.png"><br>만약 어떤 작업과 동시에 사용자와 커뮤니케이션 해야 되는 경우, 쓰레드를 사용하지 않으면, 해당 작업이 모두 끝나야 커뮤니케이션이 가능하다.<br>반면 쓰레드를 사용하면 작업과 커뮤니케이션을 병렬적으로 처리 가능하다.</p>
+<p><strong>2. 자원 공유 효율</strong><br>    - IPC 작업 같은 프로세스 간 자원 공유를 위한 작업이 필요 없음</p>
+<p><strong>3. 작업이 분리되어 코드가 간결</strong>(이건 작성자에 따라 다르다.)</p>
+<blockquote>
+<p>단점</p>
+</blockquote>
+<p><strong>1. 스레드 중 한 스레드만 문제 있어도, 프로세스 전체가 영향 받음</strong><br>    - 프로세스는 서로 독립되어 있어서, 서브 프로세스들 중 하나가 문제 생겨도 다른 서브 프로세스에 영향이 덜 감<br>    - 반면 쓰레드는 해당 프로세스의 자원을 공유하기 때문에, 한 쓰레드의 오류가 큰 문제를 일으킴.<br><img src="/img/os/os10-4.png"></p>
+<p><strong>2. 스레드를 많이 생성하면 context switching이 많이 일어나 성능이 저하된다.</strong><br>    - 스레드를 스케쥴링해야 하므로, context switching이 많이 일어나게 된다.</p>
+<h2 id="쓰레드-동기화-이슈"><a href="#쓰레드-동기화-이슈" class="headerlink" title="쓰레드 동기화 이슈"></a>쓰레드 동기화 이슈</h2><p>동기화: 작업들 사이에 실행 시기를 맞추는 것<br>여러 스레드가 동일한 자원을 접근해 수정할 경우 동기화 이슈가 발생.</p>
+<p>여러 쓰레드가 한 변수를 읽고 쓰기를 한다고 상상해보자.<br>이때 어떤 쓰레드A가 한 변수를 쓰고, 다른 쓰레드B가 읽는 순으로 진행되어야 하는데, 만약 B가 변수를 읽고 A가 변수를 쓰게 된다면?<br>우리가 원하는 결과를 얻을 수 없게 된다.</p>
+<p>자 g_count라는 변수가 0으로 초기화되어 있고, g_count = g_count +1 이라는 코드를 쓰레드1과 쓰레드2에게 각각 실행시켜<br>최종적으로 g_count가 2라는 결과값을 얻고자 할 때 예상되는 동기화 이슈를 살펴보자.<br><img src="/img/os/os10-5.png"><br>g_count = g_count +1 은 세가지 연산이 필요한다. (메모리에서 g_count값을 읽고, 레지스터에서 덧셈을 진행하고, 진행한 값을 다시 g_count 메모리에 저장.)<br>근데 이때, 쓰레드1에서 덧셈만하고 저장하지 못한 채로 context switching이 일어나, 쓰레드2가 작업을 시작하면 문제가 생긴다!</p>
+<h3 id="동기화-이슈-해결-방안"><a href="#동기화-이슈-해결-방안" class="headerlink" title="동기화 이슈 해결 방안"></a>동기화 이슈 해결 방안</h3><h4 id="상호-배제-Mutual-exclusion-LOKING-매커니즘"><a href="#상호-배제-Mutual-exclusion-LOKING-매커니즘" class="headerlink" title="상호 배제(Mutual exclusion, LOKING 매커니즘)"></a>상호 배제(Mutual exclusion, LOKING 매커니즘)</h4><ul>
+<li>어느 한 스레드가 공유 변수를 갱신하는 동안 다른 스레드가 동시 접근 못하도록 막기!<ul>
+<li><strong>임계 자원</strong>(critical resource) : 접근이 제한되는 자원</li>
+<li><strong>임계 영역</strong>(critical section) : 접근이 제한되는 영역(코드 상에서)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lock.acquire()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100000</span>):</span><br><span class="line">    g_count += <span class="number">1</span></span><br><span class="line">lock.release()</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Mutex와-Semaphore"><a href="#Mutex와-Semaphore" class="headerlink" title="Mutex와 Semaphore"></a>Mutex와 Semaphore</h4><ul>
+<li><strong>Mutex</strong>(binary semaphore) : 임계구역에 하나의 스레드만 들어 갈 수 있음</li>
+<li><strong>Semaphore</strong> : 임계구역에 여러 스레드가 들어 갈 수 있음<ul>
+<li>counter를 두어서 동시에 리소스에 접근 할 수 있는 스레드 수를 제어</li>
+</ul>
+</li>
+</ul>
+<h4 id="Semaphore-로직"><a href="#Semaphore-로직" class="headerlink" title="Semaphore 로직"></a>Semaphore 로직</h4><ul>
+<li>P: 검사(임계영역에 들어갈 때)<ul>
+<li>S &gt;= 1 이면, 임계 영역 진입 &amp;&amp; S -1 (S==0이면 대기)</li>
+</ul>
+</li>
+<li>V: 증가(임계영역에서 나올 때)<ul>
+<li>S+1 하고 임계 영역 나옴</li>
+</ul>
+</li>
+<li>S: 세마포어값(초기 값만큼 여러 프로세스가 동시에 임계 영역 접근 가능)</li>
+</ul>
+<ul>
+<li>바쁜 대기(busy waiting) : 프로세스가 대기 중임을 코드로 표현하기 위해 루프를 사용함.<br>즉 대기를 위해 cpu리소스가 사용되는 비효율적 상황</li>
+<li>대기큐 : S가 음수일 경우, 바쁜 대기 대신 대기큐에 넣자!</li>
+</ul>
+<blockquote>
+<p>psuedo code</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">P(S): wait(S)&#123;</span><br><span class="line">    <span class="keyword">while</span> S &lt;= <span class="number">0</span> <span class="comment">//대기(busy waiting. 기다리는데 cpu 자원 사용...)</span></span><br><span class="line">        ;</span><br><span class="line">    S--; <span class="comment">//다른 프로세스 접근 제한</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">V(S): signal(S) &#123;</span><br><span class="line">    S++; <span class="comment">//다른 프로세스 접근 허용</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//대기큐</span></span><br><span class="line">wait(S) &#123;</span><br><span class="line">    S-&gt;counter--;</span><br><span class="line">    <span class="keyword">if</span>(S-&gt;count &lt;<span class="number">0</span>) &#123;</span><br><span class="line">        add <span class="keyword">this</span> process to S-&gt;queue;</span><br><span class="line">        block() <span class="comment">//대기를 위해, 프로세스를 대기큐에 넣고 block 상태로...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">signal(S)&#123;</span><br><span class="line">    S-&gt;count++;</span><br><span class="line">    <span class="keyword">if</span> (S-&gt; count &gt;= <span class="number">1</span>)&#123;</span><br><span class="line">        remove a process P from S-&gt;queue;</span><br><span class="line">        wakeup(P) <span class="comment">//큐에서 프로세스를 꺼내서 깨운다!</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="교착상태-Deadlock-와-기아상태-Starvation"><a href="#교착상태-Deadlock-와-기아상태-Starvation" class="headerlink" title="교착상태(Deadlock)와 기아상태(Starvation)"></a>교착상태(Deadlock)와 기아상태(Starvation)</h3><ol>
+<li><h4 id="교착상태"><a href="#교착상태" class="headerlink" title="교착상태"></a>교착상태</h4><ul>
+<li>무한 대기 상태 : 복수의 작업이 서로 상대방 작업이 끝나길 기다리느라 다음 단계로 진행되지 않는 상황</li>
+</ul>
+</li>
+</ol>
+<p><img src="/img/os/os10-6.png"><br>스레드1은 lock하여 리소스 1을 사용하고 리소스 2를 사용하기 위해 대기하고,<br>스레드2는 lock하여 리소스 2를 사용하고 리소스 1을 사용하기 위해 대기한다면?<br>둘 다 다음 단계로 진행되지 않는다!</p>
+<blockquote>
+<p>교착 상태 발생조건(모두 성립 시 교착상태 발생 가능)</p>
+</blockquote>
+<ul>
+<li>상호배제(Mutual exclusion): 프로세스들이 필요로 하는 자원에 대해 배타적 통제권 요구</li>
+<li>점유대기(Hold and wait): 프로세스가 할당된 자원을 가진 상태에서 다른 자원 대기</li>
+<li>비선점(No preemption): 프로세스가 어떤 자원의 사용을 끝날 때까지 그 자원을 뺏을 수 없음</li>
+<li>순환대기(Circular wait): 각 프로세스가 순환적으로 다음 프로세스가 요구하는 자원을 가지고 있다</li>
+</ul>
+<p><em>이런 원인 중 일부를 해결하면 교착상태를 해결할 수 있다</em></p>
+<ol start="2">
+<li><h4 id="기아상태"><a href="#기아상태" class="headerlink" title="기아상태"></a>기아상태</h4><ul>
+<li>특정 프로세스의 우선순위가 낮아서 원하는 자원을 계속 할당 받지 못하는 상태</li>
+<li>교착상태와 차이?<ul>
+<li>교착상태 : 여러 프로세스가 동일 자원 점유를 요청할 때 발생</li>
+<li>기아상태 : 여러 프로세스가 부족한 자원을 점유하기 위해 경쟁할 때, 특정 프로세스는 할당 안됨</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>예를 들면 어떤 변수를 10번 접근해서 변경하라는 명령을 100개의 쓰레드가 사용된다면, 일부 쓰레드는 영영 작업을 해보지 못할 것이다!</p>
+<blockquote>
+<p>기아상태 해결</p>
+</blockquote>
+<ul>
+<li>프로세스 우선순위를 수시로 변경</li>
+<li>오래 기다린 프로세스의 우선순위 상향</li>
+<li>우선순위가 아닌 요청순으로 FIFO 기반 요청큐 사용</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/08/11/cs/os/os10/" data-id="ckyq1migg002n6wa0aiv8czmt" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "10. 쓰레드",
+        "image": "https://yangdongjue5510.github.io/img/os/os10-1.png",
+        "keywords": "",
+        "genre": "Computer Science OS",
+        "datePublished": "2021-08-11",
+        "dateCreated": "2021-08-11",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/08/11/cs/os/os10/",
+        "description": "ThreadLigth Weight Process라고도 하는 데, 프로세스와 비슷하지만 프로세스보다 가벼운 존재다.
+프로세스 : 프로세스끼리는 서로 데이터에 접근 불가스레드 :    - 하나의 프로세스 안에서 여러 스레드 생성 가능    - 스레드들은 동시에 실행 가능    - 프로세스 안에 있으므로 해당 프로세스 데이터를 모두 접근 가능
+
+쓰레드는 어떤 프",
+        "wordCount": 880
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/08/11/cs/algorithm/theory/al14/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            14. 그리디 알고리즘
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/08/09/cs/os/os9/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">9. 프로세스 구조와 프로세스간 커뮤니케이션</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/08/11/cs/os/os10/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

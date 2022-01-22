@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>REST Api 프로젝트에서 만난 소소한 문제들 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="reshapi project,troubleShooting">
+    
+    <meta name="description" content="Rest api 프로젝트를 하면서 배운 것들을 정리하고자 한다. JPA entity에서 배운 것들12345678910111213141516171819202122232425@Entity@Getter @Setterpublic class Investments &amp;#123;	@Id	@GeneratedValue(strategy &#x3D; GenerationType.IDENT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="REST Api 프로젝트에서 만난 소소한 문제들">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/12/02/spring/restproject1/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="Rest api 프로젝트를 하면서 배운 것들을 정리하고자 한다. JPA entity에서 배운 것들12345678910111213141516171819202122232425@Entity@Getter @Setterpublic class Investments &amp;#123;	@Id	@GeneratedValue(strategy &#x3D; GenerationType.IDENT">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-02T02:44:58.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.039Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="reshapi project">
+<meta property="article:tag" content="troubleShooting">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png#%20path%20to%20favicon">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/spring/">Spring</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/spring/project/">Project</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-spring/restproject1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        REST Api 프로젝트에서 만난 소소한 문제들
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/12/02/spring/restproject1/" class="article-date">
+       <time datetime="2021-12-02T02:44:58.000Z" itemprop="datePublished">2021-12-02</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/12/02/spring/restproject1/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.039Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/reshapi-project/" rel="tag">reshapi project</a>, <a class="tag-link-link" href="/tags/troubleshooting/" rel="tag">troubleShooting</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <p>Rest api 프로젝트를 하면서 배운 것들을 정리하고자 한다.</p>
+<h2 id="JPA-entity에서-배운-것들"><a href="#JPA-entity에서-배운-것들" class="headerlink" title="JPA entity에서 배운 것들"></a>JPA entity에서 배운 것들</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Getter</span> <span class="meta">@Setter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Investments</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">	<span class="meta">@Column(nullable = false)</span></span><br><span class="line">	<span class="keyword">private</span> Long investId;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column(nullable = false)</span></span><br><span class="line">	<span class="keyword">private</span> Long userId;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ManyToOne</span>	<span class="comment">//다대일 관계</span></span><br><span class="line">	<span class="meta">@JoinColumn(name=&quot;id&quot;)</span></span><br><span class="line">	<span class="keyword">private</span> Products product;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Column(nullable = false)</span></span><br><span class="line">	<span class="keyword">private</span> Long investmentAmount;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Temporal(TemporalType.DATE)</span></span><br><span class="line">	<span class="keyword">private</span> Date investmentDate = <span class="keyword">new</span> Date();	 <span class="comment">//기본값을 현재로??</span></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Enumerated(EnumType.STRING)</span></span><br><span class="line">	<span class="keyword">private</span> InvestmentStatus investmentStatus = InvestmentStatus.VALID;		<span class="comment">//기본값을 유효로 ?</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JPA와 디비에는 사용하고 싶지 않지만, VO 클래스 멤버 변수로 사용하고 싶은 변수는 <strong>@Transient</strong>를 붙인다.</p>
+<p>이번 프로젝트에서는 h2 디비를 썼다. h2에서는 기본키 자동증가기능을 사용하려면 <strong>@GeneratedValue(strategy = GenerationType.IDENTITY)</strong> 를 써야 잘 작동했다. </p>
+<p>칼럼의 NOT NULL은 <strong>@Column(nullable = false)</strong> 로 처리했다. (@NotNull은 안됐다.)</p>
+<p><strong>@Temporal(TemporalType.DATE)</strong> 는 날짜시간 데이터 중 날짜 데이터를 저장한다는 의미다.<br>시분초는 0으로 처리되어 저장된다.</p>
+<p>**@Enumerated(EnumType.STRING)**은 열거형 데이터를 저장할 때 쓰인다.<br>이번 프로젝트는 열거형 이름 그 자체를 도입했다.</p>
+<h2 id="헤더-값-읽기"><a href="#헤더-값-읽기" class="headerlink" title="헤더 값 읽기"></a>헤더 값 읽기</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/product&quot;)</span></span><br><span class="line"><span class="keyword">public</span> ResponseDto&lt;List&lt;Products&gt;&gt; productGet(<span class="meta">@RequestHeader(&quot;X-USER-ID&quot;)</span> <span class="keyword">long</span> userId) &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@RequestHeader안에 헤더의 키값을 넣어주면 가져올 수 있다!</p>
+<h2 id="SpringBoot-Could-not-find-acceptable-representation-Error-Request-failed-with-status-code-406"><a href="#SpringBoot-Could-not-find-acceptable-representation-Error-Request-failed-with-status-code-406" class="headerlink" title="SpringBoot Could not find acceptable representation(Error: Request failed with status code 406)"></a>SpringBoot Could not find acceptable representation(Error: Request failed with status code 406)</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span> <span class="meta">@Setter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResponseDto</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ResponseDto</span><span class="params">(T data, HttpStatus status)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.status = status;</span><br><span class="line">		<span class="keyword">this</span>.data = data;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	HttpStatus status;</span><br><span class="line">	T data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>406에러는 return된 객체에 setter getter가 없어서 일어났었다.</p>
+<h2 id="stream으로-합구하기"><a href="#stream으로-합구하기" class="headerlink" title="stream으로 합구하기!"></a>stream으로 합구하기!</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Long&gt; numbers = Arrays.asList(<span class="number">1L</span>, <span class="number">2L</span>, <span class="number">3L</span>, <span class="number">4L</span>, <span class="number">5L</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Stream의 reduce 이용</span></span><br><span class="line">Long sum1 = numbers.stream().reduce(<span class="number">0L</span>, Long::sum);</span><br></pre></td></tr></table></figure>
+
+<p>reduce를 이용하면 구할 수 있었다!!</p>
+<h2 id="JSON으로-통신할-때-Object-Mapper로-케이스-변환하기"><a href="#JSON으로-통신할-때-Object-Mapper로-케이스-변환하기" class="headerlink" title="JSON으로 통신할 때 Object Mapper로 케이스 변환하기"></a>JSON으로 통신할 때 Object Mapper로 케이스 변환하기</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> phoneNumber; <span class="comment">//json에는 phone_number로 보임</span></span><br><span class="line">  </span><br><span class="line">  <span class="meta">@JsonProperty(&quot;user_name&quot;)</span> <span class="comment">//특정 변수에만 적용할 경우.</span></span><br><span class="line">  <span class="keyword">private</span> userName</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="JSON을-반환할-때-ResponseEntity"><a href="#JSON을-반환할-때-ResponseEntity" class="headerlink" title="JSON을 반환할 때 ResponseEntity"></a>JSON을 반환할 때 ResponseEntity</h2><p>나는 커스텀해서 ResponseDto를 만들었는데 자바에서는 이미 ResponseEntity가 있더라 크흠…</p>
+<h2 id="SQL-INIT"><a href="#SQL-INIT" class="headerlink" title="SQL INIT"></a>SQL INIT</h2><p>어플리케이션을 시작할 때 SQL을 실행해서 스키마를 만들고 데이터를 입력할 수 있다.</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">sql:</span></span><br><span class="line">    <span class="attr">init:</span></span><br><span class="line">      <span class="attr">platform:</span> <span class="string">h2</span></span><br><span class="line">      <span class="attr">mode:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>application.yml</strong>에 다음같이 적으면, 항상 어플리케이션을 시작할 때 SQL을 초기화해준다.</p>
+<p>Resources 폴더에 schema-플랫폼이름.sql , data-플랫폼이름.sql 을 실행한다.</p>
+<p>위 예시는 플랫폼을 h2로 했으니, <strong>schema-h2.sql</strong>, <strong>data-h2.sql</strong>이라고 하면된다!!</p>
+<p>이때 <strong>ddl-auto</strong>는 꺼줘여야 잘 작동하게 된다!!</p>
+<h2 id="JPA-Method이름으로-쿼리-만들기"><a href="#JPA-Method이름으로-쿼리-만들기" class="headerlink" title="JPA Method이름으로 쿼리 만들기"></a>JPA Method이름으로 쿼리 만들기</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InvestmentsRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Investments</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">default</span> Investments <span class="title">updateInvestStatus</span><span class="params">(Investments invest, InvestmentStatus status)</span> </span>&#123;</span><br><span class="line">		invest.setStatus(status);</span><br><span class="line">		save(invest);</span><br><span class="line">		<span class="keyword">return</span> invest;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function">List&lt;Investments&gt; <span class="title">findInvestmentsByIdAndStatusEquals</span><span class="params">(<span class="keyword">long</span> productId, InvestmentStatus investmentStatus)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">List&lt;Investments&gt; <span class="title">findInvestmentsByUserId</span><span class="params">(<span class="keyword">long</span> userId)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">Investments <span class="title">findInvestmentsByUserIdAndIdAndStatusEquals</span><span class="params">(<span class="keyword">long</span> UserId, <span class="keyword">long</span> productId, InvestmentStatus status)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>레퍼지토리에 우리가 원하는 쿼리의 역할을 메서드 이름으로 만들면 그에 해당하는 쿼리를 실행하는 메서드가 만들어진다.</p>
+<h2 id="전역-예외-핸들러"><a href="#전역-예외-핸들러" class="headerlink" title="전역 예외 핸들러"></a>전역 예외 핸들러</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</span><br><span class="line">	<span class="meta">@ExceptionHandler(Exception.class)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseDto&lt;String&gt; <span class="title">handleException</span><span class="params">(Exception e)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ResponseDto&lt;&gt;(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>예외 핸들러를 따로 만들면, 모든 예외 발생을 다음 메서드로 처리한다.</p>
+<h2 id="생성자-주입"><a href="#생성자-주입" class="headerlink" title="생성자 주입"></a>생성자 주입</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/api&quot;)</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApiController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> ProductsService productsService;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> InvestmentsService investmentsService;</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>@Autowired 키워드를 쓰는 것보다 @RequiredArgsConstructor와 private final 키워드를 활용한 생성자 주입이 스프링에서 더 권장하는 방법이다.</p>
+<p>나도 이 방법을 사용하기 전까지 순환 참조를 하고 있는 줄 모르고 있었는데, 생성자 주입으로 변경하는 과정에서 실수를 확인 할 수 있었다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/12/02/spring/restproject1/" data-id="ckyq1mify00026wa07nw9f2yg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "REST Api 프로젝트에서 만난 소소한 문제들",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "reshapi project troubleShooting",
+        "genre": "Spring Project",
+        "datePublished": "2021-12-02",
+        "dateCreated": "2021-12-02",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/12/02/spring/restproject1/",
+        "description": "Rest api 프로젝트를 하면서 배운 것들을 정리하고자 한다.
+JPA entity에서 배운 것들12345678910111213141516171819202122232425@Entity@Getter @Setterpublic class Investments &#123;	@Id	@GeneratedValue(strategy = GenerationType.IDENT",
+        "wordCount": 779
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/12/03/java/java-basic/java13/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            13. Comparable과 Comparator의 차이!
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/11/29/java/object/object3/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">책임 할당을 위한 GRASP 패턴</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">13</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">35</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/effective-java/" style="font-size: 13.33px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 20px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/troubleshooting/" style="font-size: 16.67px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" style="font-size: 16.67px;">우아한 테크 코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/12/02/spring/restproject1/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
