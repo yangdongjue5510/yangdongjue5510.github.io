@@ -3,7 +3,7 @@
 .article-meta,
 .archive-year {
   text-transform: uppercase;
-  color: #666;
+  color: #2a2a2a;
   line-height: 1em;
   text-shadow: 0 1px #fff;
 }
@@ -230,24 +230,24 @@ body,
 }
 body {
   background: #eaeaea;
-  font: 14px "Titillium Web", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif;
+  font: 14px NanumSquareRound, "Helvetica Neue", sans-serif;
   -webkit-text-size-adjust: 100%;
 }
 code {
   margin: 0 2px;
   color: #e96900;
   padding: 3px 5px;
-  font-size: 0.8em;
+  font-size: 2em;
   border-radius: 2px;
   font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
   background-color: #f8f8f8;
 }
 .container {
   position: relative;
-  padding: 0 20px;
+  padding: 0 100px;
 }
 .container-inner {
-  max-width: 1120px;
+  max-width: 1500px;
   min-width: 320px;
   width: 100%;
   margin: 0 auto;
@@ -294,7 +294,7 @@ code {
   box-sizing: border-box;
   -webkit-box-shadow: rgba(0,0,0,0.098) 0px 1px 1px 0px;
   box-shadow: rgba(0,0,0,0.098) 0px 1px 1px 0px;
-  padding-right: 340px;
+  padding-right: 250px;
   background: url("images/s-left.png") repeat-y right 0;
 }
 .main-body-inner:before,
@@ -318,7 +318,7 @@ code {
   position: relative;
   padding: 18px 30px 17px;
   border-bottom: 1px solid #eee;
-  color: #666;
+  color: #2a2a2a;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
@@ -533,7 +533,7 @@ code {
   -moz-transition: 0.2s ease-in;
   -ms-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
-  font: 16px "Titillium Web", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif;
+  font: 16px NanumSquareRound, "Helvetica Neue", sans-serif;
   color: rgba(255,255,255,0.7);
 }
 .search-form-input:focus,
@@ -557,8 +557,8 @@ code {
 }
 #sidebar {
   float: right;
-  margin-right: -340px;
-  width: 340px;
+  margin-right: -250px;
+  width: 250px;
 }
 #sidebar .sidebar-toggle {
   display: none;
@@ -1048,7 +1048,7 @@ code {
   text-decoration: none;
   font-size: 38px;
   letter-spacing: -1px;
-  color: #555;
+  color: #191919;
   line-height: 1.3em;
   -webkit-transition: color 0.2s;
   -moz-transition: color 0.2s;
@@ -1078,7 +1078,7 @@ a.article-title:hover {
   margin-right: 3px;
 }
 .article-meta a {
-  color: #555;
+  color: #191919;
 }
 .article-meta a:hover {
   color: color-link;
@@ -1105,8 +1105,8 @@ a.article-title:hover {
   content: "#";
 }
 .article-entry {
-  color: #555;
-  font-size: 18px;
+  color: #191919;
+  font-size: 17px;
   font-weight: 300;
   line-height: 1.6em;
 }
@@ -1208,7 +1208,7 @@ a.article-title:hover {
 .article-entry blockquote footer {
   font-size: 14px;
   margin: 1.6em 0;
-  font-family: "Titillium Web", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif;
+  font-family: NanumSquareRound, "Helvetica Neue", sans-serif;
 }
 .article-entry blockquote footer cite:before {
   content: "—";
@@ -1286,7 +1286,7 @@ a.article-title:hover {
   text-decoration: none;
 }
 .article-footer a:hover {
-  color: #555;
+  color: #191919;
 }
 .article-comment-link i,
 .article-share-link i {
@@ -1320,9 +1320,9 @@ a.article-title:hover {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  font: 14px "Titillium Web", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif;
+  font: 14px NanumSquareRound, "Helvetica Neue", sans-serif;
   padding: 0 15px;
-  color: #555;
+  color: #191919;
   outline: none;
   border: 1px solid #ddd;
   border-radius: 3px 3px 0 0;
@@ -1504,7 +1504,7 @@ a.article-title:hover {
 .archive-year-wrap {
   padding: 18px 30px 17px;
   font-size: 16px;
-  color: #666;
+  color: #2a2a2a;
   border-bottom: 1px solid #eee;
 }
 .archive-year i {
@@ -1536,7 +1536,7 @@ a.article-title:hover {
 .archive-article-title {
   text-decoration: none;
   font-weight: bold;
-  color: #555;
+  color: #191919;
   -webkit-transition: color 0.2s;
   -moz-transition: color 0.2s;
   -ms-transition: color 0.2s;
@@ -1982,7 +1982,7 @@ i.icon:before {
     transition: opacity 0.2s ease-in;
   }
   .main-body-inner #sidebar.expend {
-    width: 340px;
+    width: 250px;
     overflow-y: auto;
     z-index: 2;
     -webkit-transition: width 0.2s ease-in;
