@@ -9,7 +9,7 @@
     <atom:link href="https://yangdongjue5510.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>This is yangdongjue5510 dev blog.</description>
-    <pubDate>Wed, 09 Feb 2022 14:46:59 GMT</pubDate>
+    <pubDate>Thu, 10 Feb 2022 14:51:08 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -23,12 +23,13 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;요약&lt;/p&gt;
 &lt;/blockquote&gt;
-</description>
+&lt;p&gt;Pattern 클래스와 Matcher 클래스를 활용해서 자바 정규 표현식을 잘 표현한다.&lt;/p&gt;
+&lt;p&gt;특히 Matcher클래스에 정규 표현식을 compile(String)하고, m</description>
         
       
       
       
-      <content:encoded><![CDATA[<blockquote><p>요약</p></blockquote>]]></content:encoded>
+      <content:encoded><![CDATA[<blockquote><p>요약</p></blockquote><p>Pattern 클래스와 Matcher 클래스를 활용해서 자바 정규 표현식을 잘 표현한다.</p><p>특히 Matcher클래스에 정규 표현식을 compile(String)하고, matcher(String)으로 대상 문자열을 전달해준다.<br>이때 find()메서드를 반드시 실행해줘야 정상적으로 Matcher 객체에 관련 내용이 할당된다!!</p>]]></content:encoded>
       
       
       <category domain="https://yangdongjue5510.github.io/categories/java/">Java</category>
