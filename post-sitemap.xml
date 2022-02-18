@@ -9,8 +9,16 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2022/02/16/java-first-collection/</loc>
+        <lastmod>2022-02-18T00:24:12.600Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2022/02/09/java-regex/</loc>
-        <lastmod>2022-02-14T13:49:31.847Z</lastmod>
+        <lastmod>2022-02-16T12:17:02.426Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
