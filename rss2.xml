@@ -44,6 +44,37 @@
     </item>
     
     <item>
+      <title>구글 자바 컨벤션 및 우테코 컨벤션에서 자주 틀리는 내용 모음!</title>
+      <link>https://yangdongjue5510.github.io/2022/02/15/java-convention/</link>
+      <guid>https://yangdongjue5510.github.io/2022/02/15/java-convention/</guid>
+      <pubDate>Tue, 15 Feb 2022 14:42:53 GMT</pubDate>
+      
+        
+        
+      <description>&lt;blockquote&gt;
+&lt;p&gt;요약&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;static import를 하지 않는다.&lt;br&gt;구현 순서는 상수 -&amp;gt; 클래스 변수 -&amp;gt; 인스턴스 변수 -&amp;gt; 생성자 -&amp;gt; 메서드 순이다.&lt;br&gt;변수 이름에 자료</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<blockquote><p>요약</p></blockquote><p>static import를 하지 않는다.<br>구현 순서는 상수 -&gt; 클래스 변수 -&gt; 인스턴스 변수 -&gt; 생성자 -&gt; 메서드 순이다.<br>변수 이름에 자료형을 사용하지 말라<br>인스턴스 변수의 수를 최소화 한다.<br>오버로드한 메서드(생성자)들 사이에 다른 코드를 넣지말라.<br>비할당 연산자에서 줄바꿈하는 경우, 기호 앞에서 끊어짐(. :: &lt;<del>&amp;</del>&gt; 등…)<br>할당 연산자에서 줄바꿈하는 경우 기호 뒤에서 끊어짐(사실 어느쪽도 허용)</p><h3 id="static-import-하지-않는다"><a href="#static-import-하지-않는다" class="headerlink" title="static import 하지 않는다"></a>static import 하지 않는다</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//안좋은 예시</span></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> somepackage.SomeClass.doMethod;</span><br><span class="line"><span class="keyword">import</span> otherpackage.OtherClass;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        doMethod();</span><br><span class="line">        OtherClass otherClass = <span class="keyword">new</span> OtherClass();</span><br><span class="line">        otherClass.doMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>doMethod가 메서드가 두개다. 그래서 혼동이 온다.</p><h3 id="구현-순서는-상수-gt-클래스-변수-gt-인스턴스-변수-gt-생성자-gt-메서드-순"><a href="#구현-순서는-상수-gt-클래스-변수-gt-인스턴스-변수-gt-생성자-gt-메서드-순" class="headerlink" title="구현 순서는 상수 -&gt; 클래스 변수 -&gt; 인스턴스 변수 -&gt; 생성자 -&gt; 메서드 순"></a>구현 순서는 상수 -&gt; 클래스 변수 -&gt; 인스턴스 변수 -&gt; 생성자 -&gt; 메서드 순</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CONSTANT_INT = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> classVariable = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> instanceVariable = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SomeClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="변수-이름에-자료형을-사용하지-말라"><a href="#변수-이름에-자료형을-사용하지-말라" class="headerlink" title="변수 이름에 자료형을 사용하지 말라"></a>변수 이름에 자료형을 사용하지 말라</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//이런 변수이름들은 곤란하다.</span></span><br><span class="line">String carString = <span class="string">&quot;blah&quot;</span>;</span><br><span class="line">List&lt;Integer&gt; intList;</span><br></pre></td></tr></table></figure><h3 id="인스턴스-변수의-수를-최소화-한다"><a href="#인스턴스-변수의-수를-최소화-한다" class="headerlink" title="인스턴스 변수의 수를 최소화 한다."></a>인스턴스 변수의 수를 최소화 한다.</h3><h3 id="오버로드한-메서드-생성자-들-사이에-다른-코드를-넣지말라"><a href="#오버로드한-메서드-생성자-들-사이에-다른-코드를-넣지말라" class="headerlink" title="오버로드한 메서드(생성자)들 사이에 다른 코드를 넣지말라."></a>오버로드한 메서드(생성자)들 사이에 다른 코드를 넣지말라.</h3><h3 id="비할당-연산자에서-줄바꿈하는-경우-기호-앞에서-끊어짐-lt-amp-gt-등…"><a href="#비할당-연산자에서-줄바꿈하는-경우-기호-앞에서-끊어짐-lt-amp-gt-등…" class="headerlink" title="비할당 연산자에서 줄바꿈하는 경우, 기호 앞에서 끊어짐(. :: &lt;&amp;&gt; 등…)"></a>비할당 연산자에서 줄바꿈하는 경우, 기호 앞에서 끊어짐(. :: &lt;<del>&amp;</del>&gt; 등…)</h3><h3 id="할당-연산자에서-줄바꿈하는-경우-기호-뒤에서-끊어짐-사실-어느쪽도-허용"><a href="#할당-연산자에서-줄바꿈하는-경우-기호-뒤에서-끊어짐-사실-어느쪽도-허용" class="headerlink" title="할당 연산자에서 줄바꿈하는 경우 기호 뒤에서 끊어짐(사실 어느쪽도 허용)"></a>할당 연산자에서 줄바꿈하는 경우 기호 뒤에서 끊어짐(사실 어느쪽도 허용)</h3>]]></content:encoded>
+      
+      
+      <category domain="https://yangdongjue5510.github.io/categories/java/">Java</category>
+      
+      <category domain="https://yangdongjue5510.github.io/categories/java/java-basic/">Java Basic</category>
+      
+      
+      <category domain="https://yangdongjue5510.github.io/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/">우아한 테크 코스</category>
+      
+      
+      <comments>https://yangdongjue5510.github.io/2022/02/15/java-convention/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>자바에서 정규 표현식 잘 활용하기</title>
       <link>https://yangdongjue5510.github.io/2022/02/09/java-regex/</link>
       <guid>https://yangdongjue5510.github.io/2022/02/09/java-regex/</guid>
@@ -528,32 +559,6 @@
       
       
       <comments>https://yangdongjue5510.github.io/2021/11/20/java/java-basic/java11/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>스프링 부트의 특징</title>
-      <link>https://yangdongjue5510.github.io/2021/11/19/spring/boot/boot12/</link>
-      <guid>https://yangdongjue5510.github.io/2021/11/19/spring/boot/boot12/</guid>
-      <pubDate>Fri, 19 Nov 2021 02:56:33 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h1 id=&quot;스프링-부트의-특징&quot;&gt;&lt;a href=&quot;#스프링-부트의-특징&quot; class=&quot;headerlink&quot; title=&quot;스프링 부트의 특징&quot;&gt;&lt;/a&gt;스프링 부트의 특징&lt;/h1&gt;&lt;p&gt;스프링 부트는 스프링의 복잡한 xml 간편화와 빠른 개발을 위해 등장</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="스프링-부트의-특징"><a href="#스프링-부트의-특징" class="headerlink" title="스프링 부트의 특징"></a>스프링 부트의 특징</h1><p>스프링 부트는 스프링의 복잡한 xml 간편화와 빠른 개발을 위해 등장했다.<br>부트는 웹을 위해 필요한 필수 라이브러리를 내장하고 있다.(톰캣 등)</p><p>스타터(starter) : 특정 모듈을 사용할 수 있도록 필요한 라이브러리를 모아놓은 라이브러리 모음</p><p>자동설정(AutoConfiguration) : 추가된 라이브러리나 모듈을 사용할 수 있도록 자동으로 빈 등록이나 프로퍼티 설정을 하는 것.</p>]]></content:encoded>
-      
-      
-      <category domain="https://yangdongjue5510.github.io/categories/spring/">Spring</category>
-      
-      <category domain="https://yangdongjue5510.github.io/categories/spring/boot/">Boot</category>
-      
-      
-      
-      <comments>https://yangdongjue5510.github.io/2021/11/19/spring/boot/boot12/#disqus_thread</comments>
       
     </item>
     
