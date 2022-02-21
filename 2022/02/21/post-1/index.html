@@ -6,26 +6,24 @@
     
 
     
-    <title>9. 그래프 | mudura | 그거 뭐더라</title>
+    <title>Junit으로 parameterized test | mudura | 그거 뭐더라</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta name="keywords" content>
+    <meta name="keywords" content="우아한 테크 코스">
     
-    <meta name="description" content="그래프G &#x3D; (V, E)V &#x3D; vertex set, E &#x3D; edge set동그라미가 버택스(혹은 노드), 버택스를 잇는 링크를 엣지라 한다. degree(분지수) 어떤 노드의 이웃한 노드 갯수.어떤 그래프의 분지수는 그 그래프의 최대 분지수를 말한다. 인접하다는 의미는 두 노드가 링크로 서로 연결 되어있는 상태를 말한다. 경로는 노드를 중복하지 않고 지나가">
+    <meta name="description" content="요약  @ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다. @MethodSource 도입 배경  자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드">
 <meta property="og:type" content="article">
-<meta property="og:title" content="9. 그래프">
-<meta property="og:url" content="https://yangdongjue5510.github.io/2021/08/03/cs/datastructure/ds9/index.html">
+<meta property="og:title" content="Junit으로 parameterized test">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/02/21/post-1/index.html">
 <meta property="og:site_name" content="mudura | 그거 뭐더라">
-<meta property="og:description" content="그래프G &#x3D; (V, E)V &#x3D; vertex set, E &#x3D; edge set동그라미가 버택스(혹은 노드), 버택스를 잇는 링크를 엣지라 한다. degree(분지수) 어떤 노드의 이웃한 노드 갯수.어떤 그래프의 분지수는 그 그래프의 최대 분지수를 말한다. 인접하다는 의미는 두 노드가 링크로 서로 연결 되어있는 상태를 말한다. 경로는 노드를 중복하지 않고 지나가">
+<meta property="og:description" content="요약  @ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다. @MethodSource 도입 배경  자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yangdongjue5510.github.io/img/ds/graph1-1.png">
-<meta property="article:published_time" content="2021-08-03T05:46:26.000Z">
-<meta property="article:modified_time" content="2022-01-22T16:20:00.029Z">
+<meta property="article:published_time" content="2022-02-21T12:16:22.000Z">
+<meta property="article:modified_time" content="2022-02-21T13:01:31.869Z">
 <meta property="article:author" content="yangdongjue5510">
-<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta property="article:tag" content="우아한 테크 코스">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/ds/graph1-1.png">
     
 
     
@@ -165,19 +163,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/data-structure/">Data Structure</a>
+    <a class="page-title-link" href="/categories/java/">Java</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-cs/datastructure/ds9" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-post-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        9. 그래프
+        Junit으로 parameterized test
         </h1>
     
 
@@ -188,16 +186,16 @@
                 
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2021/08/03/cs/datastructure/ds9/" class="article-date">
-       <time datetime="2021-08-03T05:46:26.000Z" itemprop="datePublished">2021-08-03</time>
+    <a href="/2022/02/21/post-1/" class="article-date">
+       <time datetime="2022-02-21T12:16:22.000Z" itemprop="datePublished">2022-02-21</time>
     </a>
   </div>
 
 
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
-  <a href="/2021/08/03/cs/datastructure/ds9/" class="article-date">
-     <time datetime="2022-01-22T16:20:00.029Z" itemprop="dateModified">2022-01-23</time>
+  <a href="/2022/02/21/post-1/" class="article-date">
+     <time datetime="2022-02-21T13:01:31.869Z" itemprop="dateModified">2022-02-21</time>
   </a>
 </div>
 
@@ -205,6 +203,11 @@
                 
 
                 
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BD%94%EC%8A%A4/" rel="tag">우아한 테크 코스</a>
+    </div>
+
                 
 
                 
@@ -219,35 +222,44 @@
 
             
 
-            <h2 id="그래프"><a href="#그래프" class="headerlink" title="그래프"></a>그래프</h2><p><strong>G = (V, E)</strong><br><img src="/img/ds/graph1-1.png"><br>V = vertex set, E = edge set<br>동그라미가 버택스(혹은 노드), 버택스를 잇는 링크를 엣지라 한다.</p>
-<p>degree(분지수) 어떤 노드의 이웃한 노드 갯수.<br>어떤 그래프의 분지수는 그 그래프의 최대 분지수를 말한다.</p>
-<p>인접하다는 의미는 두 노드가 링크로 서로 연결 되어있는 상태를 말한다.</p>
-<p>경로는 노드를 중복하지 않고 지나가는 행위<br>사이클은 노드를 중복하지 않고 출발점으로 다시 돌아오는 경로.</p>
-<h4 id="표현법"><a href="#표현법" class="headerlink" title="표현법"></a>표현법</h4><p>인접행렬 : 노드 i 와 j에 엣지가 존재하면 G[i][j]=1(혹은 가중치), 없으면 0<br>인접 리스트 : 1차원 배열 G로 표현, 노드 i에 인접한 노드들은 G[i]에 연결리스트로 표현<br><img src="/img/ds/graph1-2.png"></p>
-<p>노드 갯수 = n, 엣지 갯수 = m일 때,</p>
-<ul>
-<li><p>인접행렬<br>O(n^2)만큼 메모리 사용.<br>탐색은 O(1)<br>인접한 모든 노드를 보려할때 O(n) 이때 인접노드가 많던 적던 모두 찾음<br>노드 삽입은 O(1)<br>노드 삭제는 O(1)</p>
-</li>
-<li><p>인접리스트<br>O(n+m)만큼 메모리 사용.<br>탐색은 O(n)<br>인접한 모든 노드를 보려할때 O(n) 이때 인접노드가 적으면 연산도 짧아짐.<br>노드 삽입은 O(1)<br>노드 삭제는 O(n)</p>
-</li>
-</ul>
-<blockquote>
-<p>대부분 인접행렬은 상수 시간에 연산을 완료한다. 메모리 측면은 인접리스트가 유리하다.</p>
+            <blockquote>
+<p>요약</p>
 </blockquote>
-<h2 id="그래프-순회"><a href="#그래프-순회" class="headerlink" title="그래프 순회"></a>그래프 순회</h2><p>그래프에는 DFS(깊이 우선 탐색), BFS(너비 우선 탐색) 두가지 방법이 존재한다.</p>
-<h3 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h3><p>방문한 노드와 연결된 이웃 노드 중 아직 방문하지 않은 노드가 있으면 그 노드를 다음에 방문.<br>만약 안가본 노드가 없다면 방문하기전 노드로 가서 다시 검사한다.<br>재귀함수로 작성하는게 일반적.</p>
-<p><img src="/img/ds/graph1-4.png"><br>이런 그래프에서 a부터 알파벳 순서가 빠른 노드부터 방문한다고 하면<br>A-B-D-F-E-C-G</p>
-<p>pseudo code로 이해해보자</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DFS</span>(<span class="params">V</span>):</span></span><br><span class="line">    mark V <span class="keyword">as</span> visited node <span class="comment">#visited[V] = True</span></span><br><span class="line">    pre[V] = curr_time <span class="comment">#record the first visiting time</span></span><br><span class="line">    curr_time +=<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> each edge(V, W): <span class="comment">#for all neighbor node</span></span><br><span class="line">        <span class="keyword">if</span> w <span class="keyword">is</span> unmarked:</span><br><span class="line">            parent[W] = V</span><br><span class="line">            DFS(W)</span><br><span class="line">    post[V] = curr_time <span class="comment">#V에서 DFS완료된 시간</span></span><br><span class="line">    curr_time+=<span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DFSALL</span>(<span class="params">G</span>):</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">all</span> nodes <span class="keyword">in</span> G:</span><br><span class="line">        mark[V]= unvisited</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">all</span> nodes V:</span><br><span class="line">        <span class="keyword">if</span> mark[V]!=visited :DFS(V)</span><br></pre></td></tr></table></figure>
-<p>pre는 해당 노드에 처음 방문한 시간, post는 해당 노드에서 DFS가 완료된 시각(모든 이웃을 이미 방문).<br>parent 리스트를 활용해서 트리 모양으로 그래프를 표현할 수 있다.<br><img src="/img/ds/graph1-5"></p>
-<p>재귀를 사용하지 않고 스택을 통해 구현할 수 있다.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DFS</span>(<span class="params">s</span>):</span> <span class="comment">#s 부터 DFS시작.</span></span><br><span class="line">    stack.push((<span class="literal">None</span>, s)) <span class="comment">#(부모노드, 현재 방문노드) 튜플을 추가</span></span><br><span class="line">    <span class="keyword">while</span> stack <span class="keyword">is</span> <span class="keyword">not</span> empty:</span><br><span class="line">        p, v = stack.pop()</span><br><span class="line">        <span class="keyword">if</span> v <span class="keyword">in</span> unmarked: </span><br><span class="line">            mark[v]= visited</span><br><span class="line">            parent[v] = p</span><br><span class="line">            <span class="keyword">for</span> each edge(v, W):</span><br><span class="line">                <span class="keyword">if</span> w <span class="keyword">is</span> unmarked:</span><br><span class="line">                    stack.push((v,w))</span><br></pre></td></tr></table></figure>
+<p>@ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다.</p>
+<h3 id="MethodSource"><a href="#MethodSource" class="headerlink" title="@MethodSource"></a>@MethodSource</h3><blockquote>
+<p>도입 배경</p>
+</blockquote>
+<p>자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.<br>근데 테스트 코드를 작성하다보니 다음과 같이 메서드가 비슷비슷하게 나올 때 이를 리팩토링해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings(&quot;NonAsciiCharacters&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_글자수_테스트() &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(<span class="string">&quot;다섯글자이상&quot;</span>))</span><br><span class="line">                .isInstanceOf(RuntimeException.class)</span><br><span class="line">                .hasMessageContaining(<span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름이_존재하지_않는_경우_테스트() &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(<span class="string">&quot;&quot;</span>))</span><br><span class="line">                .isInstanceOf(RuntimeException.class)</span><br><span class="line">                .hasMessageContaining(<span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 등등...</span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
-<p><em>노드의 엣지가 방향성을 갖는 방향 그래프도 알아두자</em><br><img src="/img/ds/graph1-3.png"></p>
-<h3 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h3><p>BFS는 루트노드-루트의 이웃 - 이웃의 이웃… 이런 식으로 <strong>level by level</strong>로 방문한다.<br>queue 자료구조로 비재귀 코드로 작성하는게 일반적이다.<br><img src="/img/ds/graph1-4.png"><br>이런 그래프에서 방문 순서는 다음과 같다<br>(A)-(B-C-E)-(D-F-G)</p>
-<p>psuedo code로 보자</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BFS</span>(<span class="params">G = (<span class="params">V,E</span>)</span>):</span></span><br><span class="line">    <span class="comment">#node 0에서 시작.</span></span><br><span class="line">    <span class="comment">#n은 노드의 갯수</span></span><br><span class="line">    visited = [<span class="literal">False</span>]*n</span><br><span class="line">    parent = [-<span class="number">1</span>]*n</span><br><span class="line">    dist = [<span class="number">0</span>]*n</span><br><span class="line">    Q = Queue()</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">all</span> source node s <span class="keyword">in</span> G:</span><br><span class="line">        Q.enqueue(s)</span><br><span class="line">        <span class="keyword">while</span> Q <span class="keyword">is</span> <span class="keyword">not</span> empty:</span><br><span class="line">            v = Q.dequeue() <span class="comment">#dequeue는 방문을 의미</span></span><br><span class="line">            visited[v] = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">for</span> each edge v.neighbor w:</span><br><span class="line">                <span class="keyword">if</span> no visited[w]:</span><br><span class="line">                    Q.enqueue(w)</span><br><span class="line">                    parent[w] = v</span><br><span class="line">                    dist[w] = dist[v] +<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>출발 노드에서 다른 노드 v까지의 최단 경로 길이는 dist[v]에 저장.</p>
+
+
+<blockquote>
+<p>해결하기</p>
+</blockquote>
+<p>주목할 점은 한 테스트 메서드에 여러개의 인자를 여러 케이스로 보낼 수 있다는 점이다!!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Stream&lt;Arguments&gt; <span class="title">provideCarNameAndExceptionMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Stream.of(</span><br><span class="line">                Arguments.of(<span class="keyword">null</span>, <span class="string">&quot;자동차 이름을 찾을 수 없습니다!&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;다섯글자이상&quot;</span>, <span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;&quot;</span>, <span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot; &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;    &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ParameterizedTest</span></span><br><span class="line">    <span class="meta">@MethodSource(value = &quot;provideCarNameAndExceptionMessage&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_예외_테스트(String carName, String message) &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(carName))</span><br><span class="line">                .isInstanceOf(CarNameException.class)</span><br><span class="line">                .hasMessageContaining(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>다음같이 @ParameterizedTest해서 @MethodSource로 해결할 수 있다!</p>
+<h3 id="ValueSource"><a href="#ValueSource" class="headerlink" title="@ValueSource"></a>@ValueSource</h3><blockquote>
+<p>도입 배경</p>
+</blockquote>
+<p>한가지 메서드에 여러가지 경우의 수를 넣어 실험하고 싶은데 어떻게 할까?<br>예를 들어 자동차 이름에 여러가지 이름을 넣어보고 실제로 들어갔는지 테스트해보고 싶으면 어떻게 할지 고민해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_테스트() &#123;</span><br><span class="line">  Car klayCar = <span class="keyword">new</span> Car(<span class="string">&quot;klay&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(klayCar.getName()).isEqualTo(<span class="string">&quot;klay&quot;</span>);</span><br><span class="line"></span><br><span class="line">  Car eveCar = <span class="keyword">new</span> Car(<span class="string">&quot;eve&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(eveCar.getName()).isEqualTo(<span class="string">&quot;eve&quot;</span>);</span><br><span class="line"></span><br><span class="line">  Car pobiCar = <span class="keyword">new</span> Car(<span class="string">&quot;pobi&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(pobiCar.getName()).isEqualTo(<span class="string">&quot;pobi&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 무식하게 하면 당연히 뚜들겨 맞는다.</p>
+<blockquote>
+<p>해결하기</p>
+</blockquote>
+<p>주목할점은 전달될 인자의 자료형에 따라 strings, ints 등 필드값을 바꿔주면 된다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@ValueSource(strings = &#123;&quot;클레이&quot;, &quot;이브&quot;, &quot;포비&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_테스트(String carName) &#123;</span><br><span class="line">  Car car = <span class="keyword">new</span> Car(carName, <span class="number">0</span>);</span><br><span class="line">  assertThat(car.getName()).isEqualTo(carName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>더 알아보기</p>
+</blockquote>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/parameterized-tests-junit-5">https://www.baeldung.com/parameterized-tests-junit-5</a></p>
 
         </div>
         <footer class="article-footer">
@@ -255,7 +267,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/08/03/cs/datastructure/ds9/" data-id="ckyq1miga001j6wa09ayb5v9q" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2022/02/21/post-1/" data-id="ckzwpjy0a0000j6a06plu41vl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -325,19 +337,23 @@
             "@type": "Person",
             "name": "yangdongjue5510"
         },
-        "headline": "9. 그래프",
-        "image": "https://yangdongjue5510.github.io/img/ds/graph1-1.png",
-        "keywords": "",
-        "genre": "Computer Science Data Structure",
-        "datePublished": "2021-08-03",
-        "dateCreated": "2021-08-03",
-        "dateModified": "2022-01-23",
-        "url": "https://yangdongjue5510.github.io/2021/08/03/cs/datastructure/ds9/",
-        "description": "그래프G = (V, E)V = vertex set, E = edge set동그라미가 버택스(혹은 노드), 버택스를 잇는 링크를 엣지라 한다.
-degree(분지수) 어떤 노드의 이웃한 노드 갯수.어떤 그래프의 분지수는 그 그래프의 최대 분지수를 말한다.
-인접하다는 의미는 두 노드가 링크로 서로 연결 되어있는 상태를 말한다.
-경로는 노드를 중복하지 않고 지나가",
-        "wordCount": 868
+        "headline": "Junit으로 parameterized test",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "우아한 테크 코스",
+        "genre": "Java",
+        "datePublished": "2022-02-21",
+        "dateCreated": "2022-02-21",
+        "dateModified": "2022-02-21",
+        "url": "https://yangdongjue5510.github.io/2022/02/21/post-1/",
+        "description": "
+요약
+
+@ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다.
+@MethodSource
+도입 배경
+
+자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드",
+        "wordCount": 695
     }
 </script>
 
@@ -394,20 +410,10 @@ degree(분지수) 어떤 노드의 이웃한 노드 갯수.어떤 그래프의 �
         
 <nav id="article-nav">
     
-        <a href="/2021/08/03/cs/datastructure/ds10/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            10. 최단경로 알고리즘(벨만포트, 다익스트라)
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2021/08/02/cs/datastructure/ds8/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2022/02/21/post/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">8. 균형이진탐색트리</p>
+        <p class="article-nav-title">우아한테크코스 자동차 경주 미션 회고</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -474,7 +480,7 @@ degree(분지수) 어떤 노드의 이웃한 노드 갯수.어떤 그래프의 �
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://yangdongjue5510.github.io/2021/08/03/cs/datastructure/ds9/';
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/02/21/post-1/';
     
     (function() {
     var dsq = document.createElement('script');
