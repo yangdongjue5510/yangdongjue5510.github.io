@@ -6,21 +6,21 @@
     
 
     
-    <title>우아한테크코스 4기 프리코스 1주차 회고 | mudura | 그거 뭐더라</title>
+    <title>Junit으로 parameterized test | mudura | 그거 뭐더라</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content="우아한테크코스">
     
-    <meta name="description" content="우아한 테크코스 4기 프리코스 1주차1주차 문제 깃허브 링크https:&#x2F;&#x2F;github.com&#x2F;woowacourse&#x2F;java-baseball-precourse 문제 간단 요약우리가 흔히 아는 야구게임을 자바로 구현하는 게 1주차 문제다.세개의 수를 입력받고 해당 자릿수에 맞는 숫자를 입력한 경우 스트라이크 추가,자릿수는 맞지 않지만 맞는 숫자를 포함한 경우">
+    <meta name="description" content="요약  @ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다. @MethodSource 도입 배경  자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드">
 <meta property="og:type" content="article">
-<meta property="og:title" content="우아한테크코스 4기 프리코스 1주차 회고">
-<meta property="og:url" content="https://yangdongjue5510.github.io/2021/11/26/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse1/index.html">
+<meta property="og:title" content="Junit으로 parameterized test">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/index.html">
 <meta property="og:site_name" content="mudura | 그거 뭐더라">
-<meta property="og:description" content="우아한 테크코스 4기 프리코스 1주차1주차 문제 깃허브 링크https:&#x2F;&#x2F;github.com&#x2F;woowacourse&#x2F;java-baseball-precourse 문제 간단 요약우리가 흔히 아는 야구게임을 자바로 구현하는 게 1주차 문제다.세개의 수를 입력받고 해당 자릿수에 맞는 숫자를 입력한 경우 스트라이크 추가,자릿수는 맞지 않지만 맞는 숫자를 포함한 경우">
+<meta property="og:description" content="요약  @ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다. @MethodSource 도입 배경  자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-11-26T05:48:15.000Z">
-<meta property="article:modified_time" content="2022-02-24T14:17:30.669Z">
+<meta property="article:published_time" content="2022-02-21T12:16:22.000Z">
+<meta property="article:modified_time" content="2022-02-24T14:17:11.098Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="우아한테크코스">
 <meta name="twitter:card" content="summary">
@@ -163,19 +163,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    uncategorized
+    <a class="page-title-link" href="/categories/java/">Java</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-java/우아한 테크 코스/utecoprecourse1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-java/우아한테크코스/post-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        우아한테크코스 4기 프리코스 1주차 회고
+        Junit으로 parameterized test
         </h1>
     
 
@@ -186,16 +186,16 @@
                 
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2021/11/26/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse1/" class="article-date">
-       <time datetime="2021-11-26T05:48:15.000Z" itemprop="datePublished">2021-11-26</time>
+    <a href="/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/" class="article-date">
+       <time datetime="2022-02-21T12:16:22.000Z" itemprop="datePublished">2022-02-21</time>
     </a>
   </div>
 
 
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
-  <a href="/2021/11/26/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse1/" class="article-date">
-     <time datetime="2022-02-24T14:17:30.669Z" itemprop="dateModified">2022-02-24</time>
+  <a href="/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/" class="article-date">
+     <time datetime="2022-02-24T14:17:11.098Z" itemprop="dateModified">2022-02-24</time>
   </a>
 </div>
 
@@ -222,50 +222,45 @@
 
             
 
-            <h1 id="우아한-테크코스-4기-프리코스-1주차"><a href="#우아한-테크코스-4기-프리코스-1주차" class="headerlink" title="우아한 테크코스 4기 프리코스 1주차"></a>우아한 테크코스 4기 프리코스 1주차</h1><h2 id="1주차-문제-깃허브-링크"><a href="#1주차-문제-깃허브-링크" class="headerlink" title="1주차 문제 깃허브 링크"></a>1주차 문제 깃허브 링크</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/woowacourse/java-baseball-precourse">https://github.com/woowacourse/java-baseball-precourse</a></p>
-<h2 id="문제-간단-요약"><a href="#문제-간단-요약" class="headerlink" title="문제 간단 요약"></a>문제 간단 요약</h2><p>우리가 흔히 아는 야구게임을 자바로 구현하는 게 1주차 문제다.<br>세개의 수를 입력받고 해당 자릿수에 맞는 숫자를 입력한 경우 스트라이크 추가,<br>자릿수는 맞지 않지만 맞는 숫자를 포함한 경우 볼 추가해서 결과를 반환한다.</p>
-<p>3 스트라이크. 즉 정확히 맞출 경우 게임을 종료하고,<br>다시 게임을 시작을 할 수 있도록 해야한다.</p>
-<h2 id="마주한-문제들"><a href="#마주한-문제들" class="headerlink" title="마주한 문제들"></a>마주한 문제들</h2><h3 id="요구사항-작성하기"><a href="#요구사항-작성하기" class="headerlink" title="요구사항 작성하기"></a>요구사항 작성하기</h3><p>일단 우테코 프리코스는 가장 먼저 요구사항을 작성해야 한다.<br><strong>요구 사항을 기능 중점으로 정리해서 README.md를 작성해야 하는게 첫 단계다.</strong></p>
-<p>처음에 필자는 그냥 우테코에서 작성된 요구사항을 마구잡이로 요구사항을 만들었는데,<br>나중에 코드를 작성하려고 했더니, 어떤 요구사항 먼저 해결해야 할 지 막막했다.</p>
-<p>그래서 내가 고민하고 고안해낸 요구사항 분석하는 방법은 다음과 같다.</p>
-<ol>
-<li>가장 먼저 전체적인 <strong>프로그램의 흐름을 이해</strong>한다.</li>
-<li>요구사항은 <strong>기능 관점에서 작성</strong>한다.</li>
-<li>요구사항은 <strong>의존 관계가 가장 느슨한 것 먼저 우선순위로 작성</strong>한다.<ul>
-<li>1주차 프리코스의 문제에서는 목표 숫자를 난수로 만드는게 가장 의존 관계가 느슨하다.</li>
-<li>이게 무슨 말이냐면, 목표 숫자를 난수로 만드는 기능은 다른 기능의 힘을 필요로 하지 않는다는 의미다.</li>
-</ul>
-</li>
-<li>최대한 각 기능들이 <strong>서로의 역할을 간섭하지 않도록</strong> 하라.<ul>
-<li>일단 한 기능에서 예외처리를 담당하면, 다른 기능에서는 예외처리 책임을 질 필요 없다.</li>
-<li>예외처리를 해야 될 경우 예외처리를 담당하는 기능과 협력하도록 하자.</li>
-</ul>
-</li>
-</ol>
-<p>이렇게 요구사항 목록을 작성하고 나면, 프로그래밍을 하는 과정에서 빼먹는 요구사항을 최소한으로 줄일 수 있다.<br>또한 요구사항 구현 순서를 어느정도 정리하고 작성하기 때문에 구현을 더 원활하게 할 수 있다.</p>
-<h3 id="깃-사용"><a href="#깃-사용" class="headerlink" title="깃 사용"></a>깃 사용</h3><p>우테코 프리코스는 깃 커밋을 신중하게 작성해야 한다.<br>그래서 깃을 어떻게 사용하는지가 굉장히 중요하다.</p>
-<ol>
-<li>기능은 따로 브랜치를 만들어서 격리된 상황에서 구현하라.<ul>
-<li>기능을 만들다가 되돌리기 쉽다.</li>
-</ul>
-</li>
-<li>커밋 메시지를 잘 지켜서 작성한다.<ul>
-<li>다른 사람이 쉽게 이해할 수 있도록 하기 위함이다.</li>
-</ul>
-</li>
-<li>커밋은 기능 관점에서 작성해야 한다.<ul>
-<li>지나치게 세세하게 하지도 않고, 지나치게 적게 하지 않기 위함이다.</li>
-</ul>
-</li>
-</ol>
-<h2 id="코드-작성"><a href="#코드-작성" class="headerlink" title="코드 작성"></a>코드 작성</h2><p>우아한 테크코스에서는 최대한 간략하게 코드를 작성하도록 한다.<br>일단 <strong>메서드가 한 역할을 잘하도록하고, 그 메서드가 15줄이 넘지 않도록 하는게 중요</strong>하다.</p>
-<p>필자의 경우, 전체적인 기능을 정리하고 나서,<br>이 기능들을 어떤 클래스가 책임질 지,<br>혹은 메서드를 어떻게 나눌 것인지가 정말 어려웠다.</p>
-<h2 id="후기"><a href="#후기" class="headerlink" title="후기"></a>후기</h2><p>프리코스에 참여해보니, 내가 그동안 얼마나 코드를 대충 짰는지 체감하는 경험이 됐다.<br>혼자 코드를 짜다보면 의식의 흐름대로 코드를 짜게 되는 경우가 많다.<br>그러다보면 한 메서드에 수많은 기능이 의존하게 되고, 유지보수도 극악에 향하게 된다.</p>
-<p>프리코스의 요구사항을 만족하는 방식으로 프로그래밍 하다보니 자연스럽게 책임을 나누게 되고,<br>그 책임을 수행하는 여러 객체들의 협동으로 기능을 완성했다.<br>평소 코딩할 때는 생각해보지 못했던 부분을 경험할 수 있어 재밌었다.</p>
-<p>프리코스는 코딩하는 법을 알려주지 않는다. 다만 무엇을 만들라 한다.<br>그런데 하다보면 알게 된다. 아무도 알려주지 않지만 스스로 알게 된다.</p>
-<p>내가 모르는 건 스스로 찾아서 해결하게 된다. 그리고 그 정보를 체득하기 위해 노력하게 된다.</p>
-<p>프리코스를 시작하기 전, 교육을 기획한 자바지기님은 프리코스를 우아한 테크코스를 통과하기 위한 것으로 생각하지 말고,<br>더 좋은 개발자가 되기 위한 과정으로 여겨줬으면 좋겠다고 하셨는데,</p>
-<p>이번 프리코스를 통해 더 좋은 개발자가 될 수 있을 거 같다.<br>다음 프리코스도 더 기대가 된다.</p>
+            <blockquote>
+<p>요약</p>
+</blockquote>
+<p>@ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다.</p>
+<h3 id="MethodSource"><a href="#MethodSource" class="headerlink" title="@MethodSource"></a>@MethodSource</h3><blockquote>
+<p>도입 배경</p>
+</blockquote>
+<p>자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.<br>근데 테스트 코드를 작성하다보니 다음과 같이 메서드가 비슷비슷하게 나올 때 이를 리팩토링해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings(&quot;NonAsciiCharacters&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_글자수_테스트() &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(<span class="string">&quot;다섯글자이상&quot;</span>))</span><br><span class="line">                .isInstanceOf(RuntimeException.class)</span><br><span class="line">                .hasMessageContaining(<span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름이_존재하지_않는_경우_테스트() &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(<span class="string">&quot;&quot;</span>))</span><br><span class="line">                .isInstanceOf(RuntimeException.class)</span><br><span class="line">                .hasMessageContaining(<span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 등등...</span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>해결하기</p>
+</blockquote>
+<p>주목할 점은 한 테스트 메서드에 여러개의 인자를 여러 케이스로 보낼 수 있다는 점이다!!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Stream&lt;Arguments&gt; <span class="title">provideCarNameAndExceptionMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Stream.of(</span><br><span class="line">                Arguments.of(<span class="keyword">null</span>, <span class="string">&quot;자동차 이름을 찾을 수 없습니다!&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;다섯글자이상&quot;</span>, <span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;&quot;</span>, <span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot; &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;    &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ParameterizedTest</span></span><br><span class="line">    <span class="meta">@MethodSource(value = &quot;provideCarNameAndExceptionMessage&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_예외_테스트(String carName, String message) &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(carName))</span><br><span class="line">                .isInstanceOf(CarNameException.class)</span><br><span class="line">                .hasMessageContaining(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>다음같이 @ParameterizedTest해서 @MethodSource로 해결할 수 있다!</p>
+<h3 id="ValueSource"><a href="#ValueSource" class="headerlink" title="@ValueSource"></a>@ValueSource</h3><blockquote>
+<p>도입 배경</p>
+</blockquote>
+<p>한가지 메서드에 여러가지 경우의 수를 넣어 실험하고 싶은데 어떻게 할까?<br>예를 들어 자동차 이름에 여러가지 이름을 넣어보고 실제로 들어갔는지 테스트해보고 싶으면 어떻게 할지 고민해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_테스트() &#123;</span><br><span class="line">  Car klayCar = <span class="keyword">new</span> Car(<span class="string">&quot;klay&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(klayCar.getName()).isEqualTo(<span class="string">&quot;klay&quot;</span>);</span><br><span class="line"></span><br><span class="line">  Car eveCar = <span class="keyword">new</span> Car(<span class="string">&quot;eve&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(eveCar.getName()).isEqualTo(<span class="string">&quot;eve&quot;</span>);</span><br><span class="line"></span><br><span class="line">  Car pobiCar = <span class="keyword">new</span> Car(<span class="string">&quot;pobi&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(pobiCar.getName()).isEqualTo(<span class="string">&quot;pobi&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 무식하게 하면 당연히 뚜들겨 맞는다.</p>
+<blockquote>
+<p>해결하기</p>
+</blockquote>
+<p>주목할점은 전달될 인자의 자료형에 따라 strings, ints 등 필드값을 바꿔주면 된다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@ValueSource(strings = &#123;&quot;클레이&quot;, &quot;이브&quot;, &quot;포비&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_테스트(String carName) &#123;</span><br><span class="line">  Car car = <span class="keyword">new</span> Car(carName, <span class="number">0</span>);</span><br><span class="line">  assertThat(car.getName()).isEqualTo(carName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>더 알아보기</p>
+</blockquote>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/parameterized-tests-junit-5">https://www.baeldung.com/parameterized-tests-junit-5</a></p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.arhohuttunen.com/junit-5-parameterized-tests/">https://www.arhohuttunen.com/junit-5-parameterized-tests/</a></p>
 
         </div>
         <footer class="article-footer">
@@ -273,7 +268,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/11/26/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse1/" data-id="cl014v3k5000d6ua0692kabqq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/" data-id="cl015kpia000eeqa0fo1o9s1c" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -343,17 +338,23 @@
             "@type": "Person",
             "name": "yangdongjue5510"
         },
-        "headline": "우아한테크코스 4기 프리코스 1주차 회고",
+        "headline": "Junit으로 parameterized test",
         "image": "https://yangdongjue5510.github.io",
         "keywords": "우아한테크코스",
-        "genre": "",
-        "datePublished": "2021-11-26",
-        "dateCreated": "2021-11-26",
+        "genre": "Java",
+        "datePublished": "2022-02-21",
+        "dateCreated": "2022-02-21",
         "dateModified": "2022-02-24",
-        "url": "https://yangdongjue5510.github.io/2021/11/26/java/우아한 테크 코스/utecoprecourse1/",
-        "description": "우아한 테크코스 4기 프리코스 1주차1주차 문제 깃허브 링크https://github.com/woowacourse/java-baseball-precourse
-문제 간단 요약우리가 흔히 아는 야구게임을 자바로 구현하는 게 1주차 문제다.세개의 수를 입력받고 해당 자릿수에 맞는 숫자를 입력한 경우 스트라이크 추가,자릿수는 맞지 않지만 맞는 숫자를 포함한 경우 ",
-        "wordCount": 430
+        "url": "https://yangdongjue5510.github.io/2022/02/21/java/우아한테크코스/post-1/",
+        "description": "
+요약
+
+@ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다.
+@MethodSource
+도입 배경
+
+자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드",
+        "wordCount": 696
     }
 </script>
 
@@ -410,20 +411,20 @@
         
 <nav id="article-nav">
     
-        <a href="/2021/11/26/java/object/object1/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2022/02/24/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-2/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">newer</strong>
         <p class="article-nav-title">
         
-            객체지향의 역할, 책임, 협력
+            Enum에서 메서드 참조와 BiFunction 사용하기
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
     
-        <a href="/2021/11/20/java/java-basic/java11/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">자바 코딩 규칙(Java Code Conventions)</p>
+        <p class="article-nav-title">우아한테크코스 자동차 경주 미션 회고</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -490,7 +491,7 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://yangdongjue5510.github.io/2021/11/26/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse1/';
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/';
     
     (function() {
     var dsq = document.createElement('script');

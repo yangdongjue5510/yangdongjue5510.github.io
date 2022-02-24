@@ -6,21 +6,21 @@
     
 
     
-    <title>우아한테크코스 4기 프리코스 2주차 회고 | mudura | 그거 뭐더라</title>
+    <title>자바 일급 컬렉션 활용해보기 | mudura | 그거 뭐더라</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content="우아한테크코스">
     
-    <meta name="description" content="우아한 테크코스 4기 프리코스 2주차 회고2주차 문제 &amp; 내 제출 답안https:&#x2F;&#x2F;github.com&#x2F;woowacourse&#x2F;java-racingcar-precourse https:&#x2F;&#x2F;github.com&#x2F;yangdongjue5510&#x2F;java-racingcar-precourse 마주한 문제들책임을 클래스들에게 분배하기이번 문제는 메서드를 분리하는 것에">
+    <meta name="description" content="요약  일급 컬렉션은 컬렉션 객체를 감싸는 객체를 말한다.일급 컬렉션은 객체를 만들 때 검증해야 할 로직을 모아 둘 수 있다.일급 컬렉션은 해당 컬렉션이 행해야 할 책임을 모아 둘 수 있다. 불변성을 지키기 위해서는   setter 금지.   일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당  getter 할 때 불변 객체 반">
 <meta property="og:type" content="article">
-<meta property="og:title" content="우아한테크코스 4기 프리코스 2주차 회고">
-<meta property="og:url" content="https://yangdongjue5510.github.io/2021/12/05/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse2/index.html">
+<meta property="og:title" content="자바 일급 컬렉션 활용해보기">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/index.html">
 <meta property="og:site_name" content="mudura | 그거 뭐더라">
-<meta property="og:description" content="우아한 테크코스 4기 프리코스 2주차 회고2주차 문제 &amp; 내 제출 답안https:&#x2F;&#x2F;github.com&#x2F;woowacourse&#x2F;java-racingcar-precourse https:&#x2F;&#x2F;github.com&#x2F;yangdongjue5510&#x2F;java-racingcar-precourse 마주한 문제들책임을 클래스들에게 분배하기이번 문제는 메서드를 분리하는 것에">
+<meta property="og:description" content="요약  일급 컬렉션은 컬렉션 객체를 감싸는 객체를 말한다.일급 컬렉션은 객체를 만들 때 검증해야 할 로직을 모아 둘 수 있다.일급 컬렉션은 해당 컬렉션이 행해야 할 책임을 모아 둘 수 있다. 불변성을 지키기 위해서는   setter 금지.   일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당  getter 할 때 불변 객체 반">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-12-04T15:40:27.000Z">
-<meta property="article:modified_time" content="2022-02-24T14:17:36.293Z">
+<meta property="article:published_time" content="2022-02-16T12:10:39.000Z">
+<meta property="article:modified_time" content="2022-02-24T14:17:03.142Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="우아한테크코스">
 <meta name="twitter:card" content="summary">
@@ -163,19 +163,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    uncategorized
+    <a class="page-title-link" href="/categories/java/">Java</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/java/java-basic/">Java Basic</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-java/우아한 테크 코스/utecoprecourse2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-java/우아한테크코스/java-first-collection" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        우아한테크코스 4기 프리코스 2주차 회고
+        자바 일급 컬렉션 활용해보기
         </h1>
     
 
@@ -186,16 +186,16 @@
                 
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2021/12/05/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse2/" class="article-date">
-       <time datetime="2021-12-04T15:40:27.000Z" itemprop="datePublished">2021-12-05</time>
+    <a href="/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/" class="article-date">
+       <time datetime="2022-02-16T12:10:39.000Z" itemprop="datePublished">2022-02-16</time>
     </a>
   </div>
 
 
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
-  <a href="/2021/12/05/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse2/" class="article-date">
-     <time datetime="2022-02-24T14:17:36.293Z" itemprop="dateModified">2022-02-24</time>
+  <a href="/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/" class="article-date">
+     <time datetime="2022-02-24T14:17:03.142Z" itemprop="dateModified">2022-02-24</time>
   </a>
 </div>
 
@@ -222,58 +222,48 @@
 
             
 
-            <h1 id="우아한-테크코스-4기-프리코스-2주차-회고"><a href="#우아한-테크코스-4기-프리코스-2주차-회고" class="headerlink" title="우아한 테크코스 4기 프리코스 2주차 회고"></a>우아한 테크코스 4기 프리코스 2주차 회고</h1><h2 id="2주차-문제-amp-내-제출-답안"><a href="#2주차-문제-amp-내-제출-답안" class="headerlink" title="2주차 문제 &amp; 내 제출 답안"></a>2주차 문제 &amp; 내 제출 답안</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/woowacourse/java-racingcar-precourse">https://github.com/woowacourse/java-racingcar-precourse</a></p>
-<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/yangdongjue5510/java-racingcar-precourse">https://github.com/yangdongjue5510/java-racingcar-precourse</a></p>
-<h2 id="마주한-문제들"><a href="#마주한-문제들" class="headerlink" title="마주한 문제들"></a>마주한 문제들</h2><h3 id="책임을-클래스들에게-분배하기"><a href="#책임을-클래스들에게-분배하기" class="headerlink" title="책임을 클래스들에게 분배하기"></a>책임을 클래스들에게 분배하기</h3><p>이번 문제는 메서드를 분리하는 것에 더해, 클래스를 분리해서 책임을 분배해야 한다는 미션을 받았다.</p>
-<p>문제에는 Car 객체가 제시되어 활용하는 요구사항이 추가됐다.</p>
-<p>일단 나눠주여 할 책임을 보면,</p>
-<ul>
-<li>사용자에게 입력을 받는 책임</li>
-<li>입력된 값을 검증하는 책임</li>
-<li>자동차를 만드는 책임</li>
-<li>자동차의 게임을 진행하는 책임</li>
-<li>레이싱 결과를 분별하는 책임</li>
-<li>결과를 출력하는 책임</li>
-</ul>
-<p>이렇게 나눌 수 있었다.</p>
-<p>나는  다음과 같이 클래스들에게 <strong>책임을 나눠줬다</strong>.</p>
-<ul>
-<li>입력을 담당하는 InputManager</li>
-<li>입력값 검증하는 ValidChecker</li>
-<li>자동차를 만들어 게임을 진행하는 RacingPlayer</li>
-<li>자동차의 운행 여부를 판단하여 운행하는 Car</li>
-<li>자동차 위치에 따라 우승자를 찾는 RacingReferee</li>
-</ul>
-<p>이렇게 역할을 나눠줬는데, 역할을 나눠주고 나니 <strong>각 객체의 인스턴스 변수를 다른 객체가 활용해야 하는 경우가 있었다.</strong></p>
-<h4 id="패키지-분리-후-default-접근-지시자"><a href="#패키지-분리-후-default-접근-지시자" class="headerlink" title="패키지 분리 후 default 접근 지시자"></a>패키지 분리 후 default 접근 지시자</h4><p>나는 이 문제를 해결하기 위해 <strong>도매인과 관련된 Car, RacingPlayer, RacingReferee는 같은 패키지로 분리</strong>해줬다.</p>
-<p>그리고 <strong>getter 메서드를 default로 추가</strong>해 도매인 관련된 객체들만 해당 인스턴스 변수를 이용할 수 있게 했다.</p>
-<p>예시로 RacingReferee는 우승자들을 분류해서 리스트로 가지고, 우승자의 이름을 출력하는 책임을 지고 있다.<br>그런데 우승자(Car 객체)는 이름이 private로 되어 있다. 이럴 경우 default getter로 캡슐화를 최대한 준수하고자 했다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Car</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">	...</span><br><span class="line">	<span class="function">String <span class="title">getName</span><span class="params">()</span> </span>&#123;	<span class="comment">//default 접근지시자를 활용했다.</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <blockquote>
+<p>요약</p>
+</blockquote>
+<p>일급 컬렉션은 컬렉션 객체를 감싸는 객체를 말한다.<br>일급 컬렉션은 객체를 만들 때 검증해야 할 로직을 모아 둘 수 있다.<br>일급 컬렉션은 해당 컬렉션이 행해야 할 책임을 모아 둘 수 있다.</p>
+<p>불변성을 지키기 위해서는 </p>
+<ol>
+<li><p>setter 금지. </p>
+</li>
+<li><p>일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당</p>
+</li>
+<li><p>getter 할 때 불변 객체 반환.</p>
+</li>
+</ol>
+<h1 id="일급-컬렉션이란"><a href="#일급-컬렉션이란" class="headerlink" title="일급 컬렉션이란"></a>일급 컬렉션이란</h1><p>일급 컬렉션은 컬렉션 객체를 감싸는 객체다.<br>일급 컬렉션은 멤버 변수로 감싸고자 하는 컬렉션만 갖는다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParticipatedCars</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> START_POSITION = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Car&gt; cars;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//이하 생략...  </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RacingReferee</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> List&lt;Car&gt; winners;</span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">printWinners</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">		...</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; winners.size(); i++) &#123;		<span class="comment">//getName 메서드를 활용하고 있다.</span></span><br><span class="line">			builder.append(winners.get(i).getName()).append(MESSAGE_COMMA_WITH_SPACE);</span><br><span class="line">		&#125;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="일급-컬렉션의-강점"><a href="#일급-컬렉션의-강점" class="headerlink" title="일급 컬렉션의 강점"></a>일급 컬렉션의 강점</h1><h4 id="1-일급-컬렉션은-해당-컬렉션의-검증-로직을-한-곳에-모을-수-있다"><a href="#1-일급-컬렉션은-해당-컬렉션의-검증-로직을-한-곳에-모을-수-있다" class="headerlink" title="1. 일급 컬렉션은 해당 컬렉션의 검증 로직을 한 곳에 모을 수 있다."></a>1. 일급 컬렉션은 해당 컬렉션의 검증 로직을 한 곳에 모을 수 있다.</h4><p>예를 들어 자동차 경주에 참가할 자동차 리스트를 관리한다고 가정하자.<br>이때 참가할 자동차들의 이름은 중복되면 안된다.</p>
+<p>일급 컬렉션을 활용하면 참가할 자동차를 생성할 때 다음 같이 검증할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParticipatedCars</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> START_POSITION = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Car&gt; cars;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ParticipatedCars</span><span class="params">(List&lt;String&gt; carNames)</span> </span>&#123;</span><br><span class="line">        checkCarNameDuplicated(carNames);</span><br><span class="line">        <span class="keyword">this</span>.cars = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String carName : carNames) &#123;</span><br><span class="line">            cars.add(<span class="keyword">new</span> Car(carName, START_POSITION));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkCarNameDuplicated</span><span class="params">(List&lt;String&gt; carNames)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> count = carNames.stream().distinct().count();</span><br><span class="line">        <span class="keyword">if</span> (count != carNames.size()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CarNameDuplicationException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//이하 생략...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 일급 컬렉션 객체의 생성자에 검증 로직을 넣어두면 참여중인 자동차 객체는 반드시 중복되지 않은 이름들을 가진다고 확신할 수 있다.</p>
+<p>일급 컬렉션을 사용하지 않는다면 이런 검증 로직은 서비스 메서드로 처리하게 된다.<br>그러면 매번 참여중 인 자동차를 만들 때 마다 서비스 메서드를 호출해줘야 되는 번거로움이 생긴다.</p>
+<h4 id="2-상태와-행동을-한-곳에서-관리-할-수-있다"><a href="#2-상태와-행동을-한-곳에서-관리-할-수-있다" class="headerlink" title="2. 상태와 행동을 한 곳에서 관리 할 수 있다."></a>2. 상태와 행동을 한 곳에서 관리 할 수 있다.</h4><p>참여한 자동차들은 모두 레이싱을 시도하는 역할을 할 수 있다.</p>
+<p>다음 같이 일급 컬렉션에 행동을 추가해서 관리할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParticipatedCars</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> START_POSITION = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Car&gt; cars;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ParticipatedCars</span><span class="params">(List&lt;String&gt; carNames)</span> </span>&#123;</span><br><span class="line">        checkCarNameDuplicated(carNames);</span><br><span class="line">        <span class="keyword">this</span>.cars = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String carName : carNames) &#123;</span><br><span class="line">            cars.add(<span class="keyword">new</span> Car(carName, START_POSITION));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//생략...</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">executeCarRacing</span><span class="params">(RandomNumberGenerator randomNumberGenerator)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Car car : cars) &#123;</span><br><span class="line">            car.tryToMoveBy(randomNumberGenerator);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>일급 컬렉션을 통해 이 객체가 어떤 행동을 하는지도 한눈에 볼 수 있게됐다.</p>
+<h1 id="일급-컬렉션과-불변성"><a href="#일급-컬렉션과-불변성" class="headerlink" title="일급 컬렉션과 불변성"></a>일급 컬렉션과 불변성</h1><p>일급 컬렉션이 불변하다는 특징을 가졌다고 알려졌는데, 사실 그렇지 않을 수 있다는 포스트도 있다.</p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://tecoble.techcourse.co.kr/post/2020-05-08-First-Class-Collection/">관련 포스트</a></p>
+<p>불변성을 지키고 싶다면 다음 세가지를 지켜주자</p>
+<ol>
+<li>setter를 사용하지 않는다.</li>
+<li>일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당하자.</li>
+<li>getter를 할 때 불변한 콜렉션으로 반환하자.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParticipatedCars</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> START_POSITION = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Car&gt; cars;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ParticipatedCars</span><span class="params">(List&lt;String&gt; carNames)</span> </span>&#123;</span><br><span class="line">        checkCarNameDuplicated(carNames);</span><br><span class="line">        <span class="keyword">this</span>.cars = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// &lt;- 새로운 주소가 할당된다.</span></span><br><span class="line">        <span class="keyword">for</span> (String carName : carNames) &#123;</span><br><span class="line">            cars.add(<span class="keyword">new</span> Car(carName, START_POSITION));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Car&gt; <span class="title">getCars</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Collections.unmodifiableList(<span class="keyword">this</span>.cars); <span class="comment">//&lt;- getter할 때 불변된 리스트가 반환된다.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="우승자-알아내기"><a href="#우승자-알아내기" class="headerlink" title="우승자 알아내기"></a>우승자 알아내기</h3><p>Car의 우승 여부를 알려면 각 Car의 위치를 알아야 한다.</p>
-<p>그런데 나는 앞서 말했듯이 우승여부를 다른 객체(RacingReferee)가 한다고 했다.<br>이미 Car 객체의 위치값은 private인데 어떻게 RacingReferee가 이를 계산해서 처리할 것인가?</p>
-<p>가장 편한 대답은 아까처럼 default getter를 만드는 방법이다.<br>하지만 검색을 좀 해봤더니 다른 방식을 알아냈다.</p>
-<p>바로 <strong>Comparable로 정렬하기</strong> 이다.</p>
-<p>Car를 Comparable로 정렬 기준을 만들자.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Car</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> position = <span class="number">0</span>;</span><br><span class="line">	...</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Car otherCar)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> otherCar.position - <span class="keyword">this</span>.position;</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>이렇게 해놓으면 외부에서 자동차 위치를 알지 못해도 compareTo로 자동차들의 위치를 비교한다!</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RacingReferee</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> List&lt;Car&gt; winners;</span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">findWinner</span><span class="params">(List&lt;Car&gt; participantCars)</span> </span>&#123;</span><br><span class="line">		Collections.sort(participantCars);	<span class="comment">//</span></span><br><span class="line">		Car winner = participantCars.get(WINNER_INDEX);</span><br><span class="line">		<span class="keyword">this</span>.winners = participantCars.stream()</span><br><span class="line">			.filter(car -&gt; car.compareTo(winner) == COMPARE_WINNER_RESULT)</span><br><span class="line">			.collect(Collectors.toList());</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>RacingReferee는 Car가 어떤 식으로 정렬하는지 알지 못해도 일단 <code>Collections.sort()</code> 하면 우승자 순으로 정렬된다는거만 안다.</p>
-<p>나름 캡슐화를 지킨 방식이라서 재밌었다.</p>
-<h2 id="후기"><a href="#후기" class="headerlink" title="후기"></a>후기</h2><p>이번 주차는 비교적 수월하게 했다. 지난주에 설계를 못한다는 생각에 충격을 먹어서, 급하게 객체지향 관련 책을 찾아 본 게 큰 도움이 된거 같다.</p>
-<p>지난 야구 게임을 구현할 때는 한 클래스가 거의 모든 데이터를 독점하고, 여러 일을 책임지고 있는 좋지 않은 설계로 구현했었다.</p>
-<p>이번 문제는 강제로 Car 객체를 사용해야되서 자연스럽게 여러 객체들을 협력에 동참시켜야 했다.<br>특히 이번엔 한 클래스가 데이터를 독점하지 못하도록 어떤 부분에 다른 클래스로 대체할 것인지 고민을 많이 했다.<br>그 고민을 통해 등장시킨게 RacingReferee였다. 이 객체는 우승자를 가지고, 스스로 관리하게 설계했다는 점에서 만족스러웠다.</p>
-<p>그리고 Comparator와 Comparable에 대해 공부할 수 있는 기회였다.<br>최대한 캡슐화를 지키면서 우승 자동차를 구하는 방법을 찾다보니 평소에 잘 이해하지 못했던 개념을 제대로 이해할 수 있었다.<br>이런 아이디어를 내가 직접 생각해낸게 아니라서, 만약 실제 코딩테스트 상황에서 이런 문제를 만나면 어찌해야 될 지 고민이 되긴한다.</p>
-<p>하지만 아직 부족한 부분이 많다.<br>대표적으로 README 작성. 살아있는 문서를 작성하라는데, 이게 좀 힘들다.<br>의외라고 생각할 수 있는데, 나는 문제를 풀 때, 구현에 집중하다 보면, README는 안중에도 없게 된다.(…)<br>그래서 이번엔 비교적 좀 더 신경을 썼는데, 아직 부족한 거 같기도 하다…</p>
-<p>그리고 테스트 코드 작성도 많이 부족하다.<br>나는 사실 이 문제를 여러번 풀어보고 제출한다.<br>이번 주 문제인 레이싱 문제도 대충 3번정도 풀어보고 제출하는 거다.<br>그래서 제출 코드에는 굳이 테스트 코드가 필요없다. 이미 많이 시도해본 코드들이기 때문이다.</p>
-<p>근데 실전에서는 그럴 시간이 없다. 5시간안에 여러번 푼다는건 말도 안된다 ㅋㅋ.<br>그래서 테스트 코드를 작성하는 법을 배워야 한다는 걸 느꼈다.<br>JUnit와 TDD에 대해 공부하려고 한다.</p>
-<p>아직 많이 부족하다.</p>
+<h3 id="여전히-궁금한-것들"><a href="#여전히-궁금한-것들" class="headerlink" title="여전히 궁금한 것들"></a>여전히 궁금한 것들</h3><ol>
+<li>왜 일급 컬렉션은 </li>
+</ol>
 
         </div>
         <footer class="article-footer">
@@ -281,7 +271,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/12/05/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse2/" data-id="cl014v3k7000k6ua04zv429xl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/" data-id="cl015kpi80005eqa02nqvd6gq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -351,18 +341,26 @@
             "@type": "Person",
             "name": "yangdongjue5510"
         },
-        "headline": "우아한테크코스 4기 프리코스 2주차 회고",
+        "headline": "자바 일급 컬렉션 활용해보기",
         "image": "https://yangdongjue5510.github.io",
         "keywords": "우아한테크코스",
-        "genre": "",
-        "datePublished": "2021-12-05",
-        "dateCreated": "2021-12-05",
+        "genre": "Java Java Basic",
+        "datePublished": "2022-02-16",
+        "dateCreated": "2022-02-16",
         "dateModified": "2022-02-24",
-        "url": "https://yangdongjue5510.github.io/2021/12/05/java/우아한 테크 코스/utecoprecourse2/",
-        "description": "우아한 테크코스 4기 프리코스 2주차 회고2주차 문제 &amp; 내 제출 답안https://github.com/woowacourse/java-racingcar-precourse
-https://github.com/yangdongjue5510/java-racingcar-precourse
-마주한 문제들책임을 클래스들에게 분배하기이번 문제는 메서드를 분리하는 것에",
-        "wordCount": 719
+        "url": "https://yangdongjue5510.github.io/2022/02/16/java/우아한테크코스/java-first-collection/",
+        "description": "
+요약
+
+일급 컬렉션은 컬렉션 객체를 감싸는 객체를 말한다.일급 컬렉션은 객체를 만들 때 검증해야 할 로직을 모아 둘 수 있다.일급 컬렉션은 해당 컬렉션이 행해야 할 책임을 모아 둘 수 있다.
+불변성을 지키기 위해서는 
+
+setter 금지. 
+
+일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당
+
+getter 할 때 불변 객체 반",
+        "wordCount": 939
     }
 </script>
 
@@ -419,20 +417,20 @@ https://github.com/yangdongjue5510/java-racingcar-precourse
         
 <nav id="article-nav">
     
-        <a href="/2021/12/10/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse3/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-custom-exception/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">newer</strong>
         <p class="article-nav-title">
         
-            우아한테크코스 4기 프리코스 3주차 회고
+            자바 사용자 정의 예외 만들기
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
     
-        <a href="/2021/12/03/java/java-basic/java13/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2022/02/15/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-convention/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">13. Comparable과 Comparator의 차이!</p>
+        <p class="article-nav-title">구글 자바 컨벤션 및 우테코 컨벤션에서 자주 틀리는 내용 모음!</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -499,7 +497,7 @@ https://github.com/yangdongjue5510/java-racingcar-precourse
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://yangdongjue5510.github.io/2021/12/05/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%20%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%20%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/utecoprecourse2/';
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/';
     
     (function() {
     var dsq = document.createElement('script');
