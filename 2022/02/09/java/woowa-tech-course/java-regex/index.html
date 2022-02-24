@@ -6,21 +6,21 @@
     
 
     
-    <title>Junit으로 parameterized test | mudura | 그거 뭐더라</title>
+    <title>자바에서 정규 표현식 잘 활용하기 | mudura | 그거 뭐더라</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content="우아한테크코스">
     
-    <meta name="description" content="요약  @ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다. @MethodSource 도입 배경  자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드">
+    <meta name="description" content="요약  Pattern 클래스와 Matcher 클래스를 활용해서 자바 정규 표현식을 잘 표현한다. 특히 Matcher클래스에 정규 표현식을 compile(String)하고, matcher(String)으로 대상 문자열을 전달해준다.이때 find()메서드를 반드시 실행해줘야 정상적으로 Matcher 객체에 관련 내용이 할당된다!! Pattern 클래스로 정규">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Junit으로 parameterized test">
-<meta property="og:url" content="https://yangdongjue5510.github.io/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/index.html">
+<meta property="og:title" content="자바에서 정규 표현식 잘 활용하기">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/02/09/java/woowa-tech-course/java-regex/index.html">
 <meta property="og:site_name" content="mudura | 그거 뭐더라">
-<meta property="og:description" content="요약  @ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다. @MethodSource 도입 배경  자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드">
+<meta property="og:description" content="요약  Pattern 클래스와 Matcher 클래스를 활용해서 자바 정규 표현식을 잘 표현한다. 특히 Matcher클래스에 정규 표현식을 compile(String)하고, matcher(String)으로 대상 문자열을 전달해준다.이때 find()메서드를 반드시 실행해줘야 정상적으로 Matcher 객체에 관련 내용이 할당된다!! Pattern 클래스로 정규">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-02-21T12:16:22.000Z">
-<meta property="article:modified_time" content="2022-02-24T14:17:11.098Z">
+<meta property="article:published_time" content="2022-02-09T14:45:29.000Z">
+<meta property="article:modified_time" content="2022-02-24T14:17:07.974Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="우아한테크코스">
 <meta name="twitter:card" content="summary">
@@ -163,19 +163,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/java/">Java</a>
+    <a class="page-title-link" href="/categories/java/">Java</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/java/java-basic/">Java Basic</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-java/우아한테크코스/post-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-java/woowa-tech-course/java-regex" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        Junit으로 parameterized test
+        자바에서 정규 표현식 잘 활용하기
         </h1>
     
 
@@ -186,16 +186,16 @@
                 
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/" class="article-date">
-       <time datetime="2022-02-21T12:16:22.000Z" itemprop="datePublished">2022-02-21</time>
+    <a href="/2022/02/09/java/woowa-tech-course/java-regex/" class="article-date">
+       <time datetime="2022-02-09T14:45:29.000Z" itemprop="datePublished">2022-02-09</time>
     </a>
   </div>
 
 
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
-  <a href="/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/" class="article-date">
-     <time datetime="2022-02-24T14:17:11.098Z" itemprop="dateModified">2022-02-24</time>
+  <a href="/2022/02/09/java/woowa-tech-course/java-regex/" class="article-date">
+     <time datetime="2022-02-24T14:17:07.974Z" itemprop="dateModified">2022-02-24</time>
   </a>
 </div>
 
@@ -225,42 +225,14 @@
             <blockquote>
 <p>요약</p>
 </blockquote>
-<p>@ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다.</p>
-<h3 id="MethodSource"><a href="#MethodSource" class="headerlink" title="@MethodSource"></a>@MethodSource</h3><blockquote>
-<p>도입 배경</p>
-</blockquote>
-<p>자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.<br>근데 테스트 코드를 작성하다보니 다음과 같이 메서드가 비슷비슷하게 나올 때 이를 리팩토링해보자.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings(&quot;NonAsciiCharacters&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_글자수_테스트() &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(<span class="string">&quot;다섯글자이상&quot;</span>))</span><br><span class="line">                .isInstanceOf(RuntimeException.class)</span><br><span class="line">                .hasMessageContaining(<span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름이_존재하지_않는_경우_테스트() &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(<span class="string">&quot;&quot;</span>))</span><br><span class="line">                .isInstanceOf(RuntimeException.class)</span><br><span class="line">                .hasMessageContaining(<span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 등등...</span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>Pattern 클래스와 Matcher 클래스를 활용해서 자바 정규 표현식을 잘 표현한다.</p>
+<p>특히 Matcher클래스에 정규 표현식을 compile(String)하고, matcher(String)으로 대상 문자열을 전달해준다.<br>이때 find()메서드를 반드시 실행해줘야 정상적으로 Matcher 객체에 관련 내용이 할당된다!!</p>
+<h1 id="Pattern-클래스로-정규-표현식-통과-여부-확인하기"><a href="#Pattern-클래스로-정규-표현식-통과-여부-확인하기" class="headerlink" title="Pattern 클래스로 정규 표현식 통과 여부 확인하기"></a>Pattern 클래스로 정규 표현식 통과 여부 확인하기</h1><p>주어진 문자열이 input이고, 정규식이 REGEX라는 변수에 할당됐을 때,<br>Pattern 클래스로 여부를 확인할 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isMatches</span><span class="params">(String input)</span> </span>&#123;      </span><br><span class="line">    <span class="keyword">return</span> Pattern.matches(REGEX, input);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="Matcher-클래스로-정규-표현식에-해당하는-문자열-부분-가져오기"><a href="#Matcher-클래스로-정규-표현식에-해당하는-문자열-부분-가져오기" class="headerlink" title="Matcher 클래스로 정규 표현식에 해당하는 문자열 부분 가져오기"></a>Matcher 클래스로 정규 표현식에 해당하는 문자열 부분 가져오기</h1><p>Pattern 클래스로 정규 표현식을 compile 메서드로 넘겨주고, 검사할 문자열을 matcher 메서드로 전달해주면 해당 문자열에 대한 Matcher 객체를 생성할 수 있다.<br>이때 중요한 건! 해당 객체의 find 함수를 실행해야 group 메서드로 입력된 문자열 중 정규 표현식에 해당하는 부분을 가져올 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">findRegexPart</span><span class="params">(String input)</span> </span>&#123;</span><br><span class="line">    Matcher matcher = Pattern.compile(REGEX).matcher(input);</span><br><span class="line">    matcher.find();</span><br><span class="line">    <span class="keyword">return</span> matcher.group();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-<blockquote>
-<p>해결하기</p>
-</blockquote>
-<p>주목할 점은 한 테스트 메서드에 여러개의 인자를 여러 케이스로 보낼 수 있다는 점이다!!</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Stream&lt;Arguments&gt; <span class="title">provideCarNameAndExceptionMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Stream.of(</span><br><span class="line">                Arguments.of(<span class="keyword">null</span>, <span class="string">&quot;자동차 이름을 찾을 수 없습니다!&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;다섯글자이상&quot;</span>, <span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;&quot;</span>, <span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot; &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;    &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ParameterizedTest</span></span><br><span class="line">    <span class="meta">@MethodSource(value = &quot;provideCarNameAndExceptionMessage&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_예외_테스트(String carName, String message) &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(carName))</span><br><span class="line">                .isInstanceOf(CarNameException.class)</span><br><span class="line">                .hasMessageContaining(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>다음같이 @ParameterizedTest해서 @MethodSource로 해결할 수 있다!</p>
-<h3 id="ValueSource"><a href="#ValueSource" class="headerlink" title="@ValueSource"></a>@ValueSource</h3><blockquote>
-<p>도입 배경</p>
-</blockquote>
-<p>한가지 메서드에 여러가지 경우의 수를 넣어 실험하고 싶은데 어떻게 할까?<br>예를 들어 자동차 이름에 여러가지 이름을 넣어보고 실제로 들어갔는지 테스트해보고 싶으면 어떻게 할지 고민해보자.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_테스트() &#123;</span><br><span class="line">  Car klayCar = <span class="keyword">new</span> Car(<span class="string">&quot;klay&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(klayCar.getName()).isEqualTo(<span class="string">&quot;klay&quot;</span>);</span><br><span class="line"></span><br><span class="line">  Car eveCar = <span class="keyword">new</span> Car(<span class="string">&quot;eve&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(eveCar.getName()).isEqualTo(<span class="string">&quot;eve&quot;</span>);</span><br><span class="line"></span><br><span class="line">  Car pobiCar = <span class="keyword">new</span> Car(<span class="string">&quot;pobi&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(pobiCar.getName()).isEqualTo(<span class="string">&quot;pobi&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>이렇게 무식하게 하면 당연히 뚜들겨 맞는다.</p>
-<blockquote>
-<p>해결하기</p>
-</blockquote>
-<p>주목할점은 전달될 인자의 자료형에 따라 strings, ints 등 필드값을 바꿔주면 된다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@ValueSource(strings = &#123;&quot;클레이&quot;, &quot;이브&quot;, &quot;포비&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_테스트(String carName) &#123;</span><br><span class="line">  Car car = <span class="keyword">new</span> Car(carName, <span class="number">0</span>);</span><br><span class="line">  assertThat(car.getName()).isEqualTo(carName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>더 알아보기</p>
-</blockquote>
-<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/parameterized-tests-junit-5">https://www.baeldung.com/parameterized-tests-junit-5</a></p>
-<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.arhohuttunen.com/junit-5-parameterized-tests/">https://www.arhohuttunen.com/junit-5-parameterized-tests/</a></p>
 
         </div>
         <footer class="article-footer">
@@ -268,7 +240,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/" data-id="cl015rnlb006ymra0f0ux9goc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2022/02/09/java/woowa-tech-course/java-regex/" data-id="cl01630vw0011qla057u914oj" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -338,23 +310,21 @@
             "@type": "Person",
             "name": "yangdongjue5510"
         },
-        "headline": "Junit으로 parameterized test",
+        "headline": "자바에서 정규 표현식 잘 활용하기",
         "image": "https://yangdongjue5510.github.io",
         "keywords": "우아한테크코스",
-        "genre": "Java",
-        "datePublished": "2022-02-21",
-        "dateCreated": "2022-02-21",
+        "genre": "Java Java Basic",
+        "datePublished": "2022-02-09",
+        "dateCreated": "2022-02-09",
         "dateModified": "2022-02-24",
-        "url": "https://yangdongjue5510.github.io/2022/02/21/java/우아한테크코스/post-1/",
+        "url": "https://yangdongjue5510.github.io/2022/02/09/java/woowa-tech-course/java-regex/",
         "description": "
 요약
 
-@ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다.
-@MethodSource
-도입 배경
-
-자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드",
-        "wordCount": 696
+Pattern 클래스와 Matcher 클래스를 활용해서 자바 정규 표현식을 잘 표현한다.
+특히 Matcher클래스에 정규 표현식을 compile(String)하고, matcher(String)으로 대상 문자열을 전달해준다.이때 find()메서드를 반드시 실행해줘야 정상적으로 Matcher 객체에 관련 내용이 할당된다!!
+Pattern 클래스로 정규",
+        "wordCount": 186
     }
 </script>
 
@@ -411,20 +381,20 @@
         
 <nav id="article-nav">
     
-        <a href="/2022/02/24/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-2/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2022/02/15/java/woowa-tech-course/java-convention/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">newer</strong>
         <p class="article-nav-title">
         
-            Enum에서 메서드 참조와 BiFunction 사용하기
+            구글 자바 컨벤션 및 우테코 컨벤션에서 자주 틀리는 내용 모음!
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
     
-        <a href="/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2022/02/03/spring/JPA/compositekey/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">우아한테크코스 자동차 경주 미션 회고</p>
+        <p class="article-nav-title">JPA에서 @Embedded로 복합키 매핑하기</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -491,7 +461,7 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://yangdongjue5510.github.io/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/post-1/';
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/02/09/java/woowa-tech-course/java-regex/';
     
     (function() {
     var dsq = document.createElement('script');

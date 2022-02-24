@@ -6,21 +6,21 @@
     
 
     
-    <title>자바 일급 컬렉션 활용해보기 | mudura | 그거 뭐더라</title>
+    <title>Junit으로 parameterized test | mudura | 그거 뭐더라</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content="우아한테크코스">
     
-    <meta name="description" content="요약  일급 컬렉션은 컬렉션 객체를 감싸는 객체를 말한다.일급 컬렉션은 객체를 만들 때 검증해야 할 로직을 모아 둘 수 있다.일급 컬렉션은 해당 컬렉션이 행해야 할 책임을 모아 둘 수 있다. 불변성을 지키기 위해서는   setter 금지.   일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당  getter 할 때 불변 객체 반">
+    <meta name="description" content="요약  @ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다. @MethodSource 도입 배경  자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드">
 <meta property="og:type" content="article">
-<meta property="og:title" content="자바 일급 컬렉션 활용해보기">
-<meta property="og:url" content="https://yangdongjue5510.github.io/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/index.html">
+<meta property="og:title" content="Junit으로 parameterized test">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/post-1/index.html">
 <meta property="og:site_name" content="mudura | 그거 뭐더라">
-<meta property="og:description" content="요약  일급 컬렉션은 컬렉션 객체를 감싸는 객체를 말한다.일급 컬렉션은 객체를 만들 때 검증해야 할 로직을 모아 둘 수 있다.일급 컬렉션은 해당 컬렉션이 행해야 할 책임을 모아 둘 수 있다. 불변성을 지키기 위해서는   setter 금지.   일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당  getter 할 때 불변 객체 반">
+<meta property="og:description" content="요약  @ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다. @MethodSource 도입 배경  자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-02-16T12:10:39.000Z">
-<meta property="article:modified_time" content="2022-02-24T14:17:03.142Z">
+<meta property="article:published_time" content="2022-02-21T12:16:22.000Z">
+<meta property="article:modified_time" content="2022-02-24T14:17:11.098Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="우아한테크코스">
 <meta name="twitter:card" content="summary">
@@ -163,19 +163,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/java/">Java</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/java/java-basic/">Java Basic</a>
+    <a class="page-title-link" href="/categories/java/">Java</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-java/우아한테크코스/java-first-collection" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-java/woowa-tech-course/post-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        자바 일급 컬렉션 활용해보기
+        Junit으로 parameterized test
         </h1>
     
 
@@ -186,16 +186,16 @@
                 
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/" class="article-date">
-       <time datetime="2022-02-16T12:10:39.000Z" itemprop="datePublished">2022-02-16</time>
+    <a href="/2022/02/21/java/woowa-tech-course/post-1/" class="article-date">
+       <time datetime="2022-02-21T12:16:22.000Z" itemprop="datePublished">2022-02-21</time>
     </a>
   </div>
 
 
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
-  <a href="/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/" class="article-date">
-     <time datetime="2022-02-24T14:17:03.142Z" itemprop="dateModified">2022-02-24</time>
+  <a href="/2022/02/21/java/woowa-tech-course/post-1/" class="article-date">
+     <time datetime="2022-02-24T14:17:11.098Z" itemprop="dateModified">2022-02-24</time>
   </a>
 </div>
 
@@ -225,45 +225,42 @@
             <blockquote>
 <p>요약</p>
 </blockquote>
-<p>일급 컬렉션은 컬렉션 객체를 감싸는 객체를 말한다.<br>일급 컬렉션은 객체를 만들 때 검증해야 할 로직을 모아 둘 수 있다.<br>일급 컬렉션은 해당 컬렉션이 행해야 할 책임을 모아 둘 수 있다.</p>
-<p>불변성을 지키기 위해서는 </p>
-<ol>
-<li><p>setter 금지. </p>
-</li>
-<li><p>일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당</p>
-</li>
-<li><p>getter 할 때 불변 객체 반환.</p>
-</li>
-</ol>
-<h1 id="일급-컬렉션이란"><a href="#일급-컬렉션이란" class="headerlink" title="일급 컬렉션이란"></a>일급 컬렉션이란</h1><p>일급 컬렉션은 컬렉션 객체를 감싸는 객체다.<br>일급 컬렉션은 멤버 변수로 감싸고자 하는 컬렉션만 갖는다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParticipatedCars</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> START_POSITION = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Car&gt; cars;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//이하 생략...  </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="일급-컬렉션의-강점"><a href="#일급-컬렉션의-강점" class="headerlink" title="일급 컬렉션의 강점"></a>일급 컬렉션의 강점</h1><h4 id="1-일급-컬렉션은-해당-컬렉션의-검증-로직을-한-곳에-모을-수-있다"><a href="#1-일급-컬렉션은-해당-컬렉션의-검증-로직을-한-곳에-모을-수-있다" class="headerlink" title="1. 일급 컬렉션은 해당 컬렉션의 검증 로직을 한 곳에 모을 수 있다."></a>1. 일급 컬렉션은 해당 컬렉션의 검증 로직을 한 곳에 모을 수 있다.</h4><p>예를 들어 자동차 경주에 참가할 자동차 리스트를 관리한다고 가정하자.<br>이때 참가할 자동차들의 이름은 중복되면 안된다.</p>
-<p>일급 컬렉션을 활용하면 참가할 자동차를 생성할 때 다음 같이 검증할 수 있다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParticipatedCars</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> START_POSITION = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Car&gt; cars;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ParticipatedCars</span><span class="params">(List&lt;String&gt; carNames)</span> </span>&#123;</span><br><span class="line">        checkCarNameDuplicated(carNames);</span><br><span class="line">        <span class="keyword">this</span>.cars = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String carName : carNames) &#123;</span><br><span class="line">            cars.add(<span class="keyword">new</span> Car(carName, START_POSITION));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkCarNameDuplicated</span><span class="params">(List&lt;String&gt; carNames)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> count = carNames.stream().distinct().count();</span><br><span class="line">        <span class="keyword">if</span> (count != carNames.size()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CarNameDuplicationException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//이하 생략...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>이렇게 일급 컬렉션 객체의 생성자에 검증 로직을 넣어두면 참여중인 자동차 객체는 반드시 중복되지 않은 이름들을 가진다고 확신할 수 있다.</p>
-<p>일급 컬렉션을 사용하지 않는다면 이런 검증 로직은 서비스 메서드로 처리하게 된다.<br>그러면 매번 참여중 인 자동차를 만들 때 마다 서비스 메서드를 호출해줘야 되는 번거로움이 생긴다.</p>
-<h4 id="2-상태와-행동을-한-곳에서-관리-할-수-있다"><a href="#2-상태와-행동을-한-곳에서-관리-할-수-있다" class="headerlink" title="2. 상태와 행동을 한 곳에서 관리 할 수 있다."></a>2. 상태와 행동을 한 곳에서 관리 할 수 있다.</h4><p>참여한 자동차들은 모두 레이싱을 시도하는 역할을 할 수 있다.</p>
-<p>다음 같이 일급 컬렉션에 행동을 추가해서 관리할 수 있다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParticipatedCars</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> START_POSITION = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Car&gt; cars;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ParticipatedCars</span><span class="params">(List&lt;String&gt; carNames)</span> </span>&#123;</span><br><span class="line">        checkCarNameDuplicated(carNames);</span><br><span class="line">        <span class="keyword">this</span>.cars = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String carName : carNames) &#123;</span><br><span class="line">            cars.add(<span class="keyword">new</span> Car(carName, START_POSITION));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//생략...</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">executeCarRacing</span><span class="params">(RandomNumberGenerator randomNumberGenerator)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Car car : cars) &#123;</span><br><span class="line">            car.tryToMoveBy(randomNumberGenerator);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>일급 컬렉션을 통해 이 객체가 어떤 행동을 하는지도 한눈에 볼 수 있게됐다.</p>
-<h1 id="일급-컬렉션과-불변성"><a href="#일급-컬렉션과-불변성" class="headerlink" title="일급 컬렉션과 불변성"></a>일급 컬렉션과 불변성</h1><p>일급 컬렉션이 불변하다는 특징을 가졌다고 알려졌는데, 사실 그렇지 않을 수 있다는 포스트도 있다.</p>
-<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://tecoble.techcourse.co.kr/post/2020-05-08-First-Class-Collection/">관련 포스트</a></p>
-<p>불변성을 지키고 싶다면 다음 세가지를 지켜주자</p>
-<ol>
-<li>setter를 사용하지 않는다.</li>
-<li>일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당하자.</li>
-<li>getter를 할 때 불변한 콜렉션으로 반환하자.</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParticipatedCars</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> START_POSITION = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Car&gt; cars;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ParticipatedCars</span><span class="params">(List&lt;String&gt; carNames)</span> </span>&#123;</span><br><span class="line">        checkCarNameDuplicated(carNames);</span><br><span class="line">        <span class="keyword">this</span>.cars = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// &lt;- 새로운 주소가 할당된다.</span></span><br><span class="line">        <span class="keyword">for</span> (String carName : carNames) &#123;</span><br><span class="line">            cars.add(<span class="keyword">new</span> Car(carName, START_POSITION));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Car&gt; <span class="title">getCars</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Collections.unmodifiableList(<span class="keyword">this</span>.cars); <span class="comment">//&lt;- getter할 때 불변된 리스트가 반환된다.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다.</p>
+<h3 id="MethodSource"><a href="#MethodSource" class="headerlink" title="@MethodSource"></a>@MethodSource</h3><blockquote>
+<p>도입 배경</p>
+</blockquote>
+<p>자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.<br>근데 테스트 코드를 작성하다보니 다음과 같이 메서드가 비슷비슷하게 나올 때 이를 리팩토링해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings(&quot;NonAsciiCharacters&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_글자수_테스트() &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(<span class="string">&quot;다섯글자이상&quot;</span>))</span><br><span class="line">                .isInstanceOf(RuntimeException.class)</span><br><span class="line">                .hasMessageContaining(<span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름이_존재하지_않는_경우_테스트() &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(<span class="string">&quot;&quot;</span>))</span><br><span class="line">                .isInstanceOf(RuntimeException.class)</span><br><span class="line">                .hasMessageContaining(<span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 등등...</span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="여전히-궁금한-것들"><a href="#여전히-궁금한-것들" class="headerlink" title="여전히 궁금한 것들"></a>여전히 궁금한 것들</h3><ol>
-<li>왜 일급 컬렉션은 </li>
-</ol>
+<blockquote>
+<p>해결하기</p>
+</blockquote>
+<p>주목할 점은 한 테스트 메서드에 여러개의 인자를 여러 케이스로 보낼 수 있다는 점이다!!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Stream&lt;Arguments&gt; <span class="title">provideCarNameAndExceptionMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Stream.of(</span><br><span class="line">                Arguments.of(<span class="keyword">null</span>, <span class="string">&quot;자동차 이름을 찾을 수 없습니다!&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;다섯글자이상&quot;</span>, <span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;&quot;</span>, <span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot; &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;    &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ParameterizedTest</span></span><br><span class="line">    <span class="meta">@MethodSource(value = &quot;provideCarNameAndExceptionMessage&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_예외_테스트(String carName, String message) &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(carName))</span><br><span class="line">                .isInstanceOf(CarNameException.class)</span><br><span class="line">                .hasMessageContaining(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>다음같이 @ParameterizedTest해서 @MethodSource로 해결할 수 있다!</p>
+<h3 id="ValueSource"><a href="#ValueSource" class="headerlink" title="@ValueSource"></a>@ValueSource</h3><blockquote>
+<p>도입 배경</p>
+</blockquote>
+<p>한가지 메서드에 여러가지 경우의 수를 넣어 실험하고 싶은데 어떻게 할까?<br>예를 들어 자동차 이름에 여러가지 이름을 넣어보고 실제로 들어갔는지 테스트해보고 싶으면 어떻게 할지 고민해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_테스트() &#123;</span><br><span class="line">  Car klayCar = <span class="keyword">new</span> Car(<span class="string">&quot;klay&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(klayCar.getName()).isEqualTo(<span class="string">&quot;klay&quot;</span>);</span><br><span class="line"></span><br><span class="line">  Car eveCar = <span class="keyword">new</span> Car(<span class="string">&quot;eve&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(eveCar.getName()).isEqualTo(<span class="string">&quot;eve&quot;</span>);</span><br><span class="line"></span><br><span class="line">  Car pobiCar = <span class="keyword">new</span> Car(<span class="string">&quot;pobi&quot;</span>, <span class="number">0</span>);</span><br><span class="line">  assertThat(pobiCar.getName()).isEqualTo(<span class="string">&quot;pobi&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 무식하게 하면 당연히 뚜들겨 맞는다.</p>
+<blockquote>
+<p>해결하기</p>
+</blockquote>
+<p>주목할점은 전달될 인자의 자료형에 따라 strings, ints 등 필드값을 바꿔주면 된다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@ValueSource(strings = &#123;&quot;클레이&quot;, &quot;이브&quot;, &quot;포비&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> 자동차_이름_테스트(String carName) &#123;</span><br><span class="line">  Car car = <span class="keyword">new</span> Car(carName, <span class="number">0</span>);</span><br><span class="line">  assertThat(car.getName()).isEqualTo(carName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>더 알아보기</p>
+</blockquote>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/parameterized-tests-junit-5">https://www.baeldung.com/parameterized-tests-junit-5</a></p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.arhohuttunen.com/junit-5-parameterized-tests/">https://www.arhohuttunen.com/junit-5-parameterized-tests/</a></p>
 
         </div>
         <footer class="article-footer">
@@ -271,7 +268,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/" data-id="cl015rnla006umra0bd2idkfe" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/post-1/" data-id="cl01630vx0014qla0gtp69h2f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -341,26 +338,23 @@
             "@type": "Person",
             "name": "yangdongjue5510"
         },
-        "headline": "자바 일급 컬렉션 활용해보기",
+        "headline": "Junit으로 parameterized test",
         "image": "https://yangdongjue5510.github.io",
         "keywords": "우아한테크코스",
-        "genre": "Java Java Basic",
-        "datePublished": "2022-02-16",
-        "dateCreated": "2022-02-16",
+        "genre": "Java",
+        "datePublished": "2022-02-21",
+        "dateCreated": "2022-02-21",
         "dateModified": "2022-02-24",
-        "url": "https://yangdongjue5510.github.io/2022/02/16/java/우아한테크코스/java-first-collection/",
+        "url": "https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/post-1/",
         "description": "
 요약
 
-일급 컬렉션은 컬렉션 객체를 감싸는 객체를 말한다.일급 컬렉션은 객체를 만들 때 검증해야 할 로직을 모아 둘 수 있다.일급 컬렉션은 해당 컬렉션이 행해야 할 책임을 모아 둘 수 있다.
-불변성을 지키기 위해서는 
+@ParameterizedTest 어노테이션과 함께 @MethodSorce나 @ValueSource를 통해 한 테스트 메서드에 여러번 파라미터를 넘길 수 있다.
+@MethodSource
+도입 배경
 
-setter 금지. 
-
-일급 컬렉션의 멤버 변수를 초기화할 때 가져온 인자를 새로운 주소값으로 재할당
-
-getter 할 때 불변 객체 반",
-        "wordCount": 939
+자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드",
+        "wordCount": 696
     }
 </script>
 
@@ -417,20 +411,20 @@ getter 할 때 불변 객체 반",
         
 <nav id="article-nav">
     
-        <a href="/2022/02/21/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-custom-exception/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2022/02/24/java/woowa-tech-course/post-2/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">newer</strong>
         <p class="article-nav-title">
         
-            자바 사용자 정의 예외 만들기
+            Enum에서 메서드 참조와 BiFunction 사용하기
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
     
-        <a href="/2022/02/15/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-convention/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2022/02/21/java/woowa-tech-course/post/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">구글 자바 컨벤션 및 우테코 컨벤션에서 자주 틀리는 내용 모음!</p>
+        <p class="article-nav-title">우아한테크코스 자동차 경주 미션 회고</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -497,7 +491,7 @@ getter 할 때 불변 객체 반",
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://yangdongjue5510.github.io/2022/02/16/java/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB%E1%84%90%E1%85%A6%E1%84%8F%E1%85%B3%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3/java-first-collection/';
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/post-1/';
     
     (function() {
     var dsq = document.createElement('script');
