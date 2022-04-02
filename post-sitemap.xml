@@ -9,6 +9,38 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2022/04/02/java/java-basic/java-call-by-value/</loc>
+        <lastmod>2022-04-02T13:59:23.532Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2022/02/25/java/java-basic/generic-tutorial/</loc>
+        <lastmod>2022-04-02T13:57:26.954Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2022/03/27/java/object/post/</loc>
+        <lastmod>2022-03-27T13:36:29.560Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2022/03/12/java/object/post-3/</loc>
+        <lastmod>2022-03-19T05:29:39.679Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/post-1/</loc>
         <lastmod>2022-03-12T04:17:21.320Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -59,14 +91,6 @@
     <url>
         <loc>https://yangdongjue5510.github.io/2021/10/22/java/effective-java/effective3/</loc>
         <lastmod>2022-03-03T15:32:26.357Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2022/02/25/java/java-basic/post-1/</loc>
-        <lastmod>2022-02-25T09:07:35.233Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
