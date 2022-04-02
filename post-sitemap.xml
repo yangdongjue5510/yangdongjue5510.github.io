@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2022/03/27/java/object/post/</loc>
+        <lastmod>2022-04-02T14:02:23.542Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2022/04/02/java/java-basic/java-call-by-value/</loc>
         <lastmod>2022-04-02T13:59:23.532Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -19,14 +27,6 @@
     <url>
         <loc>https://yangdongjue5510.github.io/2022/02/25/java/java-basic/generic-tutorial/</loc>
         <lastmod>2022-04-02T13:57:26.954Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2022/03/27/java/object/post/</loc>
-        <lastmod>2022-03-27T13:36:29.560Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
