@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>조합으로 체스 말 이동 범위 검사하기! | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="우아한테크코스">
+    
+    <meta name="description" content="요약  체스 말 객체들이 해당 위치로 이동할 수 있는지 검증하는 로직이 중복된 경우가 있었다.이를 따로 분리해서 중복을 제거하고자 했다. 도입 배경체스 말 종류 구현하기체스 말 객체(Piece)는 자신의 위치와 이동할 위치를 전달받아서 이동할 위치로 이동할 수 있는지 확인한다. 123456789101112131415161718192021public abs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="조합으로 체스 말 이동 범위 검사하기!">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/04/08/java/woowa-tech-course/composition-chess/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="요약  체스 말 객체들이 해당 위치로 이동할 수 있는지 검증하는 로직이 중복된 경우가 있었다.이를 따로 분리해서 중복을 제거하고자 했다. 도입 배경체스 말 종류 구현하기체스 말 객체(Piece)는 자신의 위치와 이동할 위치를 전달받아서 이동할 위치로 이동할 수 있는지 확인한다. 123456789101112131415161718192021public abs">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-08T00:31:53.000Z">
+<meta property="article:modified_time" content="2022-04-08T15:27:53.400Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="우아한테크코스">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/java/">Java</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/java/java-basic/">Java Basic</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-java/woowa-tech-course/composition-chess" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        조합으로 체스 말 이동 범위 검사하기!
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2022/04/08/java/woowa-tech-course/composition-chess/" class="article-date">
+       <time datetime="2022-04-08T00:31:53.000Z" itemprop="datePublished">2022-04-08</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2022/04/08/java/woowa-tech-course/composition-chess/" class="article-date">
+     <time datetime="2022-04-08T15:27:53.400Z" itemprop="dateModified">2022-04-09</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" rel="tag">우아한테크코스</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <blockquote>
+<p>요약</p>
+</blockquote>
+<p>체스 말 객체들이 해당 위치로 이동할 수 있는지 검증하는 로직이 중복된 경우가 있었다.<br>이를 따로 분리해서 중복을 제거하고자 했다.</p>
+<h1 id="도입-배경"><a href="#도입-배경" class="headerlink" title="도입 배경"></a>도입 배경</h1><h2 id="체스-말-종류-구현하기"><a href="#체스-말-종류-구현하기" class="headerlink" title="체스 말 종류 구현하기"></a>체스 말 종류 구현하기</h2><p>체스 말 객체(Piece)는 자신의 위치와 이동할 위치를 전달받아서 이동할 위치로 이동할 수 있는지 확인한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Piece</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Color color;</span><br><span class="line">    <span class="keyword">private</span> MovableStrategy strategy;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Piece</span><span class="params">(<span class="keyword">final</span> Color color, <span class="keyword">final</span> MovableStrategy strategy)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.color = color;</span><br><span class="line">        <span class="keyword">this</span>.strategy = strategy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">getPointValue</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">movable</span><span class="params">(Square source, Square target, MoveType moveType)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (source.equals(target)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;같은 위치로는 이동 불가능합니다.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.strategy.movable(source, target, moveType);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...생략</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>체스 말 객체는 여러가지 종류가 있다. (퀸, 킹, 폰, 비숍, 룩, 나이트)<br>Piece를 상속받아서 다양한 종류를 구현한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">King</span> <span class="keyword">extends</span> <span class="title">Piece</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="체스-말-종류에-따라-달라지는-이동-범위"><a href="#체스-말-종류에-따라-달라지는-이동-범위" class="headerlink" title="체스 말 종류에 따라 달라지는 이동 범위"></a>체스 말 종류에 따라 달라지는 이동 범위</h2><p>체스 말 객체는 종류에 따라 이동 범위가 다르다.</p>
+<p>문제는 각 클래스마다 이동 검증 로직이 중복되는 게 많다는 점이다!</p>
+<h3 id="중복되는-코드"><a href="#중복되는-코드" class="headerlink" title="중복되는 코드"></a>중복되는 코드</h3><p>퀸 기물의 코드이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Queen</span> <span class="keyword">extends</span> <span class="title">Piece</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;Direction&gt; QUEEN_DIRECTION</span><br><span class="line">            = List.of(EAST, WEST, SOUTH, NORTH, SOUTHEAST, NORTHEAST, SOUTHWEST, NORTHWEST);</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Queen</span><span class="params">(Color color)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">movable</span><span class="params">(Square source, Square target, MoveType moveType)</span> </span>&#123;</span><br><span class="line">        Direction direction = source.findDirection(target);</span><br><span class="line">            <span class="keyword">return</span> QUEEN_DIRECTION.contains(direction);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>반면 이건 룩 기물의 코드이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Bishop</span> <span class="keyword">extends</span> <span class="title">Piece</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;Direction&gt; BISHOP_DIRECTION = List.of(SOUTHEAST, NORTHEAST, SOUTHWEST, NORTHWEST);</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bishop</span><span class="params">(Color color)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">movable</span><span class="params">(Square source, Square target, MoveType moveType)</span> </span>&#123;</span><br><span class="line">        Direction direction = source.findDirection(target);</span><br><span class="line">            <span class="keyword">return</span> BISHOP_DIRECTION.contains(direction);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기서 잘 보면 movable 메서드 안에 로직이 중복됨을 알 수 있다. 이를 해결해보자.</p>
+<h1 id="조합으로-중복-제거하기"><a href="#조합으로-중복-제거하기" class="headerlink" title="조합으로 중복 제거하기"></a>조합으로 중복 제거하기</h1><p>이때 체스 말 객체를 두가지로 나눠서 생각한다.</p>
+<p><strong>이동하는 거리가 제한 없는 경우 VS 이동하는 거리가 제한 있는 경우</strong></p>
+<p>전자는 퀸, 비숍, 룩이 해당한다.<br>후자는 폰, 킹, 나이트가 해당한다.</p>
+<p>그렇다면 거리 제한 없이 이동하는 전략과 거리 제한이 있는 전략을 구분해서 추상화할 수 있지 않을까?</p>
+<h2 id="인터페이스로-전략을-추상화해서-만들기"><a href="#인터페이스로-전략을-추상화해서-만들기" class="headerlink" title="인터페이스로 전략을 추상화해서 만들기"></a>인터페이스로 전략을 추상화해서 만들기</h2><p>모든 종류의 체스 말들이 자신의 이동여부를 확인할 수 있도록하는 인터페이스를 만들어보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MovableStrategy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">movable</span><span class="params">(Square source, Square target, MoveType moveType)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>자신의 위치, 목표 위치, 움직임이 공격인지를 전달받아 해당 목표로 갈 수 있는지 판단한다.</p>
+<h2 id="이동하는-거리가-제한-없는-경우"><a href="#이동하는-거리가-제한-없는-경우" class="headerlink" title="이동하는 거리가 제한 없는 경우"></a>이동하는 거리가 제한 없는 경우</h2><p>인터페이스를 구현해서 먼저 이동하는 거리가 제한이 없는 경우의 전략을 만들어보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnlimitedMovableStrategy</span> <span class="keyword">implements</span> <span class="title">MovableStrategy</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Direction&gt; movableDirections;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UnlimitedMovableStrategy</span><span class="params">(List&lt;Direction&gt; movableDirections)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.movableDirections = movableDirections;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">movable</span><span class="params">(Square source, Square target, MoveType moveType)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Direction direction = source.findDirection(target);</span><br><span class="line">            <span class="keyword">return</span> movableDirections.contains(direction);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이동하는 거리가 제한이 없는 전략은 가려는 목표지점의 방향이 내가 갈 수 있는 방향인지만 검사하면 된다.</p>
+<p>즉 룩의 경우 상하좌우로 거리제한없이 이동할 수 있다.<br>룩이 가려는 목표 지점이 상하좌우 방향 중 하나에 있다면, 룩은 그 목표로 갈 수 있다.<br>(이동 경로에 다른 누군가 있는 경우나 목표 지점이 같은 편이 있는 경우는 다른 곳에서 검증한다.)</p>
+<h2 id="이동하는-거리가-제한된-경우"><a href="#이동하는-거리가-제한된-경우" class="headerlink" title="이동하는 거리가 제한된 경우"></a>이동하는 거리가 제한된 경우</h2><p>이동하는 거리가 제한된 경우의 전략을 보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LimitedMovableStrategy</span> <span class="keyword">implements</span> <span class="title">MovableStrategy</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Direction&gt; movableDirections;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> moveLimit;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LimitedMovableStrategy</span><span class="params">(List&lt;Direction&gt; movableDirections, <span class="keyword">int</span> moveLimit)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.movableDirections = movableDirections;</span><br><span class="line">        <span class="keyword">this</span>.moveLimit = moveLimit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">movable</span><span class="params">(Square source, Square target, MoveType moveType)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Distance distance = source.getDistance(target);</span><br><span class="line">            Direction direction = source.findDirection(target);</span><br><span class="line">            <span class="keyword">return</span> movableDirections.contains(direction) &amp;&amp; distance.isInRange(moveLimit);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이동하려는 거리 제한이 있으면 두 위치간에 거리를 추가로 확인해주면 된다.</p>
+<h2 id="폰의-이동-전략"><a href="#폰의-이동-전략" class="headerlink" title="폰의 이동 전략"></a>폰의 이동 전략</h2><p>폰의 이동 전략은 꽤 까다롭다.</p>
+<p>첫 위치에서 움직이는 경우 전진을 두칸까지 할 수 있다.<br>공격은 반드시 전진 방향 대각선으로 할 수 있다.</p>
+<p>이를 위해서는 MoveType에 따라 다른 전략을 만들어서 실행해줘야 한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PawnMovableStrategy</span> <span class="keyword">implements</span> <span class="title">MovableStrategy</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FIRST_MOVE_LIMIT = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NOT_FIRST_MOVE_LIMIT = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ATTACK_LIMIT = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Direction&gt; nonAttackDirection;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Direction&gt; attackDirection;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Rank startRank;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PawnMovableStrategy</span><span class="params">(List&lt;Direction&gt; nonAttackDirection, List&lt;Direction&gt; attackDirection, Rank startRank)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.nonAttackDirection = nonAttackDirection;</span><br><span class="line">        <span class="keyword">this</span>.attackDirection = attackDirection;</span><br><span class="line">        <span class="keyword">this</span>.startRank = startRank;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">movable</span><span class="params">(Square source, Square target, MoveType moveType)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (moveType.isAttack()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> LimitedMovableStrategy(attackDirection, ATTACK_LIMIT).movable(source, target, moveType);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nonAttackMovable(source, target);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">nonAttackMovable</span><span class="params">(Square source, Square target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (source.isSameRank(startRank)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> LimitedMovableStrategy(nonAttackDirection, FIRST_MOVE_LIMIT).movable(source, target,</span><br><span class="line">                    MoveType.MOVE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> LimitedMovableStrategy(nonAttackDirection, NOT_FIRST_MOVE_LIMIT).movable(source, target,</span><br><span class="line">                MoveType.MOVE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>폰의 이동전략을 수행하기 위해서는 자신의 첫 위치 시점(starkRank), 공격가능 방향(attckDirection), 이동 가능 방향(nonAttackDirection)을 주입받는다.</p>
+<p>현재 이동하려는 것이 공격이면 공격에 맞는 방향과 거리로 검증한다.<br>반면 그냥 이동하려는 경우는 이동에 맞는 방향과 거리로 검증한다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2022/04/08/java/woowa-tech-course/composition-chess/" data-id="cl1ql1jz800003sa09l8v9eg2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "조합으로 체스 말 이동 범위 검사하기!",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "우아한테크코스",
+        "genre": "Java Java Basic",
+        "datePublished": "2022-04-08",
+        "dateCreated": "2022-04-08",
+        "dateModified": "2022-04-09",
+        "url": "https://yangdongjue5510.github.io/2022/04/08/java/woowa-tech-course/composition-chess/",
+        "description": "
+요약
+
+체스 말 객체들이 해당 위치로 이동할 수 있는지 검증하는 로직이 중복된 경우가 있었다.이를 따로 분리해서 중복을 제거하고자 했다.
+도입 배경체스 말 종류 구현하기체스 말 객체(Piece)는 자신의 위치와 이동할 위치를 전달받아서 이동할 위치로 이동할 수 있는지 확인한다.
+123456789101112131415161718192021public abs",
+        "wordCount": 1710
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-instagram"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2022/04/02/java/java-basic/java-call-by-value/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Java의 Call by Value</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">55</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">36</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/jpa/">JPA</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.67px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 15px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18.33px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 13.33px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16.67px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/04/08/java/woowa-tech-course/composition-chess/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
