@@ -9,6 +9,22 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2022/04/26/spring/post/</loc>
+        <lastmod>2022-04-26T14:43:56.689Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2022/04/09/java/effective-java/effective6/</loc>
+        <lastmod>2022-04-08T16:25:13.689Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2022/04/08/java/woowa-tech-course/composition-chess/</loc>
         <lastmod>2022-04-08T15:27:53.400Z</lastmod>
         <changefreq>weekly</changefreq>
