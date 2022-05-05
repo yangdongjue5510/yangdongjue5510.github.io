@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Spring IoC 컨테이너 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="요약 (다음 질문의 정답을 안다면 이 포스트를 읽지 않아도 된다.)   IoC 컨테이너와 ApplicationContext는 완전히 같은 개념인가? IoC 컨테이너를 구성하는 방법은 어떤 것이 있는가? BeanFactory와 ApplicationContext의 차이를 알고 있는가?  IoC 컨테이너스프링의 IoC 컨테이너는 객체를 인스턴스화하고 구성 및">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring IoC 컨테이너">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/05/05/spring/spring3/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="요약 (다음 질문의 정답을 안다면 이 포스트를 읽지 않아도 된다.)   IoC 컨테이너와 ApplicationContext는 완전히 같은 개념인가? IoC 컨테이너를 구성하는 방법은 어떤 것이 있는가? BeanFactory와 ApplicationContext의 차이를 알고 있는가?  IoC 컨테이너스프링의 IoC 컨테이너는 객체를 인스턴스화하고 구성 및">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-05T12:21:02.000Z">
+<meta property="article:modified_time" content="2022-05-05T17:48:07.699Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/spring/">Spring</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-spring/spring3" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Spring IoC 컨테이너
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2022/05/05/spring/spring3/" class="article-date">
+       <time datetime="2022-05-05T12:21:02.000Z" itemprop="datePublished">2022-05-05</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2022/05/05/spring/spring3/" class="article-date">
+     <time datetime="2022-05-05T17:48:07.699Z" itemprop="dateModified">2022-05-06</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <blockquote>
+<p>요약 (다음 질문의 정답을 안다면 이 포스트를 읽지 않아도 된다.)</p>
+</blockquote>
+<ol>
+<li>IoC 컨테이너와 ApplicationContext는 완전히 같은 개념인가?</li>
+<li>IoC 컨테이너를 구성하는 방법은 어떤 것이 있는가?</li>
+<li>BeanFactory와 ApplicationContext의 차이를 알고 있는가?</li>
+</ol>
+<h1 id="IoC-컨테이너"><a href="#IoC-컨테이너" class="headerlink" title="IoC 컨테이너"></a>IoC 컨테이너</h1><p>스프링의 IoC 컨테이너는 객체를 인스턴스화하고 구성 및 조합하고 수명주기를 관리하는 역할을 한다.</p>
+<h2 id="스프링이-제공하는-IoC-컨테이너"><a href="#스프링이-제공하는-IoC-컨테이너" class="headerlink" title="스프링이 제공하는 IoC 컨테이너"></a>스프링이 제공하는 IoC 컨테이너</h2><p>스프링의 IoC 컨테이너는 두 가지 유형의 컨테이너를 제공한다.</p>
+<ol>
+<li><strong>BeanFactory 기반 컨테이너</strong></li>
+<li><strong>ApplicationContext 기반 컨테이너</strong></li>
+</ol>
+<p>우리가 가장 흔히 아는 <strong>ApplicationContext는 IoC 컨테이너 중 하나</strong>이다.</p>
+<p>BeanFactory는 IoC 컨테이너의 가장 기본적인 버전이다.<br>ApplicationContext는 BeanFactory의 기능을 확장한 버전이다.</p>
+<h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p>BeanFactory는 IoC 컨테이너의 가장 기본적인 버전이다.<br>BeanFactory는 메타데이터를 기반으로 빈 객체를 생성하고 구성한다.</p>
+<p>이때 BeanFactory는 XML 기반으로 메타데이터를 사용한다.<br>BeanFactory는 Lazy Loadaing으로 빈 객체를 등록한다.</p>
+<h4 id="코드로-이해하기"><a href="#코드로-이해하기" class="headerlink" title="코드로 이해하기"></a>코드로 이해하기</h4><p>User라는 POJO 클래스가 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> IS_BEAN_INITIALIZED = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIsBeanInitialized</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        IS_BEAN_INITIALIZED = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이 클래스를 XML을 통해 Bean 등록해보자.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nextstep.helloworld.core.User&quot;</span> <span class="attr">init-method</span>=<span class="string">&quot;setIsBeanInitialized&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>config.xml에 user라는 이름으로 빈 등록을 해줬다.<br>init-method를 통해 빈 객체가 생성될 때 User#setIsBeanInitialized를 실행하도록 했다.</p>
+<p>만약 User가 빈 객체로 생성되면 IS_BEAN_INITIALIZED가 true가 될 것 이다.</p>
+<p>테스트 코드로 확인해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ContainerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@DisplayName(&quot;XML 기반으로 BeanFactory 레이지 로딩 확인하기&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">beanFactoryLazyLoading</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// given</span></span><br><span class="line">        Resource res = <span class="keyword">new</span> ClassPathResource(<span class="string">&quot;config.xml&quot;</span>);</span><br><span class="line">        BeanFactory factory = <span class="keyword">new</span> XmlBeanFactory(res);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// when</span></span><br><span class="line">        <span class="keyword">boolean</span> isCreated = User.IS_BEAN_INITIALIZED;</span><br><span class="line">        User user = (User) factory.getBean(<span class="string">&quot;user&quot;</span>);</span><br><span class="line">        <span class="keyword">boolean</span> isCreatedAfterGetBean = User.IS_BEAN_INITIALIZED;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// then</span></span><br><span class="line">        assertThat(isCreated).isFalse();</span><br><span class="line">        assertThat(isCreatedAfterGetBean).isTrue();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기서 Lazy Loading을 확인할 수 있다.<br>Lazy Loading은 BeanFactory에서 빈 객체를 가져올 때 해당 객체를 생성한다는 의미다.</p>
+<p>그래서 User.IS_BEAN_INITIALIZED가 빈 객체를 가져올 때 true가 됨을 확인 할 수 있다.</p>
+<h3 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h3><p>ApplicationContext는 BeanFactory의 하위 인터페이스다.<br>따라서 BeanFactory의 모든 기능을 제공한다.</p>
+<p>다만 ApplicationContext는 웹 어플리케이션, AOP에 필요한 더 많은 기능을 제공한다.</p>
+<p>ApplicationContext의 선언부를 통해 어떤 기능을 추가로 제공하는 지 보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationContext</span> <span class="keyword">extends</span> <span class="title">EnvironmentCapable</span>, <span class="title">ListableBeanFactory</span>, <span class="title">HierarchicalBeanFactory</span>, <span class="title">MessageSource</span>, <span class="title">ApplicationEventPublisher</span>, <span class="title">ResourcePatternResolver</span> </span>&#123;</span><br><span class="line">            <span class="comment">//...생략</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>EnvironmentCapable</strong> 인터페이스 : 프로파일과 프로퍼티를 다루는 Environment를 접근할 수 있게 한다.</li>
+<li><strong>ListableBeanFactory</strong> 인터페이스 : BeanFactory의 기능을 지원하기 위한 인터페이스. 빈 객체를 생성 관리한다.</li>
+<li><strong>HierarachicalBeanFactory</strong> 인터페이스 : BeanFactory 구현체 사이의 계층 구조를 확인할 수 있게 한다.</li>
+<li><strong>MessageSource</strong> 인터페이스 : 국제화(i18n)을 제공하는 인터페이스</li>
+<li><strong>ApplicationEventPublisher</strong> 인터페이스 : 이벤트를 발생시키는 기능을 제공한다.</li>
+<li><strong>ResourcePatternResolver</strong> 인터페이스 : 리소스를 읽어오는 기능을 제공한다.</li>
+</ol>
+<h4 id="ApplicationContext의-메타데이터-설정-방법들"><a href="#ApplicationContext의-메타데이터-설정-방법들" class="headerlink" title="ApplicationContext의 메타데이터 설정 방법들"></a>ApplicationContext의 메타데이터 설정 방법들</h4><p>BeanFactory와 달리 ApplicationContext의 중요한 기능 중 하나는 메타데이터를 다양한 방식으로 할 수 있다.</p>
+<p>BeanFactory는 XML 외부 파일로 컨테이너를 설정해줘야 했다.<br>ApplicationContext는 어노테이션 기반 설정도 지원한다!</p>
+<p>아까 사용했던 User POJO 클래스를 다시 사용하자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> IS_BEAN_INITIALIZED = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIsBeanInitialized</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        IS_BEAN_INITIALIZED = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>그리고 @Configuration 어노테이션을 붙인 설정 파일로 Bean 등록해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigurationUserBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">user</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setIsBeanInitialized();</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Bean 어노테이션이 붙은 메서드가 실행되면 반환되는 객체를 빈 객체로 컨테이너에 등록한다.<br>그리고 XML의 init-method 대신 메서드 안에 setIsBeanInitialized 메서드를 호출했다.</p>
+<p>테스트로 확인해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="meta">@DisplayName(&quot;어노테이션 기반(설정 파일)로 빈 객체 생성 확인하기&quot;)</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">applicationContextBeanCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// given</span></span><br><span class="line">       ApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(ConfigurationUserBean.class);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// when</span></span><br><span class="line">       <span class="keyword">boolean</span> isCreated = User.IS_BEAN_INITIALIZED;</span><br><span class="line">       User user = (User) applicationContext.getBean(<span class="string">&quot;user&quot;</span>);</span><br><span class="line">       <span class="keyword">boolean</span> isCreatedAfterGetBean = User.IS_BEAN_INITIALIZED;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// then</span></span><br><span class="line">       assertThat(isCreated).isTrue();</span><br><span class="line">       assertThat(isCreatedAfterGetBean).isTrue();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>설정 클래스를 전달해서 ApplicationContext를 생성했다.<br>ApplicationContext는 eager-loading이라 컨테이너가 생성됐을 때 빈 객체를 생성한다!</p>
+<p>그래서 빈 객체를 호출하기 전에도 이미 빈 객체가 생성되어 있다는 의미다!<br>(결국 모든 빈객체를 eager-loading하기 때문에 ApplicationContext는 비교적 무거운 IoC container이다.)</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2022/05/05/spring/spring3/" data-id="cl2tay7cz0000jta01pp5e7k4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "Spring IoC 컨테이너",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "",
+        "genre": "Spring",
+        "datePublished": "2022-05-05",
+        "dateCreated": "2022-05-05",
+        "dateModified": "2022-05-06",
+        "url": "https://yangdongjue5510.github.io/2022/05/05/spring/spring3/",
+        "description": "
+요약 (다음 질문의 정답을 안다면 이 포스트를 읽지 않아도 된다.)
+
+
+IoC 컨테이너와 ApplicationContext는 완전히 같은 개념인가?
+IoC 컨테이너를 구성하는 방법은 어떤 것이 있는가?
+BeanFactory와 ApplicationContext의 차이를 알고 있는가?
+
+IoC 컨테이너스프링의 IoC 컨테이너는 객체를 인스턴스화하고 구성 및 ",
+        "wordCount": 997
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-instagram"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2022/04/26/spring/spring2/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">왜 스프링을 쓰는 걸까??(IoC, DI)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">38</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/jpa/">JPA</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/05/05/spring/spring3/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
