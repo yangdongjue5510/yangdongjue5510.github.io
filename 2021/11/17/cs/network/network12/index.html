@@ -272,12 +272,12 @@
 <p>이런 전송을 조정하기 위한 것이 다중 접속 프로토콜.</p>
 <p><img src="https://blog.kakaocdn.net/dn/cljHGZ/btq66kypwi1/B5lnFS1gfvJHn28ZYzmZ01/img.png" alt="img"></p>
 <p><em>#out of band channel &amp; in band channel</em></p>
-<p><em>out of band = control과 data가 다른 채널로 전달</em></p>
-<p><em>in band = control 과 data가 같은 채널로 전달</em></p>
+<p><em>out of band &#x3D; control과 data가 다른 채널로 전달</em></p>
+<p><em>in band &#x3D; control 과 data가 같은 채널로 전달</em></p>
 <p><em>무선랜은 in-band channel</em></p>
 <h4 id="c-1-이상적인-다중-접속-프로토콜의-조건"><a href="#c-1-이상적인-다중-접속-프로토콜의-조건" class="headerlink" title="c-1. 이상적인 다중 접속 프로토콜의 조건"></a><strong>c-1. 이상적인 다중 접속 프로토콜의 조건</strong></h4><ol>
 <li>단 하나의 노드가 전송하려 할 때, 그 노드가 R bps의 처리율을 갖는다.</li>
-<li>M개의 노드가 전송하려 할 때, 각 노드가 R/M bps의 처리율(평균적 의미)을 갖는다.</li>
+<li>M개의 노드가 전송하려 할 때, 각 노드가 R&#x2F;M bps의 처리율(평균적 의미)을 갖는다.</li>
 <li>프로토콜이 분산되어 있어, 고장으로 시스템이 정지될 수 없다.</li>
 <li>비용이 적게 든다.</li>
 </ol>
@@ -286,7 +286,7 @@
 <p>각 시간 슬롯은 N개의 노드에게 할당된다.</p>
 <p>노드는 전송할 패킷이 있을 때마다 TDM 프레임에서 자신에게 할당된 시간 슬롯 동안 패킷 비트를 전송.</p>
 <p><em>참가자들에게 고정된 시간을 주고, 말할 게 없어도 시간을 준다.</em></p>
-<p><em>전송하고픈 노드가 하나라도 노드 전송률은 평균 R/N으로 제한.</em></p>
+<p><em>전송하고픈 노드가 하나라도 노드 전송률은 평균 R&#x2F;N으로 제한.</em></p>
 <p><em>노드가 전송 순서상 자신의 차례를 기다려야함.</em></p>
 <h4 id="c-2-2-주파수분할-다중화-FDM"><a href="#c-2-2-주파수분할-다중화-FDM" class="headerlink" title="c-2-2. 주파수분할 다중화(FDM)"></a><strong>c-2-2. 주파수분할 다중화(FDM)</strong></h4><p><img src="https://blog.kakaocdn.net/dn/tsV1B/btq665Vmomd/V5zWeGYYdePqd5oe64Ogbk/img.png" alt="img"></p>
 <p>FDM은 R bps의 채널을 다른 주파수로 나눠서 각 주파수를 N개 노드 중 하나에게 할당한다.</p>
@@ -298,7 +298,7 @@
 <p><em>가정</em></p>
 <ul>
 <li>모든 프레임은 정확히 L비트로 구성</li>
-<li>시간은 L/R초의 슬롯들로 구성(즉 한 슬롯은 한 프레임 전송에 걸리는 시간과 같음)</li>
+<li>시간은 L&#x2F;R초의 슬롯들로 구성(즉 한 슬롯은 한 프레임 전송에 걸리는 시간과 같음)</li>
 <li>노드는 슬롯의 시작점에서만 프레임을 전송하기 시작</li>
 <li>각 노드는 언제 슬롯이 시작하는지 알 수 있게끔 동기화되어 있음</li>
 <li>한 슬롯에서 2개 이상의 프레임이 충돌 시, 모든 노드는 그 슬롯이 끝나기 전에 충돌 발생을 알게 됨</li>
@@ -329,14 +329,14 @@
 <p>전송된 프레임이 하나 이상의 다른 전송과 충돌하면, 노드는 확률 p로 즉시 프레임을 전송한다.</p>
 <p><img src="https://blog.kakaocdn.net/dn/cAQMTm/btq66vNy0RI/HmcUkOIKWKD6t0klZ9hou0/img.png" alt="img"></p>
 <p>주어진 노드가 성공적인 전송을 할 확률은 p(1-p)^2(N-1)</p>
-<p>순수 알로하 프로토콜의 최대 효율은 1/2e 즉 슬롯 알로하의 절반…</p>
+<p>순수 알로하 프로토콜의 최대 효율은 1&#x2F;2e 즉 슬롯 알로하의 절반…</p>
 <h4 id="c-3-3-CSMA"><a href="#c-3-3-CSMA" class="headerlink" title="c-3-3. CSMA"></a><strong>c-3-3. CSMA</strong></h4><ul>
 <li>말하기 전에 들어라 : 다른 사람이 말하고 있으면 말이 끝날 때까지 기다려라.<br>네트워크에서는 이를 캐리어 감지 라고 한다.</li>
 <li>다름 사람이 동시에 말하기 시작하면 말을 중단하라 : 네트워크에서 이것을 충돌 검출이라 함<br>(송신 노드는 전송하면서 동시에 채널을 듣는다.)<br>멈춘 후 랜덤 시간 동안 기다린 후 유휴 시 감지 및 전송 과정을 반복</li>
 </ul>
 <p>하지만 브로드캐스트 채널의 종단간의 채널 전파 지연이 CSMA의 성능을 결정하는 데 중요함.</p>
 <p>전파 지연이 길 수록 네트워크의 다른 노드에서 이미 시작된 전송을 캐리어 감지 노드가 감지 할 수 없는 경우 증가.</p>
-<h4 id="c-3-4-CSMA-CD"><a href="#c-3-4-CSMA-CD" class="headerlink" title="c-3-4. CSMA/CD"></a><strong>c-3-4. CSMA/CD</strong></h4><p>다중접속 프로토콜에 충돌 검출을 추가한 것.</p>
+<h4 id="c-3-4-CSMA-x2F-CD"><a href="#c-3-4-CSMA-x2F-CD" class="headerlink" title="c-3-4. CSMA&#x2F;CD"></a><strong>c-3-4. CSMA&#x2F;CD</strong></h4><p>다중접속 프로토콜에 충돌 검출을 추가한 것.</p>
 <p>쓸모 없는 프레임(충돌이 발생한 프레임)을 모두 전송하지 않게 됨.</p>
 <p><img src="https://blog.kakaocdn.net/dn/ebHAEj/btq66V6duw5/vX8spaEY3IZpLA7vQF3jD0/img.png" alt="img"></p>
 <ol>
@@ -355,10 +355,10 @@
 <p><img src="https://blog.kakaocdn.net/dn/Z3iXC/btq650762Dw/XXfQpvDmbJEJzcBir0bJs1/img.png" alt="img"></p>
 <h4 id="c-4-순번-프로토콜"><a href="#c-4-순번-프로토콜" class="headerlink" title="c-4. 순번 프로토콜"></a><strong>c-4. 순번 프로토콜</strong></h4><p>다중 접속 프로토콜의 두가지 특성</p>
 <p>단 하나의 노드만이 활성화 되면 그 노드가 R bps의 처리율을 가져야 한다</p>
-<p>M개의 노드가 활성이면 각 노드가 거의 R/M bps의 처리율을 가진다.</p>
+<p>M개의 노드가 활성이면 각 노드가 거의 R&#x2F;M bps의 처리율을 가진다.</p>
 <p>알로하와 CSMA는 첫번째 특성을 가지나 두 번째 특성은 없다.</p>
 <p>순번 프로토콜을 개발하게 된 계기이다.</p>
-<p><em>채널 나누기 MAC protocol : high load 일 때 효율적 공정, low load일 때 비효율(무조건 1/N을 분배)</em></p>
+<p><em>채널 나누기 MAC protocol : high load 일 때 효율적 공정, low load일 때 비효율(무조건 1&#x2F;N을 분배)</em></p>
 <p><em>랜덤 access MAC protocol : low load 일 때 효율, high load일 때 비효율(충돌 overhead)</em></p>
 <h4 id="c-4-1-폴링-프로토콜"><a href="#c-4-1-폴링-프로토콜" class="headerlink" title="c-4-1. 폴링 프로토콜"></a><strong>c-4-1. 폴링 프로토콜</strong></h4><p><img src="https://blog.kakaocdn.net/dn/rUMFN/btq7bDKvH9n/cdQY1jUocKfnAnYmuQeza1/img.png" alt="img"></p>
 <p>노드 중 하나를 마스터 노드로 지정.</p>
@@ -427,7 +427,7 @@
 <li>비신뢰적인 서비스<br>CRC를 통과해도 응답이 없고, 실패해도 응답이 없다. CRC를 실패하면 그냥 수신자가 폐기한다.<br>CRC를 통과했는지 알 방법이 없다.(TCP가 이 역할을 대신한다.)</li>
 </ul>
 <h4 id="d-3-링크-계층-스위치"><a href="#d-3-링크-계층-스위치" class="headerlink" title="d-3. 링크 계층 스위치"></a><strong>d-3. 링크 계층 스위치</strong></h4><p>스위치는 그 자체가 서브넷의 호스트와 라우터들에게 <em>투명</em>함.</p>
-<p>호스트/라우터는 프레임을 스위치가 아닌 다른 호스트/라우터를 목적지로 해서 랜상으로 보내며,<br>중간에 스위치가 프레임을 받아서 다른 노드에게 전달하는 것을 <em>알지 못한다.</em></p>
+<p>호스트&#x2F;라우터는 프레임을 스위치가 아닌 다른 호스트&#x2F;라우터를 목적지로 해서 랜상으로 보내며,<br>중간에 스위치가 프레임을 받아서 다른 노드에게 전달하는 것을 <em>알지 못한다.</em></p>
 <h4 id="d-3-1-스위치의-전달-및-여과"><a href="#d-3-1-스위치의-전달-및-여과" class="headerlink" title="d-3-1. 스위치의 전달 및 여과"></a><strong>d-3-1. 스위치의 전달 및 여과</strong></h4><p>여과 : 프레임을 전달할지 혹은 폐기할 지 결정.</p>
 <p>전달 : 전송될 인터페이스를 결정하고 해당 인터페이스로 내보내는 것.</p>
 <p>여과와 전달은 스위치 테이블을 이용.</p>
@@ -462,7 +462,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/11/17/cs/network/network12/" data-id="cl015rnkn0015mra0aw3u0mjg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2021/11/17/cs/network/network12/" data-id="cl9p7tezt00235ha0ahwf2ckp" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -575,24 +575,8 @@ a-2. 링크 계층의 서비스
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-instagram"></i>
                     </a>
                 </li>
                 
@@ -630,7 +614,7 @@ a-2. 링크 계층의 서비스
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -640,7 +624,7 @@ a-2. 링크 계층의 서비스
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/project/" style="font-size: 10px;">Project</a> <a href="/tags/spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 

@@ -241,20 +241,21 @@
 <p>(1번 스레드와 2번 스레드가 getInstace를 호출한 상황…)<br>1번 getInstance -&gt; 2번 getInstance -&gt;<br>1번 객체 유무 판별(없다고 판단) -&gt; 2번 객체 유무 판별(없다고 판단) -&gt;<br>1번 객체 생성 -&gt; 2번 객체 생성(문제 발생!!!!!!) -&gt;<br>1번 객체 반환(1번 객체 반환) -&gt; 2번 객체 반환(2번 객체 반환)</p>
 <p>즉 두 스레드가 반환한 객체는 서로 다른 객체다!!!!</p>
 <h3 id="스레드-문제-해결하기"><a href="#스레드-문제-해결하기" class="headerlink" title="스레드 문제 해결하기"></a>스레드 문제 해결하기</h3><ol>
-<li><strong>getInstance를 synchronized하기.</strong><ul>
+<li><p><strong>getInstance를 synchronized하기.</strong></p>
+<ul>
 <li>getInstance 호출 시 끝날 때까지 다른 스레드 정지.</li>
 <li>하지만 매번 객체에 접근할 때마다 동기화하는건 속도 문제 발생 가능</li>
 <li>getInstance의 속도가 중요하지 않은 경우 사용.</li>
 </ul>
 </li>
-</ol>
-<ol start="2">
-<li><strong>인스턴스를 필요할 때 만들지 말고 처음부터 만들기</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton uniqueInstance = <span class="keyword">new</span> Singleton();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> uniqueInstance;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-이 방법은 JVM에서 클래스가 로딩될 때 인스턴스를 생성!</li>
-</ol>
-<ol start="3">
-<li><strong>게으른 홀더 방식</strong><br>내부 클래스를 따로 선언해서 그 안에 객체를 저장하는 방식이다.<br>클래스 로더가 이 클래스를 읽을 때 객체 생성된다.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton2</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyHolder</span></span>&#123;</span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton2 uniqueInstance = <span class="keyword">new</span> Singleton2();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton2 <span class="title">getInstance</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> LazyHolder.uniqueInstance;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-synchronized를 사용하지 않아 성능도 좋고, 다른 키워드를 사용하지 않아도 되서 직관적이다.</li>
+<li><p><strong>인스턴스를 필요할 때 만들지 말고 처음부터 만들기</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton uniqueInstance = <span class="keyword">new</span> Singleton();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> uniqueInstance;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이 방법은 JVM에서 클래스가 로딩될 때 인스턴스를 생성!</p>
+</li>
+<li><p><strong>게으른 홀더 방식</strong><br>내부 클래스를 따로 선언해서 그 안에 객체를 저장하는 방식이다.<br>클래스 로더가 이 클래스를 읽을 때 객체 생성된다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton2</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyHolder</span></span>&#123;</span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton2 uniqueInstance = <span class="keyword">new</span> Singleton2();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton2 <span class="title">getInstance</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> LazyHolder.uniqueInstance;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>synchronized를 사용하지 않아 성능도 좋고, 다른 키워드를 사용하지 않아도 되서 직관적이다.</p>
+</li>
 </ol>
 <blockquote>
 <p>주의 할 점</p>
@@ -267,7 +268,7 @@ synchronized를 사용하지 않아 성능도 좋고, 다른 키워드를 사용
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/10/01/java/design-pattern/dp6/" data-id="cl015rnkz0040mra059uid8lz" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2021/10/01/java/design-pattern/dp6/" data-id="cl9p7tf04004l5ha0fg46doxn" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -348,7 +349,7 @@ synchronized를 사용하지 않아 성능도 좋고, 다른 키워드를 사용
         "description": "싱글톤 패턴인스턴스가 하나 뿐인 객체를 만드는 패턴!어디서든 그 인스턴스에 접근할 수 있게하는 패턴!
 왜 쓰는가?굳이 여러개가 필요 없는 클래스의 객체가 여러개 생기면 메모리를 불필요하게 차지하게 된다.이런 클래스들의 객체를 하나로 유지하도록 설계해서 메모리를 효율적으로 사용하게 한다.
 혹은 설정이나 보안같이 중요한 내용을 담는 클래스는 여러개의 객체를 만",
-        "wordCount": 492
+        "wordCount": 490
     }
 </script>
 
@@ -377,24 +378,8 @@ synchronized를 사용하지 않아 성능도 좋고, 다른 키워드를 사용
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-instagram"></i>
                     </a>
                 </li>
                 
@@ -432,7 +417,7 @@ synchronized를 사용하지 않아 성능도 좋고, 다른 키워드를 사용
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -442,7 +427,7 @@ synchronized를 사용하지 않아 성능도 좋고, 다른 키워드를 사용
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/project/" style="font-size: 10px;">Project</a> <a href="/tags/spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 

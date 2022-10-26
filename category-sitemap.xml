@@ -9,15 +9,22 @@
 
 
     <url>
-        <loc>https://yangdongjue5510.github.io/categories/jpa/</loc>
-        <lastmod>2022-07-03T05:22:23.128Z</lastmod>
+        <loc>https://yangdongjue5510.github.io/categories/spring/project/</loc>
+        <lastmod>2022-10-26T05:47:30.087Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://yangdongjue5510.github.io/categories/spring/</loc>
-        <lastmod>2022-05-19T07:07:23.114Z</lastmod>
+        <lastmod>2022-10-26T05:47:30.087Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/categories/jpa/</loc>
+        <lastmod>2022-07-03T05:22:23.128Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -44,13 +51,6 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/categories/spring/project/</loc>
-        <lastmod>2022-01-22T16:20:00.039Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://yangdongjue5510.github.io/categories/java/design-pattern/</loc>
         <lastmod>2022-01-22T16:20:00.033Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -58,14 +58,14 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/categories/computer-science/computer-structure/</loc>
+        <loc>https://yangdongjue5510.github.io/categories/computer-science/os/</loc>
         <lastmod>2022-01-22T16:20:00.032Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/categories/computer-science/os/</loc>
+        <loc>https://yangdongjue5510.github.io/categories/computer-science/computer-structure/</loc>
         <lastmod>2022-01-22T16:20:00.032Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

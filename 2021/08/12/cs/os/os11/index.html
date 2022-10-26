@@ -225,14 +225,14 @@
 <p>cpu가 한 프로세스의 모든 영역을 사용하지는 않는다,<br><img src="/img/os/os11-1.png"><br>프로세스가 모두 4기가 씩을 부여 받더라도, 정작 사용하는 공간은 제한적이다.<br>사용할 영역만 RAM에 저장하여 실행하는 방식으로 하면 메모리가 부족해도 여러 프로세스를 작동 시킬 수 있다.</p>
 </blockquote>
 <h3 id="가상-메모리의-기본-아이디어"><a href="#가상-메모리의-기본-아이디어" class="headerlink" title="가상 메모리의 기본 아이디어"></a>가상 메모리의 기본 아이디어</h3><ul>
-<li>프로세스는 가상 주소를 사용하고, 실제 해당 주소에서 데이터를 읽고 쓸 때만 물리 주소로 바꿔주자.<ul>
+<li><p>프로세스는 가상 주소를 사용하고, 실제 해당 주소에서 데이터를 읽고 쓸 때만 물리 주소로 바꿔주자.</p>
+<ul>
 <li>virtual address : 프로세스가 참조하는 주소</li>
 <li>physical address : 실제 메모리 주소</li>
 </ul>
 </li>
-</ul>
+<li><p>MMU(Memory Managemnet Unit)</p>
 <ul>
-<li>MMU(Memory Managemnet Unit)<ul>
 <li>cpu에 코드 실행 시, 가상 주소 메모리 접근이 필요할 경우, 해당 주소를 물리 주소 값으로 변환하는 하드웨어.</li>
 <li>주소 변환을 빠르게 하기 위해 하드웨어 장치를 사용.</li>
 </ul>
@@ -250,7 +250,7 @@
 <p>4gb짜리 프로세스와 PCB에 page table 구조체를 가리키는 주소가 존재해서<br>cpu가 어떤 가상 메모리 주소에 접근하면 해당 페이징에 맞는 page table에 접근해서,<br>매핑 되어 있는 물리 주소를 얻어 물리 주소로 접근하는 방식이다.</p>
 <p><em>내부 단편화</em> : 4kb씩 데이터를 나눈다고 했을 때 만약 1kb가 남으면…? 1kb도 4kb크기의 페이지로 할당.(공간 낭비)</p>
 <h4 id="페이징-시스템-구조"><a href="#페이징-시스템-구조" class="headerlink" title="페이징 시스템 구조"></a>페이징 시스템 구조</h4><p><strong>1. page 혹은 page fram</strong>: 고정된 크기의 block</p>
-<p>가상 주소 v = (p, d)</p>
+<p>가상 주소 v &#x3D; (p, d)</p>
 <ul>
 <li>p: 가상 메모리 페이지 번호</li>
 <li>d: p안에서 참조하는 위치(변위 혹은 오프셋이라고도 부름)<br>(페이지 안에서도 내가 접근할 위치의 값에 접근할 수 있도록 하는 것이 d)<br>(즉 어떤 페이지의 시작 주소가 있을 텐데 그 페이지에서 d 만큼 내려오면 우리가 원하는 주소)</li>
@@ -283,7 +283,7 @@
 <li>가장 먼저 들어온 페이지가 나가자!</li>
 </ul>
 <h4 id="OPT-알고리즘"><a href="#OPT-알고리즘" class="headerlink" title="OPT 알고리즘"></a>OPT 알고리즘</h4><ul>
-<li>오랫동안 안 쓸 페이지를 내리자!(일반적인 OS에서는 예측 불가) </li>
+<li>오랫동안 안 쓸 페이지를 내리자!(일반적인 OS에서는 예측 불가)</li>
 </ul>
 <h4 id="LRU-알고리즘"><a href="#LRU-알고리즘" class="headerlink" title="LRU 알고리즘"></a>LRU 알고리즘</h4><ul>
 <li>가장 오래 전에 사용한 페이지가 나가자!</li>
@@ -297,7 +297,7 @@
 </ul>
 <h3 id="세그멘테이션-기법"><a href="#세그멘테이션-기법" class="headerlink" title="세그멘테이션 기법"></a>세그멘테이션 기법</h3><p>페이징과 비교해서 기억하는 정도만 보자.<br><img src="/img/os/os11-8.png"><br>가상 메모리를 서로 크기가 다른 논리적 단위인 세그먼트로 분할<br>(페이징은 일관된 크기로 분할)</p>
 <ul>
-<li>세그먼트 가상 주소<br>v = (s,d) s: 세그먼트 번호, d: 블록 내 세그먼트 범위</li>
+<li>세그먼트 가상 주소<br>v &#x3D; (s,d) s: 세그먼트 번호, d: 블록 내 세그먼트 범위</li>
 <li>외부 단편화 : 세그먼트의 크기가 들어갈만한 연속적인 물리 공간이 없으면 문제가 생김.(크기가 지 맘대로다 보니…)</li>
 </ul>
 
@@ -307,7 +307,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/08/12/cs/os/os11/" data-id="cl015rnks0025mra0h00nffhf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2021/08/12/cs/os/os11/" data-id="cl9p7tezy00385ha0ffqg9t0k" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -389,7 +389,7 @@
 적은 메모리에서 여러 프로세스를 다루기 위해 등장한 개념이 가상 메모리! 
 
 cpu가 한 프로세스의 모든 영역을 사용하지는 않는다,프로세스가 모두 4기가 씩을 부여 받더라도, 정작 사용하는 공간은 제한적이다.사용할 영역만 R",
-        "wordCount": 775
+        "wordCount": 774
     }
 </script>
 
@@ -418,24 +418,8 @@ cpu가 한 프로세스의 모든 영역을 사용하지는 않는다,프로세�
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-instagram"></i>
                     </a>
                 </li>
                 
@@ -473,7 +457,7 @@ cpu가 한 프로세스의 모든 영역을 사용하지는 않는다,프로세�
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -483,7 +467,7 @@ cpu가 한 프로세스의 모든 영역을 사용하지는 않는다,프로세�
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/project/" style="font-size: 10px;">Project</a> <a href="/tags/spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 

@@ -12,12 +12,12 @@
     
     <meta name="keywords" content>
     
-    <meta name="description" content="HTTP는 어떻게 데이터를 전달할까? GET  get은 URI의 쿼리 파라미터로 데이터를 전달한다.(? 뒤의 쿼리를 의미한다.)코드로 받아오는 방법은 두가지가 있다.  @RequestParam : 메소드에 해당 어노테이션을 붙인 변수를 만들어서 받아온다! 클래스를 만들어서 가져오기 : 메소드에 해당 클래스 객체를 넣어주면 알아서 매핑되서 받아온다.  이때">
+    <meta name="description" content="HTTP는 어떻게 데이터를 전달할까? GET  get은 URI의 쿼리 파라미터로 데이터를 전달한다.(? 뒤의 쿼리를 의미한다.)코드로 받아오는 방법은 두가지가 있다.  @RequestParam : 메소드에 해당 어노테이션을 붙인 변수를 만들어서 받아온다! 클래스를 만들어서 가져오기 : 메소드에 해당 클래스 객체를 넣어주면 알아서 매핑되서 받아온다.이때 변수">
 <meta property="og:type" content="article">
 <meta property="og:title" content="4. [블로그 프로젝트] 스프링 부트로 HTTP 데이터 전달하기">
 <meta property="og:url" content="https://yangdongjue5510.github.io/2021/08/26/spring/blog/blog4/index.html">
 <meta property="og:site_name" content="mudura | 그거 뭐더라">
-<meta property="og:description" content="HTTP는 어떻게 데이터를 전달할까? GET  get은 URI의 쿼리 파라미터로 데이터를 전달한다.(? 뒤의 쿼리를 의미한다.)코드로 받아오는 방법은 두가지가 있다.  @RequestParam : 메소드에 해당 어노테이션을 붙인 변수를 만들어서 받아온다! 클래스를 만들어서 가져오기 : 메소드에 해당 클래스 객체를 넣어주면 알아서 매핑되서 받아온다.  이때">
+<meta property="og:description" content="HTTP는 어떻게 데이터를 전달할까? GET  get은 URI의 쿼리 파라미터로 데이터를 전달한다.(? 뒤의 쿼리를 의미한다.)코드로 받아오는 방법은 두가지가 있다.  @RequestParam : 메소드에 해당 어노테이션을 붙인 변수를 만들어서 받아온다! 클래스를 만들어서 가져오기 : 메소드에 해당 클래스 객체를 넣어주면 알아서 매핑되서 받아온다.이때 변수">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yangdongjue5510.github.io/img/boot/blog/blog4-1.png">
 <meta property="article:published_time" content="2021-08-26T07:08:56.000Z">
@@ -225,22 +225,18 @@
 <p>get은 URI의 쿼리 파라미터로 데이터를 전달한다.<br>(? 뒤의 쿼리를 의미한다.)<br>코드로 받아오는 방법은 두가지가 있다.</p>
 <ol>
 <li>@RequestParam : 메소드에 해당 어노테이션을 붙인 변수를 만들어서 받아온다!</li>
-<li>클래스를 만들어서 가져오기 : 메소드에 해당 클래스 객체를 넣어주면 알아서 매핑되서 받아온다.</li>
+<li>클래스를 만들어서 가져오기 : 메소드에 해당 클래스 객체를 넣어주면 알아서 매핑되서 받아온다.<br><strong>이때 변수 명이나, URI의 key값이 클래스 멤버 변수와 동일해야 한다!!!</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/http/get&quot;)</span></span><br><span class="line"><span class="comment">//public String getTest(@RequestParam int id, @RequestParam String username...)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getTest</span><span class="params">(Member m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;get id :&quot;</span> + m.getId() + <span class="string">&quot;, username: &quot;</span>+m.getUsername()+<span class="string">&quot;, password : &quot;</span>+m.getPassword()+<span class="string">&quot;, email : &quot;</span>+m.getEmail();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p><strong>이때 변수 명이나, URI의 key값이 클래스 멤버 변수와 동일해야 한다!!!</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/http/get&quot;)</span></span><br><span class="line"><span class="comment">//public String getTest(@RequestParam int id, @RequestParam String username...)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getTest</span><span class="params">(Member m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;get id :&quot;</span> + m.getId() + <span class="string">&quot;, username: &quot;</span>+m.getUsername()+<span class="string">&quot;, password : &quot;</span>+m.getPassword()+<span class="string">&quot;, email : &quot;</span>+m.getEmail();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 <blockquote>
 <p>GET 외의 api들(POST, PUT …)</p>
 </blockquote>
 <p>get을 제외한 api들은 다양한 데이터를 전달할 수 있다.<br>그렇다면 어떻게 데이터를 보낼까?<br>바로 <strong>body</strong>에 담아서 보낸다!!</p>
 <p>그런데, body에서 전달하는 방식도 여러가지가 있다.<br>포스트맨에서 확인해보자.<br><img src="/img/boot/blog/blog4-1.png"></p>
 <ol>
-<li><strong>x-<a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.form-unlencoded/">www.form-unlencoded</a></strong><br>여기 보이는 <strong>x-<a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.form-unlencoded/">www.form-unlencoded</a></strong>는 HTML에서 보이는 form태그 방식으로 데이터를 보낸다.<br>이럴 경우에는 우리 코드 상의 메소드의 매개변수를 그냥 객체 형식으로 보내도 상관없다.<br>form을 전제로 하기 때문에 자연스럽게 파싱된다.</li>
-</ol>
-<ol start="2">
-<li><strong>raw</strong><br>하지만 <strong>raw</strong>는 그렇지 않다. 우리 코드상의 메소드의 매개변수 앞에 <strong>@RequestBody</strong>를 붙여줘야 파싱한다.<br>이때 raw도 그냥 raw가 아니라 다양한 MIME형식을 가질 수 있다.<br>(text/plain , application/json)</li>
+<li><p><strong>x-<a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.form-unlencoded/">www.form-unlencoded</a></strong><br>여기 보이는 <strong>x-<a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.form-unlencoded/">www.form-unlencoded</a></strong>는 HTML에서 보이는 form태그 방식으로 데이터를 보낸다.<br>이럴 경우에는 우리 코드 상의 메소드의 매개변수를 그냥 객체 형식으로 보내도 상관없다.<br>form을 전제로 하기 때문에 자연스럽게 파싱된다.</p>
+</li>
+<li><p><strong>raw</strong><br>하지만 <strong>raw</strong>는 그렇지 않다. 우리 코드상의 메소드의 매개변수 앞에 <strong>@RequestBody</strong>를 붙여줘야 파싱한다.<br>이때 raw도 그냥 raw가 아니라 다양한 MIME형식을 가질 수 있다.<br>(text&#x2F;plain , application&#x2F;json)</p>
+</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@PostMapping(&quot;/http/post&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">postTest</span><span class="params">(<span class="meta">@RequestBody</span> Member m)</span></span>&#123; <span class="comment">//json받기</span></span><br><span class="line"><span class="comment">//  public String postTest(@RequestBody String text)&#123; //text받기</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;post id :&quot;</span> + m.getId() + <span class="string">&quot;, username: &quot;</span>+m.getUsername()+<span class="string">&quot;, password : &quot;</span>+m.getPassword()+<span class="string">&quot;, email : &quot;</span>+m.getEmail();</span><br><span class="line">        <span class="comment">//return text;</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
         </div>
@@ -249,7 +245,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/08/26/spring/blog/blog4/" data-id="cl015rnli008umra0bff15fw5" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2021/08/26/spring/blog/blog4/" data-id="cl9p7tf0v00bi5ha094u23ypm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -333,10 +329,8 @@ GET
 get은 URI의 쿼리 파라미터로 데이터를 전달한다.(? 뒤의 쿼리를 의미한다.)코드로 받아오는 방법은 두가지가 있다.
 
 @RequestParam : 메소드에 해당 어노테이션을 붙인 변수를 만들어서 받아온다!
-클래스를 만들어서 가져오기 : 메소드에 해당 클래스 객체를 넣어주면 알아서 매핑되서 받아온다.
-
-이때 ",
-        "wordCount": 264
+클래스를 만들어서 가져오기 : 메소드에 해당 클래스 객체를 넣어주면 알아서 매핑되서 받아온다.이때 변수",
+        "wordCount": 263
     }
 </script>
 
@@ -365,24 +359,8 @@ get은 URI의 쿼리 파라미터로 데이터를 전달한다.(? 뒤의 쿼리�
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-instagram"></i>
                     </a>
                 </li>
                 
@@ -420,7 +398,7 @@ get은 URI의 쿼리 파라미터로 데이터를 전달한다.(? 뒤의 쿼리�
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -430,7 +408,7 @@ get은 URI의 쿼리 파라미터로 데이터를 전달한다.(? 뒤의 쿼리�
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/project/" style="font-size: 10px;">Project</a> <a href="/tags/spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 

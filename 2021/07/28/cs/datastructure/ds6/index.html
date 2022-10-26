@@ -246,7 +246,7 @@
 <li>각 노드의 왼쪽 서브트리의 key값은 노드의 key값보다 작거나 같아야 한다.</li>
 <li>반면 오른쪽 서브트리의 key값은 노드의 key값보다 작거나 같아야 한다.</li>
 </ol>
-<p>이런 특징이 탐색이 효율적으로 되게 한다!<br>이진트리의 탐색 연산은 O(h=트리 높이)이므로, 만약 이진트리의 강점을 극대화하고 싶으면, 트리의 높이를 최소화 하는 방향으로 설계해야 한다!</p>
+<p>이런 특징이 탐색이 효율적으로 되게 한다!<br>이진트리의 탐색 연산은 O(h&#x3D;트리 높이)이므로, 만약 이진트리의 강점을 극대화하고 싶으면, 트리의 높이를 최소화 하는 방향으로 설계해야 한다!</p>
 <blockquote>
 <p>코드로 구현</p>
 </blockquote>
@@ -275,10 +275,12 @@
 </blockquote>
 <p>삭제할 노드를 x, 왼쪽 자식노드 a, 오른쪽 자식노드 b, x의 왼쪽 서브트리중 가장 큰 노드 m이라 하고 x의 부모노드를 pt라고 하자.</p>
 <h5 id="만약-삭제할-노드가-루트노드일-경우"><a href="#만약-삭제할-노드가-루트노드일-경우" class="headerlink" title="만약 삭제할 노드가 루트노드일 경우"></a>만약 삭제할 노드가 루트노드일 경우</h5><ol>
-<li>m이 존재 할 경우(if a!=None) : b가 m의 오른쪽 자식노드가 되도록 링크 수정, a가 루트노드가 되도록 변경</li>
-<li>a == None이면 : b가 새로운 루트노드가 됨<br><img src="/img/ds/tree5.png"><h5 id="만약-삭제할-노드가-루트노드가-아닌-경우"><a href="#만약-삭제할-노드가-루트노드가-아닌-경우" class="headerlink" title="만약 삭제할 노드가 루트노드가 아닌 경우"></a>만약 삭제할 노드가 루트노드가 아닌 경우</h5></li>
-<li>m이 존재 할 경우(if a!=None) : b가 m의 오른쪽 자식노드가 되도록 링크 수정, a가 pt의 자식노드가 되도록 변경</li>
-<li>a == None이면 : b가 pt의 자식노드가 되도록 변경<br><img src="/img/ds/tree6.png"><blockquote>
+<li>m이 존재 할 경우(if a!&#x3D;None) : b가 m의 오른쪽 자식노드가 되도록 링크 수정, a가 루트노드가 되도록 변경</li>
+<li>a &#x3D;&#x3D; None이면 : b가 새로운 루트노드가 됨<br><img src="/img/ds/tree5.png"></li>
+</ol>
+<h5 id="만약-삭제할-노드가-루트노드가-아닌-경우"><a href="#만약-삭제할-노드가-루트노드가-아닌-경우" class="headerlink" title="만약 삭제할 노드가 루트노드가 아닌 경우"></a>만약 삭제할 노드가 루트노드가 아닌 경우</h5><ol>
+<li>m이 존재 할 경우(if a!&#x3D;None) : b가 m의 오른쪽 자식노드가 되도록 링크 수정, a가 pt의 자식노드가 되도록 변경</li>
+<li>a &#x3D;&#x3D; None이면 : b가 pt의 자식노드가 되도록 변경<br><img src="/img/ds/tree6.png"><blockquote>
 <p>코드로 구현해보자</p>
 </blockquote>
 </li>
@@ -306,7 +308,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds6/" data-id="cl015rnkl000tmra04ish3yzp" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds6/" data-id="cl9p7tezp001d5ha02zymce9a" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -417,24 +419,8 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-instagram"></i>
                     </a>
                 </li>
                 
@@ -472,7 +458,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -482,7 +468,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/project/" style="font-size: 10px;">Project</a> <a href="/tags/spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 

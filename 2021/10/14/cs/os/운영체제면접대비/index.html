@@ -232,7 +232,7 @@
 <ul>
 <li>code : 컴파일된 코드가 저장(프로그램 끝날 때 해제)</li>
 <li>Data : 선언된 변수가 저장되는 영역 (전역변수, static, 프로그램 끝날 때 해제)<ul>
-<li>BSS(초기화 안된 전역변수) / DATA(초기화 된 전역변수)</li>
+<li>BSS(초기화 안된 전역변수) &#x2F; DATA(초기화 된 전역변수)</li>
 </ul>
 </li>
 <li>heap : 동적으로 할당된 메모리가 저장</li>
@@ -263,8 +263,8 @@
 <p>프로세스 : </p>
 <ul>
 <li>서로 자원 공유가 제한됨</li>
-<li> IPC 연산 비용</li>
-<li> 일일히 자원 할당하는 시스템콜 비용</li>
+<li>IPC 연산 비용</li>
+<li>일일히 자원 할당하는 시스템콜 비용</li>
 </ul>
 <p>쓰레드 : </p>
 <ul>
@@ -311,7 +311,7 @@
 <ul>
 <li>예방 : 원인을 제거</li>
 <li>회피 : 발생하지 않도록 알고리즘 도입<ul>
-<li>은행원 알고리즘 / 자원할당 알고리즘</li>
+<li>은행원 알고리즘 &#x2F; 자원할당 알고리즘</li>
 </ul>
 </li>
 <li>회복 : 문제가 발생한 프로세스를 중단, 메모리 해제</li>
@@ -383,7 +383,7 @@
 <p><strong>평가</strong></p>
 <p>효율성 : BEST FIT, FIRST FIT &gt; WORST FIT<br>복잡도 : FIRST FIT &gt; BEST FIT , WORST FIT</p>
 <p><strong>FIRST FIT의 50퍼센트 규칙</strong></p>
-<p>전체 메모리에 N개의 블록이 할당되었다고 했을 때 0.5N개의 블록이 외부 단편화되어 사용할 수 없음.<br>총 (1.5N 중 0.5N, 즉 1/3만큼 사용할 수 없게 된다.)</p>
+<p>전체 메모리에 N개의 블록이 할당되었다고 했을 때 0.5N개의 블록이 외부 단편화되어 사용할 수 없음.<br>총 (1.5N 중 0.5N, 즉 1&#x2F;3만큼 사용할 수 없게 된다.)</p>
 <h3 id="가상-메모리"><a href="#가상-메모리" class="headerlink" title="가상 메모리"></a>가상 메모리</h3><p>메모리에 로드되어 실행 중인 프로세스가 가상의 메모리 공간을 참조해 거대한 물리 메모리를 사용하는 것처럼 보이게 하는 방식.</p>
 <p>프로세스를 모두 메모리에 할당하기엔 한계가 있다.(리눅스의 프로세스 크기가 4기가.)<br>CPU가 프로세스의 모든 공간을 사용하지는 않는다.</p>
 <p>자주 사용하지 않는 부분은 하드디스크에 저장<br>가상 주소로 통해 메모리에 접근.</p>
@@ -405,10 +405,10 @@
 <h3 id="세그멘테이션"><a href="#세그멘테이션" class="headerlink" title="세그멘테이션"></a>세그멘테이션</h3><p>페이징은 물리적으로 동일한 크기로 분할하는 기법이지만<br>세그멘테이션은 논리적인 기준으로 분할하는 기법이다.<br>세그멘테이션은 각 세그멘트가 크기가 달라서 메모리에 할당하고 해제하는 과정에서 외부 단편화가 날 수 있다.</p>
 <p>외부 단편화를 방지하기 위해 세그멘트를 페이징하는 paged segmentation 기법을 사용한다.</p>
 <h3 id="상호배제-방식"><a href="#상호배제-방식" class="headerlink" title="상호배제 방식"></a>상호배제 방식</h3><p>공유 자원 접근을 제한하는 방식.</p>
-<h3 id="뮤텍스"><a href="#뮤텍스" class="headerlink" title="뮤텍스"></a>뮤텍스</h3><p>여러 프로세스/스레드가 공유 자원에 접근하는 상황을 막는 상호 배제 락 매커니즘.<br>임계 구역(공유 자원)에 하나의 프로세스/스레드만 접근 가능함</p>
-<h3 id="세마포어"><a href="#세마포어" class="headerlink" title="세마포어"></a>세마포어</h3><p>여러 프로세스/스레드 중 정해진 프로세스/스레드 갯수만큼만 접근을 허락하는 매커니즘.<br>대기 중인 프로세스/스레드가 공유 자원을 사용할 수 있는 지 계속 검사하는 과정이 발생 가능(바쁜 대기)</p>
+<h3 id="뮤텍스"><a href="#뮤텍스" class="headerlink" title="뮤텍스"></a>뮤텍스</h3><p>여러 프로세스&#x2F;스레드가 공유 자원에 접근하는 상황을 막는 상호 배제 락 매커니즘.<br>임계 구역(공유 자원)에 하나의 프로세스&#x2F;스레드만 접근 가능함</p>
+<h3 id="세마포어"><a href="#세마포어" class="headerlink" title="세마포어"></a>세마포어</h3><p>여러 프로세스&#x2F;스레드 중 정해진 프로세스&#x2F;스레드 갯수만큼만 접근을 허락하는 매커니즘.<br>대기 중인 프로세스&#x2F;스레드가 공유 자원을 사용할 수 있는 지 계속 검사하는 과정이 발생 가능(바쁜 대기)</p>
 <p>세마포어는 뮤텍스가 될 수 있는데, 뮤텍스는 세마포어가 될 수 없다!!!<br>세마포어는 소유가 불가능한데, 뮤텍스가 소유가 가능하다.</p>
-<h2 id="4주차"><a href="#4주차" class="headerlink" title="4주차"></a>4주차</h2><h3 id="PCB와-프로세스-컨텍스트"><a href="#PCB와-프로세스-컨텍스트" class="headerlink" title="PCB와 프로세스 컨텍스트"></a>PCB와 프로세스 컨텍스트</h3><p><strong>프로세스 메타데이터</strong><br>CPU는 프로세스 메타데이터로 프로세스를 식별.<br>Process ID, Process State, Program Counter, Process Context 등…<br>Program Counter = 다음에 실행될 명령어의 주소를 저장.</p>
+<h2 id="4주차"><a href="#4주차" class="headerlink" title="4주차"></a>4주차</h2><h3 id="PCB와-프로세스-컨텍스트"><a href="#PCB와-프로세스-컨텍스트" class="headerlink" title="PCB와 프로세스 컨텍스트"></a>PCB와 프로세스 컨텍스트</h3><p><strong>프로세스 메타데이터</strong><br>CPU는 프로세스 메타데이터로 프로세스를 식별.<br>Process ID, Process State, Program Counter, Process Context 등…<br>Program Counter &#x3D; 다음에 실행될 명령어의 주소를 저장.</p>
 <p><strong>PCB(Process Control Block)</strong><br>프로세스 관리를 위한 메타데이터를 저장하는 자료구조. 커널이 관리</p>
 <p><strong>프로세스 컨텍스트</strong><br>CPU가 해당 프로세스를 실행하기 위한 프로세스 데이터 모음.<br>CPU는 레지스터를 기반으로 코드를 실행하므로,<br>프로세서의 상태와 관련된 레지스터 집합을 프로세스 컨텍스트라고 이해.</p>
 <h3 id="컨텍스트-스위칭"><a href="#컨텍스트-스위칭" class="headerlink" title="컨텍스트 스위칭"></a>컨텍스트 스위칭</h3><p>하나의 프로세스가 CPU를 사용하고 있을 때,<br>하던 프로세스 작업을 중단하고 다른 프로세스 작업을 하기 위해,<br>진행 중이던 프로세스의 컨텍스트를 PCB에 저장하고,<br>다음 프로세스를 진행하기 위해 PCB에서 해당 컨텍스트를 가져와 작업을 진행한다.</p>
@@ -430,7 +430,7 @@
 <h4 id="Race-Condition-attack"><a href="#Race-Condition-attack" class="headerlink" title="Race Condition attack"></a>Race Condition attack</h4><p>Setuid(소유자 권한으로 실행)으로 설정된 파일이 실행 중일 때,<br>생성된 임시파일과 같은 이름의 파일에 심볼릭링크를 만들어서 원본 파일을 지우고<br>새로운 임시 파일이 생성될 때, 심볼릭 링크를 통해 파일 내용을 변경.</p>
 <p>시스템은 변경된 파일을 새롭게 생성된 파일로 착각하고 프로세스 진행.</p>
 <h5 id="레이스컨디션-대응"><a href="#레이스컨디션-대응" class="headerlink" title="레이스컨디션 대응"></a>레이스컨디션 대응</h5><ol>
-<li> 가능하면 임시파일 생성 금지</li>
+<li>가능하면 임시파일 생성 금지</li>
 <li>파일 생성 시, 동일 파일 존재 시, 파일 생성 혹은 쓰기를 금지</li>
 <li>만들려는 파일에 링크가 걸려있으면 실행중단</li>
 <li>임시파일이 공격자에 의해 삭제되지 않도록 함(umask를 최하 022정도로 유지. 쓰기 권한 제거)</li>
@@ -444,7 +444,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/10/14/cs/os/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/" data-id="cl015rnkv002umra09jgw1dv3" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2021/10/14/cs/os/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/" data-id="cl9p7tf02003x5ha0d99ea78s" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -527,7 +527,7 @@
 3주차페이징세그멘테이션상호배제 방식뮤텍스세마포어
 4주차PCB와 프로세스 컨텍스트컨텍스트 스위칭사용자 수준 스레드 vs 커널 수준 스레드fork와 vfork의 차이점
 5주차Rac",
-        "wordCount": 1506
+        "wordCount": 1503
     }
 </script>
 
@@ -556,24 +556,8 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-instagram"></i>
                     </a>
                 </li>
                 
@@ -611,7 +595,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -621,7 +605,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/project/" style="font-size: 10px;">Project</a> <a href="/tags/spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 

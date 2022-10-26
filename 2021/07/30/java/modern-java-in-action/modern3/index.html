@@ -238,35 +238,35 @@
 <p><em>stream()을 parallelStream()으로 바꾸면, 멀티코어 아키텍처에서 병렬로 실행할 수 있다.(추후 게시물로 공부하자)</em></p>
 <p>그렇다면 스트림을 사용하면 어떤게 좋을까?</p>
 <ol>
-<li>선언형으로 코드를 구현할 수 있다.<br> 즉, 반복문이나 조건문같은 제어블록을 사용해서 상황에 따라 어떻게 행동할 지 구현할 필요없이, 동작의 수행을 지정할 수 있다.<br> 선언형 코드와 동작 파라미터화를 활용하면 요구사항에 쉽게 대응할 수 있다.(람다만 적절하게 바꿔주면 된다!)</li>
-<li>여러 빌딩 블록 연산을 연결해서 복잡한 데이터 처리 파이프라인을 만들 수 있다.<br> 위 예시에서처럼 filtered, sorted, map, collect등 연결해 더 복잡한 파이프라인을 만들 수 있다.</li>
-<li>고수준 빌딩 블록(filter, sorted, map, collect 등..)은 특정 스레딩 모델에 제한되지 않고 사용가능 하다.<br> 이 블록들은 멀티코어 아키텍처를 최대한 투명하게 활용할 수 있게 구현되어 있다. 덕분에 데이터 처리 과정을 병렬화하면서 스레드와 락을 걱정할 필요가 없다.</li>
+<li>선언형으로 코드를 구현할 수 있다.<br>즉, 반복문이나 조건문같은 제어블록을 사용해서 상황에 따라 어떻게 행동할 지 구현할 필요없이, 동작의 수행을 지정할 수 있다.<br>선언형 코드와 동작 파라미터화를 활용하면 요구사항에 쉽게 대응할 수 있다.(람다만 적절하게 바꿔주면 된다!)</li>
+<li>여러 빌딩 블록 연산을 연결해서 복잡한 데이터 처리 파이프라인을 만들 수 있다.<br>위 예시에서처럼 filtered, sorted, map, collect등 연결해 더 복잡한 파이프라인을 만들 수 있다.</li>
+<li>고수준 빌딩 블록(filter, sorted, map, collect 등..)은 특정 스레딩 모델에 제한되지 않고 사용가능 하다.<br>이 블록들은 멀티코어 아키텍처를 최대한 투명하게 활용할 수 있게 구현되어 있다. 덕분에 데이터 처리 과정을 병렬화하면서 스레드와 락을 걱정할 필요가 없다.</li>
 </ol>
 <p>마지막으로 스트림의 특징을 요약하면서 다음 챕터로 넘어가자!</p>
 <ol>
-<li> 선언형 : 더 간결, 가독성 상승</li>
-<li> 조립 가능 : 유연성</li>
-<li> 병렬화 : 성능 향상</li>
+<li>선언형 : 더 간결, 가독성 상승</li>
+<li>조립 가능 : 유연성</li>
+<li>병렬화 : 성능 향상</li>
 </ol>
 <h2 id="b-스트림-시작하기"><a href="#b-스트림-시작하기" class="headerlink" title="b. 스트림 시작하기"></a><strong>b. 스트림 시작하기</strong></h2><p>스트림에 대해 공부하기 앞서, 스트림이 정확하게 어떤 것을 의미하는 지 살펴보고 가자.</p>
 <p>스트림이란 ‘데이터 처리 연산을 지원하도록 소스에서 추출된 연속된 요소’를 의미한다.</p>
 <p>무슨 말인지 아직도 모르겠다… 정의에 나온 단어 하나하나 파악해보자</p>
 <ul>
-<li>연속된 요소?<br>  컬렉션과 마찬가지로 스트림은 특정 요소 형식으로 이뤄진 연속된 값 집합의 인터페이스를 제공한다.<br>  컬렉션은 요소 저장 및 접근 연산이 주를 이루지만, 스트림은 요소들의 표현이나 계산식이 주를 이룬다.</li>
-<li>소스?<br>  스트림은 컬렉션, 배열, 입출력 자원 등 데이터 제공 소스로부터 데이터를 소비한다.<br>  컬렉션에서 요소들을 스트림에 연결하면, 컬렉션에 저장된 순서대로 스트림 요소가 소비된다는 의미!</li>
-<li>데이터 처리 연산?<br>  스트림은 함수형 프로그래밍 언어나 데이터베이스와 비슷한 연산을 지원한다.(filter, map, reduce, find, match, sort…)</li>
+<li>연속된 요소?<br>컬렉션과 마찬가지로 스트림은 특정 요소 형식으로 이뤄진 연속된 값 집합의 인터페이스를 제공한다.<br>컬렉션은 요소 저장 및 접근 연산이 주를 이루지만, 스트림은 요소들의 표현이나 계산식이 주를 이룬다.</li>
+<li>소스?<br>스트림은 컬렉션, 배열, 입출력 자원 등 데이터 제공 소스로부터 데이터를 소비한다.<br>컬렉션에서 요소들을 스트림에 연결하면, 컬렉션에 저장된 순서대로 스트림 요소가 소비된다는 의미!</li>
+<li>데이터 처리 연산?<br>스트림은 함수형 프로그래밍 언어나 데이터베이스와 비슷한 연산을 지원한다.(filter, map, reduce, find, match, sort…)</li>
 </ul>
 <p>스트림의 정의는 이렇게 이해할 수 있게 됐다.</p>
 <p>한편 스트림의 두 가지 중요한 특징도 짚고 넘어가자!</p>
 <ul>
-<li>파이프라이닝<br>  대부분의 스트림 연산은 스트림 연산끼리 연결해서 커다란 파이프 라인을 구성할 수 있도록, 스트림 자신을 반환한다!</li>
-<li>내부 반복<br>  반복자를 이용해서 명시적으로 반복하는 컬렉션과는 달리 스트림은 내부 반복을 지원한다.</li>
+<li>파이프라이닝<br>대부분의 스트림 연산은 스트림 연산끼리 연결해서 커다란 파이프 라인을 구성할 수 있도록, 스트림 자신을 반환한다!</li>
+<li>내부 반복<br>반복자를 이용해서 명시적으로 반복하는 컬렉션과는 달리 스트림은 내부 반복을 지원한다.</li>
 </ul>
 <p>지금까지 배운 내용을 코드로 이해해 보자</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.stream.Collectors.toList;</span><br><span class="line">List&lt;String&gt; threeHighCaloricDishNames =</span><br><span class="line">    menu.stream() <span class="comment">//List&lt;Dish&gt; menu에서 스트림얻음</span></span><br><span class="line">        .filter(dish -&gt; dish.getCalories() &gt; <span class="number">300</span>) <span class="comment">//고칼로리 필터링</span></span><br><span class="line">        .map(Dish::getName) <span class="comment">//필터링 된 요리를 이름을 추출</span></span><br><span class="line">        .limit(<span class="number">3</span>) <span class="comment">//선착순 세개만 저장</span></span><br><span class="line">        .collect(toList()); <span class="comment">//결과를 다른 리스트로 저장</span></span><br><span class="line">System.out.println(threeHighCaloricDishNames);</span><br></pre></td></tr></table></figure>
 
 <p>이 코드를 도표로 나타내면 다음과 같다</p>
-<p>[##<em>Image|kage@bhCDUs/btq9TEvcCqe/zfB1YOZVyffzyU46TnHLVK/img.png|alignCenter|data-origin-width=”715” data-origin-height=”506” width=”666” height=”471” data-ke-mobilestyle=”widthOrigin”|||</em>##]</p>
+<p>[##<em>Image|kage@bhCDUs&#x2F;btq9TEvcCqe&#x2F;zfB1YOZVyffzyU46TnHLVK&#x2F;img.png|alignCenter|data-origin-width&#x3D;”715” data-origin-height&#x3D;”506” width&#x3D;”666” height&#x3D;”471” data-ke-mobilestyle&#x3D;”widthOrigin”|||</em>##]</p>
 <h2 id="c-스트림과-컬렉션"><a href="#c-스트림과-컬렉션" class="headerlink" title="c. 스트림과 컬렉션"></a><strong>c. 스트림과 컬렉션</strong></h2><p>자 이제, 스트림과 컬렉션을 비교해보자.</p>
 <p>앞서 살펴본 것처럼 스트림과 컬렉션은 모두 연속된 요소 형식의 값을 저장하는 자료구조의 인터페이스를 제공한다.</p>
 <p>연속된 이란 의미는 아무렇게나 값에 접근할 수 있는 것이 아닌 순차적으로 값에 접근한다는 의미다.</p>
@@ -310,9 +310,9 @@
 <table style="border-collapse: collapse; width: 100%; height: 98px;" border="1" data-ke-align="alignLeft" data-ke-style="style12"><tbody><tr style="height: 20px;"><td style="width: 20.4651%; height: 20px;">연산</td><td style="width: 12.907%; height: 20px;">형식</td><td style="width: 15.5814%; height: 20px;">반환 형식</td><td style="width: 51.0465%; height: 20px;">목적</td></tr><tr style="height: 40px;"><td style="width: 20.4651%; height: 40px;">forEach</td><td style="width: 12.907%; height: 40px;">최종</td><td style="width: 15.5814%; height: 40px;">void</td><td style="width: 51.0465%; height: 40px;">스트림 각 요소를 람다를 적용하면서 소비</td></tr><tr style="height: 20px;"><td style="width: 20.4651%; height: 20px;">count</td><td style="width: 12.907%; height: 20px;">최종</td><td style="width: 15.5814%; height: 20px;">long</td><td style="width: 51.0465%; height: 20px;">스트림 요소 갯수 반환</td></tr><tr style="height: 18px;"><td style="width: 20.4651%; height: 18px;">collect</td><td style="width: 12.907%; height: 18px;">최종</td><td style="width: 15.5814%; height: 18px;">collection</td><td style="width: 51.0465%; height: 18px;">스트림을 리스트, 맵, 정수 형식 컬렉션으로 만든다</td></tr></tbody></table>
 
 <h4 id="스트림-이용-과정은-다음-세가지로-요약-가능하다"><a href="#스트림-이용-과정은-다음-세가지로-요약-가능하다" class="headerlink" title="스트림 이용 과정은 다음 세가지로 요약 가능하다."></a>스트림 이용 과정은 다음 세가지로 요약 가능하다.</h4><ul>
-<li>  질의를 수행할 데이터 소스(컬렉션, 배열, 입출력 소스)</li>
-<li>  스트림 파이프라인을 구성할 중간 연산 연결</li>
-<li>  스트림 파이프라인을 실행하고 결과를 만들 최종 연산</li>
+<li>질의를 수행할 데이터 소스(컬렉션, 배열, 입출력 소스)</li>
+<li>스트림 파이프라인을 구성할 중간 연산 연결</li>
+<li>스트림 파이프라인을 실행하고 결과를 만들 최종 연산</li>
 </ul>
 
         </div>
@@ -321,7 +321,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern3/" data-id="cl015rnl3004rmra00xweguzx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern3/" data-id="cl9p7tf0d006u5ha010oe5zez" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -403,7 +403,7 @@
 스트림을 이용하면 선언형(데이터를 처리하는 임시 구현 코드 대신 질의로 표현이 가능)으로 컬렉션 데이터를 처리할 수 있다.
 쉽게 말하면, 스트림은 데이터 컬렉션 반복을 멋지게 처리하는 기능이라고 생각하자.
 또한 스트림을 사용하면 멀티스레드 코드를 쓰지 않고도 투명하게 데이터를 병럴로 처리",
-        "wordCount": 1590
+        "wordCount": 1563
     }
 </script>
 
@@ -432,24 +432,8 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-instagram"></i>
                     </a>
                 </li>
                 
@@ -487,7 +471,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -497,7 +481,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/project/" style="font-size: 10px;">Project</a> <a href="/tags/spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 

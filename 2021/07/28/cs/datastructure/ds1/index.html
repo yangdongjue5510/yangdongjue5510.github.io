@@ -228,8 +228,8 @@
 <p><img src="/img/ds/linkedlist.jpeg" alt="img"></p>
 <h3 id="b-한방향-연결리스트"><a href="#b-한방향-연결리스트" class="headerlink" title="b. 한방향 연결리스트"></a><strong>b. 한방향 연결리스트</strong></h3><p>노드들이 한 방향으로 연결된 리스트</p>
 <ol>
-<li> 가장 앞에 있는 노드를 head 노드라고 부르자.</li>
-<li> 가장 마지막 노드는 다음 노드가 없으므로 마지막 노드의 next 링크는 None이다.</li>
+<li>가장 앞에 있는 노드를 head 노드라고 부르자.</li>
+<li>가장 마지막 노드는 다음 노드가 없으므로 마지막 노드의 next 링크는 None이다.</li>
 </ol>
 <h4 id="b-1-노드-클래스-구현하기"><a href="#b-1-노드-클래스-구현하기" class="headerlink" title="b-1. 노드 클래스 구현하기"></a>b-1. 노드 클래스 구현하기</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, key=<span class="literal">None</span>, value=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="comment">#노드를 구분하는 key, 필요할 경우 추가 데이터 value</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.value = value</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment">#print(node)인 경우 출력할 문자열</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">str</span>(self.key)</span><br></pre></td></tr></table></figure>
 
@@ -252,24 +252,25 @@
 <p>연결리스트는 인덱스로 접근이 안되니, 일일히 처음부터 마지막 전 노드까지 찾아가야 한다.(O(n))</p>
 <p>총 세가지로 나눠 구현해야 한다.</p>
 <ol>
-<li> 빈 리스인 경우</li>
-<li> 리스트에 노드가 하나만 있는 경우</li>
-<li> 리스트에 두 개 이상의 노드가 있는 경우</li>
+<li>빈 리스인 경우</li>
+<li>리스트에 노드가 하나만 있는 경우</li>
+<li>리스트에 두 개 이상의 노드가 있는 경우</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">popBack</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.size ==<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        prev, tail = <span class="literal">None</span>, self.head</span><br><span class="line">        <span class="keyword">while</span> tail.<span class="built_in">next</span> != <span class="literal">None</span>:</span><br><span class="line">            prev = tail</span><br><span class="line">            tail = tail.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">if</span> prev == <span class="literal">None</span>:</span><br><span class="line">            self.head = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            prev.<span class="built_in">next</span> = tail.<span class="built_in">next</span></span><br><span class="line">        key = tail.key</span><br><span class="line">        <span class="keyword">del</span> tail</span><br><span class="line">        self.size -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> key</span><br></pre></td></tr></table></figure>
 
 <h4 id="c-3-search-key"><a href="#c-3-search-key" class="headerlink" title="c-3. search(key)"></a>c-3. search(key)</h4><p>key 값을 저장한 노드를 찾아 리턴하거나 없으면 None을 반환하는데, 두가지 방법이 있다.</p>
 <ol>
-<li>head부터 next 링크를 따라가면서 찾기 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, key</span>):</span></span><br><span class="line">    v = self.head</span><br><span class="line">    <span class="keyword">while</span> v != <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">if</span> v.key == key:</span><br><span class="line">            <span class="keyword">return</span> v</span><br><span class="line">        v = v.<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">return</span> v​</span><br></pre></td></tr></table></figure>
+<li><p>head부터 next 링크를 따라가면서 찾기</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, key</span>):</span></span><br><span class="line">    v = self.head</span><br><span class="line">    <span class="keyword">while</span> v != <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">if</span> v.key == key:</span><br><span class="line">            <span class="keyword">return</span> v</span><br><span class="line">        v = v.<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">return</span> v​</span><br></pre></td></tr></table></figure>
 </li>
-<li>for 루프를 이용하는 방법(__iter__(self)에 의해 가능) <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, key</span>):</span></span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> self:</span><br><span class="line">        <span class="keyword">if</span> v.key == key:</span><br><span class="line">            <span class="keyword">return</span> v</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>​</span><br></pre></td></tr></table></figure>
-</li>
+<li><p>for 루프를 이용하는 방법(__iter__(self)에 의해 가능)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, key</span>):</span></span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> self:</span><br><span class="line">        <span class="keyword">if</span> v.key == key:</span><br><span class="line">            <span class="keyword">return</span> v</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>​</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h4 id="c-4-remove-v"><a href="#c-4-remove-v" class="headerlink" title="c-4. remove(v)"></a>c-4. remove(v)</h4><p>노드 v를 리스트에서 제거하는 함수. 세가지 경우를 고려해 구현한다.</p>
 <ol>
-<li> 리스트가 비어있거나, 노드 v가 None인 경우 -&gt; do nothing</li>
-<li> 노드 v가 head인 경우 -&gt; popFront 호출</li>
-<li> 그 외의 경우 -&gt; v의 전 노드 w를 찾은 후 w.next = v.next로 w의 링크 수정</li>
+<li>리스트가 비어있거나, 노드 v가 None인 경우 -&gt; do nothing</li>
+<li>노드 v가 head인 경우 -&gt; popFront 호출</li>
+<li>그 외의 경우 -&gt; v의 전 노드 w를 찾은 후 w.next &#x3D; v.next로 w의 링크 수정</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, x</span>):</span></span><br><span class="line">		<span class="comment"># 노드 x를 제거한 후 True리턴. 제거 실패면 False 리턴</span></span><br><span class="line">		pre=<span class="literal">None</span></span><br><span class="line">		now=self.head</span><br><span class="line">		<span class="keyword">if</span> self.size==<span class="number">0</span>:</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">		<span class="keyword">elif</span> v==self.head:</span><br><span class="line">			popFront()</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">		<span class="keyword">else</span> :</span><br><span class="line">			<span class="keyword">while</span> now!=x:</span><br><span class="line">				pre=now</span><br><span class="line">				now=now.<span class="built_in">next</span></span><br><span class="line">			pre.<span class="built_in">next</span>=now.<span class="built_in">next</span></span><br><span class="line">			<span class="keyword">del</span> now</span><br><span class="line">			self.size-=<span class="number">1</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
         </div>
@@ -278,7 +279,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds1/" data-id="cl015rnkh000bmra05eukgi3b" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds1/" data-id="cl9p7tezo00175ha0c7a518nm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -361,7 +362,7 @@
 다른 값에 접근하려면 링크에 따라 원하는 노드의 데이터에 접근한다.
 다만, 배열처럼 index로 접근할 수 없다.
 어떤 값을 찾으려면 처음부터 순차적으로 찾아야",
-        "wordCount": 1462
+        "wordCount": 1452
     }
 </script>
 
@@ -390,24 +391,8 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100003501859973" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/8_5937" target="_blank" rel="external nofollow noopener noreferrer">
-                        <i class="icon fa fa-instagram"></i>
                     </a>
                 </li>
                 
@@ -439,7 +424,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">39</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">22</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -449,7 +434,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/project/" style="font-size: 10px;">Project</a> <a href="/tags/spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 
