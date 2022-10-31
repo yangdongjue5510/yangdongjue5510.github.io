@@ -185,24 +185,24 @@
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/java/">Java</a>
+            <a class="article-category-link" href="/categories/java/">Java</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/java/java-basic/">Java Basic</a>
             </div>
-            <div class="date"><time datetime="2022-03-27T07:09:39.000Z" itemprop="datePublished">2022-03-27</time></div>
+            <div class="date"><time datetime="2022-04-08T00:31:53.000Z" itemprop="datePublished">2022-04-08</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2022/03/27/java/object/post/">오브젝트</a>
+        <a href="/2022/04/08/java/woowa-tech-course/composition-chess/">조합으로 체스 말 이동 범위 검사하기!</a>
         </h1>
     
 
         <p class="article-excerpt">
-            사용하는 입장에서 예상 가능한 코드
-의존성이 적절한 코드(결합도가 낮은 코드)
-너무 세세한 부분까지 알지 못하도록 정보를 차단
-객체를 인터페이스와 구현으로 나누고 인터페이스만 공개하자.
-불필요한 세부사항을 객체 내부로 캡슐화하는 것 -&gt; 객체의 자율성 + 응집도가 높은 객체
-단순 타입보다는 객체를 선언해서 의미를 전달하는게 좋다. (관련 로직이 한곳에
+            
+요약
+
+체스 말 객체들이 해당 위치로 이동할 수 있는지 검증하는 로직이 중복된 경우가 있었다.이를 따로 분리해서 중복을 제거하고자 했다.
+도입 배경체스 말 종류 구현하기체스 말 객체(Piece)는 자신의 위치와 이동할 위치를 전달받아서 이동할 위치로 이동할 수 있는지 확인한다.
+123456789101112131415161718192021public abs
         </p>
     </div>
 </article>
@@ -211,6 +211,42 @@
     
     
     
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/java/">Java</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/java/java-basic/">Java Basic</a>
+            </div>
+            <div class="date"><time datetime="2022-04-02T09:11:48.000Z" itemprop="datePublished">2022-04-02</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2022/04/02/java/java-basic/java-call-by-value/">Java의 Call by Value</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+요약
+
+자바에는 Call by Value만 존재한다.Call by Value는 함수의 인자에 값을 전달하는 방식이고,Call by Reference는 함수의 인자에 주소를 전달하는 방식이다.
+Call by Value vs Call by Reference프로그래밍 언어에서 함수에 인자로 전달하는 방식에 따라 나뉜다.
+Call by ValueCall by V
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -237,14 +273,10 @@
     </div>
 </article>
     
-        </div>
-    
 
     
     
     
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -269,10 +301,14 @@
     </div>
 </article>
     
+        </div>
+    
 
     
     
     
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -302,14 +338,10 @@
     </div>
 </article>
     
-        </div>
-    
 
     
     
     
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -337,10 +369,14 @@
     </div>
 </article>
     
+        </div>
+    
 
     
     
     
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -364,14 +400,10 @@
     </div>
 </article>
     
-        </div>
-    
 
     
     
     
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -400,10 +432,14 @@ https://docs.oracle.com/javase/tutorial/java/generics/why.html
     </div>
 </article>
     
+        </div>
+    
 
     
     
     
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -436,14 +472,10 @@ LottoRank에
     </div>
 </article>
     
-        </div>
-    
 
     
     
     
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -470,34 +502,6 @@ LottoRank에
 도입 배경
 
 자동차 이름의 글자 갯수가 5개 이하여야 하고, 자동차 이름이 빈 문자열이면 안되고 등등 다양한 제약 사항을 테스트해보고 싶다고 하자.근데 테스트 코드
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            
-            </div>
-            <div class="date"><time datetime="2022-02-21T09:37:50.000Z" itemprop="datePublished">2022-02-21</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2022/02/21/java/woowa-tech-course/post/">우아한테크코스 자동차 경주 미션 회고</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            아직도 내가 모르는 게 이렇게 많다니. 우테코 첫 미션을 하면서 배운 것도 많지만 그보다 더 많이 내가 모르고 있다는 걸 알게됐다.같이 공부하는 크루들도 출중한 사람이 엄청 많았다. 그에 비하면 내 코드는 뭐… 바보 같을 때가 많았다.
-페어 프로그래밍으로 같이 하면서, 처음엔 나 혼자하는게 더 빠르지 않을까 싶기도 했었는데,같이하는 페어의 독특한 생각을 많
         </p>
     </div>
 </article>
@@ -541,7 +545,7 @@ LottoRank에
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">56</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">40</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">55</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">21</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">41</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -551,7 +555,7 @@ LottoRank에
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16px;">Effective Java</a> <a href="/tags/java/" style="font-size: 10px;">Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 16px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 11.67px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16.67px;">Effective Java</a> <a href="/tags/modern-java-in-action/" style="font-size: 18.33px;">Modern Java in Action</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 13.33px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 15px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 
