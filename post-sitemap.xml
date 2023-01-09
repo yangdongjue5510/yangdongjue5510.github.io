@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/</loc>
+        <lastmod>2023-01-09T17:27:12.308Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2023/01/09/java/java-basic/javaExpressionType/</loc>
         <lastmod>2023-01-09T05:14:22.261Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -17,7 +25,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2023/01/02/kotlinInAction/</loc>
+        <loc>https://yangdongjue5510.github.io/2023/01/02/kotlinInAction/kotlinInActionCh2/</loc>
         <lastmod>2023-01-02T19:43:55.796Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -25,7 +33,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/12/23/java/design-pattern/facadeAndMediator/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/12/23/java/java-basic/design-pattern/facadeAndMediator/</loc>
         <lastmod>2023-01-02T00:57:46.666Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -33,7 +41,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/12/28/java/design-pattern/nullObject/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/12/28/java/java-basic/design-pattern/nullObject/</loc>
         <lastmod>2022-12-28T07:42:56.179Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -41,7 +49,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/10/01/java/design-pattern/dp6/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/10/01/java/java-basic/design-pattern/dp6/</loc>
         <lastmod>2022-12-24T19:06:51.060Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -57,7 +65,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/11/27/java/design-pattern/dp9/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/11/27/java/java-basic/design-pattern/dp9/</loc>
         <lastmod>2022-12-23T09:15:08.563Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -73,7 +81,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/12/21/java/design-pattern/commandAndActiveObjectPattern/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/12/21/java/java-basic/design-pattern/commandAndActiveObjectPattern/</loc>
         <lastmod>2022-12-22T10:24:06.201Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -97,7 +105,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/10/26/howToUseHttpClient/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/10/26/java/woowa-tech-course/howToUseHttpClient/</loc>
         <lastmod>2022-10-31T00:52:56.788Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -121,7 +129,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/09/26/springBootJwt/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/09/26/spring/springBootJwt/</loc>
         <lastmod>2022-10-26T14:54:03.597Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -177,7 +185,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/04/09/java/effective-java/effective6/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/04/09/java/java-basic/effective-java/effective6/</loc>
         <lastmod>2022-04-08T16:25:13.689Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -209,7 +217,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/03/12/java/object/post-3/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/03/12/java/java-basic/object/post-3/</loc>
         <lastmod>2022-03-19T05:29:39.679Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -225,7 +233,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/03/04/java/clean-code/clean-code-2/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/03/04/java/java-basic/clean-code/clean-code-2/</loc>
         <lastmod>2022-03-04T09:30:44.033Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -233,7 +241,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/03/04/java/clean-code/clean-code-1/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/03/04/java/java-basic/clean-code/clean-code-1/</loc>
         <lastmod>2022-03-04T08:37:55.679Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -241,7 +249,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/03/04/java/effective-java/effective5/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/03/04/java/java-basic/effective-java/effective5/</loc>
         <lastmod>2022-03-03T16:37:16.427Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -249,7 +257,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2022/03/04/java/effective-java/effective4/</loc>
+        <loc>https://yangdongjue5510.github.io/2022/03/04/java/java-basic/effective-java/effective4/</loc>
         <lastmod>2022-03-03T15:47:23.827Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -257,7 +265,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/10/16/java/effective-java/effective2/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/10/16/java/java-basic/effective-java/effective2/</loc>
         <lastmod>2022-03-03T15:35:49.660Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -265,7 +273,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/10/22/java/effective-java/effective3/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/10/22/java/java-basic/effective-java/effective3/</loc>
         <lastmod>2022-03-03T15:32:26.357Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -361,7 +369,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/10/15/java/effective-java/effective1/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/10/15/java/java-basic/effective-java/effective1/</loc>
         <lastmod>2022-02-20T23:26:57.555Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -657,38 +665,6 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/11/29/java/object/object2/</loc>
-        <lastmod>2022-01-22T16:20:00.036Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2021/11/29/java/object/object3/</loc>
-        <lastmod>2022-01-22T16:20:00.036Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2021/11/26/java/object/object1/</loc>
-        <lastmod>2022-01-22T16:20:00.036Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2021/12/16/java/object/object4/</loc>
-        <lastmod>2022-01-22T16:20:00.036Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://yangdongjue5510.github.io/2021/08/26/spring/blog/blog1/</loc>
         <lastmod>2022-01-22T16:20:00.036Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -697,7 +673,39 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern1/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/11/26/java/java-basic/object/object1/</loc>
+        <lastmod>2022-01-22T16:20:00.036Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2021/11/29/java/java-basic/object/object2/</loc>
+        <lastmod>2022-01-22T16:20:00.036Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2021/11/29/java/java-basic/object/object3/</loc>
+        <lastmod>2022-01-22T16:20:00.036Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2021/12/16/java/java-basic/object/object4/</loc>
+        <lastmod>2022-01-22T16:20:00.036Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern1/</loc>
         <lastmod>2022-01-22T16:20:00.035Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -705,7 +713,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern3/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern2/</loc>
         <lastmod>2022-01-22T16:20:00.035Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -713,7 +721,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern2/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern4/</loc>
         <lastmod>2022-01-22T16:20:00.035Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -721,7 +729,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern5/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern3/</loc>
         <lastmod>2022-01-22T16:20:00.035Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -729,7 +737,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern4/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern5/</loc>
         <lastmod>2022-01-22T16:20:00.035Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -737,7 +745,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/08/01/java/modern-java-in-action/modern7/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern6/</loc>
         <lastmod>2022-01-22T16:20:00.035Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -745,7 +753,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/07/30/java/modern-java-in-action/modern6/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/08/01/java/java-basic/modern-java-in-action/modern7/</loc>
         <lastmod>2022-01-22T16:20:00.035Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -865,7 +873,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/08/18/java/design-pattern/dp4/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/09/30/java/java-basic/design-pattern/dp5/</loc>
         <lastmod>2022-01-22T16:20:00.033Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -873,7 +881,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/11/13/java/design-pattern/dp8/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/10/09/java/java-basic/design-pattern/dp7/</loc>
         <lastmod>2022-01-22T16:20:00.033Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -881,7 +889,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/09/30/java/design-pattern/dp5/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/11/13/java/java-basic/design-pattern/dp8/</loc>
         <lastmod>2022-01-22T16:20:00.033Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -889,16 +897,8 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/10/09/java/design-pattern/dp7/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/08/18/java/java-basic/design-pattern/dp4/</loc>
         <lastmod>2022-01-22T16:20:00.033Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2021/12/12/github-study/</loc>
-        <lastmod>2022-01-22T16:20:00.032Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -945,7 +945,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/08/17/java/design-pattern/dp3/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/08/12/java/java-basic/design-pattern/dp1/</loc>
         <lastmod>2022-01-22T16:20:00.032Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -953,7 +953,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/08/13/java/design-pattern/dp2/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/08/17/java/java-basic/design-pattern/dp3/</loc>
         <lastmod>2022-01-22T16:20:00.032Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -961,7 +961,7 @@
     </url>
 
     <url>
-        <loc>https://yangdongjue5510.github.io/2021/08/12/java/design-pattern/dp1/</loc>
+        <loc>https://yangdongjue5510.github.io/2021/08/13/java/java-basic/design-pattern/dp2/</loc>
         <lastmod>2022-01-22T16:20:00.032Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

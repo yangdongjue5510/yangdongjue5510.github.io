@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>스트림으로 데이터 수집 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="Modern Java in Action">
+    
+    <meta name="description" content="컬렉터란 무엇인가?일단 예시를 하나 보자. 123456789101112131415&#x2F;&#x2F;통화별로 트랜잭션을 그룹화한 코드(명령형 버전)Map&lt;Currency, List&lt;Transaction&gt;&gt; transactionsByCurrencies &#x3D; new HashMap&lt;&gt;();for (Transaction transaction : tr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="스트림으로 데이터 수집">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern6/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="컬렉터란 무엇인가?일단 예시를 하나 보자. 123456789101112131415&#x2F;&#x2F;통화별로 트랜잭션을 그룹화한 코드(명령형 버전)Map&lt;Currency, List&lt;Transaction&gt;&gt; transactionsByCurrencies &#x3D; new HashMap&lt;&gt;();for (Transaction transaction : tr">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/modern/6-1.jpeg">
+<meta property="article:published_time" content="2021-07-30T00:49:07.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.035Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="Modern Java in Action">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/modern/6-1.jpeg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/java/">Java</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-java/java-basic/modern-java-in-action/modern6" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        스트림으로 데이터 수집
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/07/30/java/java-basic/modern-java-in-action/modern6/" class="article-date">
+       <time datetime="2021-07-30T00:49:07.000Z" itemprop="datePublished">2021-07-30</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/07/30/java/java-basic/modern-java-in-action/modern6/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.035Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/modern-java-in-action/" rel="tag">Modern Java in Action</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="컬렉터란-무엇인가"><a href="#컬렉터란-무엇인가" class="headerlink" title="컬렉터란 무엇인가?"></a>컬렉터란 무엇인가?</h2><p>일단 예시를 하나 보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//통화별로 트랜잭션을 그룹화한 코드(명령형 버전)</span></span><br><span class="line">Map&lt;Currency, List&lt;Transaction&gt;&gt; transactionsByCurrencies = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (Transaction transaction : transactions)&#123;</span><br><span class="line">    Currency currency = transaction.getCurrency();</span><br><span class="line">    List&lt;Transaction&gt; transactionsForCurrency = transactionsByCurrencies.get(currency);</span><br><span class="line">    <span class="keyword">if</span> (transactionsForCurrency == <span class="keyword">null</span>)&#123;</span><br><span class="line">        transactionsForCurrency = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        transactionsByCurrencies.put(currency, transactionForCurrency);</span><br><span class="line">    &#125;</span><br><span class="line">    transactionsForCurrency.add(transaction);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//함수형 버전</span></span><br><span class="line">Map&lt;Currency, List&lt;Transaction&gt;&gt; transactionsByCurrencies = </span><br><span class="line">        transactions.stream().collect(groupingby(Transaction::getCurrency));</span><br></pre></td></tr></table></figure>
+
+<p>딱봐도 함수형 프로그래밍이 훨씬 쉽다.<br>위 예제에서 collect 메서드로 Collector 인터페이스 구현을 전달했다.<br><strong>Collector 인터페이스 구현은 스트림의 요소를 어떤 식으로 도출할지 지정한다.</strong></p>
+<blockquote>
+<p>컬렉터는 고급 리듀싱 기능을 수행한다.</p>
+</blockquote>
+<p>스트림에 collect를 호출하면, 스트림의 요소에 (컬렉터로 파라미터화된) 리듀싱 연산이 수행된다.<br>collect에서는 리듀싱 연산을 이용해서 스트림의 각 요소를 방문하면서 컬렉터가 작업을 처리한다.<br><img src="/img/modern/6-1.jpeg"></p>
+<h2 id="미리-정의된-컬렉터"><a href="#미리-정의된-컬렉터" class="headerlink" title="미리 정의된 컬렉터"></a>미리 정의된 컬렉터</h2><p>Collectors 클래스에서 미리 정의된 팩터리 메서드의 기능은 크게 세가지로 분류된다.</p>
+<ul>
+<li>스트림 요소를 하나의 값으로 리듀스하고 요약.</li>
+<li>요소 그룹화</li>
+<li>요소 분할</li>
+</ul>
+<p>이 세가지에 대해 더 알아보자.</p>
+<h3 id="리듀싱과-요약"><a href="#리듀싱과-요약" class="headerlink" title="리듀싱과 요약"></a>리듀싱과 요약</h3><p>컬렉터로 스트림의 모든 항목을 하나의 결과로 합칠 수 있었다.<br>하나의 결과란 복잡한 다수준 그룹화 맵 일 수도, 그냥 평범한 정수 형태 일 수도 있다.</p>
+<p>counting()이란 팩토리 메서드가 반환하는 컬렉터로 메뉴에서 요리 수를 계산해보자</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> howManyDishes = menu.stream().collect(Collectors.counting());</span><br><span class="line"><span class="comment">//불필요한 과정을 제외하면,</span></span><br><span class="line"><span class="keyword">long</span> howManyDishes = menu.stream().count()</span><br></pre></td></tr></table></figure>
+<h4 id="요약-연산"><a href="#요약-연산" class="headerlink" title="요약 연산"></a>요약 연산</h4><p>스트림에 있는 객체의 숫자 필드의 합계나 평균 등을 반환하는 연산을 <strong>요약 연산</strong>이라 부른다.<br>물론 요약 연산에도 리듀싱 기능이 자주 사용된다.</p>
+<p>Collectors 클래스는 Collectors.summingInt라는 요약 팩토리 메서드를 제공한다.<br>summingInt 인수로 전달된 함수는 객체를 int로 매핑하는 함수를 인수로 받는다.<br>int로 매핑한 컬렉터를 collet 메서드에 전달되면, 요약 작업을 수행한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> totalCalories = menu.stream().collect(summingInt(Dish::getCalories));</span><br></pre></td></tr></table></figure>
+
+<p>이런 역할은 summingInt 뿐만 아니라,summingLong, summingDouble 등이 있다.<br>합계를 구하는 과정 말고, 평균을 구하는 averagingInt도 가능하다</p>
+<blockquote>
+<p>두 개 이상의 연산을 해야 되면..?</p>
+</blockquote>
+<p>summarizingInt가 반환하는 내용을 사용하면 된다!<br>하나의 요약 연산으로 여러가지 연산값을 얻을 수 있다!</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IntSummaryStatics menuStatistics = menu.stream().collect(summarizingInt(Dish::getCalories));</span><br><span class="line"><span class="comment">//출력 시.</span></span><br><span class="line">IntSummaryStatics&#123;count =<span class="number">9</span>, sum = <span class="number">4300</span>, min=<span class="number">120</span>, average=<span class="number">477.777778</span>, max=<span class="number">800</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="문자열-연결"><a href="#문자열-연결" class="headerlink" title="문자열 연결"></a>문자열 연결</h4><p>컬렉터에 joining 팩터리 메서드를 사용하면 스트림의 각 객체에 toString 메서드를 호출해서 추출한 모든 문자열을 하나의 문자열로 만든다.<br>joining 메서는 내부적으로 StringBuilder를 이용해 문자열을 하나로 만든다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String shortMenu = menu.stream().map(Dish::getName).collect(joining());</span><br><span class="line"><span class="comment">//만약 스트림 객체가 toString이 요구 대로 정의되어 있다면?</span></span><br><span class="line">String shortMenu = menu.stream().collect(joining());</span><br><span class="line"><span class="comment">//문자열 사이에 쉼표를 넣어줄 수도 있다.</span></span><br><span class="line">String shortMenu = menu.stream().collect(joining(<span class="string">&quot;, &quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>collect와 reduce의 차이?</p>
+</blockquote>
+<p>둘 다 비슷한 결과를 만들 수 있어서 어떤 것을 사용해야하는지 헷갈린다.<br>collect 메서드는 결과를 누적하는 컨테이너로 바꾸도록 설계된 메서드이고,<br>reduce는 두 값을 하나로 도출하는 불변형 연산이다!</p>
+<h3 id="그룹화"><a href="#그룹화" class="headerlink" title="그룹화"></a>그룹화</h3><p>분류 함수인 groupingBy 메서드를 활용해보자.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Dish.Type, List&lt;Dish&gt;&gt; dishesByType =</span><br><span class="line">    menu.stream().collect(groupingBy(Dish::getType));</span><br></pre></td></tr></table></figure>
+<p>Dish 클래스의 Type을 키로 키에 맞는 스트림 요소들을 map에 담아 반환했다.</p>
+<blockquote>
+<p>하지만 여러 가지 기준으로 그룹화하려면 어떨까..? </p>
+</blockquote>
+<h4 id="그룹화된-요소-조작"><a href="#그룹화된-요소-조작" class="headerlink" title="그룹화된 요소 조작"></a>그룹화된 요소 조작</h4><p>고기, 생선, 그 외 음식들로 분류하고, 500칼로리가 넘는 음식을 얻으려면 어떻게 해야 할까?</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Dish, Type, List&lt;Dish&gt;&gt; caloricDishesByType =</span><br><span class="line">    menu.stream().filter(dish-&gt;dish.getCalories() &gt; <span class="number">500</span>)</span><br><span class="line">        .collect(groupingBy(Dish::getType));</span><br></pre></td></tr></table></figure>
+<p>이 방식에는 치명적인 문제가 있다. 만약 생선류에 500칼로리가 넘는 음식이 없으면 아예 그 키를 없앤다는거다.<br>출력하면 {OTHER&#x3D;[french fries, pizza], MEAT&#x3D;[pork, beef]}가 출력된다.</p>
+<p>groupingBy는 두번째 인수로 Collector를 가질 수 있도록 만들어 이를 해결한다.<br>두번째 Collector 안에 필터 프레디케이트를 넣으면 된다.<br>Collectors의 정적 팩토리 메서드 <strong>filtering메소드</strong>는 프레디케이트를 인수로 받아 리스트로 만든다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Dish.Type, List&lt;Dish&gt;&gt; caloricDishesByType =</span><br><span class="line">    menu.stream()</span><br><span class="line">        .collect(groupingBy(Dish::getType,</span><br><span class="line">                            filtering(dish-&gt;dish.getCalories()&gt;<span class="number">500</span>, toList())));</span><br></pre></td></tr></table></figure>
+<p><strong>mapping메소드</strong> 사용 예시도 보자</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Dish.Type, List&lt;String&gt;&gt; dishNameByType =</span><br><span class="line">    menu.stream()</span><br><span class="line">        .collect(groupBy(Dish::getType, mapping(Dish::getName, toList())));</span><br></pre></td></tr></table></figure>
+<p>이러면 이름을 기반으로 한 맵이 반환될 것이다.</p>
+<p><strong>flatmapping메소드</strong> 사용 예시도 보자<br>dishTags가 음식이름, 관련 문자열 리스트로 매핑된 맵이라고 했을 때,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Dish.Type, Set&lt;String&gt;&gt; dishNamesByType =</span><br><span class="line">    menu.stream()</span><br><span class="line">        .collect(groupingBy(Dish::getType,</span><br><span class="line">                flatMapping(dish -&gt; dishTags.get(dish.getName().stream(),toSet()))));</span><br></pre></td></tr></table></figure>
+<p><strong>groupingBy 여러개를 연결해서 다수준 그룹화</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Dish.Type, Map&lt;Caloriclevel, List&lt;Dish&gt;&gt;&gt; dishesByTypeCaloricLevel =</span><br><span class="line">menu.stream().collect(</span><br><span class="line">    groupingBy(Dish::getType,</span><br><span class="line">        groupingBy(dish-&gt;&#123;</span><br><span class="line">            <span class="keyword">if</span> (dish.getCalories()&lt;=<span class="number">400</span>)s</span><br><span class="line">                <span class="keyword">return</span> CaloricLevel.DIET;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(dish.getCalories()&lt;=<span class="number">700</span>)</span><br><span class="line">                <span class="keyword">return</span> CaloricLevel.NORMAL; </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> CaloricLevel.FAT;</span><br><span class="line">        &#125;)</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>종류로 그룹화</li>
+<li>칼로리로 DIET, NORMAL, FAT으로 그룹화<br>이 과정을 버킷 개념으로 생각하면 편한다. 첫 그룹화로 한 버킷에 육류 음식들이 담기고, 그 버킷을 또 칼로리별로 여러 버킷으로 나눠 담았다!</li>
+</ul>
+<h3 id="분할"><a href="#분할" class="headerlink" title="분할"></a>분할</h3><p>분할은 프레디케이트를 분류 함수로 사용하는 특수한 그룹화 기능.<br>이런 분류 함수는 분할 함수라고 하는데, 분할 함수는 불리언을 반환하므로 맵의 키 형식은 Boolean이다.<br>즉 분할 그룹화는 최대 두 개 그룹으로 나뉜다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Boolean, List&lt;Dish&gt;&gt; partitionedMenu =</span><br><span class="line">    menu.stream().collect(partitioningBy(Dish::isVegetarian));</span><br><span class="line">List&lt;Dish&gt; vegetarianDishes = partitionedMenu.get(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>분할은 참 거짓 두가지 요소 스트림 리스트를 모두 유지한다는 장점이 있다.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Boolean, Map&lt;Dish.Type, List&lt;Dish&gt;&gt;&gt; vegetarianDishesByType = menu.stream().</span><br><span class="line">collect(</span><br><span class="line">    partitioningBy(Dish::isVegetarian,</span><br><span class="line">                    groupingBy(Dish::getType)));</span><br></pre></td></tr></table></figure>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern6/" data-id="clcp2xfgk0020z1a00elz0cth" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "스트림으로 데이터 수집",
+        "image": "https://yangdongjue5510.github.io/img/modern/6-1.jpeg",
+        "keywords": "Modern Java in Action",
+        "genre": "Java",
+        "datePublished": "2021-07-30",
+        "dateCreated": "2021-07-30",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern6/",
+        "description": "컬렉터란 무엇인가?일단 예시를 하나 보자.
+123456789101112131415//통화별로 트랜잭션을 그룹화한 코드(명령형 버전)Map&lt;Currency, List&lt;Transaction&gt;&gt; transactionsByCurrencies = new HashMap&lt;&gt;();for (Transaction transaction : tr",
+        "wordCount": 1014
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/07/30/cs/os/os5/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            5. 배치 처리, 멀티 태스킹, 멀티 프로세싱, 멀티 프로그래밍
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/07/30/java/java-basic/modern-java-in-action/modern5/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">다양한 형태의 스트림 만들기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">73</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">61</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">41</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.67px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16.67px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 11.67px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 18.33px;">Modern Java in Action</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 13.33px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 15px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/07/30/java/java-basic/modern-java-in-action/modern6/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
