@@ -12,15 +12,15 @@
     
     <meta name="keywords" content="Kotlin in Action">
     
-    <meta name="description" content="이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.  요약  코틀린에서 컬렉션 만들기코틀린에서는 &amp;#123;컬렉션 종류&amp;#125;Of(~) 이런 형태로 쉽게 컬렉션을 만들 수 있다. 123val set &#x3D; hashSetOf(1, 2, 3)val list &#x3D; arrayListOf(1, 2, 3)val map &#x3D; hash">
+    <meta name="description" content="이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.  요약함수를 사용하기 쉽게 만들기확장 함수확장 프로퍼티가변인자, 중위 호출로컬 함수  코틀린에서 컬렉션 만들기코틀린에서는 &amp;#123;컬렉션 종류&amp;#125;Of(~) 이런 형태로 쉽게 컬렉션을 만들 수 있다. 123val set &#x3D; hashSetOf(1, 2, 3)va">
 <meta property="og:type" content="article">
 <meta property="og:title" content="코틀린 함수 정의와 호출">
 <meta property="og:url" content="https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/index.html">
 <meta property="og:site_name" content="mudura | 그거 뭐더라">
-<meta property="og:description" content="이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.  요약  코틀린에서 컬렉션 만들기코틀린에서는 &amp;#123;컬렉션 종류&amp;#125;Of(~) 이런 형태로 쉽게 컬렉션을 만들 수 있다. 123val set &#x3D; hashSetOf(1, 2, 3)val list &#x3D; arrayListOf(1, 2, 3)val map &#x3D; hash">
+<meta property="og:description" content="이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.  요약함수를 사용하기 쉽게 만들기확장 함수확장 프로퍼티가변인자, 중위 호출로컬 함수  코틀린에서 컬렉션 만들기코틀린에서는 &amp;#123;컬렉션 종류&amp;#125;Of(~) 이런 형태로 쉽게 컬렉션을 만들 수 있다. 123val set &#x3D; hashSetOf(1, 2, 3)va">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-09T07:52:10.000Z">
-<meta property="article:modified_time" content="2023-01-09T17:27:12.308Z">
+<meta property="article:modified_time" content="2023-01-10T14:57:30.749Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="Kotlin in Action">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/2023/01/09/kotlinInAction/kotlinInActionCh3/" class="article-date">
-     <time datetime="2023-01-09T17:27:12.308Z" itemprop="dateModified">2023-01-10</time>
+     <time datetime="2023-01-10T14:57:30.749Z" itemprop="dateModified">2023-01-10</time>
   </a>
 </div>
 
@@ -224,7 +224,7 @@
 
             <p>이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.</p>
 <blockquote>
-<p>요약</p>
+<p>요약<br><a href="#%ED%95%A8%EC%88%98%EB%A5%BC-%ED%98%B8%EC%B6%9C%ED%95%98%EA%B8%B0-%EC%89%BD%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0">함수를 사용하기 쉽게 만들기</a><br><a href="#%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98">확장 함수</a><br><a href="#%ED%99%95%EC%9E%A5-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0">확장 프로퍼티</a><br><a href="#%EC%BB%AC%EB%A0%89%EC%85%98-%EC%B2%98%EB%A6%AC-%EA%B0%80%EB%B3%80-%EA%B8%B8%EC%9D%B4-%EC%9D%B8%EC%9E%90-%EC%A4%91%EC%9C%84-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%A7%80%EC%9B%90">가변인자, 중위 호출</a><br><a href="#%EC%BD%94%EB%93%9C-%EB%8B%A4%EB%93%AC%EA%B8%B0-%EB%A1%9C%EC%BB%AC-%ED%95%A8%EC%88%98%EC%99%80-%ED%99%95%EC%9E%A5">로컬 함수</a></p>
 </blockquote>
 <h1 id="코틀린에서-컬렉션-만들기"><a href="#코틀린에서-컬렉션-만들기" class="headerlink" title="코틀린에서 컬렉션 만들기"></a>코틀린에서 컬렉션 만들기</h1><p>코틀린에서는 <code>&#123;컬렉션 종류&#125;Of(~)</code> 이런 형태로 쉽게 컬렉션을 만들 수 있다.</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> <span class="keyword">set</span> = hashSetOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">val</span> list = arrayListOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">val</span> map = hashMapOf(<span class="number">1</span> to <span class="string">&quot;hi&quot;</span>, <span class="number">2</span> to <span class="string">&quot;ho&quot;</span>)</span><br></pre></td></tr></table></figure>
@@ -326,7 +326,7 @@
 
 
 
-    <a data-url="https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/" data-id="clcp2xfg50001z1a073wy0njb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/" data-id="clcqisypn000ic8a0eg7f0z18" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -406,11 +406,11 @@
         "url": "https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/",
         "description": "이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.
 
-요약
+요약함수를 사용하기 쉽게 만들기확장 함수확장 프로퍼티가변인자, 중위 호출로컬 함수
 
 코틀린에서 컬렉션 만들기코틀린에서는 &#123;컬렉션 종류&#125;Of(~) 이런 형태로 쉽게 컬렉션을 만들 수 있다.
-123val set = hashSetOf(1, 2, 3)val list = arrayListOf(1, 2, 3)val map = hash",
-        "wordCount": 2525
+123val set = hashSetOf(1, 2, 3)va",
+        "wordCount": 2538
     }
 </script>
 
@@ -451,6 +451,16 @@
         
 <nav id="article-nav">
     
+        <a href="/2023/01/10/kotlinInAction/kotlinInActionCh4/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            코틀린의 클래스, 객체, 인터페이스
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/2023/01/09/java/java-basic/javaExpressionType/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
@@ -478,7 +488,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 11.67px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 16.67px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 11.67px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 18.33px;">Modern Java in Action</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 13.33px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 15px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/effective-java/" style="font-size: 17.14px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 12.86px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 18.57px;">Modern Java in Action</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 14.29px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 15.71px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
         </div>
     </div>
 
