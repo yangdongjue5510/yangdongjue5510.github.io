@@ -9,6 +9,22 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2023/01/17/kotlinInAction/kotlinInActionCh5/</loc>
+        <lastmod>2023-01-19T08:12:17.152Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2023/01/12/sofrwareEngineeringAtGoogle/</loc>
+        <lastmod>2023-01-13T17:38:43.511Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2023/01/10/kotlinInAction/kotlinInActionCh4/</loc>
         <lastmod>2023-01-12T09:18:52.248Z</lastmod>
         <changefreq>weekly</changefreq>
