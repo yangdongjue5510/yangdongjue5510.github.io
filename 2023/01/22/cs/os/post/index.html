@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>퀴즈로 학습하는 운영체제와 정보기술의 원리 3장 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="운영체제와 정보기술의 원리">
+    
+    <meta name="description" content="메모리 및 입출력 장치를 제어하는 하드웨어 장치는 무엇인가?   컨트롤러라는 하드웨어 장치가 메모리 및 입출력 장치를 제어한다. 마치 입출력 장치마다 작은 CPU가 있다고 생각하면 편하다.      운영체제 코드 중 메모리에 올려지는 중요한 코드는 무엇이라고 하는가 운영체제의 모든 코드를 메모리에 올리면 자원 낭비가 생긴다. 운영체제 중 주요 코드만">
+<meta property="og:type" content="article">
+<meta property="og:title" content="퀴즈로 학습하는 운영체제와 정보기술의 원리 3장">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2023/01/22/cs/os/post/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="메모리 및 입출력 장치를 제어하는 하드웨어 장치는 무엇인가?   컨트롤러라는 하드웨어 장치가 메모리 및 입출력 장치를 제어한다. 마치 입출력 장치마다 작은 CPU가 있다고 생각하면 편하다.      운영체제 코드 중 메모리에 올려지는 중요한 코드는 무엇이라고 하는가 운영체제의 모든 코드를 메모리에 올리면 자원 낭비가 생긴다. 운영체제 중 주요 코드만">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-22T13:39:01.000Z">
+<meta property="article:modified_time" content="2023-01-22T16:48:37.874Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="운영체제와 정보기술의 원리">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/os/">OS</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/os/post" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        퀴즈로 학습하는 운영체제와 정보기술의 원리 3장
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2023/01/22/cs/os/post/" class="article-date">
+       <time datetime="2023-01-22T13:39:01.000Z" itemprop="datePublished">2023-01-22</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2023/01/22/cs/os/post/" class="article-date">
+     <time datetime="2023-01-22T16:48:37.874Z" itemprop="dateModified">2023-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" rel="tag">운영체제와 정보기술의 원리</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <details>
+  <summary>메모리 및 입출력 장치를 제어하는 하드웨어 장치는 무엇인가?</summary>
+  컨트롤러라는 하드웨어 장치가 메모리 및 입출력 장치를 제어한다. 마치 입출력 장치마다 작은 CPU가 있다고 생각하면 편하다.
+</details>
+
+<details>
+  <summary>운영체제 코드 중 메모리에 올려지는 중요한 코드는 무엇이라고 하는가</summary>
+운영체제의 모든 코드를 메모리에 올리면 자원 낭비가 생긴다. 운영체제 중 주요 코드만 메모리에 올리는데, 이 코드를 커널이라고 부른다.  </details>
+
+<details>
+  <summary>입출력 장치에서 읽어온 데이터를 임시 저장하는 하드웨어 장치는 무엇이라고 하는가?</summary>
+  컨트롤러는 데이터를 데이터를 입출력 장치로 보내거나 가져오기 전에 임시 저장하는 메모리를 로컬 버퍼라고 한다.
+</details>
+
+<details>
+  <summary>데이터를 읽어오는 명령을 컨트롤러가 완료하여 로컬 버퍼로 읽어오는 작업을 완료한 경우 어떻게 CPU에게 해당 사실을 알리는가? 그 사실을 안 CPU는 어떻게 행동하는가?</summary>
+  컨트롤러는 데이터를 모두 읽어온 경우, CPU의 인터럽트 라인에 인터럽트를 추가하여 해당 작업을 완료했음을 알린다. CPU는 매번 명령을 실행하기 전에 자신의 인터럽트 라인을 확인해서 처리해야할 인터럽트가 있는지 확인한다. 인터럽트가 존재하는 경우 인터럽트 벡터를 통해 인터럽트 처리 루틴이 존재하는 주소로 가서 인터럽트에 맞는 처리 로직을 실행한다.
+</details>
+
+<details>
+  <summary>인터럽트의 종류와 각 종류의 차이점을 설명해보자.</summary>
+  인터럽트는 하드웨어 인터럽트와 소프트웨어 인터럽트가 있다. 하드웨어 인터럽트는 입출력 컨트롤러같은 하드웨어가 인터럽트 라인을 설정하고, 소프트웨어 인터럽트는 소프트웨어가 인터럽트 라인을 설정한다.
+</details>
+
+<details>
+  <summary>소프트웨어 인터럽트의 종류에 대해 설명해보자.</summary>
+ 소프트웨어 인터럽트는 예외 상황과 시스템콜과 있다. 예외상황은 프로세스가 잘못된 메모리를 접근하려거나 값을 0으로 나누려는 잘못된 연산을 할 때 발생한다. 반면 시스템콜은 사용자 프로그램이 운영체제 코드를 사용해야 할 때 운영체제에게 해당 코드를 실행해주기를 요청하는 방법이다.
+</details>
+
+<details>
+  <summary>인터럽트를 처리할 때 CPU의 상태를 어떻게 저장되는가?</summary>
+  인터럽트를 처리해야 할 때 CPU의 레지스터 값, 하드웨어 상태, 실행 중인 코드 메무리 주소, 실행중인 위치 등을 PCB에 저장하고 CPU의 레지스터를 지운 다음 인터럽트 루틴을 실행한다.
+</details>
+
+<details>
+  <summary>입출력 방식 두가지에 대해서 설명해보자.</summary>
+  입출력은 동기식 입출력, 비동기식 입출력이 있다. 동기식 입출력은 한 프로세스가 CPU를 점유해 진행 중에 입출력을 해야 하는 경우 그 프로세스가 해당 입출력 작업이 완료될 때까지 기다리고 CPU는 해당 프로세스의 점유를 뺏고 다른 프로세스를 진행시키는 방식이다. 이때 입출력 작업 완료를 기다리는 프로세스는 봉쇄 상태가 되어서 CPU 자원을 할당받지 못하게 된다. 반면 비동기식 입출력은 입출력을 해야 하는 경우 해당 입출력이 끝날 때까지 기다리지 않고 해당 프로세스에서 입출력 작업이 완료되지 않아도 수행할 수 있는 작업을 이어서 진행한다.
+</details>
+
+<details>
+  <summary>동기식 입출력에서 입출력 발생 시 다른 프로세스에게 CPU를 할당했을 때 이 프로세스에서도 입출력이 발생하면 어떤 문제가 발생할 수 있고 이를 어떻게 방지하는가?</summary>
+  만약 먼저 실행하던 프로세스에서 입출력이 발생해서 다른 프로세스에게 CPU를 할당했는데 다음 프로세스도 입출력이 발생하면 여러 입출력 요청이 발생할 수 있다. 이 경우 입출력의 동기화가 지켜지지 않는 문제가 발생할 수 있다. 나중에 실행된 프로세스의 입출력 요청을 먼저 수행하고 처음 프로세스의 입출력이 같은 자원에 대한 입출력 요청을 했을 때 처음 프로세스는 예상하지 못한 결과를 얻을 수 있다. 이를 막기 위해 장치 별로 큐를 두어 요청한 순서대로 처리할 수 있게 한다.
+</details>
+
+<details>
+  <summary>DMA라는 장치의 필요성에 대해 설명해보시오</summary>
+  입출력이 완료되어 로컬버퍼에 담긴 내용을 메모리에 올려야 할 때, 컨트롤러가 인터럽트 라인을 세팅해서 CPU가 메모리에 데이터를 적재하도록 한다. 문제는 이런 입출력 처리를 매번 인터럽트를 통해 CPU가 메모리에 적재하도록 하면 너무 여러번 CPU는 인터럽트 처리를 해야된다. DMA는 CPU가 메모리에 로컬버퍼의 데이터를 적재하는 일을 대리한다. 그래서 로컬버퍼 데이터를 메모리에 적재하는 일 때문에 CPU가 인터럽트 당하지 않도록 한다. DMA는 바이트 단위가 아니라 블록이라는 단위로 메모리를 읽어온 후 다 읽어온 경우 CPU에게 인터럽트를 통해 완료를 알린다.
+</details>
+
+<details>
+  <summary>저장장치 계층 구조에 대해 설명해보자.</summary>
+  컴퓨터의 저장장치는 주기억장치와 보조기억장치로 나뉜다. 주기억장치는 메모리를 휘발성이고 일반적으로 RAM을 매체로 사용한다. 보조기억장치는 비휘발성으로 하드디스크나 SSD를 매체로 사용한다. 저장장치 계층 구조는 레지스터 - 캐시 메모리 - 메인 메모리 - 마그네틱 디스크- 광디스크- 마그네틱 테이프 이런 구조로 빠를 수록 비싸고 용량이 적다. 앞 세가지는 주기억장치이고 나머지는 보조기억장치이다.
+</details>
+
+<details>
+  <summary>보조기억 장치의 목적에 대해 설명해보자. 각 목적의 비교를 해보자</summary>
+  보조기억 장치는 비휘발성의 특징을 통해 파일 시스템을 구현하는데 사용된다. 또한 주기억장치인 메모리의 연장 공간인 스왑 영역 역할을 한다. 운영체제는 프로그램 수행에 당장 필요하지 않은 부분은 디스크 스왑 영역에 적재한다. 이렇게 스왑 아웃된 영역은 필요하게 될 때 메모리에 올려서 사용하게 된다. 파일 시스템은 비휘발성을 활용하지만 스왑 영역은 메모리의 연장이므로 휘발성인 특징을 나타낸다.
+</details>
+
+<details>
+  <summary>캐싱 기법에 대해서 설명하고 왜 효과적인지 설명해라.</summary>
+  상대적으로 빠른 저장장치를 이용해 느린 저장장치의 선응을 향상 시키는 총체적 기법을 일컫는다. 느린 저장장치에서 자주 사용되거나 당장 사용되는 정보를 빠른 저장장치에 선별적으로 저장해서 두 저장 장치 사이의 속도를 완충시킨다. 컴퓨터 내의 데이터나 프로그램을 구성하는 부분이 균등하게 사용되지 않고 일부분만 주로 사용하는 특성이 있기 때문에 적은 양의 캐시로도 효과를 볼 수 있다.
+</details>
+
+<details>
+  <summary>하드웨어 보안이 필요한 이유와 어떻게 달성하는 지 설명해보라</summary>
+  여러 프로그램이 실행될 때 다른 프로그램의 메모리 영역에 침범하는 일이 발생할 수 있다. 이런 문제를 막기 위해 운영체제는 커널모드와 사용자모드를 분리해서 사용자 프로그램이 보안에 예민한 부분을 직접 제어하지 못하게 막고 운영체제에게 서비스를 요청하는 방식으로 구현했다. 모드비트를 통해 사용자 프로그램이 어떤 모드인지 검증하는 방식으로 위험한 연산을 하지 못하도록 막는다.
+</details>
+
+<details>
+  <summary>메모리 보안을 어떻게 달성하는 지 설명해보고 한계를 설명해보라</summary>
+  사용자 프로그램이 정해진 메모리 주소 이내에 위치할 수 있도록 기준 레지스터와 한계 레지스터를 정해서 시작주소와 끝 주소를 정해놓는다. 해당 프로그램으로 직접 접근하려는 주소가 기준 레지스터와 한계 레지스터 사이에 없다면 잘못된 접근이라고 판단한다. 다만 이는 하나의 프로그램이 연속적으로 위치하는 단순한 메모리 관리 기법을 사용하는 경우로 한정했을 때 가능하다.
+</details>
+
+<details>
+  <summary>한 프로그램이 CPU의 자원을 오랫동안 독점하는 상황을 막는 역할을 하는 하드웨어에 대해 설명해보자.</summary>
+  타이머라는 하드웨어를 통해 여러 프로그램이 돌아가면서 CPU를 점유하도록 한다. 특정 시간이 지나면 인터럽트를 일으켜서 운영체제가 CPU 제어권을 획득할 수 있도록 하는 역할을 수행한다.
+</details>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2023/01/22/cs/os/post/" data-id="cld7m8xfs0001kxa019t89tt4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "퀴즈로 학습하는 운영체제와 정보기술의 원리 3장",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "운영체제와 정보기술의 원리",
+        "genre": "Computer Science OS",
+        "datePublished": "2023-01-22",
+        "dateCreated": "2023-01-22",
+        "dateModified": "2023-01-23",
+        "url": "https://yangdongjue5510.github.io/2023/01/22/cs/os/post/",
+        "description": "
+  메모리 및 입출력 장치를 제어하는 하드웨어 장치는 무엇인가?
+  컨트롤러라는 하드웨어 장치가 메모리 및 입출력 장치를 제어한다. 마치 입출력 장치마다 작은 CPU가 있다고 생각하면 편하다.
+
+
+
+  운영체제 코드 중 메모리에 올려지는 중요한 코드는 무엇이라고 하는가
+운영체제의 모든 코드를 메모리에 올리면 자원 낭비가 생긴다. 운영체제 중 주요 코드만 ",
+        "wordCount": 833
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2023/01/20/package/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">패키지 설계의 원칙</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">74</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">61</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">41</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.67px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 16.67px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 15px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 18.33px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 13.33px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 15px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2023/01/22/cs/os/post/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
