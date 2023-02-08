@@ -20,7 +20,7 @@
 <meta property="og:description" content="3장   메모리 및 입출력 장치를 제어하는 하드웨어 장치는 무엇인가?   컨트롤러라는 하드웨어 장치가 메모리 및 입출력 장치를 제어한다. 마치 입출력 장치마다 작은 CPU가 있다고 생각하면 편하다.       운영체제 코드 중 메모리에 올려지는 중요한 코드는 무엇이라고 하는가 운영체제의 모든 코드를 메모리에 올리면 자원 낭비가 생긴다. 운영체제 중 주요 코">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-22T13:39:01.000Z">
-<meta property="article:modified_time" content="2023-02-06T05:50:32.571Z">
+<meta property="article:modified_time" content="2023-02-08T13:31:32.837Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="운영체제와 정보기술의 원리">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/2023/01/22/cs/os/%ED%80%B4%EC%A6%88%EB%A1%9C_%ED%95%99%EC%8A%B5%ED%95%98%EB%8A%94_%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80_%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98_%EC%9B%90%EB%A6%AC/" class="article-date">
-     <time datetime="2023-02-06T05:50:32.571Z" itemprop="dateModified">2023-02-06</time>
+     <time datetime="2023-02-08T13:31:32.837Z" itemprop="dateModified">2023-02-08</time>
   </a>
 </div>
 
@@ -453,6 +453,93 @@
   공유 메모리 방식은 두 프로세스가 물리적으로 같은 메모리 공간을 참조하는 주소값을 같이 사용하는 방식이다.
   메시지 전달 방식은 두 프로세스가 직간접적으로 연결해서 데이터 전달을 커널에게 의뢰하는 방식이다.
 </details>
+
+<h1 id="6장"><a href="#6장" class="headerlink" title="6장"></a>6장</h1><details>
+  <summary>기계어 명령를 세가지로 분류하고 각 명령의 특징을 설명해보자.</summary>
+  CPU 명령어 : CPU 내부에서 레지스터 값을 제어하는 매우 빠른 명령
+  메모리 명령어 : 메모리에 값을 읽거나 쓰는 명령어 CPU 명령어보다는 느리지만 빠른 편이다.
+  입출력 명령어 : 하드웨어를 통해 입출력을 하는 명령어. 굉장히 느리다.
+</details>
+
+<details>
+  <summary>CPU 스케줄링 기법이 필요한 이유는 무엇인가?</summary>
+  한정된 CPU 자원을 CPU 버스트가 각기 다른 프로세스들에게 효과적으로 분배하기 위해서 CPU 스케줄링이 필요하다.
+</details>
+
+<details>
+  <summary>CPU 스케줄러는 어떤 일을 하는가?</summary>
+  준비 큐에 있는 프로세스 중 CPU를 할당받고 실행될 프로세스를 선정한다.
+</details>
+
+<details>
+  <summary>CPU 스케줄러가 작동하는 여러 상황을 설명해보자.</summary>
+  타이머 인터럽트가 발생해서 실행 -> 준비 되는 경우
+  IO 요청에 의해 실행 -> 봉쇄 되는 경우
+  CPU 작업 완료되어 실행 -> 종료 되는 경우
+</details>
+
+<details>
+  <summary>선점형과 비선점형 CPU 스케줄러를 구분지어 설명해보자.</summary>
+  선점형 스케줄러는 특정 프로세스가 실행 중일 때 실행 중인 프로세스보다 우선순위가 더 높은 프로세스가 준비큐에 진입하면 그 프로세스에게 CPU 자원을 넘기는 방식이다.
+  비선점형 스케줄러는 그런 경우에도 뺏기지 않는다.
+</details>
+
+<details>
+  <summary>디스패처에 대해 설명해보자.</summary>
+  문맥교환이 일어날 때 PCB의 값을 하드웨어에 세팅해야 하는 일을 하는 운영체제 코드이다.
+</details>
+
+<details>
+  <summary>스케줄링 성능 평가에 사용되는 다섯 가지 지표를 설명해보자.</summary>
+  CPU 이용률 : 주어진 시간동안 CPU가 작업을 처리한 시간 비율
+  처리량 : 주어진 시간동안 작업 완료한 프로세스 비율
+  소요 시간 : 한 프로세스가 CPU를 기다린 시간과 CPU 할당 받아 실행한 시간의 합
+  대기 시간 : 한 프로세스가 CPU 버스트동안 준비큐에서 기다린 시간
+  응답 시간 : 한 프로세스가 준비큐에 들어가서 처음 CPU를 할당받은 시간.
+</details>
+
+<details>
+  <summary>선입선출 스케줄링의 장단점은?</summary>
+  먼저 온 프로세스를 완료할 때까지 CPU 자원 점유를 보장해주니 평균 소요시간과 평균 대기시간이 짧은 편이다. 하지만 CPU 버스트가 긴 프로세스가 점유하면 다른 프로세스들이 오랫동안 CPU를 점유하지 못하게 되는 콘보이 현상을 겪을 수 있다.
+</details>
+
+<details>
+  <summary>최단 작업 우선 스케줄링의 장단점은?</summary>
+  CPU 버스트가 짧은 프로세스를 먼저 할당해서 IO 자원을 비교적 효율적으로 활용할 수 있고 선입선출 스케줄러의 콘보이 현상도 방지한다. 
+  다만 준비큐에 CPU 버스트가 긴 프로세스가 있을 때 준비큐로 CPU 버스트가 짧은 프로세스가 계속 진입하면 CPU 버스트가 긴 프로세스는 CPU 자원을 점유하지 못하게 되는 기아 현상이 발생할 수 있다.
+</details>
+
+<details>
+  <summary>우선순위 스케줄링의 장단점은?</summary>
+  우선순위 스케줄링도 기아 현상이 발생할 수 있다. 하지만 CPU 할당을 받지 못한 준비 상태의 프로세스들의 우선순위를 동적으로 한단계 올려주는 노화 기법으로 기아 현상을 해결할 수 있다.
+</details>
+
+<details>
+  <summary>라운드 로빈 스케줄링에서 할당시간을 너무 길게 혹은 너무 짧게 설정하면 생기는 일에 대해 설명해보자.</summary>
+  라운드 로빈 스케줄링 할당 시간을 너무 늘리면 사실상 선입선출 스케줄링과 같아진다. 그래서 선입선출 스케줄링의 단점을 그대로 가져오게 된다.
+  할당 시간을 너무 짧게 하면 문맥 교환이 그만큼 더 자주 일어나게 되서 오버헤드가 커진다.
+</details>
+
+<details>
+  <summary>선입선출 스케줄링에 비해 라운드 로빈 스케줄링의 장단점은?</summary>
+  라운드 로빈 스케줄링은 선입 선출에 비해 평해 소요시간이 길다는 단점이 있다. 하지만 평균 응답시간이 빠르다는 장점이 있다.
+</details>
+
+<details>
+  <summary>멀티레벨 큐에 대해 설명해보자.</summary>
+  각 프로세스의 특징에 따라 여러 형태의 스케줄링 큐를 운영하는 방식이다. 응답을 빨리 해야되는 프로세스를 할당하는 라운드 로빈 전위 큐와 CPU 버스트가 긴 프로세스를 할당하는 선입 선출 후위 큐를 운영하는 방식으로 구현될 수 있다.
+</details>
+
+<details>
+  <summary>멀티레벨 피드백 큐에 대해 설명해보자.</summary>
+  우선 순위가 다른 여러 큐를 운영하되, 프로세스가 각 큐를 이동할 수 있는 방식이다. 우선순위가 높은 큐에서 할당 받지 못하면 낮은 큐로 이동하는 방식인데, 이때 해당 프로세스의 우선순위를 높이는 노화 방식을 도입할 수 있다.
+</details>
+
+<details>
+  <summary>스케줄링 알고리즘 평가 방법에 대해 설명해보자.</summary>
+  큐잉 모델, 시뮬레이션, 구현 및 실축
+</details>
+
         </div>
         <footer class="article-footer">
             
@@ -535,7 +622,7 @@
         "genre": "Computer Science OS",
         "datePublished": "2023-01-22",
         "dateCreated": "2023-01-22",
-        "dateModified": "2023-02-06",
+        "dateModified": "2023-02-08",
         "url": "https://yangdongjue5510.github.io/2023/01/22/cs/os/퀴즈로_학습하는_운영체제와_정보기술의_원리/",
         "description": "3장
   메모리 및 입출력 장치를 제어하는 하드웨어 장치는 무엇인가?
@@ -546,7 +633,7 @@
 
   운영체제 코드 중 메모리에 올려지는 중요한 코드는 무엇이라고 하는가
 운영체제의 모든 코드를 메모리에 올리면 자원 낭비가 생긴다. 운영체제 중 주요 코",
-        "wordCount": 1906
+        "wordCount": 2443
     }
 </script>
 

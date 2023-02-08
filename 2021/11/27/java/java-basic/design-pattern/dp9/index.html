@@ -20,7 +20,7 @@
 <meta property="og:description" content="템플릿 메서드 패턴템플릿 메서드 패턴은 특정 역할의 책임을 한 메서드에 여러 메서드를 조합*(이게 템플릿!)*으로 정해놓는 패턴이다. 템플릿 메서드를 구성하는 메서드들은 역할에 속하는 객체마다 다르게 구현될 수 있다. 활용 예시우리는 여러 DB에 연결해야 한다. 우리가 연결한 DB는 모두 다음과 같은 절차를 따른다고 하자.해당 DB드라이버 찾기 - DB에">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-27T12:14:40.000Z">
-<meta property="article:modified_time" content="2022-12-23T09:15:08.563Z">
+<meta property="article:modified_time" content="2023-02-06T11:26:30.243Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/2021/11/27/java/java-basic/design-pattern/dp9/" class="article-date">
-     <time datetime="2022-12-23T09:15:08.563Z" itemprop="dateModified">2022-12-23</time>
+     <time datetime="2023-02-06T11:26:30.243Z" itemprop="dateModified">2023-02-06</time>
   </a>
 </div>
 
@@ -241,9 +241,9 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MySQL 드라이버를 찾습니다.</span><br><span class="line">로그인을 실행합니다...</span><br><span class="line">MySQL과 연결합니다.</span><br><span class="line">H2 드라이버를 찾습니다.</span><br><span class="line">로그인을 실행합니다...</span><br><span class="line">H2 드라이버를 연결합니다.</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>템플릿 메서드 패턴의 문제<br>템플릿 메서드 패턴은 DIP 원칙을 일부 어길 수 있다. DIP는 상위 모듈은 하위 모듈에 의존을 금지하고 서로 추상화된 인터페이스에 의존하라는 원칙이다.<br>그런데 템플릿 메서드 패턴은 만약 추상 클래스가 상위 모듈(즉 사용하는 측)이고 구현체가 특정 로직을 구현한 하위 모듈인 방식으로 구현하면 구현체가 상위 모듈을 의존하게 된다.</p>
-</blockquote>
+<h2 id="템플릿-메서드-패턴의-문제"><a href="#템플릿-메서드-패턴의-문제" class="headerlink" title="템플릿 메서드 패턴의 문제"></a>템플릿 메서드 패턴의 문제</h2><p>템플릿 메서드 패턴은 확장이 필요할 때마다 새로운 클래스를 상속해서 추가해줘야 한다. 그리고 상속이 가지는 단점을 그대로 가져온다. 컴파일 타임에 고정된 관계가 정해진다. 전략 패턴은 더 유연하게 확장할 수 있다.</p>
+<p>템플릿 메서드 패턴은 DIP 원칙을 일부 어길 수 있다. DIP는 상위 모듈은 하위 모듈에 의존을 금지하고 서로 추상화된 인터페이스에 의존하라는 원칙이다.<br>그런데 템플릿 메서드 패턴은 만약 추상 클래스가 상위 모듈(즉 사용하는 측)이고 구현체가 특정 로직을 구현한 하위 모듈인 방식으로 구현하면 구현체가 상위 모듈을 의존하게 된다.</p>
+<h2 id="스프링의-템플릿-콜백과의-차이점"><a href="#스프링의-템플릿-콜백과의-차이점" class="headerlink" title="스프링의 템플릿 콜백과의 차이점?"></a>스프링의 템플릿 콜백과의 차이점?</h2><p>둘 다 템플릿을 사용해서 변경 주기가 다른 코드를 분리하지만, 템플릿 콜백은 템플릿에서 메서드를 실행할 때 인자로 콜백 함수를 받아서 수행하는 일종의 전략 패턴이다. 즉 상속으로 확장하는 템플릿 메서드보다 더 유연하다. 템플릿 콜백은 JdbcTemplate와 같은 스프링의 여러 곳에서 사용된다. 템플릿 콜백은 템플릿과 콜백 사이의 경계를 어떻게 지을 것인지, 그리고 만들어지는 콜백들이 또 특정한 패턴이 생기면 그 코드를 템플릿에 모아둘 수 있는지 점검해봐야 한다.</p>
 
         </div>
         <footer class="article-footer">
@@ -327,13 +327,13 @@
         "genre": "Java Design Pattern",
         "datePublished": "2021-11-27",
         "dateCreated": "2021-11-27",
-        "dateModified": "2022-12-23",
+        "dateModified": "2023-02-06",
         "url": "https://yangdongjue5510.github.io/2021/11/27/java/java-basic/design-pattern/dp9/",
         "description": "템플릿 메서드 패턴템플릿 메서드 패턴은 특정 역할의 책임을 한 메서드에 여러 메서드를 조합*(이게 템플릿!)*으로 정해놓는 패턴이다.
 템플릿 메서드를 구성하는 메서드들은 역할에 속하는 객체마다 다르게 구현될 수 있다.
 활용 예시우리는 여러 DB에 연결해야 한다.
 우리가 연결한 DB는 모두 다음과 같은 절차를 따른다고 하자.해당 DB드라이버 찾기 - DB에 ",
-        "wordCount": 457
+        "wordCount": 563
     }
 </script>
 
