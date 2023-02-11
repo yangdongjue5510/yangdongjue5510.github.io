@@ -185,6 +185,41 @@
         
         <div class="article-meta">
             <div class="category">
+            <a class="article-category-link" href="/categories/jpa/">JPA</a>
+            </div>
+            <div class="date"><time datetime="2022-02-03T08:11:16.000Z" itemprop="datePublished">2022-02-03</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2022/02/03/spring/JPA/compositekey/">JPA에서 @Embedded로 복합키 매핑하기</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            
+요약
+
+
+@Embeddable를 붙인 복합키 클래스를 만든다
+엔티티 클래스에 @EmbeddedId를 통해 복합키 필드를 만든다.
+이때 엔티티 클래스의 모든 매개변수를 받는 생성자를 만든다.이때 복합키 필드는 new로 객체를 초기화해준다.
+
+문제 상황챌린지 테이블과 태그 테이블이 다대다 관계인 상황이다.이때 태그 테이블은 이름이 기본키이고, 챌린지 테이블은
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
             <a class="article-category-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/computer-science/database/">Database</a>
             </div>
             <div class="date"><time datetime="2022-01-06T13:35:42.000Z" itemprop="datePublished">2022-01-06</time></div>
@@ -209,11 +244,13 @@
     </div>
 </article>
     
+        </div>
+    
 
     
     
         
-            </div></div></section>
+            </div></section>
         
         
         <section class="archives-wrap">
@@ -675,39 +712,8 @@ package문 import문일반적으로 패키지문을 먼저 쓰고, 임포트문�
         </div>
     
 
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/spring/">Spring</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/spring/boot/">Boot</a>
-            </div>
-            <div class="date"><time datetime="2021-11-19T02:56:33.000Z" itemprop="datePublished">2021-11-19</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2021/11/19/spring/boot/boot12/">스프링 부트의 특징</a>
-        </h1>
-    
 
-        <p class="article-excerpt">
-            스프링 부트의 특징스프링 부트는 스프링의 복잡한 xml 간편화와 빠른 개발을 위해 등장했다.부트는 웹을 위해 필요한 필수 라이브러리를 내장하고 있다.(톰캣 등)
-스타터(starter) : 특정 모듈을 사용할 수 있도록 필요한 라이브러리를 모아놓은 라이브러리 모음
-자동설정(AutoConfiguration) : 추가된 라이브러리나 모듈을 사용할 수 있도록 자동
-        </p>
-    </div>
-</article>
-    
-
-
-    </div></div></section>
+    </div></section>
 
 
     <nav id="page-nav">
@@ -752,7 +758,7 @@ package문 import문일반적으로 패키지문을 먼저 쓰고, 임포트문�
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a>
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
         </div>
     </div>
 
