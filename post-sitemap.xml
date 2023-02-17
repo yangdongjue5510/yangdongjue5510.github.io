@@ -9,6 +9,22 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2023/02/10/spring/JPA/resolve-concurrency-jpa/</loc>
+        <lastmod>2023-02-17T11:07:48.513Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yangdongjue5510.github.io/2021/08/17/java/java-basic/design-pattern/dp3/</loc>
+        <lastmod>2023-02-16T11:18:02.885Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2023/02/14/spring/spring-exception-handling/</loc>
         <lastmod>2023-02-14T13:52:42.405Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -19,14 +35,6 @@
     <url>
         <loc>https://yangdongjue5510.github.io/2023/02/11/20230212-week-review/</loc>
         <lastmod>2023-02-11T14:02:40.862Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2023/02/10/spring/JPA/resolve-concurrency-jpa/</loc>
-        <lastmod>2023-02-10T17:03:59.127Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -1066,14 +1074,6 @@
 
     <url>
         <loc>https://yangdongjue5510.github.io/2021/08/13/java/java-basic/design-pattern/dp2/</loc>
-        <lastmod>2022-01-22T16:20:00.032Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2021/08/17/java/java-basic/design-pattern/dp3/</loc>
         <lastmod>2022-01-22T16:20:00.032Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
