@@ -9,6 +9,13 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/categories/spring/</loc>
+        <lastmod>2023-02-23T13:46:49.716Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/categories/jpa/</loc>
         <lastmod>2023-02-17T11:07:48.513Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -25,13 +32,6 @@
     <url>
         <loc>https://yangdongjue5510.github.io/categories/java/</loc>
         <lastmod>2023-02-16T11:18:02.885Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/categories/spring/</loc>
-        <lastmod>2023-02-14T13:52:42.405Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
