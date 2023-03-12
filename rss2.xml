@@ -9,8 +9,32 @@
     <atom:link href="https://yangdongjue5510.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>This is yangdongjue5510 dev blog.</description>
-    <pubDate>Thu, 23 Feb 2023 13:46:49 GMT</pubDate>
+    <pubDate>Sun, 12 Mar 2023 14:45:01 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>F12 서비스 의존성 개선기 - 문제점 찾기 편</title>
+      <link>https://yangdongjue5510.github.io/2023/03/12/refactor-f12-dependency/</link>
+      <guid>https://yangdongjue5510.github.io/2023/03/12/refactor-f12-dependency/</guid>
+      <pubDate>Sun, 12 Mar 2023 12:35:13 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;F12 서비스 링크(&lt;a href=&quot;https://f12.app/&quot;&gt;https://f12.app/&lt;/a&gt;)&lt;br&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/87690744/224546124-003</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>F12 서비스 링크(<a href="https://f12.app/">https://f12.app/</a>)<br><img src="https://user-images.githubusercontent.com/87690744/224546124-0037780b-5215-4073-a1d4-dcd9dff96703.png"></p><h1 id="기존-상황"><a href="#기존-상황" class="headerlink" title="기존 상황"></a>기존 상황</h1><p>F12 서비스 백엔드 아키텍처는 도메인 개념 별로 의존성을 그려보면 다음과 같다.<br><img src="https://user-images.githubusercontent.com/87690744/224546691-84ff0950-5692-4212-aa7c-bbeaba9e2ee0.png"><br>총 세가지 양방향 의존이 생긴다. 이런 상황이면 Review에 변경이 생기면 Product -&gt; InventoryProduct -&gt; Member -&gt; Following 까지 변경에 따른 영향이 생길 수 있다.</p><h2 id="각-도메인들의-책임"><a href="#각-도메인들의-책임" class="headerlink" title="각 도메인들의 책임"></a>각 도메인들의 책임</h2><h3 id="Member"><a href="#Member" class="headerlink" title="Member"></a>Member</h3><p>회원을 의미한다.</p><p>회원의 회원정보(깃허브 아이디, 프로필 이미지, 이름 등)을 수정할 수 있다.<br>회원의 인벤토리 장비를 수정할 수 있다.<br>회원의 프로필 장비를 조회할 수 있다.<br>회원이 관리자인 지 구분할 수 있다.</p><h3 id="Product"><a href="#Product" class="headerlink" title="Product"></a>Product</h3><p>리뷰 대상인 장비를 의미한다.</p><p>제품 정보 (이름, 이미지, 카테고리)를 수정할 수 있다.<br>장비의 카테고리가 같은지 구분할 수 있다.</p><h3 id="InventoryProduct"><a href="#InventoryProduct" class="headerlink" title="InventoryProduct"></a>InventoryProduct</h3><p>회원이 리뷰를 남긴 제품을 의미한다.<br>리뷰를 남긴 제품은 자동으로 회원의 인벤토리 장비가 된다.</p><p>인벤토리 장비가 프로필 장비인 지 구분할 수 있다.<br>InventoryProduct는 DB 테이블로 생각하면 Member와 Product의 다대다 매핑 테이블 역할도 한다.</p><h3 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h3><p>리뷰의 제약 조건을 검증할 수 있다.<br>리뷰를 수정할 수 있다.<br>리뷰 작성자를 구분할 수 있다.</p><h2 id="왜-양방향-의존성이-생겼나"><a href="#왜-양방향-의존성이-생겼나" class="headerlink" title="왜 양방향 의존성이 생겼나?"></a>왜 양방향 의존성이 생겼나?</h2><h3 id="Product-lt-—-gt-Review-InventoryProduct-1번-2번-케이스-서비스-레이어에서-발"><a href="#Product-lt-—-gt-Review-InventoryProduct-1번-2번-케이스-서비스-레이어에서-발" class="headerlink" title="Product &lt;—&gt; Review, InventoryProduct (1번, 2번 케이스, 서비스 레이어에서 발)"></a>Product &lt;—&gt; Review, InventoryProduct (1번, 2번 케이스, 서비스 레이어에서 발)</h3><p>일단 Review와 InventoryProduct는 Product 관련 코드에 의존하는 것은 이해가 된다. Review는 조회될 때 항상 Product와 함께 조회되기 때문이다. InventoryProduct의 책임은 Product를 통해서 수행할 수 있기 때문이다. 그리고 Reveiw와 InventoryProduct가 생성되기 위해서는 먼저 Product 존재하는지 검증해야 하므로 Product 코드에 의존할 수 있다.</p><p>하지만 Product는 왜 Review와 InventoryProduct를 의존하는 걸까?<br>이는 Product가 삭제되면 해당 Product의 Review와 InventoryProduct도 삭제되어야 하기 때문에 ProductService의 삭제 메서드에서 Review 삭제와 InventoryProduct 삭제코드가 포함되기 때문이다!</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductService</span> &#123;</span><br><span class="line">    <span class="comment">//... 생략</span></span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">delete</span><span class="params">(<span class="keyword">final</span> Long productId)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">Product</span> <span class="variable">target</span> <span class="operator">=</span> productRepository.findById(productId)</span><br><span class="line">                .orElseThrow(ProductNotFoundException::<span class="keyword">new</span>);</span><br><span class="line">        reviewRepository.deleteByProduct(target);</span><br><span class="line">        inventoryProductRepository.deleteByProduct(target);</span><br><span class="line">        productRepository.delete(target);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>이런 양방향 의존성 문제는 <strong>이벤트 발급 방식</strong>으로 해결했다..! (추후 해결편에서 이어진다.)</p><h3 id="Member-lt-—-gt-InventoryProduct-3번-케이스-엔티티-레이어에서-발생"><a href="#Member-lt-—-gt-InventoryProduct-3번-케이스-엔티티-레이어에서-발생" class="headerlink" title="Member &lt;—&gt; InventoryProduct (3번 케이스, 엔티티 레이어에서 발생)"></a>Member &lt;—&gt; InventoryProduct (3번 케이스, 엔티티 레이어에서 발생)</h3><p>Member는 InventoryProduct 리스트를 포함한다. 이는 서비스에서 다음과 같은 프로필을 구현할 때 사용자의 회원정보와 그 사용자의 프로필 장비를 같이 보여주기 때문에 Member 엔티티에 InventoryProduct를 멤버 변수로 두었다.<br><img src="https://user-images.githubusercontent.com/87690744/224551081-b73bb136-a654-48b5-a30d-330b30853032.png"><br>즉 Member를 조회할 때 InventoryProduct를 함께 조회해서 위와 같은 프로필을 만들기 용이하기 위해 Member가 InventoryProduct에 의존한다.</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Member</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column(name = &quot;github_id&quot;, nullable = false)</span></span><br><span class="line">    <span class="keyword">private</span> String gitHubId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column(name = &quot;name&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 생략...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@OneToMany(mappedBy = &quot;member&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;InventoryProduct&gt; items = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">// 생략</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>한편 InventoryProduct는 큰 이유 없이 의존하고 있었다…!</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InventoryProduct</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column(name = &quot;selected&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> selected;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ManyToOne(fetch = FetchType.LAZY)</span></span><br><span class="line">    <span class="meta">@JoinColumn(name = &quot;member_id&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Member member;</span><br><span class="line">    <span class="comment">// 생략</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>이런 양방향 의존성 문제는 <strong>새로운 도메인 도입</strong>으로 해결했다..! (추후 해결편에서 이어진다.)</p>]]></content:encoded>
+      
+      
+      <category domain="https://yangdongjue5510.github.io/categories/spring/">Spring</category>
+      
+      
+      
+      <comments>https://yangdongjue5510.github.io/2023/03/12/refactor-f12-dependency/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>스프링의 프록시</title>
@@ -480,32 +504,6 @@
       
       
       <comments>https://yangdongjue5510.github.io/2022/12/28/java/java-basic/design-pattern/nullObject/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>퍼사드와 미디에이터 패턴</title>
-      <link>https://yangdongjue5510.github.io/2022/12/23/java/java-basic/design-pattern/facadeAndMediator/</link>
-      <guid>https://yangdongjue5510.github.io/2022/12/23/java/java-basic/design-pattern/facadeAndMediator/</guid>
-      <pubDate>Fri, 23 Dec 2022 09:43:38 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h1 id=&quot;퍼사드-패턴&quot;&gt;&lt;a href=&quot;#퍼사드-패턴&quot; class=&quot;headerlink&quot; title=&quot;퍼사드 패턴&quot;&gt;&lt;/a&gt;퍼사드 패턴&lt;/h1&gt;&lt;p&gt;퍼사드는 외관, 건물의 정면을 의미한다.&lt;br&gt;퍼사드 패턴은 복잡하고 일반적인 인터페이스를 가진 </description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="퍼사드-패턴"><a href="#퍼사드-패턴" class="headerlink" title="퍼사드 패턴"></a>퍼사드 패턴</h1><p>퍼사드는 외관, 건물의 정면을 의미한다.<br>퍼사드 패턴은 복잡하고 일반적인 인터페이스를 가진 객체 그룹을 간단하고 구체적인 인터페이스를 제공한다.</p><p>DB를 활용하기 위해 <code>java.sql</code> 패키지의 복잡한 인터페이스를 가진 객체들을 상위 모듈에서 사용하기는 어렵다.<br>이를 위해 퍼사드 역할을 하는 객체를 만들 수 있다.<br><img src="/img/facadeDBDiagram.png"></p><p><code>Application</code> 입장에는 <code>java.sql</code>을 알지 못해도 DB에 접근할 수 있게 된다.<br>다만 퍼사드 패턴은 반드시 퍼사드 객체를 통하기를 강요한다.</p><h1 id="미디에이터-패턴"><a href="#미디에이터-패턴" class="headerlink" title="미디에이터 패턴"></a>미디에이터 패턴</h1><p>미디에어터는 중재자라는 뜻을 의미한다. 복잡한 객체들의 관계를 캡슐화해서 관리하는 패턴이다. 미디에이터 패턴은 구성 요소들이 서로 직접 통신하지 말고 중재자를 거쳐서 통신한다.</p><p>간단한 비유를 해보자면, 관제탑과 비행기들의 관계가 미디에이터 패턴에 해당한다. 비행기들은 이착륙할 때 서로 부딪히지 않기 위해 비행기들끼리 직접 통신하지 않는다. 대신 관제탑과 통신하여 수많은 다른 비행기들과 부딪히지 않고 이착륙을 할 수 있게 된다.</p><p>구현은 다음을 참고하자.<br><a href="https://refactoring.guru/design-patterns/mediator/java/example">https://refactoring.guru/design-patterns/mediator/java/example</a></p>]]></content:encoded>
-      
-      
-      <category domain="https://yangdongjue5510.github.io/categories/java/">Java</category>
-      
-      <category domain="https://yangdongjue5510.github.io/categories/java/design-pattern/">Design Pattern</category>
-      
-      
-      
-      <comments>https://yangdongjue5510.github.io/2022/12/23/java/java-basic/design-pattern/facadeAndMediator/#disqus_thread</comments>
       
     </item>
     
