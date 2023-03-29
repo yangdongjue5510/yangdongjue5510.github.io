@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>코틀린 함수 정의와 호출 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="Kotlin in Action">
+    
+    <meta name="description" content="이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.  요약함수를 사용하기 쉽게 만들기확장 함수확장 프로퍼티가변인자, 중위 호출로컬 함수  코틀린에서 컬렉션 만들기코틀린에서는 &amp;#123;컬렉션 종류&amp;#125;Of(~) 이런 형태로 쉽게 컬렉션을 만들 수 있다. 123val set &#x3D; hashSetOf(1, 2, 3)va">
+<meta property="og:type" content="article">
+<meta property="og:title" content="코틀린 함수 정의와 호출">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.  요약함수를 사용하기 쉽게 만들기확장 함수확장 프로퍼티가변인자, 중위 호출로컬 함수  코틀린에서 컬렉션 만들기코틀린에서는 &amp;#123;컬렉션 종류&amp;#125;Of(~) 이런 형태로 쉽게 컬렉션을 만들 수 있다. 123val set &#x3D; hashSetOf(1, 2, 3)va">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-09T07:52:10.000Z">
+<meta property="article:modified_time" content="2023-01-10T14:57:30.749Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="Kotlin in Action">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-kotlinInAction/kotlinInActionCh3" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        코틀린 함수 정의와 호출
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2023/01/09/kotlinInAction/kotlinInActionCh3/" class="article-date">
+       <time datetime="2023-01-09T07:52:10.000Z" itemprop="datePublished">2023-01-09</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2023/01/09/kotlinInAction/kotlinInActionCh3/" class="article-date">
+     <time datetime="2023-01-10T14:57:30.749Z" itemprop="dateModified">2023-01-10</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/kotlin-in-action/" rel="tag">Kotlin in Action</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <p>이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.</p>
+<blockquote>
+<p>요약<br><a href="#%ED%95%A8%EC%88%98%EB%A5%BC-%ED%98%B8%EC%B6%9C%ED%95%98%EA%B8%B0-%EC%89%BD%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0">함수를 사용하기 쉽게 만들기</a><br><a href="#%ED%99%95%EC%9E%A5-%ED%95%A8%EC%88%98">확장 함수</a><br><a href="#%ED%99%95%EC%9E%A5-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0">확장 프로퍼티</a><br><a href="#%EC%BB%AC%EB%A0%89%EC%85%98-%EC%B2%98%EB%A6%AC-%EA%B0%80%EB%B3%80-%EA%B8%B8%EC%9D%B4-%EC%9D%B8%EC%9E%90-%EC%A4%91%EC%9C%84-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%A7%80%EC%9B%90">가변인자, 중위 호출</a><br><a href="#%EC%BD%94%EB%93%9C-%EB%8B%A4%EB%93%AC%EA%B8%B0-%EB%A1%9C%EC%BB%AC-%ED%95%A8%EC%88%98%EC%99%80-%ED%99%95%EC%9E%A5">로컬 함수</a></p>
+</blockquote>
+<h1 id="코틀린에서-컬렉션-만들기"><a href="#코틀린에서-컬렉션-만들기" class="headerlink" title="코틀린에서 컬렉션 만들기"></a>코틀린에서 컬렉션 만들기</h1><p>코틀린에서는 <code>&#123;컬렉션 종류&#125;Of(~)</code> 이런 형태로 쉽게 컬렉션을 만들 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> <span class="keyword">set</span> = hashSetOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">val</span> list = arrayListOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">val</span> map = hashMapOf(<span class="number">1</span> to <span class="string">&quot;hi&quot;</span>, <span class="number">2</span> to <span class="string">&quot;ho&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>코틀린은 자기만의 컬렉션 객체를 가지지 않고 자바의 컬렉션 프레임워크를 사용한다. 자바에서 사용하던 컬렉션을 코틀린에서도 그대로 사용하므로 특별한 변환 작업이 필요없다.</p>
+<h1 id="함수를-호출하기-쉽게-만들기"><a href="#함수를-호출하기-쉽게-만들기" class="headerlink" title="함수를 호출하기 쉽게 만들기"></a>함수를 호출하기 쉽게 만들기</h1><p>자바에서 <code>toString</code> 메서드를 커스텀하게 구현해본 경험이 있을 것이다. 코틀린에서는 이를 어떻게 쉽게 해결하는 지 체험해보자!</p>
+<p>우리는 리스트의 원소들을 다양한 구분자와 접두사, 접미사를 추가해서 문자열을 만드는 함수를 만들어 볼 것이다!</p>
+<h2 id="무식하게-구현하기"><a href="#무식하게-구현하기" class="headerlink" title="무식하게 구현하기"></a>무식하게 구현하기</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">joinToString</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    collection: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt;,</span></span></span><br><span class="line"><span class="params"><span class="function">    separator: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    prefix: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    postfix: <span class="type">String</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span> : String &#123;</span><br><span class="line">    <span class="keyword">val</span> result = StringBuilder(prefix)</span><br><span class="line">    <span class="keyword">for</span> ((index, element) <span class="keyword">in</span> collection.withIndex()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (index &gt; <span class="number">0</span>) result.append(separator)</span><br><span class="line">        result.append(element);</span><br><span class="line">    &#125;</span><br><span class="line">    result.append(postfix)</span><br><span class="line">    <span class="keyword">return</span> result.toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>제네릭을 활용해서 확장성이 좋은 함수를 만들었다. 만든 함수를 사용하는 코드도 살펴보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">println(joinToString(list, <span class="string">&quot;:&quot;</span>, <span class="string">&quot;&#123;&quot;</span>, <span class="string">&quot;&#125;&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>흠.. 호출하는 쪽은 조금 난잡하다. 함수를 호출할 때 인자 4개를 모두 전달하지 않는 방법은 없을까??</p>
+<h2 id="이름-붙인-인자"><a href="#이름-붙인-인자" class="headerlink" title="이름 붙인 인자"></a>이름 붙인 인자</h2><p>코틀린에서는 함수를 호출할 때 매개변수의 이름을 통해 인자를 전달해줄 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(joinToString(prefix = <span class="string">&quot;&#123;&quot;</span>, collection = list, separator = <span class="string">&quot;:&quot;</span>, postfix = <span class="string">&quot;&#125;&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>이름을 붙인 인자를 활용할 때는 이름이 붙은 첫 인자 뒤로 모든 인자들에게 이름을 붙여줘야 한다. 왜냐면 이름을 명시하면 순서가 의미가 없어지기 때문에 이름을 붙여주지 않으면 혼동이 올 수 있다.<br>함수 호출하는 코드에서 인자들의 역할이 명확해졌다. 하지만 여전히 난잡한 느낌을 지울 수 없다.</p>
+<h2 id="디폴트-파라미터-값"><a href="#디폴트-파라미터-값" class="headerlink" title="디폴트 파라미터 값"></a>디폴트 파라미터 값</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">joinToString</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    collection: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt;,</span></span></span><br><span class="line"><span class="params"><span class="function">    separator: <span class="type">String</span> = <span class="string">&quot;:&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    prefix: <span class="type">String</span> = <span class="string">&quot;&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    postfix: <span class="type">String</span> = <span class="string">&quot;&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span> : String &#123;</span><br><span class="line">    <span class="comment">// 생략...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">println(joinToString(prefix = <span class="string">&quot;&#123;&quot;</span>, collection = list, postfix= <span class="string">&quot;&#125;&quot;</span>));</span><br></pre></td></tr></table></figure>
+<p>이렇게 매개변수 선언부에 디폴트값을 할당해서 적어줄 수 있다. 이렇게 디폴트값을 활용하면 비효율적인 생상자 오버로딩을 대폭 줄일 수 있다.</p>
+<blockquote>
+<p>자바 메서드를 코틀린에서 디폴트 값 적용해서 사용하기<br>매개변수의 디폴트값을 지원하지 않는 자바 메서드를 코틀린에서 디폴트 값으로 활용하기 까다롭다는게 문제다. 이를 위해서 자바 메서드에 <code>@JvmOverloads</code> 어노테이션을 붙이면 맨 뒤 매개변수부터 하나씩 빼서 오버로딩된 메서드가 만들어진다.</p>
+</blockquote>
+<h2 id="정적인-유틸리티-클래스-없애기-최상위-함수와-프로퍼티"><a href="#정적인-유틸리티-클래스-없애기-최상위-함수와-프로퍼티" class="headerlink" title="정적인 유틸리티 클래스 없애기: 최상위 함수와 프로퍼티"></a>정적인 유틸리티 클래스 없애기: 최상위 함수와 프로퍼티</h2><h3 id="최상위-함수"><a href="#최상위-함수" class="headerlink" title="최상위 함수"></a>최상위 함수</h3><p>자바의 경우 모든 메서드는 클래스 안에 있어야 했다. 그래서 우리가 원하는 건 작동하는 함수 하나여도 클래스를 선언해서 해당 메서드를 포함해야 했다. 하지만 코틀린은 그럴 필요가 없다.<br>코틀린은 함수를 최상위 수준으로 위치할 수 있다. 다음과 같이 특정 패키지 바로 다음에 함수가 올 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> string</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">joinToString</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    collection: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt;,</span></span></span><br><span class="line"><span class="params"><span class="function">    separator: <span class="type">String</span> = <span class="string">&quot;:&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    prefix: <span class="type">String</span> = <span class="string">&quot;&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    postfix: <span class="type">String</span> = <span class="string">&quot;&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span> : String &#123;</span><br><span class="line">    <span class="comment">// 생략...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이런 최상위 함수는 컴파일 될 때 새로운 클래스를 정의해서 컴파일한다. 코틀린만 사용하면 그냥 특정 클래스가 생기나보다 하고 넘기면 되지만, 자바에서 코틀린의 최상위 함수를 호출해야 할 경우에는 코틀린의 최상위 함수를 위한 클래스가 어떤 모양인지 알아야 한다.</p>
+<p>최상위 함수를 위한 클래스는 최상위 함수를 포함하는 파일 이름에 따라 달라진다. 예를 들어 <code>join.kt</code>파일에 <code>joinToString</code>메서드를 구현한 경우에는 다음과 같이 자바 클래스가 만들어진다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JoinKt</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> &lt;T&gt; joinToString(...) &#123;</span><br><span class="line">        ... 생략</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 사용</span></span><br><span class="line">JoinKt.joinToString(...);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>최상위 함수를 위한 클래스 명 바꾸기<br><code>@file:JvmName(&quot;ClassName&quot;)</code>을 패키지 선언문 위에 적으면 클래스 이름도 바꿀 수 있다.</p>
+</blockquote>
+<h3 id="최상위-프로퍼티"><a href="#최상위-프로퍼티" class="headerlink" title="최상위 프로퍼티"></a>최상위 프로퍼티</h3><p>프로퍼티도 최상위에 둘 수 있다. 연산 수행 횟수를 재는 프로퍼티 같은 경우 사용할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> count = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">blahBlah</span><span class="params">()</span></span> &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>이런 경우 프로퍼티는 정적 필드에 저장된다. 이때 특이한 점은 최상위 프로퍼티도 다른 프로퍼티처럼 접근자 메서드를 제공하는데 만약 최상위 프로퍼티를 상수처럼 보이는 데 실제로는 접근자 메서드를 통해 접근하는 것이 어색할 수 있다. 그렇다면 <code>const</code> 키워드를 사용해서 <code>public static final</code> 필드로 컴파일 되게 할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// kotlin</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">val</span> count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// java</span></span><br><span class="line"><span class="keyword">public</span> static <span class="keyword">final</span> count = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="메서드를-다른-클래스에-추가-확장-함수와-확장-프로퍼티"><a href="#메서드를-다른-클래스에-추가-확장-함수와-확장-프로퍼티" class="headerlink" title="메서드를 다른 클래스에 추가: 확장 함수와 확장 프로퍼티"></a>메서드를 다른 클래스에 추가: 확장 함수와 확장 프로퍼티</h1><h2 id="확장-함수"><a href="#확장-함수" class="headerlink" title="확장 함수"></a>확장 함수</h2><p>확장 함수는 어떤 클래스의 멤버 메서드인 것처럼 호출할 수 있지만 그 클래스의 밖에 선언된 함수다. 확장 함수는 기존 자바 API에 코틀린의 추가 기능을 쉽게 제공할 수 있도록 돕기 위해 등장했다.</p>
+<p>확장 함수를 만들려면 추가하려는 함수 이름 앞에 그 함수가 확장하려는 클래스 이름을 덧붙이면 된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> String.<span class="title">lastChar</span><span class="params">()</span></span>: <span class="built_in">Char</span> = <span class="keyword">this</span>[<span class="keyword">this</span>.length - <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 사용하는 코드</span></span><br><span class="line">println(<span class="string">&quot;hello&quot;</span>.lastChar()) <span class="comment">// o</span></span><br></pre></td></tr></table></figure>
+<p>위 예시는 <code>String</code> 클래스에 마지막 문자를 찾아 반환하는 확장 함수를 추가했다.<br>확장 함수에서 붙여진 클래스 이름을 수신 객체 타입(receiver type) 이라고 부르며 확장 함수가 호출되는 대상이 되는 값을 수신 객체(receiver object)라고 부른다.<br><code>fun String.lastChar(): Char = this.get(this.length - 1)</code><br>위 확장 함수에서는 <code>String</code>이 수신 객체 타입이고, <code>this</code>가 수신 객체가 된다.<br>확장 함수는 자바 클래스로 컴파일한 클래스 파일이 있는 한 원하는대로 확장할 수 있다. 그리고 멤버 메서드와 확장 함수를 통틀어 메서드라고 부르겠다.</p>
+<p>하지만 멤버 메서드와 가장 큰 차이점은 private나 protected 멤버는 확장 함수가 접근할 수 없다.<br>그리고 확장 함수를 사용할 때는 임포트를 해야 한다. (다른 함수와 동일한 이름을 가져서 충돌할 수 있으므로.)</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;패키지&#125;.&#123;확장함수 명&#125;</span><br><span class="line"><span class="keyword">import</span> &#123;패키지&#125;.&#123;확장함수 명&#125; <span class="keyword">as</span> &#123;다른 이름&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>자바에서 확장 함수 활용하기<br>확장 함수는 내부적으로 수신 객체를 첫 매개변수로 가지는 정적 메서드다. 위 예시에서 자바는 다음과 같이 작성하면 된다.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = StringUtilKt.lastChar(<span class="string">&quot;hello&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>이제 <code>joinToString</code> 메서드를 확장 함수로 리팩토링 해보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Collection<span class="type">&lt;T&gt;</span>.<span class="title">joinToString</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    separator: <span class="type">String</span> = <span class="string">&quot;:&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    prefix: <span class="type">String</span> = <span class="string">&quot;&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    postfix: <span class="type">String</span> = <span class="string">&quot;&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span> : String &#123;</span><br><span class="line">    <span class="keyword">val</span> result = StringBuilder(prefix)</span><br><span class="line">    <span class="keyword">for</span> ((index, element) <span class="keyword">in</span> withIndex()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (index &gt; <span class="number">0</span>) result.append(separator)</span><br><span class="line">        result.append(element);</span><br><span class="line">    &#125;</span><br><span class="line">    result.append(postfix)</span><br><span class="line">    <span class="keyword">return</span> result.toString()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 호출 코드</span></span><br><span class="line">println(list.joinToString2(prefix = <span class="string">&quot;&#123;&quot;</span>, postfix = <span class="string">&quot;&#125;&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>확장 함수를 더 엄격하게 사용<br>확장 함수 수신 타입 객체를 더 엄격한 타입을 사용하면 확장 함수를 사용하는 수신 객체를 제한할 수 있다.<br><code>fun &lt;T&gt; Collection&lt;String&gt;.joinToString(...) &#123;...&#125;</code><br>이런 식으로 구현하면 문자열 리스트만 확장 함수를 사용할 수 있게 된다.</p>
+</blockquote>
+<h3 id="확장-함수는-오버라이드-할-수-없다"><a href="#확장-함수는-오버라이드-할-수-없다" class="headerlink" title="확장 함수는 오버라이드 할 수 없다."></a>확장 함수는 오버라이드 할 수 없다.</h3><p>오버라이드는 변수에 저장된 객체의 동적인 타입에 따라 호출할 메서드가 달라지는 기능이다.<br>왜 확장 함수는 오버라이드 할 수 없을까? 확장 함수는 정적으로 선언된 메서드이기 때문이다. 확장 함수는 인스턴스 메서드가 아닌 인스턴스를 매개변수로 받는 정적 메서드이므로 오버라이딩이 불가능하다.</p>
+<blockquote>
+<p>멤버 함수와 확장 함수의 시그니처가 같으면 멤버 함수가 우선한다.</p>
+</blockquote>
+<h2 id="확장-프로퍼티"><a href="#확장-프로퍼티" class="headerlink" title="확장 프로퍼티"></a>확장 프로퍼티</h2><p>확장 프로퍼티를 사용하면 기존 클래스 객체에 프로퍼티 형식의 구문을 사용할 수 있는 API를 추가할 수 있다. 이때 중요한 점은 확장 프로퍼티는 아무 상태도 가질 수 없다. 기존 클래스의 인스턴스 객체에 필드를 추가할 방법이 없기 때문이다. 하지만 프로퍼티 문법으로 더 짧게 코드를 작성할 수 있다.<br>확장 프로퍼티는 마치 프로퍼티 접근 방식과 유사하게 API를 제공하는 것이지 실제로 필드를 가져서 접근자 메서드를 제공하는 것이 아님을 명심하자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> StringBuilder.lastChar: <span class="built_in">Char</span></span><br><span class="line">    <span class="keyword">get</span>() = <span class="keyword">get</span>(length - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">set</span>(value) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setCharAt(length - <span class="number">1</span>, value)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> sb = StringBuilder(<span class="string">&quot;Kotlin?&quot;</span>)</span><br><span class="line">sb.lastChar2 = <span class="string">&#x27;!&#x27;</span></span><br><span class="line">println(sb)</span><br></pre></td></tr></table></figure>
+
+<p>만약 자바에서 사용하려면 다음과 같을 것이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Char lastChar = StringUtilKt.getLastChar();</span><br></pre></td></tr></table></figure>
+
+<h1 id="컬렉션-처리-가변-길이-인자-중위-함수-호출-라이브러리-지원"><a href="#컬렉션-처리-가변-길이-인자-중위-함수-호출-라이브러리-지원" class="headerlink" title="컬렉션 처리: 가변 길이 인자, 중위 함수 호출, 라이브러리 지원"></a>컬렉션 처리: 가변 길이 인자, 중위 함수 호출, 라이브러리 지원</h1><h2 id="가변-인자-함수-인자의-개수가-달라질-수-있는-함수-정의"><a href="#가변-인자-함수-인자의-개수가-달라질-수-있는-함수-정의" class="headerlink" title="가변 인자 함수: 인자의 개수가 달라질 수 있는 함수 정의"></a>가변 인자 함수: 인자의 개수가 달라질 수 있는 함수 정의</h2><p>자바에서는 <code>...</code>으로 가변 인자를 표현할 수 있었다. 코틀린에서는 <code>vararg</code> 변경자를 앞에 붙여주면 된다.<br>대표적인 가변 인자 함수인 <code>listOf</code> 함수의 경우를 살펴보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> listOf<span class="type">&lt;T&gt;</span><span class="params">(varargs values: <span class="type">T</span>)</span></span>: List&lt;T&gt; &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>코틀린은 자바처럼 배열을 바로 가변 인자로 넘겨줄 수 없다. 배열의 원소를 풀어서 각 원소가 인자로 전달되게 해야한다.<br>이 역할을 스프레드 연산자 <code>*</code>가 한다. 스프레드 연산자를 활용하면 배열과 함께 다른 인자들도 같이 전달해줄 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> list = listOf(<span class="string">&quot;args &quot;</span>, *args)</span><br><span class="line">    println(list)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="값의-쌍-다루기-중위-호출과-구조-분해-선언"><a href="#값의-쌍-다루기-중위-호출과-구조-분해-선언" class="headerlink" title="값의 쌍 다루기: 중위 호출과 구조 분해 선언"></a>값의 쌍 다루기: 중위 호출과 구조 분해 선언</h2><p>대표적인 중위 호출인 <code>map</code>에서 <code>to</code> 메서드 호출을 살펴보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map = mapOf(<span class="number">1</span> to <span class="string">&quot;one&quot;</span>, <span class="number">2</span> to <span class="string">&quot;two&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>중위 호출은 수신 객체와 유일한 메서드 인자 사이에 메서드 이름을 넣는다. 다음 두 호출은 동일하다!</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>to(<span class="string">&quot;one&quot;</span>)</span><br><span class="line"><span class="number">1</span> to <span class="string">&quot;one&quot;</span></span><br></pre></td></tr></table></figure>
+<p>중위 호출은 수신 객체의 메서드 중 매개변수가 하나뿐인 경우에 사용할 수 있다.</p>
+<p>실제 <code>to</code> 메서드의 구현을 살펴보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">infix</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;A, B&gt;</span> A.<span class="title">to</span><span class="params">(that: <span class="type">B</span>)</span></span>: Pair&lt;A, B&gt; = Pair(<span class="keyword">this</span>, that)</span><br></pre></td></tr></table></figure>
+<p>일단 <code>infix</code> 키워드를 통해 중위 호출을 사용할 수 있도록 했다. 제네릭을 활용해서 <code>A</code> 수신 객체 타입에 확장 함수로 구현했다.</p>
+<h3 id="구조-분해-선언"><a href="#구조-분해-선언" class="headerlink" title="구조 분해 선언"></a>구조 분해 선언</h3><p><code>to</code> 메서드는 <code>Pair</code> 인스턴스를 반환하는데 <code>Pair</code> 인스턴스로 두 변수를 즉시 초기화 할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> (number, name) = <span class="number">1</span> to <span class="string">&quot;one&quot;</span></span><br></pre></td></tr></table></figure>
+<p>이렇게 <code>number</code> 와 <code>name</code> 두 변수를 <code>Pair</code>를 구조 분해해서 할당했다.</p>
+<p>이런 구조 분해 선언은 루프에서도 사용할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ((index, element) <span class="keyword">in</span> collection.withIndex()) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="문자열과-정규식-다루기"><a href="#문자열과-정규식-다루기" class="headerlink" title="문자열과 정규식 다루기"></a>문자열과 정규식 다루기</h1><p>코틀린 문자열은 자바 문자열과 같다. 다만 코틀린은 확장 함수로 더 다양한 기능을 제공한다.</p>
+<h3 id="문자열-나누기"><a href="#문자열-나누기" class="headerlink" title="문자열 나누기"></a>문자열 나누기</h3><p>코틀린의 <code>split</code>은 정규식으로 나눠야 하는 경우 <code>Regex</code> 객체를 요구한다. 이로써 개발자가 혼동하는 일이 없도록 한다.<br>또한 여러 구분 문자열을 지정할 수 있도록 지원한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> line = <span class="string">&quot;12.345-6.A&quot;</span></span><br><span class="line">println(line.split(<span class="string">&quot;\\.|-&quot;</span>.toRegex()))</span><br><span class="line">println(line.split(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;-&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h1 id="코드-다듬기-로컬-함수와-확장"><a href="#코드-다듬기-로컬-함수와-확장" class="headerlink" title="코드 다듬기: 로컬 함수와 확장"></a>코드 다듬기: 로컬 함수와 확장</h1><p>코드 중복을 줄이기 위해서 메서드 추출을 통해 작은 메서드로 분리하기 시작하면 메서드가 너무 많아져서 코드가 파악하기 어려워진다.<br>코틀린은 함수에서 추출한 함수를 원 함수 내부에 중첩시킬 수 있다.</p>
+<p>먼저 중복되는 예시를 보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> id: <span class="built_in">Int</span>, <span class="keyword">val</span> name: String, <span class="keyword">val</span> address: String)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">saveUser</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (user.name.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;<span class="subst">$&#123;user.id&#125;</span> empty name&quot;</span> )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (user.address.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;<span class="subst">$&#123;user.id&#125;</span> empty email&quot;</span> )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>보면 비슷한 검증로직이 존재한다.</p>
+<p>이를 로컬 함수로 개선해보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">saveUser</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">validate</span><span class="params">(user: <span class="type">User</span>, value: <span class="type">String</span>, fieldName: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (value.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;<span class="subst">$&#123;user.id&#125;</span> empty <span class="variable">$fieldName</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    validate(user, user.name, <span class="string">&quot;Name&quot;</span>)</span><br><span class="line">    validate(user, user.address, <span class="string">&quot;Address&quot;</span>)</span><br><span class="line">    <span class="comment">// save logic...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>함수 안에 함수를 만들어서 중복 코드를 줄였다. 하지만 <code>User</code> 객체를 로컬 함수에게 일일히 전달하는게 아쉽다.<br>사실 그러지 않아도 된다. 로컬 함수는 자신이 속한 바깥 함수의 모든 파라미터와 변수를 사용할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">saveUser</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">validate</span><span class="params">(value: <span class="type">String</span>, fieldName: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (value.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;<span class="subst">$&#123;user.id&#125;</span> empty <span class="variable">$fieldName</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    validate(user.name, <span class="string">&quot;Name&quot;</span>)</span><br><span class="line">    validate(user.address, <span class="string">&quot;Address&quot;</span>)</span><br><span class="line">    <span class="comment">// save logic...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>아재 곰중 로직을 확장 함수로 추출해보자. 이렇게 하면 외부에서 사용되지 않는 로직은  도메인 클래스에서 제거할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> User.<span class="title">validateBeforeSave</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">validate</span><span class="params">(value: <span class="type">String</span>, fieldName: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (value.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;<span class="variable">$id</span> empty <span class="variable">$fieldName</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    validate(name, <span class="string">&quot;Name&quot;</span>)</span><br><span class="line">    validate(address, <span class="string">&quot;Address&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">saveUser4</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">    user.validateBeforeSave()</span><br><span class="line">    <span class="comment">// save logic...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/" data-id="cldwpodwu000qzfa08epl2bfh" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "코틀린 함수 정의와 호출",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "Kotlin in Action",
+        "genre": "",
+        "datePublished": "2023-01-09",
+        "dateCreated": "2023-01-09",
+        "dateModified": "2023-01-10",
+        "url": "https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/",
+        "description": "이번 포스트에서는 코틀린의 컬렉션, 문자열, 정규식 영역에서 함수 정의와 호출을 알아보자.
+
+요약함수를 사용하기 쉽게 만들기확장 함수확장 프로퍼티가변인자, 중위 호출로컬 함수
+
+코틀린에서 컬렉션 만들기코틀린에서는 &#123;컬렉션 종류&#125;Of(~) 이런 형태로 쉽게 컬렉션을 만들 수 있다.
+123val set = hashSetOf(1, 2, 3)va",
+        "wordCount": 2538
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2023/01/10/kotlinInAction/kotlinInActionCh4/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            코틀린의 클래스, 객체, 인터페이스
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2023/01/09/java/java-basic/javaExpressionType/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">자바 식의 결과 타입</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2023/01/09/kotlinInAction/kotlinInActionCh3/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

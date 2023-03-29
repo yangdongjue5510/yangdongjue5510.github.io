@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>5. 수송계층 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="a. 수송 계층 ex. TCP, UDP일반적으로 교환 노드에는 존재하지 않음.(방화벽 같은 예외가 있다.)엔드 시스템에만 존재 보낼 때 조각으로 나눠서 각 조각마다 헤더를 붙여서 보낸다.받을 때는 순서대로 받지는 않는다. 받는 쪽이 수송 계층을 통해 순서를 파악한다. b. 수송 계층 vs 네트워크 계층네트워크 계층 : 어떤 경로로 메시지를 전달할 것인가수송">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. 수송계층">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/09/16/cs/network/network5/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. 수송 계층 ex. TCP, UDP일반적으로 교환 노드에는 존재하지 않음.(방화벽 같은 예외가 있다.)엔드 시스템에만 존재 보낼 때 조각으로 나눠서 각 조각마다 헤더를 붙여서 보낸다.받을 때는 순서대로 받지는 않는다. 받는 쪽이 수송 계층을 통해 순서를 파악한다. b. 수송 계층 vs 네트워크 계층네트워크 계층 : 어떤 경로로 메시지를 전달할 것인가수송">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/network/network5-1.png">
+<meta property="article:published_time" content="2021-09-16T13:03:49.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.030Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/network/network5-1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/network/">Network</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/network/network5" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        5. 수송계층
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/09/16/cs/network/network5/" class="article-date">
+       <time datetime="2021-09-16T13:03:49.000Z" itemprop="datePublished">2021-09-16</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/09/16/cs/network/network5/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.030Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h3 id="a-수송-계층-ex-TCP-UDP"><a href="#a-수송-계층-ex-TCP-UDP" class="headerlink" title="a. 수송 계층 ex. TCP, UDP"></a>a. 수송 계층 ex. TCP, UDP</h3><p>일반적으로 교환 노드에는 존재하지 않음.(방화벽 같은 예외가 있다.)<br>엔드 시스템에만 존재</p>
+<p>보낼 때 조각으로 나눠서 각 조각마다 헤더를 붙여서 보낸다.<br>받을 때는 순서대로 받지는 않는다. 받는 쪽이 수송 계층을 통해 순서를 파악한다.</p>
+<h3 id="b-수송-계층-vs-네트워크-계층"><a href="#b-수송-계층-vs-네트워크-계층" class="headerlink" title="b. 수송 계층 vs 네트워크 계층"></a>b. 수송 계층 vs 네트워크 계층</h3><p>네트워크 계층 : 어떤 경로로 메시지를 전달할 것인가<br>수송 계층 : 도착한 메시지를 어떤 프로세스로 처리할 것인가.<br>(프로세스들은 포트번호로 구분한다.)</p>
+<h3 id="c-인터넷-수송-계층-프로토콜"><a href="#c-인터넷-수송-계층-프로토콜" class="headerlink" title="c. 인터넷 수송 계층 프로토콜"></a>c. 인터넷 수송 계층 프로토콜</h3><p>순서대로 전달, 높은 신뢰성(오류 제어)(TCP)<br>-순서 없이 오거나, 잘못된 메시지가 오거나(비트오류),<br>-아예 도중에 메시지가 잃어버리거나, 같은 메시지를 여러번 받거나…<br>=&gt;TCP는 이를 해결할 능력이 있음.<br>순서 없이 전달, 낮은 신뢰성(UDP)<br>두 기능 모두 속도나 딜레이를 보장하지 못한다.</p>
+<h3 id="d-멀티플렉싱-x2F-디멀티플렉싱"><a href="#d-멀티플렉싱-x2F-디멀티플렉싱" class="headerlink" title="d. 멀티플렉싱&#x2F;디멀티플렉싱"></a>d. 멀티플렉싱&#x2F;디멀티플렉싱</h3><p><img src="/img/network/network5-1.png"></p>
+<p>프로세스가 소켓을 통해 요청을 전달하는데,<br>요청들을 하나로 적절한 헤드로 담아 전달한다. 이를 멀티플렉싱이라 한다.<br>이렇게 전달된 헤더를 해석하여 적절한 행동을 하는 것을 디멀티플렉싱이라 한다.<br>디멀티플렉싱은 목적지 수송지 포트 넘버를 통해 어떤 프로세스에 전달해야할지를 파악한다.</p>
+<p>UDP의 경우(disconnection demux) : 목적지의 포트넘버를 파악해서 포트와 연결된 소켓으로 UDP세그먼트를 전달<br>TCP의 경우(connection-oriented demux) : 소스 ip, 소스 포트넘버, 목적지 ip, 목적지 포트넘버가 모두 일치해야 전달<br><img src="/img/network/network5-2.png"></p>
+<h3 id="e-UDP"><a href="#e-UDP" class="headerlink" title="e. UDP"></a>e. UDP</h3><p>중간 손실이나 순서가 달라져도 특별한 액션을 취하지 않는다.<br>connectionless의 특징.<br>받는 쪽의 프로세스가 작동 중인지 확인하지 않음(no handshaking)(연결설정을 위한 초기지연이 없다)<br>UDP 세그먼트들은 각자 독립적으로 다뤄진다.(세그먼트들이 같이 온 세그먼트인지 관심x)<br>ex. DNS, SNMP</p>
+<p>비트 손상에 민감하지 않지만 딜레이에 민감한 어플리케이션에 자주 활용(비디오, 오디오 스트림)<br>신뢰성 향상을 위해서는 어플리케이션 계층에서 해결해야 한다.<br>헤더가 단순한 구조. 사이즈가 작고 구현이 쉬움</p>
+<h3 id="f-UDP-헤더"><a href="#f-UDP-헤더" class="headerlink" title="f. UDP 헤더"></a>f. UDP 헤더</h3><p><img src="/img/network/network5-3.png"><br>32비트 2개이므로 8바이트.<br>length는 헤더를 포함한 UDP 세그먼트의 바이트 길이.<br>checksum는 오류 발생을 확인<br>sender는 자기가 보낸 메시지를 특정 알고리즘의 결과값과 같이 보내고,<br>receiver는 자기가 받은 메시지를 특정 알고리즘에 넣은 결과값과 같이 온 결과값을 비교하여 오류를 검증<br>1의 보수 연산을 통해 메세지의 합과 알고리즘 결과값의 합이 0이 되는 결과값을 반환.<br>1,2,3,-6 &#x3D;&gt; 0,3,3,-6으로 오는 경우 오류가 발생했지만 checksum으로는 못잡아낼 수 있다.</p>
+<p><img src="/img/network/network5-4.png"></p>
+<h2 id="RDT"><a href="#RDT" class="headerlink" title="RDT"></a>RDT</h2><h3 id="a-신뢰성있는-데이터-전송의-원칙"><a href="#a-신뢰성있는-데이터-전송의-원칙" class="headerlink" title="a. 신뢰성있는 데이터 전송의 원칙"></a><strong>a. 신뢰성있는 데이터 전송의 원칙</strong></h3><p>패켓에 있는 헤더의 특정 정보를 해석을 통해 정보가 제대로 왔는지 확인한다.<br>먼저 어플리케이션 계층에서 수송계층의 RDT의 rdt_send()를 요청하면<br>RDT에서는 정보를 패캣으로 나눠 담고<br>이를 네트워크 계층의 unreliable channel에게 udt_send() 요청을 하게 된다.<br>네트워크를 거쳐 정보가 수송계층에 도착하게 되면 rdt_rcv()요청이 이뤄지고,<br>패캣의 헤더 부분을 실행하고 문제가 없으면 데이터만 꺼내서 deliver_data()요청으로 어플리케이션에게 전달한다.</p>
+<h3 id="b-FSM-Finite-State-Machines-로-rdt-프로토콜-기술"><a href="#b-FSM-Finite-State-Machines-로-rdt-프로토콜-기술" class="headerlink" title="b. FSM (Finite State Machines)로 rdt 프로토콜 기술"></a><strong>b. FSM (Finite State Machines)로 rdt 프로토콜 기술</strong></h3><p><img src="/img/network/network5-5.png"><br>state : 프로그램이 실행되는 단계<br>화살표 : 프로그램의 상태 변화<br>event : 언제 상태변화가 이뤄지는가<br>action : 상태변화에 따라 프로그램이 수행할 동작</p>
+<h3 id="c-rdt-1-0-오류-없는-상황-가정"><a href="#c-rdt-1-0-오류-없는-상황-가정" class="headerlink" title="c.  rdt 1.0 (오류 없는 상황 가정)"></a><strong>c.  rdt 1.0 (오류 없는 상황 가정)</strong></h3><p>비트오류도 없고, 패캣 손실도 없고, out of order(순서오류)도 없다고 가정.<br>수송 계층의 부분만 표현.<br><img src="/img/network/network5-6.png"></p>
+<h3 id="d-rdt-2-0-비트오류가-발생할-수-있는-경우"><a href="#d-rdt-2-0-비트오류가-발생할-수-있는-경우" class="headerlink" title="d. rdt 2.0 (비트오류가 발생할 수 있는 경우)"></a><strong>d. rdt 2.0 (비트오류가 발생할 수 있는 경우)</strong></h3><p>receiver가 재전송을 요구하거나(ARQ), 원본을 추측하여 수정해 사용한다.(FEC)<br>ARQ방식이 일반적.<br>리시버는 ACKs나 NAKs를 센더에게 반환한다.<br>acknowledgements(ACKs) : 문제없음.<br>negative acknowlegements(NAKs) : receiver가 특정 패캣에서 문제 확인&#x3D;&gt;재전송요구.<br><img src="/img/network/network5-7.png"></p>
+<h3 id="e-rdt-2-1"><a href="#e-rdt-2-1" class="headerlink" title="e. rdt 2.1"></a><strong>e. rdt 2.1</strong></h3><p>하지만 데이터가 아닌 컨트롤 메시지(ack, nak)에 문제가 생기면??<br>센더는 이런 문제를 알아차리지 못함.</p>
+<p>이를 막기 위해 센더가 각각의 패캣에 시퀀스 번호를 붙여서 보낸다.(짝수번일땐 0, 홀수번일땐 1)<br>리시버는 동일한 번호로 오는 패캣을 버리는 방식으로 운용하게 된다.<br>이를 stop and wait(보내고 응답기다리고 응답오면 보내기이라 한다.</p>
+<p><img src="/img/network/network5-8.png"></p>
+<p><img src="/img/network/network5-9.png" alt="FSM으로 표현된 리시버"></p>
+<h3 id="f-rdt-2-2"><a href="#f-rdt-2-2" class="headerlink" title="f. rdt 2.2"></a><strong>f. rdt 2.2</strong></h3><p>rdt 2.1에서 NAK를 안쓰고 ACK만 쓰는 것(기능적으로는 동일)<br>ACK를 보낼때 시퀀스번호를 같이 보내는 방식으로 운용</p>
+<h3 id="g-rdt-3-0-패캣-손실이나-오류-발생할-경우"><a href="#g-rdt-3-0-패캣-손실이나-오류-발생할-경우" class="headerlink" title="g. rdt 3.0 (패캣 손실이나 오류 발생할 경우)"></a><strong>g. rdt 3.0 (패캣 손실이나 오류 발생할 경우)</strong></h3><p>센더가 패캣을 보내고 타이머를 통해 ACK가 오지 않을 경우 재전송.<br><img src="/img/network/network5-10.png" alt="센더"><br>rdt 3.0은 오류 처리에는 탁월하지만, 성능이 문제다. 리시버의 신호를 기다리는 동안 회선을 낭비하는 셈.<br>따라서 이런 낭비를 막기위해서는 pipelined protocol. 즉 ack를 받지 않고 데이터를 여러번 보내는 프로토콜이 필요하다.</p>
+<h3 id="h-Pipelined-protocol"><a href="#h-Pipelined-protocol" class="headerlink" title="h. Pipelined protocol"></a><strong>h. Pipelined protocol</strong></h3><p>ACK를 받지 않고도 다음 패캣을 보냄<br><img src="/img/network/network5-11.png"></p>
+<p>n개의 패캣을 ACK없이도 보내되, ACK가 안오면 다시 재전송해야되므로,<br>센더는 ACK가 모두 올 때까지 패캣을 send buffer에 저장하고 있어야한다.</p>
+<h3 id="h-1-Go-back-N"><a href="#h-1-Go-back-N" class="headerlink" title="h-1. Go-back-N"></a><strong>h-1. Go-back-N</strong></h3><p>ACK를 반환할 때 ACK의 시퀀스 끝번호에 해당하는 ACK만 보냄<br>(3개의 패캣을 받으면 3번 ACK만 보냄)<br>(그렇다면 3번까지의 패캣은 잘 전송됐음을 의미)</p>
+<p><img src="/img/network/network5-12.png"></p>
+<p>센드버퍼(윈도우 사이즈)에 ack없이도 보낼 수 있는 패캣들이 존재하고,<br>보냈지만 ack를 아직 받지 않은 패캣 중 가장 오래된 패캣의 순서 번호를 send_base.<br>아직 보내지 않고 대기 중인 패캣 중 가장 빠른 패캣의 순서 번호를 nextseqnum.<br>센더는 ACK를 받지못한 패캣 중 가장 오래된 패캣(send_base)을 기준으로 타이머를 설정함<br>타이머가 만료되면(오랫동안 ACK가 안오면,) ACK를 받지못한 패캣 모두를 재전송한다.</p>
+<p><img src="/img/network/network5-13.png" alt="GBN sender를 FSM"><br><img src="/img/network/network5-14.png" alt="GBN receiver"></p>
+<p>리시버는 오류 없이 순차적으로 받은 패캣 중 시퀀스 넘버가 가장 큰 값을 ACK로 보낸다.<br>expectedseqnum만 변수로 저장.<br>순서에 맞지 않은 패캣은 그냥 버려버리고 ack를 다시 보내줌(버퍼 없음)</p>
+<h3 id="h-2-Selective-Repeat"><a href="#h-2-Selective-Repeat" class="headerlink" title="h-2. Selective Repeat"></a><strong>h-2. Selective Repeat</strong></h3><p>GBN의 불필요한 패캣 버림을 줄이고, 필요한 경우만 재전송하는 방식으로 효율성을 높임</p>
+<p><img src="/img/network/network5-15.png"></p>
+<p>GBN과 다른점은 리시버도 윈도우사이즈(버퍼)를 갖는다는 점.<br>ACK를 반환할 때 개별적으로 반환.<br>센더는 ACK를 받지 못한 개별적인 패캣으로 타이머를 설정.<br>리시버는 전달받지 못한 패캣 시퀀스를 기억하고 있고 센더는 각 패캣의 타이머에 따라 패캣을 다시 보낸다.</p>
+<p><strong>h-2-1 Selective repeat dilemma(GBN에서도 발생)</strong></p>
+<p>만약 시퀀스 넘버를 0,1,2,3으로 채택해 사용한다고 가정.(2비트일때 표현 가능한 수가 0123)<br>윈도우 사이즈는 자연스럽게 3</p>
+<p><img src="/img/network/network5-16.png"></p>
+<p>마지막에 센더가 재전송한 pkt0을 리시버가 4번째 패캣으로 받아들일 문제가 생긴다!!!<br>이것을 해결하려면 윈도우 사이즈를 줄여야한다.<br>=&gt;시퀀스 넘버에 쓰이는 비트 수 &#x3D; n일때, 윈도우 사이즈는 2^(n-1)<br>=&gt;2비트인 경우, 윈도우 사이즈는 2로 해야함<br>=&gt;GBN의 경우 2^n-1</p>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h3 id="a-TCP의-특징-간단요약"><a href="#a-TCP의-특징-간단요약" class="headerlink" title="a. TCP의 특징 간단요약"></a><strong>a. TCP의 특징 간단요약</strong></h3><p>point to point : 한 리시버와 한 센더가 참여.<br>신뢰성(rdt지원), in order 지원<br>pipelined 형식(버전에 따라 gbn, selective 형식 지원)<br>센드 버퍼와 리시브 버퍼 존재<br>한 연결에서 양방향 데이터 흐름<br>connection  oriented(handshaking) 센더와 리시버의 상태정보를 기억.<br>flow controlled 처리 속도보다 전송 속도가 빠를 경우 속도를 조절.</p>
+<h3 id="b-TCH-헤더"><a href="#b-TCH-헤더" class="headerlink" title="b. TCH 헤더"></a><strong>b. TCH 헤더</strong></h3><p><img src="/img/network/network5-17.png"></p>
+<p>sequence number, ack &#x3D;&gt; rdt에 사용되는 기능<br>시퀀스 번호와 ack는 바이트 단위당 1씩 늘어간다.<br>head len(head length) : 디폴트 헤드 20바이트 + option의 길이를 확인. option의 존재 유무 파악<br>UAPRSF &#x3D;&gt;모두 1비트(0과 1 값만 가질 수 있음)<br>U 잘 안쓰임.<br>A ack가 유효한가?<br>P 잘 안쓰임.<br>R reset. 연결리셋 연결강제종료<br>S sync. 연결<br>F final. 연결종료<br>recieve window : 리시버가 현재 받을 수 있는 데이터 량. 플로우컨트롤에 활용<br>check sum : udt에서 check sum과 동일한 기능<br>urg data pointer : 잘 안쓰임<br>option : 있을 수 있고 없을 수도 있는 가변기능(특별한 경우 아니면 잘 안쓰임)</p>
+<h3 id="c-TCP-timer"><a href="#c-TCP-timer" class="headerlink" title="c. TCP timer"></a><strong>c. TCP timer</strong></h3><p>TCP는 데이터에 대한 ack가 정해진 시간내에 오지 않으면 보낸 패캣을 재전송한다.</p>
+<p>이때 정해진 시간을 재는 타이머를 너무 길게, 너무 짧게 설정하면 피해를 본다<br>길게 하면, rtt(데이터가 전송되고, ack가 오는 데 걸리는 시간)이 끝나도 다른 패캣을 보내지 않기 때문에 시간적인 손해를 본다.<br>짧게 하면, 정상적으로 ack가 오고 있는데 패캣을 재전송하는 불필요한 작업을 하게 될 수 있다.</p>
+<p>TCP는 timer를 여유있게 하는편.<br>SampleRTT(측정값)를 다 모아 정규분포 95%의 신뢰도로 타이머를 설정.</p>
+<p>하지만 매번 SampleRTT는 매번 달라져 정규 분포 모양이 달라짐.&#x3D;&gt;SampleRTT 수집방식은 사용할 수 없음.<br>대신 exponential weighted moving average를 사용</p>
+<p>EstimatedRTT (특정 시점에서의 RTT의 가중평균)를 통해 대략적인 평균 RTT를 예상.</p>
+<p><img src="/img/network/network5-18.png" alt="이때 SampleRTT는 지금까지 관찰된 모든 RTT를 의미(알파는 0.125)"></p>
+<p>이를 활용해서 타이머는 EstimatedRTT에 약간의 여유를 줘서 준다.<br>여기서 약간의 여유는 DevRTT(분산값)을 이용한다.<br><img src="/img/network/network5-19.png" alt="측정값 - 평균값 느낌"><br>즉 TimeoutInterval &#x3D; EstimatedRTT + 4*DevRTT로 한다.</p>
+<h3 id="a-TCP의-rdt-신뢰성-있는-데이터-전송"><a href="#a-TCP의-rdt-신뢰성-있는-데이터-전송" class="headerlink" title="a. TCP의 rdt(신뢰성 있는 데이터 전송)"></a><strong>a. TCP의 rdt(신뢰성 있는 데이터 전송)</strong></h3><p>TCP는 ip의 위에서 rdt 서비스를 제공한다.(ip는 신뢰성 없음)​<br>-pipelined 방식 사용(gbn selective 선택 사용)<br>-cumulative ack(누적 ack 방식 사용)<br>-보냈는데 ack를 받지 못한 패캣에 해당하는 타이머 하나를 운용<br>​</p>
+<h3 id="b-TCP-sender"><a href="#b-TCP-sender" class="headerlink" title="b. TCP sender"></a><strong>b. TCP sender</strong></h3><p><img src="/img/network/network5-20.png"><br>​<br>초기에 NextSeqNum과 SendBase를 초기화.<br>상위 계층이 데이터 전송을 요구할 때, nextseqnum에 해당 되는 데이터를 세그먼트 생성하고,<br>nextseqnum을 생성된 데이터 만큼 뒤로 보내고 타이머 실행.</p>
+<p>타이머가 다 되면,​보냈는데 ack를 못받은 데이터 중 시퀀스 넘버가 가장 작은 놈을 다시 보내고 타이머 재시작.<br>ack를 받으면 sendbase를 ack까지 옮김<br>만약 아직 받지 못한 ack가 있다면 타이머를 시작하고 그렇지 않으면 타이머 종료<br>​</p>
+<h3 id="c-TCP-ack-generation"><a href="#c-TCP-ack-generation" class="headerlink" title="c. TCP ack generation"></a><strong>c. TCP ack generation</strong></h3><table>
+<thead>
+<tr>
+<th>event at receiver</th>
+<th>TCP receiver action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>예상한 패캣이 오고 해당 패캣 이전까지는 ack 보냈음</td>
+<td>혹시 다른 패캣이 올지 모르니 500ms 기다린 후 안오면 해당 ack를 보냄.</td>
+</tr>
+<tr>
+<td>예상한 패캣이 왔는데 해당 패캣 이전에 ack를 안보낸 패캣이 있음</td>
+<td>즉시 cumulative ack(누적ack)를 보냄</td>
+</tr>
+<tr>
+<td>예상한 패캣보다 시퀀스 번호가 큰 패캣이 온 경우(gap detected)</td>
+<td>바로 중복된 ack를 보냄.(지금까지 잘 받은 ack, 리시버가 기다리는 시퀀스 넘버이기도.)</td>
+</tr>
+<tr>
+<td>갭을 채우는 패캣이 왔을때</td>
+<td>바로 해당 ack를 보냄</td>
+</tr>
+<tr>
+<td>​</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="d-TCP-fast-retransmit"><a href="#d-TCP-fast-retransmit" class="headerlink" title="d. TCP fast retransmit"></a><strong>d. TCP fast retransmit</strong></h3><p>타이머가 커질 수록 재전송할 때까지 기다리는 시간이 길어지게 된다.<br>=&gt;이런 시간을 줄이려는게 fast retransmit</p>
+<p>센더가 여러 세그먼트를 계속해서 보낼 때,</p>
+<p>만약 어떤 세그먼트가 없을 경우 리시버는 동일한 ack를 중복해서 계속 보내게 된다.​<br>이럴 경우 센더가 세번의 중복 ack를 받을 경우​<br>타이머를 기다리지 않고 ack를 받지 못한 시퀀스번호가 가장 작은 세그먼트를 바로 재전송한다.<br>​</p>
+<h3 id="e-TCP-flow-control"><a href="#e-TCP-flow-control" class="headerlink" title="e. TCP flow control"></a><strong>e. TCP flow control</strong></h3><p>센더가 보내는 양이 리시버가 처리하는 양보다 너무 많으면 이를 조절하는 기능<br>​<br>리시버는 헤더의 receiver window라는 곳에 현재 TCP 리시버 버퍼(RcvBuffer)에<br>남은 공간(rwnd)이 얼마나 있는지를 작성해서 ack에 담아 전송함.<br>​<img src="/img/network/network5-21.png" alt="남은 공간=리시버 버퍼-(받는 속도-처리 속도)"><br>​</p>
+<h3 id="e-TCP-connection-management"><a href="#e-TCP-connection-management" class="headerlink" title="e. TCP connection management"></a><strong>e. TCP connection management</strong></h3><p>리시버와 센더가 서로간의 상태정보(초기 시퀀스넘버, 센더버퍼 사이즈, 리시버버퍼 사이즈)를 연결을 시작할 때 서로 교환<br>하지만 TCP는 2way handshaking을 사용하지 않음<br>=&gt; 응답을 보내고 대답을 듣는 시간이 가변적임.<br><img src="/img/network/network5-22.png"><br>​<br>리시버의 재전송시간이 센더의 타이머보다 늦다보니, 센더가 연결 요청을 다시보내게 되고,<br>다시 보내게 된 연결에 따라 data를 전송하게 된다.(x를 보내야 되는데 x+1을 보내게 됨)<br>이렇게 데이터를 전송한 이후 연결을 닫으면 재전송한 연결요청의 답을 들을 수 없게 된다.<br>그래서 TCP는 3way handshaking을 함<br>​<br><img src="/img/network/network5-23.png"><br>​<br>헤더에 있는 syn을 통해 연결 유무를 판단하고, 양방향 연결을 함.(x,y는 임의의 값)<br>이때 acknum&#x3D;x+1은 비록 연결요청에는 데이터 값이 없지만, 요청 자체가 1비트라고 여겨서 acknum에 +1된것.<br>3 way handshaking은 연결을 닫을 때도 특이하다.<br>​<img src="/img/network/network5-24.png"><br>​<br>클라이언트가 먼저 연결을 종료한다고 가정한 상황이다.<br>헤더에 있는 fin을 활용해 연결 종료 의사를 밝힌다.<br>이것이 전달되면 서버도 ack를 통해 클라이언트의 연결 종료 의사를 확인한다.<br>(이때 중요한 건 서버 쪽은 연결을 종료하지 않았다는 것이다. 단지 클라이언트가 연결, 즉 전송을 종료했을 뿐이다.)<br>​<br>그리고 마지막으로 서버도 종료 의사를 전달하여 클라이언트가 받았을 때 클라이언트는 잠시동안 대기한다.<br>왜냐면 클라이언트가 보낸 종료ack가 서버에 잘 전달 안됐을 수 있기 때문이다.<br>(잘 전달되지 않으면 서버는 종료의사를 다시 재전송하게 된다.)</p>
+<h2 id="TCP-혼잡제어"><a href="#TCP-혼잡제어" class="headerlink" title="TCP 혼잡제어"></a>TCP 혼잡제어</h2><h3 id="a-혼잡"><a href="#a-혼잡" class="headerlink" title="a. 혼잡"></a><strong>a. 혼잡</strong></h3><p>혼잡의 원인 : 라우터에 들어오는 양이 처리량보다 더 커서. 딜레이가 길어지고, 패켓을 잃을 수 있음.<br>라우터의 버퍼가 무제한이라고 가정하면. 데이터 전송이 계속 커질 수록, 데이터 전송 능력(throughput)능력은 같이 오르다가 한계 이후는 정체된다.<br><img src="/img/network/network5-25.png" alt="센더 두 개 리시버 두 개 라우터 하나 상황 가정"><br><img src="/img/network/network5-26.png" alt="이론적으로 인풋량이 늘면 처리량도 한계치까지 비례해서 증가"><br><img src="/img/network/network5-27.png" alt="입력량이 데이터 최대 처리능력에 가까워질 수록 딜레이 증가"><br>하지만 현실엔 다름(라우터 버퍼가 유한함)<br>실제로 유효하게 받은 데이터 처리량을 goodput이라고 한다.</p>
+<p>혼잡이 발생하면 라우터에서 로스가 발생-수신자가 재전송-이럴 경우 재전송 데이터는 goodput에는 포함되지 않음.<br>즉 혼잡이 발생하면 goodput과 throughput이 차이가 나게 된다!</p>
+<p><img src="/img/network/network5-28.png"></p>
+<p>여러 센더가 라우터들을 공유하면서 정보를 전송할 때<br><img src="/img/network/network5-29.png"><br><img src="/img/network/network5-30.png"><br>g호스트 D가 B를 향해 데이터를 주고, A가 C를 향해 데이터를 전송한다고 가정.<br>이때 R1라우터를 같이 사용하게 된다.</p>
+<p>이때 A가 데이터 전송량을 늘리게 되면? B가 받는 정보량이 줄어들게 된다.</p>
+<p>그리고 R1에서 생긴 패캣로스를 다시 재전송하게 되면 R4는 억울하게 정상적으로 했던 일을 다시 또 하게된다.<br>이를 upstream trasmission cpacity의 낭비라고 한다.</p>
+<h3 id="b-혼잡-제어"><a href="#b-혼잡-제어" class="headerlink" title="b. 혼잡 제어"></a><strong>b. 혼잡 제어</strong></h3><p>TCP의 혼잡제어는 해당 라우터를 사용하는 모든 참가자가 다같이 속도를 내리는 방식.</p>
+<h3 id="b-1-additive-increase-multiplicative-decrease-AIMD방식"><a href="#b-1-additive-increase-multiplicative-decrease-AIMD방식" class="headerlink" title="b-1. additive increase multiplicative decrease AIMD방식"></a><strong>b-1.</strong> additive increase multiplicative decrease AIMD방식</h3><p>congestion avoidance 상태에서 적용(전송이 어느정도 진행되고 있을 때 너무 많은 데이터전송을 막음)<br>센더는 네트워크의 혼잡도를 잘 모르니 작은 데이터 먼저 한번 보내보고,</p>
+<p>잘 보내졌음을 알게되면, 더 많은 데이터를 보내보고,<br>이 또한 잘 보내졌으면, 더욱 많은 데이터를 보내고…<br>(딜레이나 로스가 발생하게 되면 전송률을 낮춰서 다시 반복)</p>
+<p>센더는 cwnd(혼잡제어 방식에 있어서 보낼 수 있는 데이터량), rwnd(플로우컨트롤에 의해 보낼 수 있는 양)), sender widow(rdt에서 보낼수 있는 데이터량) 중 가장 작은 값만큼 데이터를 보내기로 정한다.</p>
+<p>TCP sending rate &#x3D; cwnd&#x2F;RTT(대략적으로)</p>
+<h3 id="b-2-TCP-slow-start"><a href="#b-2-TCP-slow-start" class="headerlink" title="b-2. TCP slow start"></a><strong>b-2</strong>. TCP slow start</h3><p>slow start는 센더가 맨 처음 데이터를 한 세그먼트만 보내보는 것을 의미.<br>잘 보내졌으면 두 세그먼 트를, 그 다음엔 네 세그먼트를… 이런식으로 2^n를 하며 전송 데이터를 늘려감.<br>이렇게 데이터를 늘려가다가 혼잡하게 되면, AIMD로 제어. </p>
+<p><img src="/img/network/network5-31.png"><br>초기엔 cwnd&#x3D; 1 mss(최대로 보낼 수 있는 세그먼트량)<br>매 RTT마다 두배로 늘림.</p>
+<h3 id="c-데이터-전송-줄이기"><a href="#c-데이터-전송-줄이기" class="headerlink" title="c. 데이터 전송 줄이기"></a><strong>c. 데이터 전송 줄이기</strong></h3><p>timeout이 발생하거나, 중복된 ack가 세번오면 로스로 간주한다.<br>timeout이 발생 시(TCP Tahoe, 구버전), 전송량(cwnd)를 1mss로 재설정함. 다시 slow start 과정을 진행시킴.<br>slow start 이후로 어떠한 임계값(threshold, 정해진 변수)보다 전송량이 커지게 되면, 선형적으로 증가함.<br>TCP Tahoe는 항상 cwnd를 1mss로 만듬(다른 방식을 지원 안하니..)<br>중복 ack가 세번 온 경우(TCP RENO , 신버전), 전송량(cwnd)를 절반으로 낮춤. 그리고 나서 선형적으로 증가(slow start)아님.<br><img src="/img/network/network5-32.png" alt="Tahoe와 Reno에 따른 대응"></p>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>이벤트</th>
+<th>TCP 센더 대응</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Slow Start(SS)</td>
+<td>전에 보낸 데이터의 ack를 정상적으로 받음</td>
+<td>cwrd가 threshold보다 큰 경우 CA로 변환</td>
+<td>매 RTT마다 cwrd를 두배로</td>
+</tr>
+<tr>
+<td>Congestion Avoidacne(CA)</td>
+<td>전에 보낸 데이터의 ack를 정상적으로 받음</td>
+<td></td>
+<td>매 RTT마다 cwrd를 1 mss씩 증가(additive increase)</td>
+</tr>
+<tr>
+<td>SS or CA</td>
+<td>중복된 ack를 세번 받음   (로스 감지)</td>
+<td>threshold를 cwrd의 절반으로   cwrd를 threshold로 하고   CA로 변환</td>
+<td>Fast Recovery(threshold부터 증가)</td>
+</tr>
+<tr>
+<td>SS or CA</td>
+<td>timeout(로스 감지)</td>
+<td>threshold를 cwrd의 절반으로   cwrd를 1mss로 하고   slow start 상태로 전환</td>
+<td>slow start 진행</td>
+</tr>
+<tr>
+<td>SS or CA</td>
+<td>중복된 ack</td>
+<td>duplicate ack 카운트만 증가</td>
+<td>cwrd나 threshold는 변경 안함</td>
+</tr>
+</tbody></table>
+<h3 id="d-TCP-throughput"><a href="#d-TCP-throughput" class="headerlink" title="d. TCP throughput"></a><strong>d. TCP throughput</strong></h3><p>throughput &#x3D; 시간당 전송률<br>TCP의 throughput은 복잡하므로 간단한 가정이 필요.</p>
+<p>slow start 상태는 제외, 항상 보낼 데이터가 존재함을 가정.<br><img src="/img/network/network5-33.png"></p>
+<p>w&#x3D;로스가 발생할때 cwrd<br>평균 cwrd는 3&#x2F;4w<br>평균 throughput은 3w&#x2F;4rtt<br>이때 가정을 제외하고 현실적인 Throughput은<br><img src="/img/network/network5-34.png"></p>
+<p>이때 L은 로스 발생 확률이다.</p>
+<h3 id="e-TCP-Fairness"><a href="#e-TCP-Fairness" class="headerlink" title="e. TCP Fairness"></a><strong>e. TCP Fairness</strong></h3><p><img src="/img/network/network5-35.png"></p>
+<p>TCP는 여러 사용자가 라우터를 이용하면 결과적으로는 동일한 양의 리소스를 사용하게 된다.<br>두 TCP사용자가 한 라우터를 이용하고, 라우터의 처리양이 100이라고 할 때,<br>(60,20)-전송량 증가-(80,30)-로스발생(값 절반으로 나눔)-(40,15)….이런식으로 가면 결국 (50,50)이됨.</p>
+<h3 id="e-1-TCP-Fairness의-한계"><a href="#e-1-TCP-Fairness의-한계" class="headerlink" title="e-1 TCP Fairness의 한계"></a><strong>e-1</strong> TCP Fairness의 한계</h3><p>UDP와 라우터를 공유하는 경우<br>-UDP가 자원을 더 가져갈 수 있음!</p>
+<p>TCP를 여러개 사용할 때(여러 프로세스 사용)<br>-여러 TCP를 운용하는 호스트가 자원을 더 가져갈 수 있음!</p>
+<h3 id="e-2-Explicit-Congestion-Notification"><a href="#e-2-Explicit-Congestion-Notification" class="headerlink" title="e-2 Explicit Congestion Notification"></a><strong>e-2</strong> Explicit Congestion Notification</h3><p>혼잡이 아닌 다른 경우에 ack를 받지 못하는 경우도 존재한다.<br>근데 이런 경우에도 속도를 줄이는 것은 비효율적!</p>
+<p>이를 해결하기 위해 네트워크에서 혼잡을 일으킨 호스트에게 혼잡임을 알리게 하자.<br>IP헤더의 Tos필드에 혼잡여부를 기록해서 센더에게 전달!</p>
+<p>하지만 많이 사용되지 않음(모든 라우터가 이 기능을 갖춰야하기때문에..)</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/09/16/cs/network/network5/" data-id="cldwpodx3002wzfa07sa1eujk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "5. 수송계층",
+        "image": "https://yangdongjue5510.github.io/img/network/network5-1.png",
+        "keywords": "",
+        "genre": "Computer Science Network",
+        "datePublished": "2021-09-16",
+        "dateCreated": "2021-09-16",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/09/16/cs/network/network5/",
+        "description": "a. 수송 계층 ex. TCP, UDP일반적으로 교환 노드에는 존재하지 않음.(방화벽 같은 예외가 있다.)엔드 시스템에만 존재
+보낼 때 조각으로 나눠서 각 조각마다 헤더를 붙여서 보낸다.받을 때는 순서대로 받지는 않는다. 받는 쪽이 수송 계층을 통해 순서를 파악한다.
+b. 수송 계층 vs 네트워크 계층네트워크 계층 : 어떤 경로로 메시지를 전달할 것인가수송",
+        "wordCount": 2120
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/09/17/cs/network/network6/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            6. 네트워크 계층(라우터)
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/09/16/cs/network/network4/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">4. 어플리케이션(쿠키, 캐쉬, DNS, CDN, 이메일)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/09/16/cs/network/network5/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

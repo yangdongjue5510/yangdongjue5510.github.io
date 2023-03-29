@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>4. 해쉬테이블 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="a. 해시테이블해시 테이블은 일종의 정보를 저장하는 서랍장. a는 2층에 b는 3층에 c는 1층에 넣어두는 방식…b를 보고 싶으면 어떤 서랍에 넣었는지 알아내서, 3층 서랍에 있는 내용 중에 b와 일치하는 것을 찾는 것. 해시테이블은 삽입, 삭제, 검색 연산을 빨리 처리할 수 있다. 만약 순서대로 정보를 서랍장에 넣었을 경우, 어떤 정보를 찾으려 할 때 일">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4. 해쉬테이블">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds4/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. 해시테이블해시 테이블은 일종의 정보를 저장하는 서랍장. a는 2층에 b는 3층에 c는 1층에 넣어두는 방식…b를 보고 싶으면 어떤 서랍에 넣었는지 알아내서, 3층 서랍에 있는 내용 중에 b와 일치하는 것을 찾는 것. 해시테이블은 삽입, 삭제, 검색 연산을 빨리 처리할 수 있다. 만약 순서대로 정보를 서랍장에 넣었을 경우, 어떤 정보를 찾으려 할 때 일">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/ds/hash1.png">
+<meta property="article:published_time" content="2021-07-28T11:00:17.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.028Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/ds/hash1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/data-structure/">Data Structure</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/datastructure/ds4" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        4. 해쉬테이블
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/07/28/cs/datastructure/ds4/" class="article-date">
+       <time datetime="2021-07-28T11:00:17.000Z" itemprop="datePublished">2021-07-28</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/07/28/cs/datastructure/ds4/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.028Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="a-해시테이블"><a href="#a-해시테이블" class="headerlink" title="a. 해시테이블"></a><strong>a. 해시테이블</strong></h2><p>해시 테이블은 일종의 정보를 저장하는 서랍장.</p>
+<p><em>a는 2층에 b는 3층에 c는 1층에 넣어두는 방식…</em><br><em>b를 보고 싶으면 어떤 서랍에 넣었는지 알아내서, 3층 서랍에 있는 내용 중에 b와 일치하는 것을 찾는 것.</em></p>
+<p>해시테이블은 삽입, 삭제, 검색 연산을 빨리 처리할 수 있다.</p>
+<p>만약 순서대로 정보를 서랍장에 넣었을 경우, 어떤 정보를 찾으려 할 때 일일히 순차적으로 찾아야 된다.</p>
+<p>하지만 해시테이블은 그런 식으로 연산하지 않는다. 바로 해시 함수라는 것을 이용하기 때문에 보다 빠른 연산속도를 갖는다.</p>
+<p>해시테이블 자료구조에서 가장 핵심은 각 정보들을 어떤 서랍에 넣을지를 결정하는 것!!!</p>
+<p>정보를 어떤 서랍장(슬롯)에 넣을지를 결정하는 것이 바로 해시 함수!!!(f()로 표현)</p>
+<ol>
+<li><p>예를 들어, 해시 테이블 H를 int H[10]으로 선언해 사용한다고 하자</p>
+</li>
+<li><p>해시 함수는 f(K) &#x3D; K % 10로 정의했다고 하자.</p>
+</li>
+<li><p>K &#x3D; 28은 H[f(28)] 슬롯에 저장된다. 즉 H[8]에 저장된다.</p>
+</li>
+<li><p>근데 K &#x3D; 18도 H[8]에 저장되어야 한다. 근데 이미 H[8]에는 28이 저장되어 있다.<br>이런 경우를 충돌이 발생했다고 한다.</p>
+</li>
+<li><p>충돌이 발생한 경우, 해당 슬롯에 18도 저장할 공간이 더 있으면 그냥 저장하면 되지만,<br>그렇지 않은 경우 18을 다른 곳에 저장해야한다. 이때 다른 곳을 정하는 방법을 충돌해결방법이라 한다.</p>
+</li>
+</ol>
+<p><img src="/img/ds/hash1.png" alt="hash1"></p>
+<p>결국 해시테이블에서 중요한 건</p>
+<ol>
+<li>테이블을 어떤 방식으로 저장할 것인가? : 파이썬에서는 리스트로 저장</li>
+<li>해시 함수를 어떻게 만들 것인가?</li>
+<li>충돌 해결은 어떻게 할 것이가?</li>
+</ol>
+<p>이렇게 세가지가 성능을 좌우한다.</p>
+<h2 id="b-해시-함수"><a href="#b-해시-함수" class="headerlink" title="b. 해시 함수"></a><strong>b. 해시 함수</strong></h2><p>해시 함수에는 어떤 것들이 있는지 살펴보자.</p>
+<h3 id="b-1-완전-해시-함수"><a href="#b-1-완전-해시-함수" class="headerlink" title="b-1. 완전 해시 함수"></a>b-1. 완전 해시 함수</h3><blockquote>
+<p>충돌없이 일대일 매핑하는 해시 함수</p>
+</blockquote>
+<p>예를 들어 100개의 슬롯을 가지고 있는 H에 50개의 값을 저장한다고 할때,</p>
+<p>100^50&#x3D;10^100개의 함수가 만들어질 수 있는데,</p>
+<p>완전 해시 함수는 100C50 &#x3D; 10^94이므로,</p>
+<p>임의의 함수고 완전 해시 함수일 확률은 10^-6으로 아주 작다…</p>
+<p>비현실적이고, 구현하기도 까다롭다.</p>
+<h3 id="b-2-c-universal-해시-함수"><a href="#b-2-c-universal-해시-함수" class="headerlink" title="b-2. c-universal 해시 함수"></a>b-2. c-universal 해시 함수</h3><p>서로 다른 두 key 값 x, y에 대해 prob(f(x)&#x3D;&#x3D;f(y)) &#x3D; c&#x2F;size(H)이 성립하는 해시 함수</p>
+<p>즉 f(x)와 f(y)가 같을 가능성이 c&#x2F;size(H)인 해시 함수를 c-universal 해시 함수라고 한다.</p>
+<p>여기서 c는 0보다 큰 실수 상수이다.</p>
+<p>비교적 골고루 매핑하고 완전해시 함수보다 계산하기 쉬워 현실적이다.</p>
+<h3 id="b-3-현실에서-자주-쓰이는-해시-함수들-key값이-수일-경우"><a href="#b-3-현실에서-자주-쓰이는-해시-함수들-key값이-수일-경우" class="headerlink" title="b-3. 현실에서 자주 쓰이는 해시 함수들 (key값이 수일 경우)"></a>b-3. 현실에서 자주 쓰이는 해시 함수들 (key값이 수일 경우)</h3><p>m &#x3D; 해시테이블의 크기</p>
+<p>mod &#x3D; 나머지를 구하는 연산</p>
+<ol>
+<li><p><strong>Division</strong> : f(k) &#x3D; (k mod p) mod m (p &#x3D; 소수)<br>key 값들의 성질이 잘 알려져 있지 않은 경우에 유용</p>
+</li>
+<li><p><strong>Folding</strong> : key 값이 digit를 나눠 연산하는 형식<br>k&#x3D;1254-387-601 이라 할 때,  </p>
+<ul>
+<li><strong>shift folding</strong> : 두 digit씩 나눠 모두 더한 뒤 mod m -&gt;(12+54+38+76+01) mod m  </li>
+<li><strong>boundary folding</strong> : 여러 digit로 나눈 후 더하는데 짝수번 조각은 거꾸로해서 더함 -&gt;(12+45+38+67+01)mod m</li>
+</ul>
+</li>
+<li><p><strong>Mid-Square</strong> : key 값을 적당히 연산 후, 그 결과의 중간 부를 떼어나 주소로 이용  </p>
+<ul>
+<li>m &#x3D; 1000, k &#x3D; 3121 이면, 3121^2&#x3D;9740641에서 중간에 3digit를 떼어낸 406이 주소가 됨</li>
+</ul>
+</li>
+<li><p><strong>Extraction</strong> : key 값의 각 파트마다 임의의 digit을 떼어내 연결<br>k&#x3D;1254-387-601 일 때 1254의 12, 601에서 1을 떼어내 121을 주소로 함</p>
+</li>
+</ol>
+<h3 id="b-4-현실에서-자주-쓰이는-해시-함수들-key값이-문자열일-경우"><a href="#b-4-현실에서-자주-쓰이는-해시-함수들-key값이-문자열일-경우" class="headerlink" title="b-4. 현실에서 자주 쓰이는 해시 함수들 (key값이 문자열일 경우)"></a>b-4. 현실에서 자주 쓰이는 해시 함수들 (key값이 문자열일 경우)</h3><p>key[i]는 ascii 코드 값 정도로 하자.</p>
+<ol>
+<li><strong>Additive hash</strong> : key[i]의 단순 합</li>
+<li><strong>Rotating hash</strong> : &lt;&lt;, &gt;&gt;(비트 쉬프트) 연산과 ^(xor, exclusive or) 연산을 반복</li>
+<li><strong>Universal hash</strong></li>
+</ol>
+<p><em>#좋은 해쉬 함수란?</em></p>
+<p>충돌이 적어야 한다.</p>
+<p>빠르게 계산할 수 있어야 한다.</p>
+<h2 id="c-충돌-해결-방법"><a href="#c-충돌-해결-방법" class="headerlink" title="c. 충돌 해결 방법"></a><strong>c. 충돌 해결 방법</strong></h2><p>충돌 해결 방법에는 Open addressing과 Chasing 두 가지 방법이 있다.</p>
+<h3 id="c-1-Open-addressing-linear-probing"><a href="#c-1-Open-addressing-linear-probing" class="headerlink" title="c-1. Open addressing : linear probing"></a>c-1. Open addressing : linear probing</h3><p>예시를 통해 이해해보자!</p>
+<p><img src="/img/ds/hash2.png" alt="hash2"></p>
+<ol>
+<li><p>H의 슬롯에는 값 하나만 저장할 수 있다고 가정</p>
+</li>
+<li><p>해시 함수에 의해 알파벳 다음 수가 저장될 슬롯이라고 가정하자</p>
+</li>
+<li><p>open addressing은 내가 들어갈 자리가 이미 차 있다면(충돌이 발생했다면) 아래쪽 슬롯으로 순차적으로 탐색하면서 가장 먼저 만난 빈 슬롯에 저장하는 것이다.</p>
+</li>
+<li><p>만약 마지막 자리까지 차있다면, 맨 처음 슬롯부터 다시 빈 자리를 찾는다.</p>
+</li>
+</ol>
+<h3 id="c-1-1-open-addressing-linear-probing-구현"><a href="#c-1-1-open-addressing-linear-probing-구현" class="headerlink" title="c-1-1. open addressing : linear probing 구현"></a>c-1-1. open addressing : linear probing 구현</h3><p>해시 테이블 H의 각 슬롯에는 하나의 아이템을 저장한다고 하자.</p>
+<p>아이템은 (key, value) 쌍으로 정의되는데,<br>key는 아이템을 구분하는데 쓰이므로 서로 달라야 하고, value는 해당 아이템의 정보를 의미한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashOpenAddr</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, size=<span class="number">10</span></span>):</span></span><br><span class="line">        self.size = size</span><br><span class="line">        self.keys = [<span class="literal">None</span>]*self.size</span><br><span class="line">        self.values = [<span class="literal">None</span>]*self.size</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.size):</span><br><span class="line">            <span class="keyword">yield</span> self.keys[i]</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-1-2-삽입-연산"><a href="#c-1-2-삽입-연산" class="headerlink" title="c-1-2. 삽입 연산"></a>c-1-2. 삽입 연산</h3><h4 id="find-slot-key"><a href="#find-slot-key" class="headerlink" title="find_slot(key) :"></a>find_slot(key) :</h4><p>key값을 갖는 아이템을 찾아 슬롯 번호를 리턴</p>
+<p>key값을 갖는 아이템을 못 찾으면, 해당 아이템이 저장되어야 할 슬롯 번호를 리턴</p>
+<p>만약 슬롯이 존재하지도 않고 빈 슬롯도 없으면 FULL 리턴</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_slot</span>(<span class="params">self, key</span>):</span></span><br><span class="line">        i = self.hash_function(key)</span><br><span class="line">        start = i</span><br><span class="line">        <span class="keyword">while</span> self.keys[i] != <span class="literal">None</span> <span class="keyword">and</span> self.keys[i] != key:</span><br><span class="line">            i = (i+<span class="number">1</span>) % self.size</span><br><span class="line">            <span class="keyword">if</span> i == start : <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> i</span><br></pre></td></tr></table></figure>
+
+<h4 id="set-key-value-find-slot-key-를-요긴하게-사용한다"><a href="#set-key-value-find-slot-key-를-요긴하게-사용한다" class="headerlink" title="set(key, value) : find_slot(key)를 요긴하게 사용한다!!"></a>set(key, value) : <em>find_slot(key)를 요긴하게 사용한다!!</em></h4><p>key 값을 갖는 아이템이 테이블에 있으면 해당 아이템의 value를 매개변수 value로 수정하고 key 리턴</p>
+<p>없다면 새 아이템 (key, value) 삽입하고 key 리턴</p>
+<p>테이블에 빈 슬롯이 없어 삽입하지 못하고 key 값을 갖는 아이템도 못찾았으면 FULL 리턴</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set</span>(<span class="params">self, key, value=<span class="literal">None</span></span>):</span></span><br><span class="line">        i = self.find_slot(key)</span><br><span class="line">        <span class="keyword">if</span> i == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">if</span> self.keys[i]!=<span class="literal">None</span>:</span><br><span class="line">            self.values[i]=value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.keys[i]=key</span><br><span class="line">            self.values[i] = value</span><br><span class="line">        <span class="keyword">return</span> key</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-1-3-삭제-연산"><a href="#c-1-3-삭제-연산" class="headerlink" title="c-1-3. 삭제 연산"></a>c-1-3. 삭제 연산</h3><h4 id="remove-key-어려우니-천천히-살펴보자"><a href="#remove-key-어려우니-천천히-살펴보자" class="headerlink" title="remove(key): 어려우니 천천히 살펴보자"></a>remove(key): <em>어려우니 천천히 살펴보자</em></h4><ol>
+<li><p>key값을 갖는 아이템을 find_slot(key)를 통해 찾고 i에 저장하자</p>
+</li>
+<li><p>H[i]에 해당 값이 없다면, 삭제할 아이템이 실제로 존재하지 않음을 의미. None 리턴</p>
+</li>
+<li><p>H[i]가 존재하면, 이 아이템이 삽입 될 때 다른 아이템이 아래쪽으로 밀렸을 가능성을 생각해야한다  </p>
+<ul>
+<li>아래쪽으로 밀린 아이템이 있다면, 해당 아이템들을 연쇄적으로 위로 올려야 한다.</li>
+</ul>
+</li>
+<li><p>일단 H[i]를 지우고, 아래 쪽 H[j]에 있는 아이템들을 H[i]로 이동할지 결정해야 한다.</p>
+</li>
+<li><p>H[j]의 키 값을 해시함수 결과값을 k로 하자. (즉 원래 들어가야했을 자리를 k라고 하자)</p>
+</li>
+<li><p>이때 k가 i&lt;k&lt;&#x3D;j 면 H[j]를 H[i]로 옮기면 안된다!<br>왜냐면, 원래 위치 k가 j에 있게 된 이유가 i 때문은 아니라는 것을 의미하기 때문이다.<br>즉 i에 밀려 j로 간 게 아니다.(다른 이유로 밀렸을 것이다.)</p>
+</li>
+<li><p>또한 해시 테이블은 원형이기 때문에, i &gt; j 일 가능성도 있다</p>
+</li>
+<li><p>그러면 j가 한바퀴를 돌아 j&lt;i&lt;k, k&lt;&#x3D;j&lt;i 이 두 구간도 옮기면 안된다.<br>(i때문에 k에 있어야 할 게 j로 간 것이 아니므로)</p>
+</li>
+<li><p>이 세가지 경우가 아니라면, H[j]를 H[i]로 옮긴다.<br>(결국 옮기는 경우는 두가지다.  </p>
+<ul>
+<li>k값이 i와 같거나(i 때문에 j로 밀림)  </li>
+<li>k&lt;i&lt;j 이거나 (k에 이미 값이 있어서 내려왔는데 i에도 값이 있어 j로 간 경우))</li>
+</ul>
+</li>
+<li><p>그러면 이제 H[j]가 빈 슬롯이 되니 다시 4번으로 돌아가 반복한다.</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, key</span>):</span></span><br><span class="line">        i = self.find_slot(key)</span><br><span class="line">        j = i</span><br><span class="line">        <span class="keyword">if</span> i == <span class="literal">None</span> : <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">if</span> self.keys[i] == <span class="literal">None</span> : <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            self.keys[i]=<span class="literal">None</span></span><br><span class="line">            self.values[i]=<span class="literal">None</span></span><br><span class="line">            <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                j = (j +<span class="number">1</span>) % self.size</span><br><span class="line">                <span class="keyword">if</span> self.keys[j] == <span class="literal">None</span>:</span><br><span class="line">                    <span class="keyword">return</span> key</span><br><span class="line">                k = self.hash_function(self.keys[j])</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> (i&lt;k&lt;=j <span class="keyword">or</span> j&lt;i&lt;k <span class="keyword">or</span> k&lt;=j&lt;i):</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            self.keys[i] = self.keys[j]</span><br><span class="line">            self.values[i] = self.values[j]</span><br><span class="line">            i = j</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-1-4-탐색-연산"><a href="#c-1-4-탐색-연산" class="headerlink" title="c-1-4. 탐색 연산"></a>c-1-4. 탐색 연산</h3><h4 id="search-key"><a href="#search-key" class="headerlink" title="search(key) :"></a>search(key) :</h4><p>key 값을 갖는 아이템을 찾아 value(혹은 key)값을 리턴</p>
+<p>없으면 None 리턴</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, key</span>):</span></span><br><span class="line">        i = self.find_slot(key)</span><br><span class="line">        <span class="keyword">if</span> i != <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">if</span> self.keys[i] != <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> self.keys[i]</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="c-2-Chaining"><a href="#c-2-Chaining" class="headerlink" title="c-2. Chaining"></a>c-2. Chaining</h3><p>슬롯에 값 하나만 저장하는게 아니라, 각 슬롯마다 연결리스트를 연결하여 슬롯 당 이론적으로 무한한 갯수 값을 저장하는 방법</p>
+<p><img src="/img/ds/hash3.png" alt="hash3"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashChain</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, m</span>):</span></span><br><span class="line">		self.size = m		<span class="comment"># 슬롯의 갯수 m</span></span><br><span class="line">		self.H = [<span class="literal">None</span>] * self.size</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">hash_function</span>(<span class="params">self, key</span>):</span></span><br><span class="line">		<span class="keyword">return</span> f(key)	<span class="comment"># return hash value for key</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">find_slot</span>(<span class="params">self, key</span>):</span></span><br><span class="line">		<span class="comment"># chaining이므로 빈 슬롯을 찾을 필요없이 해시함수값을 리턴</span></span><br><span class="line">		<span class="keyword">return</span> self.hash_function(key)</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">set</span>(<span class="params">self, key, value</span>):</span></span><br><span class="line">		i = self.find_slot(key)</span><br><span class="line">		v = self.H[i].search(key)</span><br><span class="line">		<span class="keyword">if</span> v == <span class="literal">None</span>: <span class="comment"># key 값을 갖는 노드가 없다면 삽입연산</span></span><br><span class="line">			self.H[i].pushFront(key, value) <span class="comment"># (key, value) 노드를 head 노드 위치에 삽입!</span></span><br><span class="line">		<span class="keyword">else</span>: <span class="comment"># 기존의 key값을 갖는 노드가 있으므로 value값 수정</span></span><br><span class="line">			v.value = value</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">remove</span>(<span class="params">self, key</span>):</span></span><br><span class="line">		i = self.find_slot(key)</span><br><span class="line">		v = self.H[i].search(key)</span><br><span class="line">		<span class="keyword">if</span> v == <span class="literal">None</span> <span class="keyword">return</span> NOTFOUND</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			self.H[i].deleteNode(v)</span><br></pre></td></tr></table></figure>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds4/" data-id="cldwpodx1002fzfa0a0msdg8n" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "4. 해쉬테이블",
+        "image": "https://yangdongjue5510.github.io/img/ds/hash1.png",
+        "keywords": "",
+        "genre": "Computer Science Data Structure",
+        "datePublished": "2021-07-28",
+        "dateCreated": "2021-07-28",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds4/",
+        "description": "a. 해시테이블해시 테이블은 일종의 정보를 저장하는 서랍장.
+a는 2층에 b는 3층에 c는 1층에 넣어두는 방식…b를 보고 싶으면 어떤 서랍에 넣었는지 알아내서, 3층 서랍에 있는 내용 중에 b와 일치하는 것을 찾는 것.
+해시테이블은 삽입, 삭제, 검색 연산을 빨리 처리할 수 있다.
+만약 순서대로 정보를 서랍장에 넣었을 경우, 어떤 정보를 찾으려 할 때 일",
+        "wordCount": 1839
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/07/28/cs/datastructure/ds5/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            5. 스택과큐
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/07/28/cs/datastructure/ds3/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">3. 양방향리스트</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds4/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>9. Quick 정렬 알고리즘 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="퀵 정렬 알고리즘이론적으로는 빠르지 않지만(O(n^2)), 실제로는 가장 빠른 정렬 알고리즘quick selection과 비슷한 원리임. not in-place quick sort algorithm 어떤 list A를 퀵 정렬 하려면…   피벗을 A[0]으로 잡고, S,M,L 세가지 배열을 선언함 A에 있는 모든 수들이 피벗보다 크면 L, 작으면 S, 같으">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9. Quick 정렬 알고리즘">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/08/04/cs/algorithm/theory/al9/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="퀵 정렬 알고리즘이론적으로는 빠르지 않지만(O(n^2)), 실제로는 가장 빠른 정렬 알고리즘quick selection과 비슷한 원리임. not in-place quick sort algorithm 어떤 list A를 퀵 정렬 하려면…   피벗을 A[0]으로 잡고, S,M,L 세가지 배열을 선언함 A에 있는 모든 수들이 피벗보다 크면 L, 작으면 S, 같으">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-04T06:10:36.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.027Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/algorithm/">Algorithm</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/algorithm/theory/">Theory</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/algorithm/theory/al9" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        9. Quick 정렬 알고리즘
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/08/04/cs/algorithm/theory/al9/" class="article-date">
+       <time datetime="2021-08-04T06:10:36.000Z" itemprop="datePublished">2021-08-04</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/08/04/cs/algorithm/theory/al9/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.027Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="퀵-정렬-알고리즘"><a href="#퀵-정렬-알고리즘" class="headerlink" title="퀵 정렬 알고리즘"></a>퀵 정렬 알고리즘</h2><p>이론적으로는 빠르지 않지만(O(n^2)), 실제로는 가장 빠른 정렬 알고리즘<br>quick selection과 비슷한 원리임.</p>
+<h3 id="not-in-place-quick-sort-algorithm"><a href="#not-in-place-quick-sort-algorithm" class="headerlink" title="not in-place quick sort algorithm"></a>not in-place quick sort algorithm</h3><blockquote>
+<p>어떤 list A를 퀵 정렬 하려면…</p>
+</blockquote>
+<ol>
+<li>피벗을 A[0]으로 잡고, S,M,L 세가지 배열을 선언함</li>
+<li>A에 있는 모든 수들이 피벗보다 크면 L, 작으면 S, 같으면 M에 append &#x3D;&gt;n-1번 비교</li>
+<li>재귀적으로, quickSort(S)+M+quickSort(L)을 반환하면 끝이다.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">notInPlaceQuickSort</span>(<span class="params">A</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(A)&lt;=<span class="number">1</span>: <span class="keyword">return</span> A</span><br><span class="line">    pivot = A[<span class="number">0</span>]</span><br><span class="line">    S, M, L = [], [], [] <span class="comment">#1.</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> A:<span class="comment">#2.</span></span><br><span class="line">        <span class="keyword">if</span> x&lt; pivot : S.append(x)</span><br><span class="line">        <span class="keyword">elif</span> x&gt;pivot: L.append(x)</span><br><span class="line">        <span class="keyword">else</span> M.append(x)</span><br><span class="line">    <span class="keyword">return</span> notInPlaceQuickSort(S)+M+notInPlaceQuickSort(L)<span class="comment">#3.</span></span><br></pre></td></tr></table></figure>
+
+<p>실행 시간은 T(n)&#x3D; T(S)+T(L)+cn<br><em>#여기서 cn은 n-1번 비교를 상수번 했다는 의미.</em></p>
+<p>최악의 경우는 S, L 중 하나가 0이 되는것.<br>T(n)&#x3D;T(n-1)+cn &#x3D; O(n^2) &#x3D;&gt; 이렇게 될 확률이 낮다!</p>
+<p>최선의 경우는 S, L이 균등하게 나뉘는 것<br>T(n) &#x3D; T(n&#x2F;2)+T(n&#x2F;2)+cn &#x3D; O(n*log n) &#x3D;&gt; 평균적으로 이렇게 시간이 걸림!</p>
+<h5 id="그런데-지금-하는-방식은-배열을-복사해서-하는-방식-즉-not-in-place이다"><a href="#그런데-지금-하는-방식은-배열을-복사해서-하는-방식-즉-not-in-place이다" class="headerlink" title="그런데, 지금 하는 방식은 배열을 복사해서 하는 방식. 즉 not in-place이다."></a>그런데, 지금 하는 방식은 배열을 복사해서 하는 방식. 즉 not in-place이다.</h5><h3 id="in-place-quick-sort-algorithm"><a href="#in-place-quick-sort-algorithm" class="headerlink" title="in-place quick sort algorithm"></a>in-place quick sort algorithm</h3><blockquote>
+<p>다른 방식으로 구현해보자.</p>
+</blockquote>
+<ol>
+<li>인수로 배열 A와, 퀵소트할 첫 인덱스와 끝 인덱스를 전달한다.</li>
+</ol>
+<p>quickSort(A, first, last)</p>
+<ol start="2">
+<li>새로운 배열을 사용하지 않고, A 안에서 분류하기 위해 left, right 변수를 도입한다.</li>
+<li>left는 가장 왼쪽 값(피벗을 제외한), right는 가장 오른쪽 값을 가르킨다.</li>
+</ol>
+<p>left, right &#x3D; first+1, last</p>
+<ol start="4">
+<li>left가 가르키는 수가 피벗보다 더 작으면 다음 수로 넘어간다.</li>
+<li>right는 가르키는 수가 피벗보다 더 크면 이전 수로 넘어간다.(이때 같은 경우도 넘어간다.)</li>
+<li>이제 두 변수가 멈췄고, left가 right보다 작거나 같다면 두 수가 가르키는 값을 바꾼다</li>
+<li>이제 left가 right보다 클 때까지 다시 4-6번을 진행한다.</li>
+</ol>
+<h3 id><a href="#" class="headerlink" title></a></h3><ol start="8">
+<li>이제 first+1 ~ right은 S가 되고, left ~ last는 L이 된다.</li>
+<li>이제 S와 L 사이에 피벗을 집어넣으면 SML 분리가 끝난다.</li>
+<li>이제 S와 L을 재귀적으로 퀵소트하면된다.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span>(<span class="params">A, first, last</span>):</span></span><br><span class="line">    <span class="comment">#1.~3.</span></span><br><span class="line">    <span class="keyword">if</span> first &gt;= last : <span class="keyword">return</span></span><br><span class="line">    left, right = first+<span class="number">1</span>, last</span><br><span class="line">    pivot = A[first]</span><br><span class="line">    <span class="comment">#4.~7.</span></span><br><span class="line">    <span class="keyword">while</span> left &lt;= right: <span class="comment">#7.</span></span><br><span class="line">        <span class="keyword">while</span> left &lt;= last <span class="keyword">and</span> A[left]&lt;pivot: <span class="comment">#4.</span></span><br><span class="line">            left +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> right &gt; first <span class="keyword">and</span> A[right] &gt;=pivot: <span class="comment">#5.</span></span><br><span class="line">            right -=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> left &lt;= right: <span class="comment">#6.</span></span><br><span class="line">            A[left], A[right] = A[right], A[left]</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            right -=<span class="number">1</span></span><br><span class="line">    <span class="comment">#8.~10.</span></span><br><span class="line">    A[first], A[right] = A[right], A[first]</span><br><span class="line">    quickSort(A, first, right-<span class="number">1</span>)</span><br><span class="line">    quickSort(A, right+<span class="number">1</span>, last)</span><br></pre></td></tr></table></figure>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/08/04/cs/algorithm/theory/al9/" data-id="cldwpodxv00bvzfa09b0w6jc8" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "9. Quick 정렬 알고리즘",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "",
+        "genre": "Computer Science Algorithm Theory",
+        "datePublished": "2021-08-04",
+        "dateCreated": "2021-08-04",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/08/04/cs/algorithm/theory/al9/",
+        "description": "퀵 정렬 알고리즘이론적으로는 빠르지 않지만(O(n^2)), 실제로는 가장 빠른 정렬 알고리즘quick selection과 비슷한 원리임.
+not in-place quick sort algorithm
+어떤 list A를 퀵 정렬 하려면…
+
+
+피벗을 A[0]으로 잡고, S,M,L 세가지 배열을 선언함
+A에 있는 모든 수들이 피벗보다 크면 L, 작으면 S, 같으",
+        "wordCount": 586
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/08/04/cs/os/os7/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            7. 프로세스 상태와 스케줄러 알고리즘의 관계
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/08/04/cs/algorithm/theory/al8/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">8. 기본 정렬 알고리즘</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/08/04/cs/algorithm/theory/al9/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

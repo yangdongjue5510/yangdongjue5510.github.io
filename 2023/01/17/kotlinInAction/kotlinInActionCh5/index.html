@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>람다로 프로그래밍 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="Kotlin in Action">
+    
+    <meta name="description" content="람다 식과 멤버 참조람다 식의 문법코틀린의 람다 식은 항상 중괄호로 둘러 쌓여 있다. 그리고 인자 목록을 괄호로 싸지 않는다. 람다를 변수에 저장하고 함수처럼 사용할 수 있다. 123val sum &#x3D; &amp;#123;x: Int, y: Int -&gt; x + y&amp;#125;println(sum(1, 2)) 실행 시점에서 코틀린 람다 호출에는 아무 부가 비굥이 들">
+<meta property="og:type" content="article">
+<meta property="og:title" content="람다로 프로그래밍">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2023/01/17/kotlinInAction/kotlinInActionCh5/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="람다 식과 멤버 참조람다 식의 문법코틀린의 람다 식은 항상 중괄호로 둘러 쌓여 있다. 그리고 인자 목록을 괄호로 싸지 않는다. 람다를 변수에 저장하고 함수처럼 사용할 수 있다. 123val sum &#x3D; &amp;#123;x: Int, y: Int -&gt; x + y&amp;#125;println(sum(1, 2)) 실행 시점에서 코틀린 람다 호출에는 아무 부가 비굥이 들">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-17T10:21:40.000Z">
+<meta property="article:modified_time" content="2023-01-19T08:12:17.152Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="Kotlin in Action">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-kotlinInAction/kotlinInActionCh5" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        람다로 프로그래밍
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2023/01/17/kotlinInAction/kotlinInActionCh5/" class="article-date">
+       <time datetime="2023-01-17T10:21:40.000Z" itemprop="datePublished">2023-01-17</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2023/01/17/kotlinInAction/kotlinInActionCh5/" class="article-date">
+     <time datetime="2023-01-19T08:12:17.152Z" itemprop="dateModified">2023-01-19</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/kotlin-in-action/" rel="tag">Kotlin in Action</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h1 id="람다-식과-멤버-참조"><a href="#람다-식과-멤버-참조" class="headerlink" title="람다 식과 멤버 참조"></a>람다 식과 멤버 참조</h1><h2 id="람다-식의-문법"><a href="#람다-식의-문법" class="headerlink" title="람다 식의 문법"></a>람다 식의 문법</h2><p>코틀린의 람다 식은 항상 중괄호로 둘러 쌓여 있다. 그리고 인자 목록을 괄호로 싸지 않는다. 람다를 변수에 저장하고 함수처럼 사용할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sum = &#123;x: <span class="built_in">Int</span>, y: <span class="built_in">Int</span> -&gt; x + y&#125;</span><br><span class="line"></span><br><span class="line">println(sum(<span class="number">1</span>, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<p>실행 시점에서 코틀린 람다 호출에는 아무 부가 비굥이 들지 않으며 프로그램의 기본 구성 요소와 비슷한 성능을 낸다.</p>
+<p>사람 목록에서 가장 연장자를 찾는 예제를 작성해본다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> people = listOf(Person(<span class="string">&quot;Bob&quot;</span>, <span class="number">10</span>), Person(<span class="string">&quot;Rob&quot;</span>, <span class="number">11</span>))</span><br><span class="line">println(people.maxBy &#123; it.age &#125;)</span><br></pre></td></tr></table></figure>
+<p><code>maxBy</code> 함수에 나이를 반환하는 람다를 전달했다. 이때 <code>maxBy</code> 부분을 최대한 풀어서 쓰면 다음과 같다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy(&#123; p:Person -&gt; p.age &#125;)</span><br></pre></td></tr></table></figure>
+<p>하지말 이렇게 쓰면 너무 번잡하다. 어떻게 간편하게 개선되는지 알아보자.</p>
+<p>먼저 함수의 맨 마지막 인자가 람다면 괄호 밖으로 뺄 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy() &#123; p:Person -&gt; p.age &#125;</span><br></pre></td></tr></table></figure>
+<p>그리고 람다만 가지고 있는 함수에서 람다를 밖으로 빼면 빈 괄호를 생략할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy &#123; p:Person -&gt; p.age&#125;</span><br></pre></td></tr></table></figure>
+<p>마지막으로 람다 파라미터를 컴파일러가 예상할 수 있어서 생략할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy &#123; p.age &#125;</span><br></pre></td></tr></table></figure>
+<p>하지만 람다를 변수에 저장할 때는 파라미터의 타입을 추론할 문맥이 존재하지 않아서 파라미터 타입을 명시해야 한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> getAge = &#123; p: Person -&gt; p.age &#125;</span><br><span class="line">people.maxBy(getAge)</span><br></pre></td></tr></table></figure>
+<p>코틀린에서 람다의 파라미터가 하나뿐이고 그 타입을 컴파일러가 추론할 수 있는 경우 <code>it</code> 키워드를 통해 파라미터를 표현할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy &#123; it.age &#125;</span><br></pre></td></tr></table></figure>
+<p>람다의 본문에 여러 줄이 될 수 있다. 그럴 때는 마지막 줄이 해당 람다의 반환값이 된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sum = &#123; x: <span class="built_in">Int</span>, y: <span class="built_in">Int</span> -&gt;</span><br><span class="line">    println(<span class="string">&quot;<span class="variable">$x</span> and <span class="variable">$y</span>&quot;</span>)</span><br><span class="line">    x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="현재-영역에-있는-변수에-접근"><a href="#현재-영역에-있는-변수에-접근" class="headerlink" title="현재 영역에 있는 변수에 접근"></a>현재 영역에 있는 변수에 접근</h2><p>람다는 함수 파라미터를 람다 안에서 사용하 ㄹ수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printMessageWithPrefix</span><span class="params">(messages: <span class="type">Collection</span>&lt;<span class="type">String</span>&gt;, prefix: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    messages.forEach &#123;</span><br><span class="line">        println(<span class="string">&quot;<span class="variable">$prefix</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>자바와 다르게 코틀린의 람다는 파이널 변수가 아닌 변수에 접근할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printProblemCounts</span><span class="params">(responses: <span class="type">Collection</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> clientErrors = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> serverError = <span class="number">0</span></span><br><span class="line">    responses.forEach &#123;</span><br><span class="line">        <span class="keyword">if</span> (it.startsWith(<span class="string">&quot;4&quot;</span>)) &#123;</span><br><span class="line">            clientErrors++</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (it.startsWith(<span class="string">&quot;5&quot;</span>)) &#123;</span><br><span class="line">            serverError++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    println(<span class="string">&quot;<span class="variable">$clientErrors</span> and <span class="variable">$serverError</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>람다 안에서 사용하는 외부 변수를 람다가 포획한 변수라고 부른다. 만약 함수가 변수를 포획한 람다를 반환한다면 변수의 생명 주기는 함수와 달라지게 된다. 함수가 종료되어도 변수를 포획한 람다를 실행하면 해당 변수를 일고 쓸 수 있다. 파이널 변수를 포획한 경우 람다 코드를 변수 값과 함께 저장한다. 파이널이 아닌 변수는 특별한 래퍼로 감싸서 나중에 변경하거나 읽을 수 있게 한 다음, 래퍼에 대한 참조를 람다 코드와 함께 저장한다.</p>
+<p>다만, 람다를 비동기적으로 실행되는 코드로 활용하는 경우 함수 호출이 끝난 다음에 로컬 변수가 변경될 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">tryToCountButtonClick</span><span class="params">(button: <span class="type">Button</span>)</span></span> : <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> clicks = <span class="number">0</span></span><br><span class="line">    button.onClick &#123; clicks++&#125;</span><br><span class="line">    <span class="keyword">return</span> clicks</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이미 함수에서 로컬변수를 반환해서 변수의 변화를 볼 수 없다.</p>
+<h3 id="멤버-참조"><a href="#멤버-참조" class="headerlink" title="멤버 참조"></a>멤버 참조</h3><p>자바 8의 메서드 참조와 동일한 기능을 코틀린의 멤버 참조로 할 수 있다. 코틀린은 메서드뿐만 아니라 프로퍼티도 가능하다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy(Person::age)</span><br></pre></td></tr></table></figure>
+<p>그리고 최상위로 선언된 함수나 프로퍼티를 참조할 수 있다. 또한 생성자를 참조할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">salute</span><span class="params">()</span></span> = pritnln(<span class="string">&quot;Salute!&quot;</span>)</span><br><span class="line">run(::salute)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> createPerson = ::Person</span><br><span class="line"><span class="keyword">val</span> person = createPerson(<span class="string">&quot;Bob&quot;</span>, <span class="number">11</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="바운드-멤버-참조"><a href="#바운드-멤버-참조" class="headerlink" title="바운드 멤버 참조"></a>바운드 멤버 참조</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> p = Person(<span class="string">&quot;Bob&quot;</span>, <span class="number">11</span>)</span><br><span class="line"><span class="keyword">val</span> personAgeFunc = Person::age</span><br><span class="line">println(personAgeFunc(p))</span><br></pre></td></tr></table></figure>
+<p>코틀린 1.0에서는 클래스의 메서드나 프로퍼티에 참조를 얻고 클래스 인스턴스를 전달해줘야 가능했다. 하지만 코틀린 1.1부터는 바운드 멤버 참조를 지원한다. 바운드 멤버 참조는 클래스 인스턴스를 함께 저장한 다음 그 인스턴스에 대해 멤버를 호출한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> p = Person(<span class="string">&quot;Bob&quot;</span>, <span class="number">11</span>)</span><br><span class="line"><span class="keyword">val</span> personAgeFunc = p::age</span><br><span class="line">println(personAgeFunc())</span><br></pre></td></tr></table></figure>
+
+<h1 id="컬렉션-함수형-API"><a href="#컬렉션-함수형-API" class="headerlink" title="컬렉션 함수형 API"></a>컬렉션 함수형 API</h1><h2 id="필수적인-함수-filter-map"><a href="#필수적인-함수-filter-map" class="headerlink" title="필수적인 함수: filter, map"></a>필수적인 함수: filter, map</h2><p>filter는 특정 조건에 해당하는 원소만 남길 수 있다.<br>map은 원소를 바꾸어서 새 컬렉션을 만든다.</p>
+<h2 id="all-any-count-find-컬렉션에-술어-적용"><a href="#all-any-count-find-컬렉션에-술어-적용" class="headerlink" title="all, any, count, find: 컬렉션에 술어 적용"></a>all, any, count, find: 컬렉션에 술어 적용</h2><p>count는 조건을 만족하는 원소의 갯수를 반환한다. 참고로 filter를 한 컬렉션의 size를 측정하는 것보다 count를 사용하는 것이 결과 컬렉션을 만들지 않아서 더 효과적이다.<br>find는 조건을 만족하는 원소의 첫번째 원소를 반환한다.<br>all은 모든 원소가 조건에 만족하는 지 반환한다.<br>any는 조건에 만족하는 원소가 하나라도 존재하는 지 확인한다.</p>
+<h2 id="groupBy-리스트를-여러-그룹으로-이뤄진-맵으로-변경"><a href="#groupBy-리스트를-여러-그룹으로-이뤄진-맵으로-변경" class="headerlink" title="groupBy: 리스트를 여러 그룹으로 이뤄진 맵으로 변경"></a>groupBy: 리스트를 여러 그룹으로 이뤄진 맵으로 변경</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;ab&quot;</span>, <span class="string">&quot;b&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    println(list.groupBy(String::first)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Map&lt;Int, List&lt;String&gt;&gt;</code>을 만들어서 반환한다. 위 예시는 <code>&#123;a=[a, ab], b=[b]&#125;</code></p>
+<h2 id="flatMap과-flatten-중첩된-컬렉션-안의-원소-처리"><a href="#flatMap과-flatten-중첩된-컬렉션-안의-원소-처리" class="headerlink" title="flatMap과 flatten: 중첩된 컬렉션 안의 원소 처리"></a>flatMap과 flatten: 중첩된 컬렉션 안의 원소 처리</h2><p>flatMap 함수는 먼저 인자로 주어진 람다를 컬렉션의 모든 객체에 적용하고(map) 결과로 얻어지는 여러 리스트를 한 리스트로 모은다(flat).</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> strings = listOf(<span class="string">&quot;abc&quot;</span>, <span class="string">&quot;def&quot;</span>)</span><br><span class="line">println(strings.flatMap &#123; it.toList() &#125;)</span><br></pre></td></tr></table></figure>
+<p>문자열을 list로 매핑하고, 각 매핑된 컬렉션들을 하나의 컬렉션으로 모은다.<br>중첩된 리스트이 원소를 한 리스트로 단순히 모아야 하는 경우 flatten 함수를 사용할 수 있다.</p>
+<h1 id="지연-계산-lazy-컬렉션-연산"><a href="#지연-계산-lazy-컬렉션-연산" class="headerlink" title="지연 계산(lazy) 컬렉션 연산"></a>지연 계산(lazy) 컬렉션 연산</h1><p>map, filter 같은 컬렉션 함수는 컬렉션을 즉시 생성해서 반환한다. 즉 컬렉션 함수를 연쇄적으로 사용하면 매 단계마다 계산 중간 결과를 새로운 컬렉션에 임시로 담는다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">people.map(Person::name)</span><br><span class="line">    .filter &#123; it.startsWith(<span class="string">&quot;A&quot;</span>) &#125;</span><br></pre></td></tr></table></figure>
+<p>이 경우에 map과 filter의 결과를 리스트로 만들어 저장한다. 즉 중간 계산 결과가 두번 저장된다. 중간 게산 결과값이 크면 중간 계산 결과 저장이 비효율적일 것이다.</p>
+<p>코틀린에서는 시퀀스를 통해 중간 임시 컬렉션을 사용하지 않도록 할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">people.asSequence()</span><br><span class="line">    .map(Person::name)</span><br><span class="line">    .filter &#123; it.startsWith(<span class="string">&quot;B&quot;</span>) &#125;</span><br></pre></td></tr></table></figure>
+<p>코틀린 지연 연산 시퀀스는 <code>Sequence</code> 인터페이스에서 시작한다. 이 인터페이스는 iterator라는 메서드를 통해 원소값을 얻어 낸다. 하지만 하나씩 접근하는 것 외에 인덱스로 접근이나 다른 API를 사용하려면 시퀀스를 다른 컬렉션으로 다시 바꿔주자.</p>
+<h2 id="시퀀스-연산-실행-중간-연산과-최종-연산"><a href="#시퀀스-연산-실행-중간-연산과-최종-연산" class="headerlink" title="시퀀스 연산 실행: 중간 연산과 최종 연산"></a>시퀀스 연산 실행: 중간 연산과 최종 연산</h2><p>시퀀스에 적용되는 함수는 일반적인 컬렉션 함수와 다르게 작동한다. 컬렉션 함수는 적용 즉시 컬렉션을 반환하지만, 시퀀스 함수에는 중간 연산과 최종 연산을 나눠서 생각해야 한다. 중간 연산은 최초 시퀀스에서 중간 연산을 적용할 줄 아는 시퀀스이다. 최종 연산은 연산들을 모두 적용한 결과를 반환한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">people.asSequence()</span><br><span class="line">    .map(Person::name)</span><br><span class="line">    .filter &#123; it.startsWith(<span class="string">&quot;B&quot;</span>) &#125;</span><br></pre></td></tr></table></figure>
+<p>이 예시는 중간 연산만 적용되어 있어서 아직 연산이 적용된 결과 값이 만들어지지 않았다. 하지만 다음 예시처럼 최종 연산이 들어가면 비로소 모든 연산이 적용되고 결과값이 반환된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">people.asSequence()</span><br><span class="line">    .map(Person::name)</span><br><span class="line">    .filter &#123; it.startsWith(<span class="string">&quot;B&quot;</span>) &#125;</span><br><span class="line">    .toList()</span><br></pre></td></tr></table></figure>
+<p>여기서 컬렉션과 시퀀스의 연산 적용 방식에 차이를 알아보자.<br>컬렉션은 하나의 연산마다 모든 컬렉션에 적용을 한다. 반면 시퀀스는 하나의 원소에 모든 연산을 모아서 한번에 적용한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>).asSequence()</span><br><span class="line">    .map &#123; it*it &#125;</span><br><span class="line">    .find &#123; it &gt; <span class="number">3</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>위와 같은 예시에서 컬렉션으로 연산했다면, 1 2 3 4 모두 map해야 한다. 그 다음 find를 진행한다.<br>하지만 시퀀스의 경우 1 2만 모든 연산이 적용된다. 왜? 마지막 find는 최초 원소를 찾는데 2에 모든 연산을 적용하고 나서 조건을 만족함을 확인했기 때문에 3 4에 연산을 적용하지 않는 것이다.</p>
+<blockquote>
+<p>자바 스트림과 코틀린 시퀀스의 차이<br>사실 스트림과 매우 비슷하나 스트림의 병렬 처리를 시퀀스에서 제공하지 않는다. 다만 시퀀스는 자바 8보다 낮은 버전에서도 활용할 수 있다.</p>
+</blockquote>
+<h3 id="시퀀스-만들기"><a href="#시퀀스-만들기" class="headerlink" title="시퀀스 만들기"></a>시퀀스 만들기</h3><p><code>asSequence</code>함수와 <code>generateSequence</code> 함수를 통해 시퀀스를 만들 수 있다.<br><code>generateSequence</code> 함수는 첫 원소를 인자로 받고 다음 원소들을 계산하는 법을 람다로 받아서 만든다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> printZeroTo100 = generateSequence(<span class="number">0</span>) &#123; it + <span class="number">1</span>&#125;</span><br><span class="line">    .takeWhile &#123; it &lt;= <span class="number">100</span> &#125;</span><br><span class="line">    .forEach &#123; println(it) &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="자바-함수형-인터페이스-적용"><a href="#자바-함수형-인터페이스-적용" class="headerlink" title="자바 함수형 인터페이스 적용"></a>자바 함수형 인터페이스 적용</h1><h2 id="자바-메소드에-람다로-인자-전달"><a href="#자바-메소드에-람다로-인자-전달" class="headerlink" title="자바 메소드에 람다로 인자 전달"></a>자바 메소드에 람다로 인자 전달</h2><p>함수형 인터페이스를 인자로 요구하는 자바 메서드에 코틀린 람다를 전달해줄 수 있다. 이 경우 컴파일러가 자동으로 람다를 해당 인터페이스의 인스턴스로 변환해준다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// void compute(Runnable computation); 이란 자바코드가 있다고 가정</span></span><br><span class="line">compute &#123; println(<span class="string">&quot;hi&quot;</span>) &#125;</span><br></pre></td></tr></table></figure>
+<p>물론 무명 객체를 전달해줄 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">compute(<span class="keyword">object</span> : Runnable &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">run</span><span class="params">()</span></span> &#123;</span><br><span class="line">       println(<span class="string">&quot;hi&quot;</span>) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>하지만 람다를 전달하는 것과 무명 객체를 전달하는 것은 차이가 있다. 객체를 명시적으로 선언하면 메서드를 호출할 때마다 새로운 객체가 생성된다. 반면 람다는 람다에 대응하는 무명 객체를 메서드가 호출 할때마다 반복 사용한다. (하지만 함수의 변수에 접근하는 람다는 제외)</p>
+<blockquote>
+<p>람다와 무명 클래스 객체의 this 차이<br>무명 클래스 객체의 this는 자기 자신을 가리킨다. 반면 람다는 컴파일 타임에 아직 인스턴스가 없으므로 자기 자신을 가르킬 방법이 없다. 람다에서 this를 가르킬 경우 람다를 감싼 클래스 객체를 가리키게 된다. 만약 자기 자신을 가르켜야 되는 경우는 람다 대신 무명 객체를 활용하자.</p>
+</blockquote>
+<blockquote>
+<p>람다를 무명 클래스의 인스턴스로 변환하는 것은 함수형 인터페이스를 받는 자바 메서드의 경우에만 그렇다.<br>컬렉션 확장 함수 (inline 표시된 코틀린 함수)에게 람다를 전달해도 무명 클래스가 만들어지지 않는다.</p>
+</blockquote>
+<h2 id="SAM-생성자-람다를-함수형-인터페이스로-명시적-변경"><a href="#SAM-생성자-람다를-함수형-인터페이스로-명시적-변경" class="headerlink" title="SAM 생성자: 람다를 함수형 인터페이스로 명시적 변경"></a>SAM 생성자: 람다를 함수형 인터페이스로 명시적 변경</h2><p>SAM 생성자는 람다를 함수형 인터페이스의 인스턴스로 변환할 수 있게 컴파일러가 자동 생성한 함수다. 컴파일러가 자동으로 람다를 함수형 인터페이스의 무명 클래스 인스턴스로 변환하지 못할 때 사용한다. 예를 들어 함수형 인터페이스의 인스턴스를 반환하는 경우 람다로 반환하지 못한다.<br>SAM 생성자는 함수형 인터페이스의 이름과 람다식을 전달해주면 된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">createAllRunnable</span><span class="params">()</span></span> : Runnable &#123;</span><br><span class="line">    <span class="comment">//람다는 안됨 return &#123; println(&quot;GOOD!&quot;)&#125;</span></span><br><span class="line">    <span class="keyword">return</span> Runnable &#123; println(<span class="string">&quot;GOOD!&quot;</span>) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="수신-객체-지정-람다-with-amp-apply"><a href="#수신-객체-지정-람다-with-amp-apply" class="headerlink" title="수신 객체 지정 람다 : with &amp; apply"></a>수신 객체 지정 람다 : with &amp; apply</h1><p>수신 객체를 명시하지 않고 람다에서 다른 객체의 메서드를 호출하는 기능을 수신 객체 지정 람다라고 한다.</p>
+<h2 id="with"><a href="#with" class="headerlink" title="with"></a>with</h2><p>with의 힘을 느껴보기 위해 하나의 예시를 들어보고 with로 리팩토링 해보자</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">alphabet</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">val</span> result = StringBuilder()</span><br><span class="line">    <span class="keyword">for</span> (letter <span class="keyword">in</span> <span class="string">&#x27;a&#x27;</span>..<span class="string">&#x27;z&#x27;</span>) &#123;</span><br><span class="line">        result.append(letter)</span><br><span class="line">    &#125;</span><br><span class="line">    result.append(<span class="string">&quot;\n alphabet end~\n&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> result.toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>여기서 StringBuilder를 with로 처리하면 다음과 같다. with에 수신 객체를 적어두면 람다 내부에서 수신 객체를 적는 대신 this로 접근할 수 있다. 이렇게 하면 다양한 StringBuilder에서 해당 로직을 재활용 할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">alphabet</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">return</span> with(StringBuilder()) &#123;</span><br><span class="line">        <span class="keyword">for</span> (letter <span class="keyword">in</span> <span class="string">&#x27;a&#x27;</span>..<span class="string">&#x27;z&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.append(letter)</span><br><span class="line">        &#125;</span><br><span class="line">        append(<span class="string">&quot;\n alphabet end~ \n&quot;</span>)</span><br><span class="line">        <span class="keyword">this</span>.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>여기서 this를 생략할 수도 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">alphabet</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">return</span> with(StringBuilder()) &#123;</span><br><span class="line">        <span class="keyword">for</span> (letter <span class="keyword">in</span> <span class="string">&#x27;a&#x27;</span>..<span class="string">&#x27;z&#x27;</span>) &#123;</span><br><span class="line">            append(letter)</span><br><span class="line">        &#125;</span><br><span class="line">        append(<span class="string">&quot;\n alphabet end~ \n&quot;</span>)</span><br><span class="line">        toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>메서드 이름 충돌<br>만약 위 예시의 toString이 StringBuilder가 아닌 해당 함수를 감싼 클래스의 toString을 호출하고 싶다면 어떻게 해야되나? <code>this@OuterClass.toString()</code>와 같은 방식으로 적어주면 된다.</p>
+</blockquote>
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply는 with와 같다. 다만 항상 수신 객체를 반환한다. 그리고 확장함수로 정의되어 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">alphabet3</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">return</span> StringBuilder().apply &#123;</span><br><span class="line">        <span class="keyword">for</span> (letter <span class="keyword">in</span> <span class="string">&#x27;a&#x27;</span>..<span class="string">&#x27;z&#x27;</span>) &#123;</span><br><span class="line">            append(letter)</span><br><span class="line">        &#125;</span><br><span class="line">        append(<span class="string">&quot;\n alphabet end~ \n&quot;</span>) </span><br><span class="line">    &#125;.toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>마지막으로 수신 객체 지정 람다를 사용하는 더 구체적인 예시로 buildString 같은 함수가 있다. 인자로 수신 객체 지정 람다를 받으며(매번 수신 객체는 StringBuilder로 고정), StringBuilder 객체 생성과 toString 호출을 알아서 해주는 녀석이다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2023/01/17/kotlinInAction/kotlinInActionCh5/" data-id="cldwpodwv000uzfa086ml9zbt" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "람다로 프로그래밍",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "Kotlin in Action",
+        "genre": "",
+        "datePublished": "2023-01-17",
+        "dateCreated": "2023-01-17",
+        "dateModified": "2023-01-19",
+        "url": "https://yangdongjue5510.github.io/2023/01/17/kotlinInAction/kotlinInActionCh5/",
+        "description": "람다 식과 멤버 참조람다 식의 문법코틀린의 람다 식은 항상 중괄호로 둘러 쌓여 있다. 그리고 인자 목록을 괄호로 싸지 않는다. 람다를 변수에 저장하고 함수처럼 사용할 수 있다.
+123val sum = &#123;x: Int, y: Int -&gt; x + y&#125;println(sum(1, 2))
+실행 시점에서 코틀린 람다 호출에는 아무 부가 비굥이 들",
+        "wordCount": 2258
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2023/01/19/kotlinInAction/kotlinInActionCh6/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            코틀린 타입 시스템
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2023/01/12/sofrwareEngineeringAtGoogle/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">구글 엔지니어는 이렇게 일한다. 문화 편</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2023/01/17/kotlinInAction/kotlinInActionCh5/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

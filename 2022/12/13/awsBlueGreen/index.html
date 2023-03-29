@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>AWS의 Blue-Green 배포 구현 방법 알아보기 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="우아한테크코스">
+    
+    <meta name="description" content="문제 배경우아한테크코스에서 프로젝트를 진행할 때는 우아한테크코스에 AWS 계정을 제공해줘서 EC2를 비용 걱정없이 갯수 상관없이 사용할 수 있었다. 하지만 우아한테크코스를 수료하고 나서는 AWS 계정 제공이 되지 않아서 팀원들이 자체 AWS 계정을 만들어서 인프라를 구축해야 했다. 이때 AWS에서는 프리티어로 RDS 인스턴스 한 개와 EC2 인스턴스 한 개">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS의 Blue-Green 배포 구현 방법 알아보기">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/12/13/awsBlueGreen/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="문제 배경우아한테크코스에서 프로젝트를 진행할 때는 우아한테크코스에 AWS 계정을 제공해줘서 EC2를 비용 걱정없이 갯수 상관없이 사용할 수 있었다. 하지만 우아한테크코스를 수료하고 나서는 AWS 계정 제공이 되지 않아서 팀원들이 자체 AWS 계정을 만들어서 인프라를 구축해야 했다. 이때 AWS에서는 프리티어로 RDS 인스턴스 한 개와 EC2 인스턴스 한 개">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/EBGADeploy-1.png">
+<meta property="article:published_time" content="2022-12-13T09:55:21.000Z">
+<meta property="article:modified_time" content="2022-12-13T16:46:33.137Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="우아한테크코스">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/EBGADeploy-1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/infra/">Infra</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-awsBlueGreen" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        AWS의 Blue-Green 배포 구현 방법 알아보기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2022/12/13/awsBlueGreen/" class="article-date">
+       <time datetime="2022-12-13T09:55:21.000Z" itemprop="datePublished">2022-12-13</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2022/12/13/awsBlueGreen/" class="article-date">
+     <time datetime="2022-12-13T16:46:33.137Z" itemprop="dateModified">2022-12-14</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" rel="tag">우아한테크코스</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h1 id="문제-배경"><a href="#문제-배경" class="headerlink" title="문제 배경"></a>문제 배경</h1><p>우아한테크코스에서 프로젝트를 진행할 때는 우아한테크코스에 AWS 계정을 제공해줘서 EC2를 비용 걱정없이 갯수 상관없이 사용할 수 있었다. 하지만 우아한테크코스를 수료하고 나서는 AWS 계정 제공이 되지 않아서 팀원들이 자체 AWS 계정을 만들어서 인프라를 구축해야 했다.</p>
+<p>이때 AWS에서는 프리티어로 RDS 인스턴스 한 개와 EC2 인스턴스 한 개를 제공해주는 점을 활용해서 최대한 비용을 줄일 수 있다.<br>하지만 기존 프로젝트는 CD와 무중단 배포를 위해 젠킨스를 EC2로 띄워서 구현했다. 그리고 Nginx를 따로 EC2로 띄워서 리버스 프록시 및 로드밸런싱 기능을 할 수 있도록 구축했다. 그래서 하나의 EC2로는 기존의 인프라 구조를 구현하기 어렵다.</p>
+<h1 id="AWS-무중단-배포를-구현하는-여러-방법들"><a href="#AWS-무중단-배포를-구현하는-여러-방법들" class="headerlink" title="AWS 무중단 배포를 구현하는 여러 방법들"></a>AWS 무중단 배포를 구현하는 여러 방법들</h1><p>기존에는 젠킨스의 스크립트로 Nginx를 조절하는 방식으로 우리가 직접 Blue-Green 무중단 배포를 구현하는 방식이었다.<br>하지만 EC2 사용 갯수가 제한된 상황이기 때문에 AWS에서 제공하는 Blue-Green 무중단 배포 방법들을 참고해서 문제를 해결해보자.</p>
+<h2 id="Route-53으로-DNS-라우팅-업데이트"><a href="#Route-53으로-DNS-라우팅-업데이트" class="headerlink" title="Route 53으로 DNS 라우팅 업데이트"></a>Route 53으로 DNS 라우팅 업데이트</h2><p>AWS의 DNS 서비스인 Route 53을 활용해서 무중단 배포를 구현할 수 있다.</p>
+<p><img src="/img/EBGADeploy-1.png" alt="클래식DNS패턴"></p>
+<p>다음과 같은 가중분포의 경우는 점진적으로 Green 환경으로 트래픽을 분산시킬 수 있다. 트래픽의 일부를 새로운 환경에서 처리해보도록 하는 카나리아 배포를 구현할 수 있다. ELB를 사용하면 Green 환경이 점차적으로 전체 프로덕션 부하를 감당하도록 점진적으로 스케일 아웃 할 수 있다. 다만 ELB에서 스케일 아웃은 즉시 이뤄지지 않으니 스케일 아웃이 잘 작동하는 지 모니터링하고 문제를 감지할 수 있도록 구현하는 게 중요하다.</p>
+<p><img src="/img/EBGADeploy-2.png" alt="클래식DNS패턴"></p>
+<p>Green 환경에서 문제가 발견되면 Route 53의 DNS 레코드를 롤백하는 방식으로 Blue 환경으로 롤백시킨다. 하지만 DNS 라우팅은 DNS TTL(클라이언트가 DNS 쿼리를 어느 시간만큼 캐시)를 고려해야 하고,  심지어는 클라이언트에 따라서는 특정 세션이 이전 환경에 연결되어 있는 경우가 존재할 수 있다.</p>
+<h2 id="Elastic-Load-Balancer-뒤에서-Auto-Scaling-그룹-교체"><a href="#Elastic-Load-Balancer-뒤에서-Auto-Scaling-그룹-교체" class="headerlink" title="Elastic Load Balancer 뒤에서 Auto Scaling 그룹 교체"></a>Elastic Load Balancer 뒤에서 Auto Scaling 그룹 교체</h2><p>DNS 라우팅 업데이트를 활용한 방법이 복잡하다면 ELB와 Auto Scaling 그룹을 활용해서 Blue-Green 배포를 구현할 수 있다.</p>
+<p><img src="/img/EBGADeploy-3.png" alt="Auto Scaling 그룹 바꾸기"></p>
+<p>다음과 같이 Blue 환경을 대기 상태로 만들어 놓고 유사 시에 빠르게 이전 버전으로 롤백할 수 있게 구현할 수도 있다. 만약 그럴 필요가 없는 경우는 이전 Auto Scaling 그룹을 폐기하면 된다.</p>
+<p><img src="/img/EBDGDeploy-4.png" alt="Auto Scaling 그룹 대기 및 폐기"></p>
+<p>이 방식은 DNS 방식만큼 세분하게 구현할 수는 없지만 DNS가 복잡하다면 도입해볼만 하다.</p>
+<h2 id="Elastic-Beanstalk-애플리케이션-환경-교체"><a href="#Elastic-Beanstalk-애플리케이션-환경-교체" class="headerlink" title="Elastic Beanstalk 애플리케이션 환경 교체"></a>Elastic Beanstalk 애플리케이션 환경 교체</h2><p>EB를 활용하면 인프라에 대한 지식이 많지 않아도 쉽게 애플리케이션을 배포할 수 있다. 배포하려는 어플리케이션 번들과 어플리케이션 버전, 멏 가지 정보를 제공하면 EB가 해당 정보를 기반으로 어플리케이션을 배포하고 어플리케이션에 액세스할 수 있는 URL을 제공한다.</p>
+<p><img src="/img/EBGADeploy-5.png" alt="EB 배포 환경"></p>
+<p>EB는 Auto Scaling 그룹을 추가하는 방식이나 일부 인스턴스를 업데이트하는 방식으로 하나의 환경 안에서 롤링 방식으로 무중단 배포를 구현할 수 있다.</p>
+<p><img src="/img/prepare-green-elastic.png" alt="EB Blue-Green 배포"><br>EB를 활용해서 Blue-Green 배포를 할 수도 있다. 배포되고 있던 환경과 동일한 환경을 만들고 해당 환경을 새 버전 어플리케이션으로 교체한 다음 새로운 환경의 URL을 DNS에서 업데이트 하는 방식으로 설계할 수 있다.</p>
+<h1 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h1><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/implementation-techniques.html">https://docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/implementation-techniques.html</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2022/12/13/awsBlueGreen/" data-id="cldwpodwn0001zfa0g37zhq9s" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "AWS의 Blue-Green 배포 구현 방법 알아보기",
+        "image": "https://yangdongjue5510.github.io/img/EBGADeploy-1.png",
+        "keywords": "우아한테크코스",
+        "genre": "Infra",
+        "datePublished": "2022-12-13",
+        "dateCreated": "2022-12-13",
+        "dateModified": "2022-12-14",
+        "url": "https://yangdongjue5510.github.io/2022/12/13/awsBlueGreen/",
+        "description": "문제 배경우아한테크코스에서 프로젝트를 진행할 때는 우아한테크코스에 AWS 계정을 제공해줘서 EC2를 비용 걱정없이 갯수 상관없이 사용할 수 있었다. 하지만 우아한테크코스를 수료하고 나서는 AWS 계정 제공이 되지 않아서 팀원들이 자체 AWS 계정을 만들어서 인프라를 구축해야 했다.
+이때 AWS에서는 프리티어로 RDS 인스턴스 한 개와 EC2 인스턴스 한 개",
+        "wordCount": 440
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2022/12/14/nonStopDeployWithEB/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Elastic Beanstalk와 Github Actions를 활용해서 CICD 무중단 배포 구현하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2022/10/26/java/woowa-tech-course/howToUseHttpClient/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Java11의 HttpClient로 서버에서 다른 API로 요청 보내기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/12/13/awsBlueGreen/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

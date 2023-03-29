@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>8. 네트워크 계층 :제어 평면(라우팅 알고리즘) | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="a. 라우팅 알고리즘라우팅이 송신자부터 수신자까지 라우터의 네트워크를 통과하는 좋은 경로를 결정하는 것. 여기서 좋은 경로란 최소 비용 경로를 의미.(비용은 금전적, 시간적, 혼잡 등을 폭넓게 의미) a-1. 라우팅 알고리즘 그래프 라우팅을 표현하는 데 쓰이는 도식. 일반적으로 G&#x3D;(N, E) 나타냄 N : 노드의 집합, E : 엣지의 집합. 노드">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8. 네트워크 계층 :제어 평면(라우팅 알고리즘)">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/11/17/cs/network/network8/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="a. 라우팅 알고리즘라우팅이 송신자부터 수신자까지 라우터의 네트워크를 통과하는 좋은 경로를 결정하는 것. 여기서 좋은 경로란 최소 비용 경로를 의미.(비용은 금전적, 시간적, 혼잡 등을 폭넓게 의미) a-1. 라우팅 알고리즘 그래프 라우팅을 표현하는 데 쓰이는 도식. 일반적으로 G&#x3D;(N, E) 나타냄 N : 노드의 집합, E : 엣지의 집합. 노드">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.kakaocdn.net/dn/cC6RbM/btq64gXA4Ak/WOrhkGvj5kodXmHrQEiXxK/img.png">
+<meta property="article:published_time" content="2021-11-17T11:24:54.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.030Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.kakaocdn.net/dn/cC6RbM/btq64gXA4Ak/WOrhkGvj5kodXmHrQEiXxK/img.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/network/">Network</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/network/network8" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        8. 네트워크 계층 :제어 평면(라우팅 알고리즘)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/11/17/cs/network/network8/" class="article-date">
+       <time datetime="2021-11-17T11:24:54.000Z" itemprop="datePublished">2021-11-17</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/11/17/cs/network/network8/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.030Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h3 id="a-라우팅-알고리즘"><a href="#a-라우팅-알고리즘" class="headerlink" title="a. 라우팅 알고리즘"></a><strong>a. 라우팅 알고리즘</strong></h3><p>라우팅이 송신자부터 수신자까지 라우터의 네트워크를 통과하는 좋은 경로를 결정하는 것.</p>
+<p>여기서 좋은 경로란 최소 비용 경로를 의미.(비용은 금전적, 시간적, 혼잡 등을 폭넓게 의미)</p>
+<h4 id="a-1-라우팅-알고리즘-그래프"><a href="#a-1-라우팅-알고리즘-그래프" class="headerlink" title="a-1. 라우팅 알고리즘 그래프"></a><strong>a-1. 라우팅 알고리즘 그래프</strong></h4><p><img src="https://blog.kakaocdn.net/dn/cC6RbM/btq64gXA4Ak/WOrhkGvj5kodXmHrQEiXxK/img.png" alt="img"></p>
+<p>라우팅을 표현하는 데 쓰이는 도식.</p>
+<p>일반적으로 G&#x3D;(N, E) 나타냄</p>
+<p>N : 노드의 집합, E : 엣지의 집합.</p>
+<p>노드는 패킷 포워딩 결정이 이뤄지는 지점인 라우터</p>
+<p>엣지는 노드들을 연결하는 물리 링크</p>
+<p>c(x, y) 는 노드 x, y간의 비용을 의미한다.</p>
+<p>이 값이 무한대면 x와 y가 이웃하지 않는다는 것을 의미</p>
+<p>에지 (x, y)가 E에 속하면 노드 y는 노드 x의 이웃</p>
+<h4 id="a-2-중앙-집중형-라우팅-알고리즘-링크-상태-알고리즘"><a href="#a-2-중앙-집중형-라우팅-알고리즘-링크-상태-알고리즘" class="headerlink" title="a-2. 중앙 집중형 라우팅 알고리즘(링크 상태 알고리즘)"></a><strong>a-2. 중앙 집중형 라우팅 알고리즘(링크 상태 알고리즘)</strong></h4><p><strong>네트워크 전체에 대한 완전한 정보</strong>를 가지고 경로의 최소 비용을 계산</p>
+<p>라우터들이 이웃에 대한 정보만 알고, 이를 네트워크 내부 라우터들에게 <strong>브로드캐스트해서 정보 전달</strong></p>
+<p><em>#브로드캐스트 vs 유니캐스트</em></p>
+<p>유니캐스트는 한 곳에서 출발해서 한 목적지로 도착.</p>
+<p>브로드캐스트는 한 곳에서 출발해서 여러 목적지로 도착.</p>
+<h4 id="a-2-1-다익스트라-알고리즘"><a href="#a-2-1-다익스트라-알고리즘" class="headerlink" title="a-2-1. 다익스트라 알고리즘."></a><strong>a-2-1. 다익스트라 알고리즘.</strong></h4><p>링크 상태 알고리즘(모든 노드의 링크 cost를 알고 있음)</p>
+<p>D(v) : 목적지 v까지의 최소 비용 경로의 비용</p>
+<p>p(v) : v까지 현재 최소 비용 경로에서 v의 직전 노드(v의 이웃)</p>
+<p>N’: 노드 집합. 어떤 v까지 최소비용 경로가 알려져있으면 v는 N’에 포함</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Initialization : <span class="comment">#초기화</span></span><br><span class="line">    N<span class="string">&#x27;=&#123;u&#125;	#출발지 u</span></span><br><span class="line"><span class="string">    for all nodes v:</span></span><br><span class="line"><span class="string">    	if v is a neighbor of u:</span></span><br><span class="line"><span class="string">        	then D(v) = c(u,v)</span></span><br><span class="line"><span class="string">        else : D(v) = 무한대</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Loop</span></span><br><span class="line"><span class="string">    find w not in N&#x27;</span> such that D(w) <span class="keyword">is</span> a minimum	<span class="comment">#N&#x27;에 포함되지 않은 노드 중 최소 경로인 w</span></span><br><span class="line">    add w to N<span class="string">&#x27;</span></span><br><span class="line"><span class="string">    update D(v) for each neighbor v of w and not in N&#x27;</span>:</span><br><span class="line">    D(v)=<span class="built_in">min</span>(D(v), D(w)+c(w,v))</span><br><span class="line">until N<span class="string">&#x27; = N</span></span><br></pre></td></tr></table></figure>
+
+<p>이 방식은 각 노드에 대해서 최소 비용 경로상의 직전 노드를 알게됨.</p>
+<p>직전 노드를 반복해서 구하다보면 최소 비용 경로를 구축가능.</p>
+<p><img src="https://blog.kakaocdn.net/dn/37d1r/btq66jZSOWl/5JSo74Xt6v7emDCyYDEZdk/img.png" alt="img"><img src="https://blog.kakaocdn.net/dn/bYlNr5/btq650zuLRm/G0JUXYMg25ldlajTpbkmt1/img.png" alt="img"></p>
+<p>이 방식에서 최악의 경우 얼마나 많은 계산이 필요한가?</p>
+<p>첫번째 루프에서 출발지 제외 n개를 검사하여 하나를 골라 수행.</p>
+<p>두번째 루프에서 n-1개를 검사해 하나를 골라 수행…</p>
+<p>이런 식으로 <strong>총 n(n+1)&#x2F;2개를 검사</strong>해야 함. 즉 **O(n^2)**의 복잡성을 가짐</p>
+<p>하지만 이 방식은 혼잡에 따른 <strong>경로 진동이 발생가능.</strong></p>
+<p>경로에 골고루 분배되는게 아닌 한쪽에 쏠려서 진행.</p>
+<p><img src="https://blog.kakaocdn.net/dn/bO1Cna/btq665tyk7u/KtTfqOWPUe1Tns2s8hLPoK/img.png" alt="img"></p>
+<p><em>1. 초기에 D가 A로 1을 보내려 하고, B가 A로 1을 보내려 하고, C가 A로 e만큼의 트래픽을 보내려 할 때, 경로의 cost가 계산되었다.</em></p>
+<p><em>2. 1의 결과를 토대로 최소 경로를 다시 찾으면, C-D-A 쪽 링크에 트래픽이 쏠리게 된다.</em></p>
+<p><em>3. 2의 결과를 토대로 최소 경로를 다시 찾으면, C-B-A 쪽 링크에 트래픽이 쏠리게 된다.</em></p>
+<p><em>4. 3의 결과를 토대로 최소 경로를 다시 찾으면, C-D-A 쪽 링크에 트래픽이 쏠리게 된다…..이후 무한 반복하게 되겠지?</em></p>
+<h4 id="a-3-분산-라우팅-알고리즘"><a href="#a-3-분산-라우팅-알고리즘" class="headerlink" title="a-3. 분산 라우팅 알고리즘"></a><strong>a-3. 분산 라우팅 알고리즘</strong></h4><p><strong>자신과 이웃한 링크에 대한 정보만</strong> 가지고 시작.</p>
+<p>반복된 계산과 이웃 노드와의 정보 교환을 통해 점차적으로 목적지까지의 최소 비용 경로 계산</p>
+<h4 id="a-3-1-벨만-포트-식"><a href="#a-3-1-벨만-포트-식" class="headerlink" title="a-3-1. 벨만-포트 식"></a><strong>a-3-1. 벨만-포트 식</strong></h4><p>x부터 y까지 최소 비용 경로 비용 dx(y)</p>
+<p>x의 모든 가능한 모든 이웃 v 일때</p>
+<p>벨만-포트 식 : **dx(y)&#x3D; minv{c(x,v) + dv(y)}**이다.</p>
+<p>이 식은 라우터들의 엔트리 설정에 도움이 된다.</p>
+<p>(어떤 지역의 라우터로 가려면 <strong>특정 라우터를 사용하는 것이 유리함을 알려줌</strong>)</p>
+<p><img src="https://blog.kakaocdn.net/dn/Yi8Pb/btq63MP28gp/Wa5KOitnyedK9XNdZ4vv9k/img.png" alt="img"></p>
+<h4 id="a-3-2-거리-벡터-알고리즘-DV-알고리즘"><a href="#a-3-2-거리-벡터-알고리즘-DV-알고리즘" class="headerlink" title="a-3-2. 거리 벡터 알고리즘(DV 알고리즘)"></a><strong>a-3-2. 거리 벡터 알고리즘(DV 알고리즘)</strong></h4><p>Dx&#x3D;[Dx(y): y in N] 노드 x에서 N에 속한 모든 다른 노드 y까지의 비용 추정값의 벡터.</p>
+<p>DV알고리즘에 의해 노드 x는 다음 정보를 얻게 됨</p>
+<p><em>1. 모든 이웃 노드 v의 비용 c(x,y)</em></p>
+<p><em>2. 노드 x의 거리 벡터 Dx</em></p>
+<p><em>3. 이웃 노드들의 거리 벡터. Dv</em></p>
+<p>노드 x가 이웃 w의 거리 벡터를 받으면, 벨만-포트 식을 사용해 자신의 거리 벡터를 수정</p>
+<p>비동기적으로 거리 벡터를 교환하다보면, 비용 추정값 Dx(y)가 실제 최소 비용 경로의 비용 dx(y)에 수렴!</p>
+<p><img src="https://blog.kakaocdn.net/dn/blQMGx/btq62Wk5axL/v2WKwykr8joBreqcEt9Bnk/img.png" alt="img"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Initialization:</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">all</span> destination y <span class="keyword">in</span> N:</span><br><span class="line">        Dx(y) = c(x,y) <span class="comment">#y과 이웃이 아니면 c(x,y)는 무한대</span></span><br><span class="line">    <span class="keyword">for</span> each neighbor w:</span><br><span class="line">    Dw(y)= ? <span class="keyword">for</span> <span class="built_in">all</span> destination y <span class="keyword">in</span> N</span><br><span class="line">    <span class="keyword">for</span> each neighbor w</span><br><span class="line">        send distance vector Dx = to w</span><br><span class="line">Loop</span><br><span class="line">    wait util I see a link cost change to some neighbor w <span class="keyword">or</span> </span><br><span class="line">    until i receive a distance vector <span class="keyword">from</span> some neigbor w</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> each y <span class="keyword">in</span> N:</span><br><span class="line">    	Dx(y)= minv&#123;c(x,v) + Dv(y)&#125;</span><br><span class="line"><span class="keyword">if</span> Dx(y) changed <span class="keyword">for</span> <span class="built_in">any</span> destination y:</span><br><span class="line">	send distance vector Dx to <span class="built_in">all</span> neighbors</span><br><span class="line">    </span><br><span class="line">forever</span><br></pre></td></tr></table></figure>
+
+<p><em>링크 비용 변경 시-&gt;자신의 거리 벡터 갱신-&gt;최소 비용거리 비용에 변화시 이웃에 거리 벡터 보냄</em></p>
+<h4 id="a-3-3-링크-비용이-증감에-따른-전파속도의-차이가-존재한다"><a href="#a-3-3-링크-비용이-증감에-따른-전파속도의-차이가-존재한다" class="headerlink" title="a-3-3 링크 비용이 증감에 따른 전파속도의 차이가 존재한다."></a><strong>a-3-3 링크 비용이 증감에 따른 전파속도의 차이가 존재한다.</strong></h4><p><img src="https://blog.kakaocdn.net/dn/U9nOZ/btq67OkQ3Tr/dKgkHJmKBGkIzVvxoY60wk/img.png" alt="img"><img src="https://blog.kakaocdn.net/dn/ctKjxs/btq63M3CGXA/o32PN7suvKnUDYF6LyQ3g0/img.png" alt="img"></p>
+<p><em>감소하는 경우</em></p>
+<p>\1. y가 가진 정보는  Dy(x)&#x3D;4, Dy(z)&#x3D;1, Dz(y)&#x3D;1, Dz(x)&#x3D;5이다.</p>
+<p>\2. x-y의 링크가 1로 감소함을 y가 인지해 Dy(x)&#x3D;1 로 수정해 이를 이웃에게 알림</p>
+<p>\3. z는 변경된 벡터를 기반으로 Dz(x)를 5에서 2로 변경</p>
+<p>\4. y는 z로부터 변경된 벡터를 받지만 y의 최소비용은 변화하지 않음.</p>
+<p><em>증가하는 경우</em></p>
+<p>\1. y가 가진 정보는 Dy(x)&#x3D;4, Dy(z)&#x3D;1, Dz(y)&#x3D;1, Dz(x)&#x3D;5이다.</p>
+<p>\2. x-y의 링크가 60으로 증가함을 y가 인식했을 때, Dy(x)&#x3D;Dy(z)+Dz(x)&#x3D;1+5&#x3D;6이 된다.<br>(여기서 Dz(x)가 5로 설정한건 당연히 잘못된 것이다. 하지만 y는 현 시점에 그를 알아차리지 못한다.)</p>
+<p>\3. z는 변경된 벡터를 기반으로 Dz(x)&#x3D;min{c(z,x), Dz(y)+Dy(x)}를 5에서 7으로 바꾼다.</p>
+<p>\4. y는 z로부터 변경된 벡터를 받아 Dy(x)를 6에서 8로 바꾼다.(z가 Dz(x)를 바꿨으니, Dy(x)&#x3D;Dy(z)+Dz(x)의 값이 변한 것)</p>
+<p>다시 z는 y로부터 변경된 벡터를 받아…</p>
+<p>zyzyzyz…..의 cost가 50&#x3D;c(z,x)보다 커질 때까지 1~4를 반복한다.(44번 반복되어야 된다.)*<br>(이렇게 테이블이 설정되면 y에서 x로 데이터를 보낼 경우 y는 z로 보내고 z는 y로 보내는 라우팅 루프가 발생한다.!!!!)*</p>
+<h4 id="a-3-4-포이즌-리버스-3개-이상의-노드가-참여하는-loop에는-적용-불가"><a href="#a-3-4-포이즌-리버스-3개-이상의-노드가-참여하는-loop에는-적용-불가" class="headerlink" title="a-3-4. 포이즌 리버스(3개 이상의 노드가 참여하는 loop에는 적용 불가)"></a><strong>a-3-4. 포이즌 리버스(3개 이상의 노드가 참여하는 loop에는 적용 불가)</strong></h4><p>라우팅 루프를 방지하는 방법.</p>
+<p>만약 z가 y를 통해서 목적지 x로 가는 경로를 설정 시, z는 y에게 x까지의 거리가 무한대라고 알림.</p>
+<p>(상대방을 활용하여 특정 목적지로 가는 경우, 상대방이 나에게 특정 목적지에 대한 최소경로를 물으면 무한대라고 알려주기)</p>
+<p>\1. y가 가진 정보는 Dy(x)&#x3D;4, Dy(z)&#x3D;1, Dz(y)&#x3D;1, Dz(x)&#x3D;5이다.</p>
+<p>\2. x-y의 링크가 60으로 증가함을 y가 인식하여 Dy(x)를 구할 때, Dy(z)+Dz(x)&#x3D;1+5무한대 c(y,x)인 60이 Dy(x)가 된다.</p>
+<p>\3. z는 변경된 벡터를 기반으로 Dz(x)&#x3D;min{c(z,x), Dz(y)+Dy(x)}를 50으로 바꾼다.</p>
+<p>\4. y는 z로부터 변경된 벡터를 받아 Dy(x)를 60에서 c(y,z)+Dz(x)&#x3D;1+50&#x3D;51로 바꾼다.</p>
+<h4 id="a-4-링크-상태-알고리즘과-거리-벡터-라우팅-알고리즘의-비교"><a href="#a-4-링크-상태-알고리즘과-거리-벡터-라우팅-알고리즘의-비교" class="headerlink" title="a-4. 링크 상태 알고리즘과 거리 벡터 라우팅 알고리즘의 비교"></a><strong>a-4. 링크 상태 알고리즘과 거리 벡터 라우팅 알고리즘의 비교</strong></h4><table>
+<thead>
+<tr>
+<th></th>
+<th>링크 상태 알고리즘</th>
+<th>거리 벡터 라우팅 알고리즘</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>메시지 복잡성</td>
+<td>n개의 노드, E개의 링크가 있을 때, O(nE)번 메시지를 전송</td>
+<td>이웃 노드와 교환함. 여러 요인이 영향을 끼침</td>
+</tr>
+<tr>
+<td>수렴 속도</td>
+<td>O(nE)개의 메시지가 필요한 O(n^2) 알고리즘</td>
+<td>라우팅 루프나 무한 계수 문제가 발생할 수 있음</td>
+</tr>
+<tr>
+<td>견고성</td>
+<td>경로 계산이 분산되어 진행, 나름 견고함</td>
+<td>한 노드의 잘못된 계산이 전체로 확산 가능</td>
+</tr>
+</tbody></table>
+<h4 id="a-5-정적-라우팅-알고리즘-동적-라우팅-알고리즘"><a href="#a-5-정적-라우팅-알고리즘-동적-라우팅-알고리즘" class="headerlink" title="a-5. 정적 라우팅 알고리즘, 동적 라우팅 알고리즘"></a><strong>a-5. 정적 라우팅 알고리즘, 동적 라우팅 알고리즘</strong></h4><p>정적 : 고정된 기준에 따라 경로 계산(홉 갯수 등)</p>
+<p>동적 : 변동하는 가치에 따라 경로 계산(혼잡도)</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/11/17/cs/network/network8/" data-id="cldwpodx40033zfa08fy89grv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "8. 네트워크 계층 :제어 평면(라우팅 알고리즘)",
+        "image": "https://yangdongjue5510.github.iohttps://blog.kakaocdn.net/dn/cC6RbM/btq64gXA4Ak/WOrhkGvj5kodXmHrQEiXxK/img.png",
+        "keywords": "",
+        "genre": "Computer Science Network",
+        "datePublished": "2021-11-17",
+        "dateCreated": "2021-11-17",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/11/17/cs/network/network8/",
+        "description": "a. 라우팅 알고리즘라우팅이 송신자부터 수신자까지 라우터의 네트워크를 통과하는 좋은 경로를 결정하는 것.
+여기서 좋은 경로란 최소 비용 경로를 의미.(비용은 금전적, 시간적, 혼잡 등을 폭넓게 의미)
+a-1. 라우팅 알고리즘 그래프
+라우팅을 표현하는 데 쓰이는 도식.
+일반적으로 G&#x3D;(N, E) 나타냄
+N : 노드의 집합, E : 엣지의 집합.
+노드",
+        "wordCount": 1124
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/11/17/cs/network/network9/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            9. 네트워크 계층 제어 평면(OSPF, BGP)
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/11/17/cs/network/network7/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">7. 네트워크 계층(IP)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/11/17/cs/network/network8/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

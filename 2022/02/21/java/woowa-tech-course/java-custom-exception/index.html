@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>자바 사용자 정의 예외 만들기 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="우아한테크코스">
+    
+    <meta name="description" content="요약  예외를 상속하는 클래스를 통해 예외를 만들 수 있다.생성자를 통해 에러 메시지를 초기화 할 수 있다.  배경  12345public void checkCarNameEmpty(String carName) &amp;#123;  if (carName &#x3D;&#x3D; null || carName.equals(&quot;&quot;)) &amp;#123;    throw new R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="자바 사용자 정의 예외 만들기">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/java-custom-exception/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="요약  예외를 상속하는 클래스를 통해 예외를 만들 수 있다.생성자를 통해 에러 메시지를 초기화 할 수 있다.  배경  12345public void checkCarNameEmpty(String carName) &amp;#123;  if (carName &#x3D;&#x3D; null || carName.equals(&quot;&quot;)) &amp;#123;    throw new R">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-20T23:37:58.000Z">
+<meta property="article:modified_time" content="2022-02-24T14:16:59.712Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="우아한테크코스">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/java/">Java</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/java/java-basic/">Java Basic</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-java/woowa-tech-course/java-custom-exception" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        자바 사용자 정의 예외 만들기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2022/02/21/java/woowa-tech-course/java-custom-exception/" class="article-date">
+       <time datetime="2022-02-20T23:37:58.000Z" itemprop="datePublished">2022-02-21</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2022/02/21/java/woowa-tech-course/java-custom-exception/" class="article-date">
+     <time datetime="2022-02-24T14:16:59.712Z" itemprop="dateModified">2022-02-24</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" rel="tag">우아한테크코스</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <blockquote>
+<p>요약</p>
+</blockquote>
+<p>예외를 상속하는 클래스를 통해 예외를 만들 수 있다.<br>생성자를 통해 에러 메시지를 초기화 할 수 있다.</p>
+<blockquote>
+<p>배경</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkCarNameEmpty</span><span class="params">(String carName)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (carName == <span class="keyword">null</span> || carName.equals(<span class="string">&quot;&quot;</span>)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;자동차 이름이 입력되지 않았습니다!&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>다음같이 작성하면 자동차 이름이 빈 문자열이거나 null인 경우 런타임예외를 발생시킨다.</p>
+<p>RuntimeException은 너무 포괄적인 의미이니 도메인에 적합한 예외를 만들어보자.</p>
+<h3 id="예외-클래스-만들기"><a href="#예외-클래스-만들기" class="headerlink" title="예외 클래스 만들기"></a>예외 클래스 만들기</h3><h4 id="1-생성자를-그대로-사용하기"><a href="#1-생성자를-그대로-사용하기" class="headerlink" title="1. 생성자를 그대로 사용하기"></a>1. 생성자를 그대로 사용하기</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmptyCarNameException</span> <span class="keyword">extends</span> <span class="title">RuntimeExecption</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">EmptyCarNameException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(message);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">EmptyCarNameException</span><span class="params">(Throwable cause)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(message);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">EmptyCarNameException</span><span class="params">(String message, Throwable cause)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이런 식으로 예외를 상속한 클래스를 만들고, 생성자들을 만들면 커스텀 예외로 활용할 수 있다.</p>
+<h4 id="2-좀-더-활용하기"><a href="#2-좀-더-활용하기" class="headerlink" title="2. 좀 더 활용하기"></a>2. 좀 더 활용하기</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CarNameException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>먼저 자동차 이름에 관련된 예외들이 모두 상속하는 수퍼클래스를 만들었다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmptyCarNameException</span> <span class="keyword">extends</span> <span class="title">CarNameException</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyCarNameException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">&quot;빈 문자열을 자동차 이름으로 입력할 수 없습니다.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>자동차 이름 예외를 상속받도록 하였고,<br>이미 특정 도메인 상황을 예외로 만들고 싶어서 사용자 정의 예외를 만들었기 때문에, 굳이 매번 에러메시지를 입력받아 생성할 필요가 없다고 생각했다.<br>그래서 예외 클래스에 정해진 에러 메시지로 초기화하도록 만들었다.</p>
+<h3 id="실제-코드에-적용시켜보기"><a href="#실제-코드에-적용시켜보기" class="headerlink" title="실제 코드에 적용시켜보기"></a>실제 코드에 적용시켜보기</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarName</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> MAX_CAR_NAME_LENGTH = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String EMPTY_STRING = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String carName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CarName</span><span class="params">(String carName)</span> </span>&#123;</span><br><span class="line">        checkCarName(carName);</span><br><span class="line">        <span class="keyword">this</span>.carName = carName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkCarName</span><span class="params">(String input)</span> </span>&#123;</span><br><span class="line">        checkCarNameNotNull(input);</span><br><span class="line">        checkCarNameLength(input);</span><br><span class="line">        checkCarNameExists(input);</span><br><span class="line">        checkCarNameIsNotSpace(input);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkCarNameNotNull</span><span class="params">(String carName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (carName == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CarNameNullPointerException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkCarNameLength</span><span class="params">(String carName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (carName.length() &gt; MAX_CAR_NAME_LENGTH) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CarNameLengthOverException(carName.length());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkCarNameExists</span><span class="params">(String carName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (carName.equals(EMPTY_STRING)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CarNameNotExistsException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkCarNameIsNotSpace</span><span class="params">(String carName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (carName.trim().equals(EMPTY_STRING)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CarNameSpaceException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이제 도메인에서 우리가 만든 사용자 예외를 검증해보자.<br>도메인 객체가 만들어지기 전에 예외를 모두 검증한다.</p>
+<h3 id="테스트해보기"><a href="#테스트해보기" class="headerlink" title="테스트해보기"></a>테스트해보기</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Stream&lt;Arguments&gt; <span class="title">provideCarNameAndExceptionMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Stream.of(</span><br><span class="line">                Arguments.of(<span class="keyword">null</span>, <span class="string">&quot;자동차 이름을 찾을 수 없습니다!&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;다섯글자이상&quot;</span>, <span class="string">&quot;자동차 이름은 5자 이하여야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;&quot;</span>, <span class="string">&quot;모든 자동차 이름은 반드시 존재해야 합니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot; &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>),</span><br><span class="line">                Arguments.of(<span class="string">&quot;    &quot;</span>, <span class="string">&quot;자동차 이름은 공백으로 설정할 수 없습니다.&quot;</span>)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ParameterizedTest</span></span><br><span class="line">    <span class="meta">@MethodSource(value = &quot;provideCarNameAndExceptionMessage&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> 자동차_이릅_예외_테스트(String carName, String message) &#123;</span><br><span class="line">        assertThatThrownBy(() -&gt; <span class="keyword">new</span> CarName(carName))</span><br><span class="line">                .isInstanceOf(CarNameException.class)</span><br><span class="line">                .hasMessageContaining(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>다양한 예외 상황마다 예외 객체와 예외 메시지를 통해 테스트를 할 수 있다!</p>
+<h3 id="사용자-예외의-장단점"><a href="#사용자-예외의-장단점" class="headerlink" title="사용자 예외의 장단점"></a>사용자 예외의 장단점</h3><h4 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h4><ol>
+<li><p>클래스의 이름으로 어떤 예외인지 가늠가능하다.</p>
+<p>CarNameEmtpyException이면 어떤 상황인지 바로 이해가능하다!</p>
+</li>
+<li><p>상세한 예외 정보를 제공할 수 있다.</p>
+<p>자동차의 이름 길이가 5를 넘기면 예외를 발생시키고자 한다. 이때 사용자가 입력한 이름의 길이도 함께 알려주고 싶다면?</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarNameLengthOverException</span> <span class="keyword">extends</span> <span class="title">CarNameException</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CarNameLengthOverException</span><span class="params">(<span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">&quot;자동차 이름은 5자 이하여야 합니다. 입력된 글자 수 : &quot;</span> + length);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예외 핸들링이 용이하다.</p>
+</li>
+<li><p>해당 예외 상황에 관련된 정보를 한 곳에 관리 가능하다.</p>
+</li>
+</ol>
+<h4 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h4><ol>
+<li><p>새로운 클래스를 작성해줘야 된다.</p>
+<p>굳이 이미 있는 예외 클래스로도 처리 가능한데, 굳이 새로운 클래스를 작성해야 될 지 고민해야한다.</p>
+</li>
+</ol>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/java-custom-exception/" data-id="cldwpodxa0055zfa063u0dgxv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "자바 사용자 정의 예외 만들기",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "우아한테크코스",
+        "genre": "Java Java Basic",
+        "datePublished": "2022-02-21",
+        "dateCreated": "2022-02-21",
+        "dateModified": "2022-02-24",
+        "url": "https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/java-custom-exception/",
+        "description": "
+요약
+
+예외를 상속하는 클래스를 통해 예외를 만들 수 있다.생성자를 통해 에러 메시지를 초기화 할 수 있다.
+
+배경
+
+12345public void checkCarNameEmpty(String carName) &#123;  if (carName == null || carName.equals(&quot;&quot;)) &#123;    throw new R",
+        "wordCount": 1243
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2022/02/21/java/java-basic/java-exception/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            자바의 예외 Throwable, Error, Exception
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2022/02/16/java/woowa-tech-course/java-first-collection/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">자바 일급 컬렉션 활용해보기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2022/02/21/java/woowa-tech-course/java-custom-exception/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

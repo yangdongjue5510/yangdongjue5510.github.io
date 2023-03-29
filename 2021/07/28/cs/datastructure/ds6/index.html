@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>6. 이진트리 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="이진트리? 자식노드가 최대 2개 뿐인 트리를 이진트리라 한다!!  1234567891011121314class Node:    def __init__(self, key, parent&#x3D;None, left&#x3D;None, right&#x3D;None):        self.key &#x3D; key        self.parent &#x3D; parent        self.left &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6. 이진트리">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds6/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="이진트리? 자식노드가 최대 2개 뿐인 트리를 이진트리라 한다!!  1234567891011121314class Node:    def __init__(self, key, parent&#x3D;None, left&#x3D;None, right&#x3D;None):        self.key &#x3D; key        self.parent &#x3D; parent        self.left &#x3D;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yangdongjue5510.github.io/img/ds/tree1.png">
+<meta property="article:published_time" content="2021-07-28T11:27:03.000Z">
+<meta property="article:modified_time" content="2022-01-22T16:20:00.028Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangdongjue5510.github.io/img/ds/tree1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/data-structure/">Data Structure</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/datastructure/ds6" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        6. 이진트리
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2021/07/28/cs/datastructure/ds6/" class="article-date">
+       <time datetime="2021-07-28T11:27:03.000Z" itemprop="datePublished">2021-07-28</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2021/07/28/cs/datastructure/ds6/" class="article-date">
+     <time datetime="2022-01-22T16:20:00.028Z" itemprop="dateModified">2022-01-23</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="이진트리"><a href="#이진트리" class="headerlink" title="이진트리?"></a>이진트리?</h2><blockquote>
+<p>자식노드가 최대 2개 뿐인 트리를 이진트리라 한다!!<br><img src="/img/ds/tree1.png"></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, key, parent=<span class="literal">None</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.parent = parent</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">str</span>(self.key)</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tree</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.root = <span class="literal">None</span></span><br><span class="line">        self.size = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="이진트리의-순회"><a href="#이진트리의-순회" class="headerlink" title="이진트리의 순회"></a>이진트리의 순회</h3><p>이진트리 노드 key값을 빠짐없이 출력하는 방법!</p>
+<ol>
+<li>preorder</li>
+<li>inorder</li>
+<li>postorder</li>
+</ol>
+<blockquote>
+<p>헤더 노드를 M, 왼쪽 서브트리를 L, 오른쪽 서브트리를 R이라고 가정!</p>
+</blockquote>
+<p>쉽게 생각하면 L, M, R이 삼각형 모양으로 있을 때 우선순위 노드가 있으면 해당 노드를 먼저 탐색하는 방식이다!</p>
+<h4 id="preorder"><a href="#preorder" class="headerlink" title="preorder"></a>preorder</h4><p>MLR 순으로 방문하는 방식<br>FBADCEGIH 순으로 방문하게 된다!<br><img src="/img/ds/tree2.png"></p>
+<h4 id="inorder"><a href="#inorder" class="headerlink" title="inorder"></a>inorder</h4><p>LMR 순으로 방문하는 방식<br>ABCDEFGHI<br><img src="/img/ds/tree3.png"></p>
+<h4 id="postorder"><a href="#postorder" class="headerlink" title="postorder"></a>postorder</h4><p>LRM 순으로 방문하는 방식<br>ACEDBHIGF<br><img src="/img/ds/tree4.png"></p>
+<h4 id="코드로-구현하기"><a href="#코드로-구현하기" class="headerlink" title="코드로 구현하기"></a>코드로 구현하기</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, key, parent=<span class="literal">None</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.parent = parent</span><br><span class="line">        self.right = right</span><br><span class="line">        self.left = left</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">str</span>(self.key)</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tree</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.root = <span class="literal">None</span></span><br><span class="line">        self.size = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">preorder</span>(<span class="params">self, v</span>):</span></span><br><span class="line">        <span class="keyword">if</span> v:</span><br><span class="line">            <span class="built_in">print</span>(v.key, end=<span class="string">&#x27; - &#x27;</span>)</span><br><span class="line">            self.preorder(v.left)</span><br><span class="line">            self.preorder(v.right)</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27; inorder는?</span></span><br><span class="line"><span class="string">        if v:</span></span><br><span class="line"><span class="string">            self.inorder(v.left)</span></span><br><span class="line"><span class="string">            print(v.key, end=&#x27; - &#x27;)</span></span><br><span class="line"><span class="string">            self.inorder(v.right)</span></span><br><span class="line"><span class="string">        postorder는?</span></span><br><span class="line"><span class="string">        if v:</span></span><br><span class="line"><span class="string">            self.postorder(v.left)</span></span><br><span class="line"><span class="string">            self.postorder(v.right)</span></span><br><span class="line"><span class="string">            print(v.key, end=&#x27; - &#x27;)</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        즉 재귀 알고리즘을 활용하여 print문의 위치를 바꿔가면서 구현하는거다!!!&#x27;&#x27;&#x27;</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+<h2 id="이진탐색트리-BST"><a href="#이진탐색트리-BST" class="headerlink" title="이진탐색트리 BST"></a>이진탐색트리 BST</h2><p>이진트리 중에 가장 많이 쓰이는 트리!<br>이진트리의 노드를 search할 때 효율적으로 할 수 있게!</p>
+<blockquote>
+<p>특징</p>
+</blockquote>
+<ol>
+<li>각 노드의 왼쪽 서브트리의 key값은 노드의 key값보다 작거나 같아야 한다.</li>
+<li>반면 오른쪽 서브트리의 key값은 노드의 key값보다 작거나 같아야 한다.</li>
+</ol>
+<p>이런 특징이 탐색이 효율적으로 되게 한다!<br>이진트리의 탐색 연산은 O(h&#x3D;트리 높이)이므로, 만약 이진트리의 강점을 극대화하고 싶으면, 트리의 높이를 최소화 하는 방향으로 설계해야 한다!</p>
+<blockquote>
+<p>코드로 구현</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BST</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iniit__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.root = <span class="literal">None</span></span><br><span class="line">        self.size = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.size</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.root.__iter__()</span><br></pre></td></tr></table></figure>
+
+<h3 id="탐색-함수-search와-삽입-함수-insert"><a href="#탐색-함수-search와-삽입-함수-insert" class="headerlink" title="탐색 함수 search와 삽입 함수 insert"></a>탐색 함수 search와 삽입 함수 insert</h3><p>탐색 함수와 삽입함수를 구현하기 전에, 해당 노드가 있다면, 해당 노드를 반환하고, 없다면 노드가 삽입될 위치의 부모노드를 반환하는 find_loc 함수를 먼저 구현해보자!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_loc</span>(<span class="params">self, key</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.size == <span class="number">0</span>: <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    p = <span class="literal">None</span></span><br><span class="line">    v = self.root</span><br><span class="line">    <span class="keyword">while</span> v != <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">if</span> v.key == key : <span class="keyword">return</span> v</span><br><span class="line">        <span class="keyword">elif</span> v.key &lt; key :</span><br><span class="line">            p = v</span><br><span class="line">            v = v.right</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            p = v</span><br><span class="line">            v = v.left</span><br><span class="line">    <span class="keyword">return</span> p</span><br></pre></td></tr></table></figure>
+
+<p>이제 find_loc함수를 활용해 search함수를 만들어보자!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, key</span>):</span></span><br><span class="line">    v = self.find_loc(key)</span><br><span class="line">    <span class="keyword">if</span> v <span class="keyword">and</span> v.key==key:</span><br><span class="line">        <span class="keyword">return</span> v</span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>노드를 삽입하는 insert함수도 만들 수 있다!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span>(<span class="params">self, key</span>):</span></span><br><span class="line">    v = Node(key)</span><br><span class="line">    <span class="keyword">if</span> self.size==<span class="number">0</span> : self.root = v</span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        p = self.find_loc(key)</span><br><span class="line">        <span class="keyword">if</span> p <span class="keyword">and</span> p.key != key:</span><br><span class="line">            <span class="keyword">if</span> p.key &lt; key: p.right = v</span><br><span class="line">            <span class="keyword">else</span> : p.left = v</span><br><span class="line">            v.parent = p</span><br><span class="line">    self.size += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> v</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>여기서 잠깐 생각해보자. 만약 삽입 연산을 한다고 할 때, 삽입 순서에 따라 트리 모양도 달라질 수 있을까?</p>
+</blockquote>
+<h4 id="find-loc-insert-search의-수행시간"><a href="#find-loc-insert-search의-수행시간" class="headerlink" title="find_loc, insert, search의 수행시간"></a>find_loc, insert, search의 수행시간</h4><p>search, insert 모두 find_loc의 수행시간과 동일하다. (그 외 연산은 모두 상수시간에 이뤄지니까)<br>find_loc은 최악의 경우 트리의 높이 만큼 수행시간이 걸리므로, O(h) 이다.</p>
+<h3 id="삭제-함수-delete"><a href="#삭제-함수-delete" class="headerlink" title="삭제 함수 delete"></a>삭제 함수 delete</h3><p>이진 트리에서는 크게 두가지 방법이 있다.</p>
+<ol>
+<li>delete by merging</li>
+<li>delete by copying</li>
+</ol>
+<h4 id="delete-by-merging"><a href="#delete-by-merging" class="headerlink" title="delete by merging"></a>delete by merging</h4><p>어떤 노드를 지우게 되면 그 노드의 왼쪽 서브트리가 지운 노드의 자리에 오고 지운 노드의 오른쪽 서브트리는 왼쪽 서브트리의 자식 노드가 된다!</p>
+<blockquote>
+<p>이때 삭제할 노드가 루트노드인 경우와 그렇지 않은 경우 두가지로 나뉜다.</p>
+</blockquote>
+<p>삭제할 노드를 x, 왼쪽 자식노드 a, 오른쪽 자식노드 b, x의 왼쪽 서브트리중 가장 큰 노드 m이라 하고 x의 부모노드를 pt라고 하자.</p>
+<h5 id="만약-삭제할-노드가-루트노드일-경우"><a href="#만약-삭제할-노드가-루트노드일-경우" class="headerlink" title="만약 삭제할 노드가 루트노드일 경우"></a>만약 삭제할 노드가 루트노드일 경우</h5><ol>
+<li>m이 존재 할 경우(if a!&#x3D;None) : b가 m의 오른쪽 자식노드가 되도록 링크 수정, a가 루트노드가 되도록 변경</li>
+<li>a &#x3D;&#x3D; None이면 : b가 새로운 루트노드가 됨<br><img src="/img/ds/tree5.png"></li>
+</ol>
+<h5 id="만약-삭제할-노드가-루트노드가-아닌-경우"><a href="#만약-삭제할-노드가-루트노드가-아닌-경우" class="headerlink" title="만약 삭제할 노드가 루트노드가 아닌 경우"></a>만약 삭제할 노드가 루트노드가 아닌 경우</h5><ol>
+<li>m이 존재 할 경우(if a!&#x3D;None) : b가 m의 오른쪽 자식노드가 되도록 링크 수정, a가 pt의 자식노드가 되도록 변경</li>
+<li>a &#x3D;&#x3D; None이면 : b가 pt의 자식노드가 되도록 변경<br><img src="/img/ds/tree6.png"><blockquote>
+<p>코드로 구현해보자</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deleteMerging</span>(<span class="params">self, x</span>) &#123;</span></span><br><span class="line"><span class="function">    <span class="title">a</span>, <span class="title">b</span>, <span class="title">pt</span> = <span class="title">x</span>.<span class="title">left</span>, <span class="title">x</span>.<span class="title">right</span>, <span class="title">x</span>.<span class="title">parent</span></span></span><br><span class="line"><span class="function">    <span class="title">if</span> <span class="title">a</span> == <span class="title">None</span>:</span> c = b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        c = m = a</span><br><span class="line">        <span class="keyword">while</span> m.right:</span><br><span class="line">            m = m.right</span><br><span class="line">        m.right = b</span><br><span class="line">        <span class="keyword">if</span> b: b.parent = m</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> self.root == x : <span class="comment">#c가 새로운 루트노드가 된다.</span></span><br><span class="line">        <span class="keyword">if</span> c: c.parent = <span class="literal">None</span></span><br><span class="line">        self.root = c</span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        <span class="keyword">if</span> pt.left == x : pt.left = c</span><br><span class="line">        <span class="keyword">else</span>: pt.right = c</span><br><span class="line">        <span class="keyword">if</span> c: c.parent = pt</span><br><span class="line">    self.size -= <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="delete-by-copying"><a href="#delete-by-copying" class="headerlink" title="delete by copying"></a>delete by copying</h4><p>어떤 노드 x를 삭제하려 할 때, 왼쪽 서브 트리를 L, 오른쪽 서브 트리를 R이라고 하자.</p>
+<ol>
+<li>L에서 가장 큰 노드 y를 찾는다.</li>
+<li>y의 key 값을 x의 key값으로 카피한다.</li>
+<li>y의 왼쪽 서브트리가 존재하면, y의 자리로 옮긴다.</li>
+</ol>
+<p><img src="/img/ds/tree7.png"></p>
+<blockquote>
+<p>코드로 만들어보자</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deleteByCopying</span>(<span class="params">self, x</span>)&#123;</span></span><br><span class="line"><span class="function">    <span class="title">L</span>, <span class="title">R</span> = <span class="title">x</span>.<span class="title">left</span>, <span class="title">x</span>.<span class="title">right</span></span></span><br><span class="line"><span class="function">    <span class="title">if</span> <span class="title">L</span> == <span class="title">None</span> :</span></span><br><span class="line">        x.key = R.key</span><br><span class="line">        <span class="keyword">if</span> R.right:</span><br><span class="line">            x.right = R.right</span><br><span class="line">        R = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        m = L</span><br><span class="line">        <span class="keyword">while</span> m.right:</span><br><span class="line">            pt = m</span><br><span class="line">            m = m.right</span><br><span class="line">        x.key = m.key</span><br><span class="line">        <span class="keyword">if</span> m.left:</span><br><span class="line">            pt.right = m.left</span><br><span class="line">            m.left.parent = pt</span><br><span class="line">        m = <span class="literal">None</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="delete-by-merging-delete-by-copying-의-수행-시간"><a href="#delete-by-merging-delete-by-copying-의-수행-시간" class="headerlink" title="delete by merging, delete by copying 의 수행 시간"></a>delete by merging, delete by copying 의 수행 시간</h4><blockquote>
+<p>두 연산 모두 지우려는 노드의 왼쪽 서브트리에서 가장 큰 노드 m을 찾는 연산이 중요.</p>
+</blockquote>
+<p>두 경우 모두 최악의 경우 트리의 높이까지 m을 찾아야 하므로, O(h)이다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds6/" data-id="cldwpodx0002azfa09av60nb4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "6. 이진트리",
+        "image": "https://yangdongjue5510.github.io/img/ds/tree1.png",
+        "keywords": "",
+        "genre": "Computer Science Data Structure",
+        "datePublished": "2021-07-28",
+        "dateCreated": "2021-07-28",
+        "dateModified": "2022-01-23",
+        "url": "https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds6/",
+        "description": "이진트리?
+자식노드가 최대 2개 뿐인 트리를 이진트리라 한다!!
+
+1234567891011121314class Node:    def __init__(self, key, parent=None, left=None, right=None):        self.key = key        self.parent = parent        self.left =",
+        "wordCount": 1966
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/07/28/cs/datastructure/ds7/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            7. 힙
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2021/07/28/cs/datastructure/ds5/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">5. 스택과큐</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">78</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2021/07/28/cs/datastructure/ds6/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
