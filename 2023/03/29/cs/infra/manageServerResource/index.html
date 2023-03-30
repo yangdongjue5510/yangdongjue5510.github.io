@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/images/instance_lifecycle.png">
 <meta property="article:published_time" content="2023-03-29T12:46:38.000Z">
-<meta property="article:modified_time" content="2023-03-29T13:44:36.003Z">
+<meta property="article:modified_time" content="2023-03-29T15:54:04.395Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
 <meta name="twitter:card" content="summary">
@@ -197,7 +197,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/2023/03/29/cs/infra/manageServerResource/" class="article-date">
-     <time datetime="2023-03-29T13:44:36.003Z" itemprop="dateModified">2023-03-29</time>
+     <time datetime="2023-03-29T15:54:04.395Z" itemprop="dateModified">2023-03-30</time>
   </a>
 </div>
 
@@ -228,6 +228,18 @@
 <h3 id="생성된-가상-서버-상태-확인"><a href="#생성된-가상-서버-상태-확인" class="headerlink" title="생성된 가상 서버 상태 확인"></a>생성된 가상 서버 상태 확인</h3><p>가상 서버 생성 요청의 응답으로 받은 UUID로 가상 서버의 상태를 확인할 수 있다.<br>이때 가상 서버를 만드는 중에도 가상 서버의 상태를 보여줄 수 있다.</p>
 <h2 id="가상-서버의-수명-주기"><a href="#가상-서버의-수명-주기" class="headerlink" title="가상 서버의 수명 주기"></a>가상 서버의 수명 주기</h2><p><img src="https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/images/instance_lifecycle.png"></p>
 <p>AWS의 경우 여러 단계로 서버 리소스의 상태를 알려준다.<br>pending : running할 준비하는 중<br>running : 인스턴스 실행 중<br>stopping : 인스턴스 중지 혹은 절전 모드로 전환 준비<br>stopped : 인스턴스 종료됨. 하지만 다시 시작 가능<br>shutting-down : 인스턴스가 종료할 준비<br>terminated : 인스턴스가 영구적으로 삭제</p>
+<h3 id="메타-데이터와-사용자-데이터"><a href="#메타-데이터와-사용자-데이터" class="headerlink" title="메타 데이터와 사용자 데이터"></a>메타 데이터와 사용자 데이터</h3><p>메타 데이터와 사용자 데이터는 가상 서버의 환경 설정에 활용되는 데이터이다.<br>메타 데이터는 서버별로 따로 만들어지고 여러 개의 서버가 같은 메타 데이터를 공유하지 못한다.</p>
+<p>사용자 데이터는 가상 서버에 액션을 실행해야 할 때 사용한다. 대표적으로 쉘 스크립트 같은 데이터가 있다. 만약 실행되야 할 사용자 데이터가 무수히 많으면 Cloud-init 이란 툴을 사용한다.</p>
+<h3 id="이미지-생성과-공유"><a href="#이미지-생성과-공유" class="headerlink" title="이미지 생성과 공유"></a>이미지 생성과 공유</h3><p>이미지는 가상 머신 템플릿 이미지를 의미한다. 이미지 정보에는 디스크 포맷이나 디바이스 매핑과 같은 구성 정보들이 포함되어 있다. 특이한 점은 정보 여부를 결정할 수 있어서 다른 테넨트의 사용자에게 공개 여부를 정할 수 있다.</p>
+<p>AWS <code>CreateImage</code> API로 인스턴스 ID를 통해 서버의 이미지를 만들 수 있다.<br>AWS <code>DescribeImages</code> API로 이미지 정보를 가져올 수 있다.</p>
+<h3 id="VM-이미지-가져오기"><a href="#VM-이미지-가져오기" class="headerlink" title="VM 이미지 가져오기"></a>VM 이미지 가져오기</h3><p>이미지를 임포트하는 API를 지원한다. AWS에서는 <code>ImportImage</code>, <code>ImportInstance</code>,<code>ImportVolume</code> API로 가상 머신 템플릿을 AMI로 등록할 수 있다.<br><code>ImportImage</code>는 가상 머신 템플릿을 AMI로 임포트한다.<br><code>ImportInstance</code>는 AMI를 등록하고 서버 기동까지 한번에 한다.<br><code>ImportVolume</code>는 볼륨이 분할되어 있는 경우 볼륨 단위로 임포트할 때 사용한다.</p>
+<h1 id="서버-리소스의-내부-구성"><a href="#서버-리소스의-내부-구성" class="headerlink" title="서버 리소스의 내부 구성"></a>서버 리소스의 내부 구성</h1><p>가상 서버의 생성 요청을 접수하고 오픈스택 내부에서 벌어지는 처리 내용을 정리해보자.</p>
+<h3 id="가상-서버-생성-요청을-메시지-큐에-넣기"><a href="#가상-서버-생성-요청을-메시지-큐에-넣기" class="headerlink" title="가상 서버 생성 요청을 메시지 큐에 넣기"></a>가상 서버 생성 요청을 메시지 큐에 넣기</h3><p>가상 서버 생성 API가 실행되면 메시지 큐에 메시지를 넣고 비동기로 처리한다.<br>그리고 가상 서버 생성 요청이 큐에 들어가는 시점에 가상 서버의 구성 정보와 상태정보가 구성 관리 데이터베이스에 저장한다.</p>
+<h3 id="스케줄러에-요청-전달"><a href="#스케줄러에-요청-전달" class="headerlink" title="스케줄러에 요청 전달"></a>스케줄러에 요청 전달</h3><p>스케줄러(컨덕터)라고 부르는 프로세스가 큐에 있는 메시지를 꺼내서 처리한다.<br>스케줄러 프로세스를 다중화하면 가용성이 높아진다. 스케줄러는 하나의 요청을 처리한다. 많은 요청이 오는 경우 여러 스케줄러에 분산되어 처리된다.</p>
+<h3 id="가상-서버를-기동할-호스트-결정"><a href="#가상-서버를-기동할-호스트-결정" class="headerlink" title="가상 서버를 기동할 호스트 결정"></a>가상 서버를 기동할 호스트 결정</h3><p>오픈 스택은 상태 관리 데이터베이스에 각 호스트들의 리소스 사용 상태를 기록하고 갱신한다.<br>스케줄러는 메시지를 꺼낸 후 가상 서버에 필요한 리소스를 가진 호스트를 상태 관리 데이터베이스를 기반으로 찾는다.</p>
+<h3 id="호스트에-가상-서버-기동-지시"><a href="#호스트에-가상-서버-기동-지시" class="headerlink" title="호스트에 가상 서버 기동 지시"></a>호스트에 가상 서버 기동 지시</h3><p>스케줄러가 호스트를 결정했으면 그 호스트에 가상 서버를 기동하라는 요청을 메시지 큐에 넣는다.</p>
+<h3 id="메시지-수신과-가상-서버-생성"><a href="#메시지-수신과-가상-서버-생성" class="headerlink" title="메시지 수신과 가상 서버 생성"></a>메시지 수신과 가상 서버 생성</h3><p>메시지 큐에서 메시지를 받은 호스트는 가상 서버를 구축한다.<br>템플릿 이미지 가져오기, IP 주소 할당, 네트워크 접속 준비 등을 진행한다.</p>
+<h3 id="가상-서버-상태-갱신"><a href="#가상-서버-상태-갱신" class="headerlink" title="가상 서버 상태 갱신"></a>가상 서버 상태 갱신</h3><p>기동에 성공하면 구성 관리 데이터베이스의 상태를 ACTIVE로 갱신한다.</p>
 
         </div>
         <footer class="article-footer">
@@ -311,12 +323,12 @@
         "genre": "Computer Science Infra",
         "datePublished": "2023-03-29",
         "dateCreated": "2023-03-29",
-        "dateModified": "2023-03-29",
+        "dateModified": "2023-03-30",
         "url": "https://yangdongjue5510.github.io/2023/03/29/cs/infra/manageServerResource/",
         "description": "서버 리소스서버 리소스는 타입과 이미지로 구성된다.타입은 리소스의 크기나 속성을 유형화한 개념이다.이미지는 서버의 기동 이미지로 AWS의 AMI가 이에 해당한다.
 서버 리소스 제어 API 흐름인증서버 리소스를 제어하기 위해서 가장 먼저 인증을 해야 한다.인증 요청은 POST로 회원이름과 암호를 보내고 토큰과 엔드포인트를 받는다.
 이후 요청에서 헤더에 토큰을",
-        "wordCount": 282
+        "wordCount": 635
     }
 </script>
 
