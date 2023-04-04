@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>클라우드에서 네트워크 리소스를 제어하는 방법 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="네트워크 리소스의 기본네트워크의 기능은 크게 L2 네트워크(OSI 참조 모델의 데이터링크 계층)과 L3 네트워크(OSI 참조 모델의 네트워크)로 나눠볼 수 있다.L2 네트워크는 같은 네트워크에 속한 장비를 연결한다. 대표적으로 스위치가 이런 역할을 한다.L3 네트워크는 서로 다른 L2 네트워크를 연결한다. 대표적으로 라우터가 이런 역할을 한다. 네트워크에서">
+<meta property="og:type" content="article">
+<meta property="og:title" content="클라우드에서 네트워크 리소스를 제어하는 방법">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2023/04/04/cs/infra/infra7/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="네트워크 리소스의 기본네트워크의 기능은 크게 L2 네트워크(OSI 참조 모델의 데이터링크 계층)과 L3 네트워크(OSI 참조 모델의 네트워크)로 나눠볼 수 있다.L2 네트워크는 같은 네트워크에 속한 장비를 연결한다. 대표적으로 스위치가 이런 역할을 한다.L3 네트워크는 서로 다른 L2 네트워크를 연결한다. 대표적으로 라우터가 이런 역할을 한다. 네트워크에서">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://user-images.githubusercontent.com/87690744/229852310-21903512-9800-4e96-9162-152881101a62.png">
+<meta property="article:published_time" content="2023-04-04T11:58:22.000Z">
+<meta property="article:modified_time" content="2023-04-04T18:01:25.647Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/87690744/229852310-21903512-9800-4e96-9162-152881101a62.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/computer-science/">Computer Science</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/computer-science/infra/">Infra</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-cs/infra/infra7" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        클라우드에서 네트워크 리소스를 제어하는 방법
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2023/04/04/cs/infra/infra7/" class="article-date">
+       <time datetime="2023-04-04T11:58:22.000Z" itemprop="datePublished">2023-04-04</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2023/04/04/cs/infra/infra7/" class="article-date">
+     <time datetime="2023-04-04T18:01:25.647Z" itemprop="dateModified">2023-04-05</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h1 id="네트워크-리소스의-기본"><a href="#네트워크-리소스의-기본" class="headerlink" title="네트워크 리소스의 기본"></a>네트워크 리소스의 기본</h1><p>네트워크의 기능은 크게 L2 네트워크(OSI 참조 모델의 데이터링크 계층)과 L3 네트워크(OSI 참조 모델의 네트워크)로 나눠볼 수 있다.<br>L2 네트워크는 같은 네트워크에 속한 장비를 연결한다. 대표적으로 스위치가 이런 역할을 한다.<br>L3 네트워크는 서로 다른 L2 네트워크를 연결한다. 대표적으로 라우터가 이런 역할을 한다.</p>
+<p>네트워크에서 중요한 포인트는 IP 주소를 잘 다루느냐이다. 클라우드 환경에서는 IP 관리를 기본으로 포함하는 경우가 많다. 클라우드 환경에서는 IP 주소를 DHCP를 통해 할당된다. 다만 클라우드 환경에서는 DNS 확장성이나 오토 스케일링, 오토 힐링 같은 기능을 이용하기 위해서 IP 주소에 종속되지 않도록 해야 한다.</p>
+<h1 id="클라우드-환경의-네트워크-리소스"><a href="#클라우드-환경의-네트워크-리소스" class="headerlink" title="클라우드 환경의 네트워크 리소스"></a>클라우드 환경의 네트워크 리소스</h1><table>
+<thead>
+<tr>
+<th>네트워크 리소스</th>
+<th>AWS VPC</th>
+<th>오픈스택 Neutron</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>네트워크 전체</td>
+<td>없음</td>
+<td>VPC</td>
+</tr>
+<tr>
+<td>스위치</td>
+<td>네트워크</td>
+<td>(서브넷에 포함)</td>
+</tr>
+<tr>
+<td>서브넷</td>
+<td>서브넷</td>
+<td>서브넷</td>
+</tr>
+<tr>
+<td>라우터</td>
+<td>라우터</td>
+<td>게이트웨이, 라우팅 테이블</td>
+</tr>
+<tr>
+<td>포트</td>
+<td>포트</td>
+<td>ENI</td>
+</tr>
+<tr>
+<td>시큐리티 그룹</td>
+<td>시큐리티 그룹</td>
+<td>시큐리티 그룹</td>
+</tr>
+<tr>
+<td>네트워크 접근 제어</td>
+<td>Fwaas</td>
+<td>NACL</td>
+</tr>
+</tbody></table>
+<p>AWS는 한 테넌트가 여러 VPC를 생성할 수 있지만, 오픈스택은 한 테넌트는 하나의 가상 네트워크만 만들 수 있다.<br>두 서비스 모두 가상 네트워크별로 가상 라우터를 배치한다.</p>
+<h1 id="스위치"><a href="#스위치" class="headerlink" title="스위치"></a>스위치</h1><p>가상 스위치는 L2 네트워크 기능을 수행한다. 가상 스위치에 연결된 가상 서버는 별도의 라우팅 없이 서로 통신할 수 있다.<br>가상 스위치는 L3 네트워크에서 쓰이는 IP 주소 범위(CIDR)를 서브넷이라는 이름으로 할당 받는다! 서브넷 범위 내의 IP를 사용자가 자유롭게 할당할 수 있다.<br>클라우드 환경에서는 네트워크끼리 직접 연결되어 있지 않으면 같은 IP 주소를 써도 된다. 다만 공인 IP와 중복되지 않도록 사설 IP 주소의 범위에서 할당되는 게 일반적이다.</p>
+<p>AWS VPC에서는 가상 스위치에 대응하는 리소스가 없다. 대신 서브넷에서 가상 스위치의 개념과 기능을 한다. 대부분 가상 스위치와 서브넷이 1대1 관계이고 TCP&#x2F;IP를 사용할 때는 서브넷만 정의해도 충분하기 때문이다.</p>
+<p>IP 주소 범위는 두단계로 지정된다. VPC를 생성할 때 정하고, VPC의 IP 범위 안에서 서브넷에서 사용할 범위를 정할 수 있다. VPC는 한번 할당받은 IP주소 범위를 수정할 수 없기 때문에 애초에 여유있게 정할 필요가 있다.</p>
+<p><img src="https://user-images.githubusercontent.com/87690744/229852310-21903512-9800-4e96-9162-152881101a62.png"></p>
+<h2 id="서브넷"><a href="#서브넷" class="headerlink" title="서브넷"></a>서브넷</h2><p>서브넷에 연결된 서버는 기동 시 DHCP를 통해 IP 주소를 할당받고 그 IP 주소로 통신하게 된다. 다만 DHCP로 IP 주소를 받는다고 해서 매번 기동할 때마다 다른 주소를 받는게 아니다. 이미 IP 주소가 할당된 것을 DHCP가 전달할 뿐이다. 그래서 한번 기동한 서버를 여러번 재기동해도 같은 IP 주소가 부여된다.</p>
+<p>서브넷은 할당된 IP 주소에만 통신을 허용한다. 그래서 사용자가 임의로 IP 주소 설정을 바꿔도 변경된 IP 주소로 통신하지 못한다.</p>
+<p>서브넷은 해당 범위 안에서 통신할 수 있는 폐쇄적인 환경이라 다른 사람의 서브넷이나 IP주소가 중복되도 상관없다.</p>
+<h3 id="IP-주소의-범위-CIDR"><a href="#IP-주소의-범위-CIDR" class="headerlink" title="IP 주소의 범위 (CIDR)"></a>IP 주소의 범위 (CIDR)</h3><p>서브넷을 생성할 때 지정하는 IP 주소 범위를 CIDR(사이더)라고 한다. Classless Inter Domain Routing을 줄인 말으로 직역하면 ‘클래스가 없는 내부 도메인 라우팅’이다.</p>
+<p>CIDR은 IP 주소를 서브넷을 식별하는 네트워크 부분과 서브넷 안에서 개별 통신 장비를 식별하는 호스트 부분으로 나눈다. 그리고 네트워크 부분의 비트 길이를 서브넷 마스크로 표현한다.</p>
+<p>인터넷 초창기에는 IP 주소의 상위 비트 값에 따라 서브넷 마스크가 결정됐다.<br>0으로 시작하면 서브넷 마스크가 8비트로 클래스 A로 부른다. 대략 1600만개 주소가 가능하다.<br>128으로 시작하면 서브넷 마스크가 16비트로 클래스 B로 부른다. 대략 65000개 주소가 가능하다.<br>223으로 시작하면 서브넷 마스크가 24비트로 클래스 C로 부른다. 대략 256개 주소가 가능하다.<br>하지만 1600만개 주소가 필요한 서브넷은 별로 없다. 그래서 클래스 A는 남는 주소가 많아 비효율적이다.</p>
+<p>이런 고정된 서브넷 마스크 대신 가변 길이의 서브넷 마스크를 가진 CIDR를 통해 효율적으로 IP 주소를 할당한다.</p>
+<h1 id="라우터"><a href="#라우터" class="headerlink" title="라우터"></a>라우터</h1><p>라우터는 서로 다른 네트워크를 연결한다.<br>라우터는 다음과 같은 세가지 유형의 연결 방식이 가능하다.</p>
+<ol>
+<li>내부 -&gt; 내부</li>
+<li>내부 -&gt; 외부</li>
+<li>외부 -&gt; 내부<br>여기서 내부는 클라우드 네트워크를 의미한다.</li>
+</ol>
+<h3 id="내부-gt-내부"><a href="#내부-gt-내부" class="headerlink" title="내부 -&gt; 내부"></a>내부 -&gt; 내부</h3><p>서로 다른 네트워크에 속한 서버끼리 통신한다. 기본적으로 VPC 내의 네트워크들을 연결한다. 경우에 따라서는 다른 테넌트의 네트워크를 라우팅해야 할 때가 있다. AWS에서는 VPC Peering, 오픈스택 Neutron에서는 네트워크 공유 기능을 사용한다.</p>
+<h3 id="내부-gt-외부"><a href="#내부-gt-외부" class="headerlink" title="내부 -&gt; 외부"></a>내부 -&gt; 외부</h3><p>가상 네트워크에 속한 서버가 인터넷을 통해 외부로 접속되는 경우를 의미한다. 이때 라우터에서는 내부 네트워크에서 사용하는 사설 IP 주소를 공인 IP 주소로 변환하는 IP 마스커레이드를 하게된다.</p>
+<blockquote>
+<p>IP 마스커레이드는 내부의 호스트들이 하나의 공인 IP로 사용. NAT를 통해 내부 IP에게 전달.</p>
+</blockquote>
+<h3 id="외부-gt-내부"><a href="#외부-gt-내부" class="headerlink" title="외부 -&gt; 내부"></a>외부 -&gt; 내부</h3><p>외부에서 내부 네트워크로 접근하려면 공인 IP가 필요하다. 오픈 스택에서는 플로팅 IP, AWS에서는 EIP가 활용된다. 이런 공인 IP는 리전 별로 관리가 되고 어드레스 풀에서 확보해서 논리포트에 할당한다.</p>
+<h2 id="오픈스택-Neutron의-라우터"><a href="#오픈스택-Neutron의-라우터" class="headerlink" title="오픈스택 Neutron의 라우터"></a>오픈스택 Neutron의 라우터</h2><p>크게 가상 라우터와 서브넷의 연결 관계로 구성된다. 가상 라우터는 논리 포트로 연결된다.<br>연결된 후 가상 라우터의 라우팅 테이블이 갱신되어 이에 따라 전송 트래픽이 흘러간다.<br>만약 외부 네트워크와 통신하되 각 서브넷끼리 통신을 막고 싶으면 서브넷마다 라우터를 만들어서 각 라우터를 외부 네트워크에 연결해서 사용하면 된다.</p>
+<h2 id="AWS-VPC"><a href="#AWS-VPC" class="headerlink" title="AWS VPC"></a>AWS VPC</h2><p>크게 게이트웨이와 라우팅 테이블로 구성된다. AWS에서는 외부로 통신하기 위해 VPC 안에 게이트웨이를 만든다. 그런 다음 서브넷의 라우팅 테이블에서 외부로 통신할 때 만든 게이트웨이를 통과하도록 라우팅 정보를 설정한다.</p>
+<p>게이트웨이는 역할에 따라 여러 종류가 있다.</p>
+<ul>
+<li>인터넷 통신을 위한 인터넷 게이트웨이 (IGW)</li>
+<li>사설 네트워크 통신을 위한 버추얼 게이트웨이 (VGW)</li>
+<li>리전 안에서 VPC끼리 연결하는 피어링 커넥션 (PCX)</li>
+<li>인터넷에 연결된 서비스(S3)를 VPC에서 인터넷을 거치지 않고 연결하는 VPC 엔드포인트</li>
+</ul>
+<p>AWS에서는 실제로 라우터가 리소스로 존재하지 않는다. 대신 라우팅 테이블을 통해 라우팅을 정한다. 라우팅 테이블은 VPC와 서브넷에 설정할 수 있다. VPC에 설정하는 건 메인 라우팅 테이블이고, 서브넷에 설정하는 것은 서브 라우팅 테이블이라 한다.</p>
+<h1 id="포트"><a href="#포트" class="headerlink" title="포트"></a>포트</h1><p>논리 포트는 물리 스위치의 포트를 가상화한 개념이다. Neutron에서는 가상 스위치의 접점 의미가 강하고, AWS에서는 서버와 네트워크의 연결 인터페이스 개념이 강하고 ENI(elastic network interface)라고 부른다.</p>
+<p>논리 포트는 물리적인 포트와 다른 점이 있다. 논리 포트는 생성될 때 자신이 소속된 가상 서브넷으로부터 IP 주소를 할당 받는다. 그리고 해당 포트는 그 IP 주소 외 통신은 차단한다. 논리 포트는 여러개의 IP 주소를 할당 받을 수 있다.</p>
+<h3 id="논리-포트-NIC-로-Failover"><a href="#논리-포트-NIC-로-Failover" class="headerlink" title="논리 포트(NIC)로 Failover"></a>논리 포트(NIC)로 Failover</h3><p>논리 포트를 다른 가상 서버에 옮겨서 할당할 수 있다. 즉 하나의 서버에 문제가 생기면 다른 가상 서버에 논리 포트를 옮겨서 장애에 대응할 수 있다. IP 주소의 변경 없이 사용하는 가상 서버를 교체할 수 있다.</p>
+<h3 id="게이트웨이로써-논리-포트"><a href="#게이트웨이로써-논리-포트" class="headerlink" title="게이트웨이로써 논리 포트"></a>게이트웨이로써 논리 포트</h3><p>논리 포트는 서버와 가상 네트워크 연결에만 사용되지 않는다. 가상 네트워크와 라우터를 연결할 때도 쓰인다. 이런 포트에 할당된 IP 주소는 가상 서브넷의 게이트웨이 역할을 한다. 논리 포트를 통해 서브넷에 연결된 가상 서버는 이 게이트웨이(가상 포트)를 통해 클라우드 외부로 통신할 수 있다.</p>
+<p>플로팅 IP(AWS의 엘라스틱 IP)도 논리 포트에 할당한다. 가상의 NAT에서 플로팅 IP로 온 트래픽을 할당된 논리포트로 라우팅한다.</p>
+<h3 id="논리-포트와-맥-주소"><a href="#논리-포트와-맥-주소" class="headerlink" title="논리 포트와 맥 주소"></a>논리 포트와 맥 주소</h3><p>논리 포트는 IP 주소말고 맥 주소도 가진다. 맥 주소는 물리적인 L2 네트워크 정보로 가상 서버와 연결할 때 가상 서버 NIC의 맥 주소로 활용된다.</p>
+<h1 id="시큐리티-그룹"><a href="#시큐리티-그룹" class="headerlink" title="시큐리티 그룹"></a>시큐리티 그룹</h1><p>시큐리티 그룹은 트래픽을 필터링한다.<br>물리 환경에서는 방화벽 장비로 L2 네트워크 간의 트래픽을 제어한다. 서버 OS에서 제어하거나 스위치 장비에서 제공하는 ACL을 통해 접근 제어할 수 있다. 그러나 유지보수 측면에서 손이 많이 간다.</p>
+<p>클라우드 환경에서는 논리 포트에 시큐리티 그룹을 설정해서 세밀하게 접근 제어를 할 수 있다.<br>기본적으로 모든 트래픽을 폐기하는 암묵적 Deny 정책을 따른다.<br>네트워크에서 접근 제어를 해야 OS나 어플리케이션에 종속되지 않고 보안 정책을 수립할 수 있다.</p>
+<h3 id="시큐리티-그룹-규칙-구성"><a href="#시큐리티-그룹-규칙-구성" class="headerlink" title="시큐리티 그룹 규칙 구성"></a>시큐리티 그룹 규칙 구성</h3><ul>
+<li>입력 혹은 출력에 적용할 지 선택</li>
+<li>허용할 프로토콜 종류 선택</li>
+<li>통신 상대 지정 (통신 상대는 IP 주소 범위나 다른 시큐리티 그룹)</li>
+</ul>
+<h3 id="다른-시큐리티-그룹을-상대로-지정"><a href="#다른-시큐리티-그룹을-상대로-지정" class="headerlink" title="다른 시큐리티 그룹을 상대로 지정"></a>다른 시큐리티 그룹을 상대로 지정</h3><p>서버 대수가 늘어날 때마다 시큐리티 그룹에 대상에 새로 생긴 서버를 추가하면 유지보수에 손이 많이 간다. 대상 서버들이 적용되는 시큐리티 그룹을 대상으로 하면 효율적으로 서버 추가에 대응할 수 있다.</p>
+<h3 id="시큐리티-그룹-활용"><a href="#시큐리티-그룹-활용" class="headerlink" title="시큐리티 그룹 활용"></a>시큐리티 그룹 활용</h3><p>시큐리티 그룹을 웹 서버, DB 서버, 관리용으로 만들어 두고 각 리소스마다 포트에 할당하는 방식으로 운영할 수 있다.</p>
+<h1 id="네트워크-액세스-컨트롤-리스트-NACL"><a href="#네트워크-액세스-컨트롤-리스트-NACL" class="headerlink" title="네트워크 액세스 컨트롤 리스트(NACL)"></a>네트워크 액세스 컨트롤 리스트(NACL)</h1><p>서브넷에 대해 필터링한다. 패캣 필터링 하거나 권한을 분리하는 것이 가능하다.</p>
+<h3 id="시큐리티-그룹과-차이"><a href="#시큐리티-그룹과-차이" class="headerlink" title="시큐리티 그룹과 차이"></a>시큐리티 그룹과 차이</h3><p>상태 관점에서 차이가 있다. 상태는 통신 허용 정보를 생각하면 된다.</p>
+<p>NACL은 Stateless이다. 즉 허용 정보를 관리하지 않는다. 왜냐면 암묵적으로 허용하는 정책을 따르기 때문이다.<br>반면 시큐리티 그룹은 Stateful하다. 즉 허용 정보를 관리한다. 왜냐면 암묵적으로 모두 금지하는 정책을 따르기 때문이다.</p>
+<p>NACL은 서브넷 단위로 적용한다.<br>반면 시큐리티 그룹은 논리 포트 단위로 적용한다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2023/04/04/cs/infra/infra7/" data-id="clg2khmbo0000yaa03ysffw32" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "클라우드에서 네트워크 리소스를 제어하는 방법",
+        "image": "https://yangdongjue5510.github.iohttps://user-images.githubusercontent.com/87690744/229852310-21903512-9800-4e96-9162-152881101a62.png",
+        "keywords": "",
+        "genre": "Computer Science Infra",
+        "datePublished": "2023-04-04",
+        "dateCreated": "2023-04-04",
+        "dateModified": "2023-04-05",
+        "url": "https://yangdongjue5510.github.io/2023/04/04/cs/infra/infra7/",
+        "description": "네트워크 리소스의 기본네트워크의 기능은 크게 L2 네트워크(OSI 참조 모델의 데이터링크 계층)과 L3 네트워크(OSI 참조 모델의 네트워크)로 나눠볼 수 있다.L2 네트워크는 같은 네트워크에 속한 장비를 연결한다. 대표적으로 스위치가 이런 역할을 한다.L3 네트워크는 서로 다른 L2 네트워크를 연결한다. 대표적으로 라우터가 이런 역할을 한다.
+네트워크에서",
+        "wordCount": 1165
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2023/03/29/cs/infra/manageServerResource/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">클라우드에서 서버 리소스를 제어하는 방법</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">79</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2023/04/04/cs/infra/infra7/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
