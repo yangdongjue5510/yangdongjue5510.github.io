@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://user-images.githubusercontent.com/87690744/229852310-21903512-9800-4e96-9162-152881101a62.png">
 <meta property="article:published_time" content="2023-04-04T11:58:22.000Z">
-<meta property="article:modified_time" content="2023-04-04T18:01:25.647Z">
+<meta property="article:modified_time" content="2023-04-05T11:17:02.410Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
 <meta name="twitter:card" content="summary">
@@ -197,7 +197,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/2023/04/04/cs/infra/infra7/" class="article-date">
-     <time datetime="2023-04-04T18:01:25.647Z" itemprop="dateModified">2023-04-05</time>
+     <time datetime="2023-04-05T11:17:02.410Z" itemprop="dateModified">2023-04-05</time>
   </a>
 </div>
 
@@ -318,6 +318,42 @@
 <h3 id="시큐리티-그룹과-차이"><a href="#시큐리티-그룹과-차이" class="headerlink" title="시큐리티 그룹과 차이"></a>시큐리티 그룹과 차이</h3><p>상태 관점에서 차이가 있다. 상태는 통신 허용 정보를 생각하면 된다.</p>
 <p>NACL은 Stateless이다. 즉 허용 정보를 관리하지 않는다. 왜냐면 암묵적으로 허용하는 정책을 따르기 때문이다.<br>반면 시큐리티 그룹은 Stateful하다. 즉 허용 정보를 관리한다. 왜냐면 암묵적으로 모두 금지하는 정책을 따르기 때문이다.</p>
 <p>NACL은 서브넷 단위로 적용한다.<br>반면 시큐리티 그룹은 논리 포트 단위로 적용한다.</p>
+<h1 id="네트워크를-구성하기-위한-API-처리-흐름"><a href="#네트워크를-구성하기-위한-API-처리-흐름" class="headerlink" title="네트워크를 구성하기 위한 API 처리 흐름"></a>네트워크를 구성하기 위한 API 처리 흐름</h1><p>오픈스택 Neutron에서 네트워크 리소스를 구성하는 흐름은 다음과 같다.</p>
+<ul>
+<li>가상 네트워크 생성</li>
+<li>가상 네트워크에 서브넷 할당</li>
+<li>논리 포트 생성</li>
+<li>가상 라우터 생성해서 서브넷과 연결</li>
+<li>가상 라우터를 외부 L2 네트워크와 연결</li>
+</ul>
+<p>각 단계마다 JSON 데이터를 포함해서 요청하면 된다. 네트워크의 CIDR 같은 정보를 JSON 형식으로 정의할 수 있다. 일관된 포맷으로 네트워크 정보를 유지할 수 있다.</p>
+<p>한편 AWS에서는 다음과 같다.</p>
+<ul>
+<li>CreateVPC : VPC(가상 네트워크) 생성</li>
+<li>CreateSubnet : 서브넷 생성</li>
+<li>CreateNetworkInterface : ENI(포트) 생성</li>
+</ul>
+<p>이 과정을 마친 뒤, 논리 포트(ENI)를 가상 서버에 연결하면 가상 서버는 즉시 통신 가능한 상태가 된다. 이런 클라우드 API를 활용한 네트워크 구축은 물리 환경에서 구축하기보다 훨씬 간편하다.</p>
+<h1 id="네트워크-리소스의-내부-구성"><a href="#네트워크-리소스의-내부-구성" class="headerlink" title="네트워크 리소스의 내부 구성"></a>네트워크 리소스의 내부 구성</h1><p>클라우드 환경에서 네트워크를 조작할 때 가상 네트워크가 어떻게 만들어지는 지 알아보자.<br>오픈스택인 Neutron을 기준으로 파악해보자.</p>
+<h2 id="가상-네트워크를-제어하는-프로세스"><a href="#가상-네트워크를-제어하는-프로세스" class="headerlink" title="가상 네트워크를 제어하는 프로세스"></a>가상 네트워크를 제어하는 프로세스</h2><p>오픈스택 Neutron에는 두 종류의 호스트가 있다.<br>사용자가 실행한 API를 처리하는 프로세스가 동작할 호스트(컨트롤러 노드)<br>가상 서버가 기동하고 가상 네트워크를 구성하는 호스트(컴퓨트 노드)</p>
+<h2 id="여러-노드를-가진-테넌트의-가상-네트워크"><a href="#여러-노드를-가진-테넌트의-가상-네트워크" class="headerlink" title="여러 노드를 가진 테넌트의 가상 네트워크"></a>여러 노드를 가진 테넌트의 가상 네트워크</h2><p><img src="https://user-images.githubusercontent.com/87690744/230054652-966e9b20-f742-4d38-81a6-48f6cb2b5fee.png"></p>
+<p>위 예시를 보면 하나의 컴퓨트 노드에 동일한 IP 주소를 가진 두개의 가상 서버가 작동하고 있다. 일반적인 환경이나 가상화 환경에서는 불가능한 구성이다. 왜냐면 다른 호스트의 가상 서버와 통신하려면 IP 주소가 같아서 어떤 가상 서버와 통신하는 지 알 수 없기 때문이다.<br>클라우드 환경에서는 이런 충돌이 발생해도 문제가 되지 않도록 한다.</p>
+<h2 id="네트워크-식별"><a href="#네트워크-식별" class="headerlink" title="네트워크 식별"></a>네트워크 식별</h2><p>컴퓨터 노드에는 <code>br-init</code>과 <code>br-turn</code> 이라는 OVS(Open vSwitch) 브릿지가 만들어져 있다.</p>
+<p><code>br-init</code>은 가상 서버와 리눅스의 가상 인터페이스로 연결된다. 이 가상 인터페이스가 논리 포트가 된다.<br><code>br-init</code>은 <code>br-turn</code>과 연결된다. <code>br-turn</code>은 컴퓨트 노드 사이 패킷 전송을 담당한다.</p>
+<p>가상 서버에서 전송되는 패킷은 가상 서버에 연결된 논리 포트(가상 인터페이스)를 통해 가상 서버가 어떤 네트워크에 속한 지 파악한다. 그래서 해당 패킷의 소속 네트워크를 식별하기 위해 <code>VLAN ID</code>를 패킷에 할당한다.<br>즉 하나의 컴퓨트 노드에 분리된 두 네트워크에 각자 속한 같은 IP 주소의 가상 서버는 패킷에 할당된 <code>VLAN ID</code>를 통해 각자의 네트워크를 식별할 수 있게된다.</p>
+<p>두 컴퓨트 노드 사이 패킷 전송은 <code>VXLAN</code>이 사용된다. <code>VXLAN</code>은 이더넷 프레임을 캡슐화해서 L3 네트워크 상에 논리적인 L2 네트워크를 구성하는 터널링 프로토콜이다. </p>
+<p><code>br-turn</code>에서 내부로 패킷을 받아올 때는 <code>VXLAN ID</code>를 꺼내고 <code>VLAN ID</code>로 할당한다. 외부로 패킷을 내보낼 때는 <code>VLAN ID</code>를 꺼내고 <code>VXLAN ID</code>를 할당한다.</p>
+<blockquote>
+<p>VLAN과 VXLAN<br>둘 다 가상 네트워크를 식별하기 위한 네트워크 가상화 기술이다. 두 기술의 차이는 구분 가능한 네트워크 갯수에 있다. VLAN은 4094개, VXLAN은 1600만개를 구분할 수 있다.</p>
+</blockquote>
+<h1 id="클라우드-네트워크와-SDN"><a href="#클라우드-네트워크와-SDN" class="headerlink" title="클라우드 네트워크와 SDN"></a>클라우드 네트워크와 SDN</h1><p>SDN (Software Defined Networking)는 제어와 전송을 분리해서 API로 제어하겠다는 개념이다. 제어하는 부분은 컨트롤러, 전송을 담당하는 부분은 데이터 플랜이라고 한다.</p>
+<p>SDN의 구성요소는</p>
+<ul>
+<li>클라우드 네트워크 컨트롤러 : 클라우드에서 가상 네트워크를 동작시키기 위한 태스크를 실행</li>
+<li>네트워크 오케스트레이터 : 각종 네트워크 장비를 제어하면서 가상 네트워크 기능 구현.</li>
+<li>네트워크 장비 : 실제로 패킷을 다루는 장비. 장비를 제어할 수 있도록 API 제공</li>
+</ul>
+<p>특히 클라우드 네트워크 컨트롤러는 사용자에게 노출되는 API를 담당한다. 즉 내부의 변화가 사용자에게 최대한 영향을 덜 미치도록 해야한다. 사용자들이 사용하기 편하도록 설계되어야 한다.</p>
 
         </div>
         <footer class="article-footer">
@@ -405,7 +441,7 @@
         "url": "https://yangdongjue5510.github.io/2023/04/04/cs/infra/infra7/",
         "description": "네트워크 리소스의 기본네트워크의 기능은 크게 L2 네트워크(OSI 참조 모델의 데이터링크 계층)과 L3 네트워크(OSI 참조 모델의 네트워크)로 나눠볼 수 있다.L2 네트워크는 같은 네트워크에 속한 장비를 연결한다. 대표적으로 스위치가 이런 역할을 한다.L3 네트워크는 서로 다른 L2 네트워크를 연결한다. 대표적으로 라우터가 이런 역할을 한다.
 네트워크에서",
-        "wordCount": 1165
+        "wordCount": 1608
     }
 </script>
 
