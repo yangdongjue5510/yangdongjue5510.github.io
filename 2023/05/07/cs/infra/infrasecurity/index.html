@@ -6,7 +6,7 @@
     
 
     
-    <title>클라우드 서비스의 인증과 보안 | mudura | 그거 뭐더라</title>
+    <title>클라우드 서비스의 인증과 보안 (HTTPS) | mudura | 그거 뭐더라</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -14,13 +14,13 @@
     
     <meta name="description" content="HTTPSAPI와 통신할 때 사용하는 프로토콜인 HTTP는 통신 내용을 평문으로 전달된다. 그래서 도청하면 내용을 그대로 알 수 있게 된다.HTTPS는 통신 내용에 보안이 중요한 내용을 다룰 때 사용되는 기술이다. HTTP over SSL&#x2F;TLS이라는 의미다. HTTPS는 포트번호로 443을 사용한다.SSL&#x2F;TLS는 OSI 참조모델에서 L">
 <meta property="og:type" content="article">
-<meta property="og:title" content="클라우드 서비스의 인증과 보안">
+<meta property="og:title" content="클라우드 서비스의 인증과 보안 (HTTPS)">
 <meta property="og:url" content="https://yangdongjue5510.github.io/2023/05/07/cs/infra/infrasecurity/index.html">
 <meta property="og:site_name" content="mudura | 그거 뭐더라">
 <meta property="og:description" content="HTTPSAPI와 통신할 때 사용하는 프로토콜인 HTTP는 통신 내용을 평문으로 전달된다. 그래서 도청하면 내용을 그대로 알 수 있게 된다.HTTPS는 통신 내용에 보안이 중요한 내용을 다룰 때 사용되는 기술이다. HTTP over SSL&#x2F;TLS이라는 의미다. HTTPS는 포트번호로 443을 사용한다.SSL&#x2F;TLS는 OSI 참조모델에서 L">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-05-07T09:26:38.000Z">
-<meta property="article:modified_time" content="2023-05-07T12:37:15.661Z">
+<meta property="article:modified_time" content="2023-05-07T13:57:11.953Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
 <meta name="twitter:card" content="summary">
@@ -175,7 +175,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-        클라우드 서비스의 인증과 보안
+        클라우드 서비스의 인증과 보안 (HTTPS)
         </h1>
     
 
@@ -195,7 +195,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/2023/05/07/cs/infra/infrasecurity/" class="article-date">
-     <time datetime="2023-05-07T12:37:15.661Z" itemprop="dateModified">2023-05-07</time>
+     <time datetime="2023-05-07T13:57:11.953Z" itemprop="dateModified">2023-05-07</time>
   </a>
 </div>
 
@@ -221,8 +221,23 @@
 <blockquote>
 <p>SSL과 TLS<br>둘다 인터넷 상의 안전한 통신을 위한 프로토콜. SSL은 1990년대에 개발되었지만 3.0까지만 지원하고 보안 취약점이 많다. 그래서 SSL의 후속버전인 TLS이 1999년에 개발됐다. 현재는 TLS가 SSL의 대체제로 널리 사용된다.</p>
 </blockquote>
-<h2 id="인증서"><a href="#인증서" class="headerlink" title="인증서"></a>인증서</h2><p>HTTPS에는 인증서가 사용된다. 인증서는 크게 서버 인증서와 클라이언트 인증서로 분류된다. 기본적으로 HTTPS에서는 서버 인증서로 서버의 신원을 검증한다.<br>필요한 경우에는 클라이언트 신원을 검증하는 클라이언트 인증서를 사용해서 보안 수준을 높일 수 있으나, 서버 인증서만 적용하는 게 일반적이다.<br>클라이언트 검증은 HTTP 헤더의 User-Agent 정보를 활용해서 알아내는 등 다양한 다른 방법으로 검증할 수 있다.</p>
-<h3 id="키"><a href="#키" class="headerlink" title="키"></a>키</h3><p>통신 내용을 암복호화 하려면 키가 필요하다. </p>
+<h2 id="인증서와-암호화-방식"><a href="#인증서와-암호화-방식" class="headerlink" title="인증서와 암호화 방식"></a>인증서와 암호화 방식</h2><p>HTTPS에는 인증서가 사용된다. 인증서는 크게 서버 인증서와 클라이언트 인증서로 분류된다. 기본적으로 HTTPS에서는 서버 인증서로 서버의 신원을 검증한다.<br>필요한 경우에는 클라이언트 신원을 검증하는 클라이언트 인증서를 사용해서 보안 수준을 높일 수 있으나, 서버 인증서만 적용하는 게 일반적이다.<br>클라이언트 검증은 HTTP 헤더의 User-Agent 정보를 활용해서 알아내는 등 다양한 다른 방법으로 검증할 수 있다.</p>
+<p>이런 인증서는 인증기관에서 발급한다.</p>
+<h3 id="키"><a href="#키" class="headerlink" title="키"></a>키</h3><p>통신 내용을 암복호화 하려면 키가 필요하다. 키를 활용하는 방식은 공유 키 암호화 방식과 공개 키 암호화 방식이 있다.</p>
+<p>**공유 키 암호화 방식(대칭키 암호화 방식)**은 하나의 키로 암호화와 복호화에 모두 사용하는 방식이다.<br>암호화와 복호화에 같은 키를 사용해서 속도가 빠르고 구조가 간단하다. 반면 하나의 키를 안전하게 보관해야 하는 부담이 있다.</p>
+<p>**공개 키 암호화 방식(비대칭 암호화 방식)**은 암호화와 복호화에 서로 다른 두 개의 키를 사용하는 방식이다.<br>공개 키는 누구나 알 수 있다. 하지만 비밀 키는 자신만 알 수 있게 한다.<br>공개 키로 암호화하면 비밀 키로 복호화 할 수 있다. 비밀 키로 암호화하면 공개 키로 복호화 할 수 있다.<br>공개 키 암호화 방식은 더 안전한 대신 공유 키 암호화 방식에 비해 느리다.</p>
+<h3 id="HTTPS-암호화-방식"><a href="#HTTPS-암호화-방식" class="headerlink" title="HTTPS 암호화 방식"></a>HTTPS 암호화 방식</h3><p>HTTPS는 공유 키 암호화 방식과 공개 키 암호화 방식을 혼합해서 사용한다.<br>처음에 공유 키를 공개 키 암호화 방식으로 안전하게 전달하고, 전달된 공유 키로 빠르게 암호화 통신을 하게 된다.<br>구체적인 동작 과정에 대해 알아보자.</p>
+<p><strong>1. 일단 웹 브라우저는 인증 기관들과 각 인증 기관들의 공개 키를 알고 있다.</strong></p>
+<p>웹 브라우저는 인증 기관들과 각 인증 기관들의 공개 키를 알고 있다.<br>즉 웹 브라우저는 인증 기관들이 비밀 키로 암호화 한 내용을 복호화할 수 있고, 웹 브라우저가 암호화한 내용을 인증 기관이 복호화할 수 있다.<br>웹 브라우저들이 가지고 있는 인증 기관들의 공개 키는 인증 기관이 발급한 인증서를 복호화할 때 사용된다.</p>
+<p><strong>2. 웹 서버는 인증기관으로부터 인증서를 발급받는다.</strong></p>
+<p>웹 서버는 사이트 정보와 자신의 공개키를 인증기관에 전달하여 인증서를 발급받는다.<br>인증 기관은 사이트 정보와 사이트 공개키를 인증 기관의 개인 키로 암호화하여 인증서를 발급한다.</p>
+<blockquote>
+<p>인증 기관 (CA, Certificate Authority)<br>인증 기관은 공개키와 공개 DNS명의 연결을 보장한다. 웹 서버가 인증 기관으로 부터 서버 인증서를 발급받으려 할 때 사이트 정보와 자신의 개인키를 전달한다.<br>인증 기관은 자신의 개인 키로 웹사이트의 공개키를 암호학적으로 사인한 인증서를 만들어서 웹 서버에게 전달한다.<br>이제 인증 기관이 발급한 인증서는 웹 브라우저가 가진 인증 기관의 공개키로 복호화 할 수 있고, 인증서를 복호화하면 웹 서버의 개인키를 얻을 수 있게 된다.</p>
+</blockquote>
+<p><strong>3. 클라이언트와 웹서버에 접근하여 인증서를 검증하고 대칭키를 발급한다.</strong></p>
+<p>클라이언트가 웹 서버에 통신하려고 할 때 SSL 핸드쉐이크를 진행한다.<br>이 과정에서 서로 암호화 알고리즘을 정하거나 인증 방시을 정한다.<br>또한 서버의 인증서를 전달받아서 브라우저가 인증 기관의 개인키로 복호화한다. 이를 통해 서버가 인증 기관이 검증한 서버임을 알 수 있고, 서버의 개인키를 얻을 수 있다.</p>
+<p>그리고 클라이언트 측에서 데이터 암호화 복호화에 쓰일 대칭키를 정하고 서버의 개인키로 암호화해서 서버에게 알린다.<br>이제 대칭키로 클라이언트와 서버는 데이터를 암호화 복호화해서 주고 받게 된다.<br>세션이 종료되고 나면 대칭키를 폐기한다.</p>
+<h1 id="클라우드에서-인증과-관련된-용어들"><a href="#클라우드에서-인증과-관련된-용어들" class="headerlink" title="클라우드에서 인증과 관련된 용어들"></a>클라우드에서 인증과 관련된 용어들</h1><h3 id="테넌트"><a href="#테넌트" class="headerlink" title="테넌트"></a>테넌트</h3><p>테넌트는 클라우드의 </p>
 
         </div>
         <footer class="article-footer">
@@ -300,7 +315,7 @@
             "@type": "Person",
             "name": "yangdongjue5510"
         },
-        "headline": "클라우드 서비스의 인증과 보안",
+        "headline": "클라우드 서비스의 인증과 보안 (HTTPS)",
         "image": "https://yangdongjue5510.github.io",
         "keywords": "",
         "genre": "Computer Science Infra",
@@ -309,7 +324,7 @@
         "dateModified": "2023-05-07",
         "url": "https://yangdongjue5510.github.io/2023/05/07/cs/infra/infrasecurity/",
         "description": "HTTPSAPI와 통신할 때 사용하는 프로토콜인 HTTP는 통신 내용을 평문으로 전달된다. 그래서 도청하면 내용을 그대로 알 수 있게 된다.HTTPS는 통신 내용에 보안이 중요한 내용을 다룰 때 사용되는 기술이다. HTTP over SSL&#x2F;TLS이라는 의미다. HTTPS는 포트번호로 443을 사용한다.SSL&#x2F;TLS는 OSI 참조모델에서 L",
-        "wordCount": 133
+        "wordCount": 505
     }
 </script>
 
