@@ -20,7 +20,7 @@
 <meta property="og:description" content="HTTPSAPI와 통신할 때 사용하는 프로토콜인 HTTP는 통신 내용을 평문으로 전달된다. 그래서 도청하면 내용을 그대로 알 수 있게 된다.HTTPS는 통신 내용에 보안이 중요한 내용을 다룰 때 사용되는 기술이다. HTTP over SSL&#x2F;TLS이라는 의미다. HTTPS는 포트번호로 443을 사용한다.SSL&#x2F;TLS는 OSI 참조모델에서 L">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-05-07T09:26:38.000Z">
-<meta property="article:modified_time" content="2023-05-07T13:59:15.163Z">
+<meta property="article:modified_time" content="2023-05-11T06:03:32.700Z">
 <meta property="article:author" content="yangdongjue5510">
 <meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/2023/05/07/cs/infra/infrasecurity/" class="article-date">
-     <time datetime="2023-05-07T13:59:15.163Z" itemprop="dateModified">2023-05-07</time>
+     <time datetime="2023-05-11T06:03:32.700Z" itemprop="dateModified">2023-05-11</time>
   </a>
 </div>
 
@@ -237,6 +237,29 @@
 <p><strong>3. 클라이언트와 웹서버에 접근하여 인증서를 검증하고 대칭키를 발급한다.</strong></p>
 <p>클라이언트가 웹 서버에 통신하려고 할 때 SSL 핸드쉐이크를 진행한다.<br>이 과정에서 서로 암호화 알고리즘을 정하거나 인증 방시을 정한다.<br>또한 서버의 인증서를 전달받아서 브라우저가 인증 기관의 개인키로 복호화한다. 이를 통해 서버가 인증 기관이 검증한 서버임을 알 수 있고, 서버의 개인키를 얻을 수 있다.</p>
 <p>그리고 클라이언트 측에서 데이터 암호화 복호화에 쓰일 대칭키를 정하고 서버의 개인키로 암호화해서 서버에게 알린다.<br>이제 대칭키로 클라이언트와 서버는 데이터를 암호화 복호화해서 주고 받게 된다.<br>세션이 종료되고 나면 대칭키를 폐기한다.</p>
+<h1 id="사용자-그룹-롤-정책"><a href="#사용자-그룹-롤-정책" class="headerlink" title="사용자, 그룹, 롤, 정책"></a>사용자, 그룹, 롤, 정책</h1><p>클라우드에서 인증하는 단위와 권한 제어 방식에 대해 살펴보자.</p>
+<h2 id="테넌트"><a href="#테넌트" class="headerlink" title="테넌트"></a>테넌트</h2><p>태넌트는 클라우드 서비스애서 최상위 개념이다. AWS에서는 어카운트가 테넌트 개념에 해당한다.<br>원착적으로 태넌트는 여러 태넌트애 걸쳐서 작업을 하지 못한다. 클라우드는 인증도 리소스의 일종이라 적어도 하나의 태넌트애 속한다.<br>하지만 예외적으로 여러 테넌트애 걸쳐서 인증하는 방법도 있다.</p>
+<h2 id="사용자"><a href="#사용자" class="headerlink" title="사용자"></a>사용자</h2><p>클라우드에서는 API를 실행하게 하는 액터가 존재한다. 액터는 즉 사용자를 의미한다.<br>클라우드에서는 사용자도 리소스의 종류로 취급한다.<br>처음 클라우드를 구성할 때는 리소스가 존재하지 않으므로 사용자도 없다. 대신 클라우드에는 테넌트에 연결된 특별한 관리자 계정이 있다.<br>이 관리자 계정을 사용자처럼 사용해서 리소스를 생성한다. 관리자 계정은 막강한 권한이 있어서 운영 시에는 일반적으로 사용하지 않는다.</p>
+<p>관리자 계정으로 사용자를 만들고 권한을 할당해서 사용하도록 한다. 권한을 할당하려면 정책을 생성하고 사용자에게 할당해야 한다.</p>
+<h2 id="그룹과-정책"><a href="#그룹과-정책" class="headerlink" title="그룹과 정책"></a>그룹과 정책</h2><p>클라우드에는 사용자를 그룹으로 묶을 수 있다. 그룹 단위로 정책을 할당하여 많은 사용자를 쉽게 관리할 수 있다.<br>정책은 권한을 제어할 때 사용하는 기능이다. 클라우드 리소스 중 통제가 필요한 대상에 정책으로 접근이나 실행을 제한할 수 있다.<br>정책은 액션과 리소스의 집합체에 대해 이펙트를 허가하거나 거부하는 방식으로 JSON 형식으로 나열한다.</p>
+<h3 id="AWS-IAM-정책의-기본-요소"><a href="#AWS-IAM-정책의-기본-요소" class="headerlink" title="AWS IAM 정책의 기본 요소"></a>AWS IAM 정책의 기본 요소</h3><ul>
+<li>이펙트 : 허가하면 ‘Allow’, 거부는 ‘Deny’로 표현</li>
+<li>액션 : 허가 혹은 거부할 액션 API를 기재</li>
+<li>리소스 : 허가하거나 거부할 리소스를 ARN 형식으로 기재. (ARN은 아마존 리소스 이름 형식.)</li>
+</ul>
+<p>정책에 정해지지 않은 것은 묵시적인 거부로 판단한다. 만약 하나의 액션이나 리소스에 여러 이펙트가 정의되면 다음 우선순위로 적용한다.<br><code>명시적인 Deny &gt; 명시적인 Allow &gt; 묵시적인 Deny</code></p>
+<p>그 외 정책 규칙은 다음 문서를 참고하자. (<a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_grammar.html">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_grammar.html</a>)<br>JSON으로 일일히 작성하기 까다로우니 Policy Generator를 사용하고, 실제로 잘 작동하는지 확인할 때 Policy Simulator를 사용할 수 있다.</p>
+<h2 id="인증-키와-토큰"><a href="#인증-키와-토큰" class="headerlink" title="인증 키와 토큰"></a>인증 키와 토큰</h2><h3 id="인증-키"><a href="#인증-키" class="headerlink" title="인증 키"></a>인증 키</h3><p>사용자가 인증하려면 ID와 패스워드에 해당하는 인증 키가 필요하다. AWS는 콘솔, API, CLI, SDK에 따라 인증 방식이 약간 다르다. 콘솔에서는 패스워드로 인증하고, 그외는 ID에 상응하는 액세스 키와 시크릿 액세스 키를 사용한다.</p>
+<h3 id="토큰"><a href="#토큰" class="headerlink" title="토큰"></a>토큰</h3><p>설정 파일에 패스워드를 미리 넣어두거나, 헤더나 쿼리 파라미터로 패스워드를 전달하는 방식은 매우 위험하다. 그래서 유효 기간이 정해진 임시 비밀번호를 발급해서 사용하는 방식을 선택한다. 임시 비밀번호를 토큰이라고 한다.<br>일반적으로 사용자의 ID와 패스워드로 토큰을 발급받고 API호출할 때 사용한다. AWS는 STS라는 서비스가 임시 자격 증명 토큰 발급을 해준다. AWS는 토큰과 액세스 키(아이디)를 조합해서 API를 호출한다.<br>토큰은 임시 비밀번호 역할 뿐만 아니라 IAM 롤과 페더레이션에도 사용된다.</p>
+<h3 id="서명"><a href="#서명" class="headerlink" title="서명"></a>서명</h3><p>클라이언트의 요청을 처리하기전에 클라이언트가 실존하는지, 전송된 데이터가 위변조되지는 않았는지 확인해야 한다. 이때 필요한 게 전자 서명이다.<br>CLI나 SDK는 내부적으로 이런 과정을 거치지만 API는 전자 서명에 의존할 수 밖에 없다.</p>
+<p>전자 서명을 위해서는 요청 정보의 해시 값과 요청 값, 시크릿 액세스 키를 조합하여 만든다. 이때 사용되는 알고리즘은 SHA이고, 해시 값에따라 버전이 달라진다.<br>시크릿 액세스 키로부터 서명 키를 얻어내고, 본문 페이로드로부터 해시(서명 문자열)을 얻어낸다. 서명 키를 해시 키로 서명 문자열을 해시 처리하면 서명 값이 나온다.<br>서명 값을 HTTP 헤더의 Authorization에 설정되면 전자서명이 이뤄진다.</p>
+<h2 id="IAM-롤과-리소스-기반-정책"><a href="#IAM-롤과-리소스-기반-정책" class="headerlink" title="IAM 롤과 리소스 기반 정책"></a>IAM 롤과 리소스 기반 정책</h2><p>정책인 기본적으로 사용자와 그룹에게 적용된다. 하지만 리소스 지향적인 관점으로 리소스에 정책을 할당할 수 있어야 한다.<br>이를 위해 AWS에서는 IAM롤과 리소스 기반 정책을 사용한다. IAM 롤은 리소스에게 정책을 부과한다. IAM 롤은 내부적으로 STS를 통해 토큰을 발행받아서 API를 실행할 때 다른 인증 키가 필요없다.<br>IAM 롤은 어떤 리스소가 특정 리소스에 대한 접근을 다루는 정책을 관리한다. 즉 API 호출하는 주체가 중점이 된다. 그래서 IAM 롤은 API 호출 주체에게 할당한다.<br>반면 리소스 기반 롤 정책은 관점이 다르다. 접근이 되는 대상이 중점이 된다. 즉 API 호출 대상이 중점이 된다. 이때 호출 대상을 호출하는 주체를 Principal이라는 이름으로 관리한다. 리소스 기반 롤 정책은 호출 대상 리소스에 할당한다.</p>
+<h2 id="복수-테넌트에-대한-제어-권한"><a href="#복수-테넌트에-대한-제어-권한" class="headerlink" title="복수 테넌트에 대한 제어 권한"></a>복수 테넌트에 대한 제어 권한</h2><p>일반적으로 테넌트는 다른 테넌트와 분리되어 있다. AWS에서는 인증도 테넌트의 리소스에 속하므로 테넌트를 넘나드는 작업은 기본적으로 불가능하다.<br>하지만 정책을 통해 권한을 부여하면 테넌트를 넘나드는 작업이 가능하다.</p>
+<p>일단 오픈스택에서는 여러 테넌트에 접근할 수 있는 사용자를 만들 수 있다. 다만 각 테넌트의 토큰이 서로에게 호환되지 않기 때문에 다른 테넌트의 리소스를 다룰때는 해당 테넌트의 토큰을 발급받아 사용해야 한다.<br>한편 AWS에서는 한 테넌트의 관리자 계정이 다른 테넌트의 리소스를 접근하지 못하는 게 일반적이다. 하지만 IAM 롤을 잘 활용하면 된다.<br>먼저 접근을 허용할 테넌트의 IAM 롤에 AssumeRole API에 대해 Principal에 접근할 테넌트의 어카운트 번호를 입력한다. 이러면 해당 테넌트가 일부 리소스에 대해 접근할 수 있게 된다.<br>하지만 당연히 제 3자의 접근을 막기 위해 Principal에서 접근을 허용할 테넌트의 정보만 적어줘야 한다.</p>
+<h1 id="페더레이션"><a href="#페더레이션" class="headerlink" title="페더레이션"></a>페더레이션</h1><p>인증이 필요한 API를 사용할 때 인증을 다른 서비스의 계정에 권한을 위임하는 것을 페더레이션이라고 한다.<br>대표적으로 다른 SNS 계정으로 로그인 가능한 사이트들이 페더레이션을 사용한 예시다.</p>
+<p>인증 권한을 위임받아서 처리하는 서비스를 ID 프로바이더라고 하고 또다른 ID를 사용하는 시스템과 상호 신뢰 관계를 맺어 통합 인증을 구현한다.</p>
+<h3 id="대표적인-방법들"><a href="#대표적인-방법들" class="headerlink" title="대표적인 방법들"></a>대표적인 방법들</h3><p>통합 인증 방식은 SAML, OIDC, WebID로 구현할 수 있다.<br>SAML은 인증 인가에 필요한 정보등르 기술하는 마크업 언어다. SAML을 HTTP(HTTPS)로 주고받으면 통합 인증이 되는 방식이다. SAML의 메타 데이터는 클라우드 측에서 제공한다.<br>OIDC는 OAuth 2.0을 채용하여 웹 API를 통한 접근 제어하는 방법이다. </p>
+<p>AWS에서는 ID 인증과 페더레이션 처리가 되어 인증 어썰션을 취득한다.<br>인증 어썰션을 기반으로 STS에서 토큰을 발급받아서 API를 실행할 수 있게 된다.</p>
 
         </div>
         <footer class="article-footer">
@@ -320,10 +343,10 @@
         "genre": "Computer Science Infra",
         "datePublished": "2023-05-07",
         "dateCreated": "2023-05-07",
-        "dateModified": "2023-05-07",
+        "dateModified": "2023-05-11",
         "url": "https://yangdongjue5510.github.io/2023/05/07/cs/infra/infrasecurity/",
         "description": "HTTPSAPI와 통신할 때 사용하는 프로토콜인 HTTP는 통신 내용을 평문으로 전달된다. 그래서 도청하면 내용을 그대로 알 수 있게 된다.HTTPS는 통신 내용에 보안이 중요한 내용을 다룰 때 사용되는 기술이다. HTTP over SSL&#x2F;TLS이라는 의미다. HTTPS는 포트번호로 443을 사용한다.SSL&#x2F;TLS는 OSI 참조모델에서 L",
-        "wordCount": 489
+        "wordCount": 1255
     }
 </script>
 
