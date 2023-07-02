@@ -9,11 +9,11 @@
     <atom:link href="https://yangdongjue5510.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>This is yangdongjue5510 dev blog.</description>
-    <pubDate>Sun, 02 Jul 2023 10:09:31 GMT</pubDate>
+    <pubDate>Sun, 02 Jul 2023 10:10:17 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>post</title>
+      <title>가상 면접 사례로 배우는 대규모 시스템 설계 - part 1</title>
       <link>https://yangdongjue5510.github.io/2023/07/02/post/</link>
       <guid>https://yangdongjue5510.github.io/2023/07/02/post/</guid>
       <pubDate>Sun, 02 Jul 2023 10:02:46 GMT</pubDate>
