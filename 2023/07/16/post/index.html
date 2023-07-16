@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>실전 자바 소프트웨어 개발을 읽고 재밌었던 부분 모음 | mudura | 그거 뭐더라</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="실전 자바 소프트웨어 개발을 읽고 몇가지 재밌는 포인트를 적어본다. Q. 유지보수에 유리한 코드는 어떤 코드인가?특정 기능을 담당하는 코드를 빠르게 찾을 수 있어야 한다. 코드가 어떤 일을 수행하는 지 쉽게 파악할 수 있어야 한다. 새로운 기능을 추가하기 쉽고 기존의 기능을 제거하기 쉬워야 한다. 캡슐화가 잘 되어 있어야 한다. 사용자가 내부 구현을 몰라도">
+<meta property="og:type" content="article">
+<meta property="og:title" content="실전 자바 소프트웨어 개발을 읽고 재밌었던 부분 모음">
+<meta property="og:url" content="https://yangdongjue5510.github.io/2023/07/16/post/index.html">
+<meta property="og:site_name" content="mudura | 그거 뭐더라">
+<meta property="og:description" content="실전 자바 소프트웨어 개발을 읽고 몇가지 재밌는 포인트를 적어본다. Q. 유지보수에 유리한 코드는 어떤 코드인가?특정 기능을 담당하는 코드를 빠르게 찾을 수 있어야 한다. 코드가 어떤 일을 수행하는 지 쉽게 파악할 수 있어야 한다. 새로운 기능을 추가하기 쉽고 기존의 기능을 제거하기 쉬워야 한다. 캡슐화가 잘 되어 있어야 한다. 사용자가 내부 구현을 몰라도">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-16T09:25:31.000Z">
+<meta property="article:modified_time" content="2023-07-16T09:26:36.112Z">
+<meta property="article:author" content="yangdongjue5510">
+<meta property="article:tag" content="mudura dev blog powered by yangdongjue5510">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '[object Object]');
+</script>
+<!-- End Google Analytics -->
+
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="mudura | 그거 뭐더라" type="application/rss+xml">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1>
+                        <a href="/" style="font-size: 100px;color:#fff; text-decoration: none;">mudura</a>
+                    </h1>    
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/">Computer Science</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/data-structure/">Data Structure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/database/">Database</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/computer-science/os/">OS</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/infra/">Infra</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/jpa/">JPA</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/">Java</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/design-pattern/">Design Pattern</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/java/java-basic/">Java Basic</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/">Spring</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/boot/">Boot</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/spring/project/">Project</a></li></ul></li></ul>
+                                
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" target="_blank" rel="external nofollow noopener noreferrer" href="https://about.me/yangdongjue5510/edit/details">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-post" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        실전 자바 소프트웨어 개발을 읽고 재밌었던 부분 모음
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2023/07/16/post/" class="article-date">
+       <time datetime="2023-07-16T09:25:31.000Z" itemprop="datePublished">2023-07-16</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2023/07/16/post/" class="article-date">
+     <time datetime="2023-07-16T09:26:36.112Z" itemprop="dateModified">2023-07-16</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <p>실전 자바 소프트웨어 개발을 읽고 몇가지 재밌는 포인트를 적어본다.</p>
+<h3 id="Q-유지보수에-유리한-코드는-어떤-코드인가"><a href="#Q-유지보수에-유리한-코드는-어떤-코드인가" class="headerlink" title="Q. 유지보수에 유리한 코드는 어떤 코드인가?"></a>Q. 유지보수에 유리한 코드는 어떤 코드인가?</h3><p>특정 기능을 담당하는 코드를 빠르게 찾을 수 있어야 한다. 코드가 어떤 일을 수행하는 지 쉽게 파악할 수 있어야 한다. 새로운 기능을 추가하기 쉽고 기존의 기능을 제거하기 쉬워야 한다. 캡슐화가 잘 되어 있어야 한다. 사용자가 내부 구현을 몰라도 쉽게 이해할 수 있어야 하고 쉽게 다른 기능으로 바꿀 수 있어야 한다.</p>
+<h3 id="Q-코드-중복은-왜-안좋은가"><a href="#Q-코드-중복은-왜-안좋은가" class="headerlink" title="Q. 코드 중복은 왜 안좋은가?"></a>Q. 코드 중복은 왜 안좋은가?</h3><p>코드 중복은 해당 기능 변경이 일어나면 변경 작업을 여러 곳에서 해야 한다. 이 과정에서 빼먹는 곳이 있다면 버그가 발생한다.</p>
+<h3 id="Q-응집도가-무엇인가-왜-중요한가"><a href="#Q-응집도가-무엇인가-왜-중요한가" class="headerlink" title="Q. 응집도가 무엇인가? 왜 중요한가?"></a>Q. 응집도가 무엇인가? 왜 중요한가?</h3><p>응집도는 메서드나 클래스 혹은 모듈 속에 있는 구성 요소들이 얼마나 연관있는지를 가르킨다. 코드를 쉽게 찾고 이해하고 사용할 수 있게한다.</p>
+<h3 id="Q-클래스-수준-응집도를-어떤-기준으로-높일-수-있나"><a href="#Q-클래스-수준-응집도를-어떤-기준으로-높일-수-있나" class="headerlink" title="Q. 클래스 수준 응집도를 어떤 기준으로 높일 수 있나?"></a>Q. 클래스 수준 응집도를 어떤 기준으로 높일 수 있나?</h3><p>기능, 정보, 유틸리티, 논리, 순차, 시간 등 기준으로 클래스를 분리할 수 있다. 기능이 비슷한 메서드를 모아서 할 수 있다. 함께 사용하는 메서드가 같은 클래스에 모여 있어서 찾기 쉽고 이해하기 쉽다. 하지만 기능이 세세하게 나눠질 경우 클래스파일이 매우 많아져 더 이해하기 어려워질 수 있다.</p>
+<p>정보를 기준으로 메서드를 모을 수 있다. 특정 객체를 처리하는 메서드를 모으는 방식이다. 하지만 이 경우 여러 기능이 한 클래스에 모이게 되고 일부 기능만 사용하고 싶어도 해당 클래스에 의존하게 된다.</p>
+<p>유틸리티는 어디에 포함시키기 어려운 메서드를 모으는 방식이다. 이렇게 모인 메서드들은 서로 연관성이 낮기 때문에 주의해야 한다.</p>
+<p>논리는 비슷해보이는 메서드를 모은다. 책에서 나온 예시는 문자열을 입력받아 특정 객체로 파싱하는 로직이 있는데, 문자열의 형식이 CSV, JSON 등 다양하므로 이에 따른 다양한 파싱 로직을 한 클래스에 모은 방식이다. 이렇게하면 다양한 로직이 모이게 되는 것이므로 SRP에 위반하게 된다.</p>
+<p>하나의 비즈니스 로직의 순차적인 진행을 묶을 수 있다. 로직의 진행을 이해하기 쉬울 수는 있으나 다양한 기능이 하나의 단위로 묶이게 되므로 SRP를 위배하게 된다.</p>
+<p>마지막으로 시간 응집 클래스는 특정 시점에 실행되어야 하는 기능을 모은 클래스다. 책에서는 특정 작업 이전과 이후에 해야할 작업들을 모으는 예시를 들고 있다.</p>
+<h3 id="Q-개방-폐쇄-원칙이-무엇이고-구체적으로-어떤-예시를-들-수-있나"><a href="#Q-개방-폐쇄-원칙이-무엇이고-구체적으로-어떤-예시를-들-수-있나" class="headerlink" title="Q. 개방 폐쇄 원칙이 무엇이고 구체적으로 어떤 예시를 들 수 있나?"></a>Q. 개방 폐쇄 원칙이 무엇이고 구체적으로 어떤 예시를 들 수 있나?</h3><p>개방 폐쇄 원칙은 기존의 기능을 확장할 때 다른 코드를 변경하지도 않고 가능해야 한다는 의미다. 책에서는 은행 거래 내역 찾기를 예시로 들었다.</p>
+<p>다음은 특정 금액 이상의 거래 내역 찾기이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;BankTransaction&gt; <span class="title function_">findGreaterThanEqual</span><span class="params">(<span class="keyword">final</span> <span class="type">int</span> amount)</span> &#123;</span><br><span class="line">	<span class="keyword">final</span> List&lt;BankTransaction&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">final</span> BankTransaction bankTransaction : bankTransactions) &#123;</span><br><span class="line">		<span class="keyword">if</span> (bankTransaction.getAmount() &gt;= amount) &#123;</span><br><span class="line">			result.add(bankTransaction);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>비슷한 로직을 가진 특정 월에 거래된 거래 내역 찾기이다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;BankTransaction&gt; <span class="title function_">findInMonth</span><span class="params">(<span class="keyword">final</span> Month month)</span> &#123;</span><br><span class="line">	<span class="keyword">final</span> List&lt;BankTransaction&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">final</span> BankTransaction bankTransaction : bankTransactions) &#123;</span><br><span class="line">		<span class="keyword">if</span> (bankTransaction.getDate().getMonth() == month) &#123;</span><br><span class="line">			result.add(bankTransaction);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기에 특정 월에 거래되었고, 특정 금액 이상의 거래 내역을 찾으려고 한다면 비슷한 메서드를 또 추가해줘야 할 것이다. 이 예시의 거래 내역 찾기 기능은 확장에 열려있지 않다. 그리고 위 예시는 비슷한 로직을 가진 여러 개의 메서드가 생기는, 즉 중복 코드를 가지기 때문에 중복된 부분에 변경이 생길 경우 여러 곳을 변경해야 한다. 즉 변경에 닫혀있지 않다.</p>
+<p>이를 위해서 메서드들마다 중복되는 코드와 그렇지 않은 코드를 분리하자. 위 예시에서는 거래 내역을 순회하는 로직이 있고, 거래 내역이 조건에 맞는 지 확인하는 로직이 있다. 거래 내역 순회 로직은 각 메서드마다 중복되고, 거래 내역 조건 확인하는 로직은 각 메서드마다 달라진다. 문제는 이 두 로직이 결합되어 있어서 순회 로직이 거래 내역 조건 확인 로직이 추가될 때마다 중복되어 작성된다는 점이다.</p>
+<p>이를 위해서는 두 로직의 결합을 제거하기로 한다. 우리는 인터페이스로 로직을 분리한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BankTransactionFilter</span> &#123;</span><br><span class="line">	<span class="type">boolean</span> <span class="title function_">test</span><span class="params">(BankTransaction bankTransaction)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이제 조건 맞는지 확인하는 로직을 해당 인터페이스로 추상화할 수 있다. 인터페이스로 순회로직이 검증 로직들과 분리되었다. 매개변수로 함수형 인터페이스의 구현체 객체를 전달하거나 람다를 전달하면 된다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;BankTransaction&gt; <span class="title function_">findTransactions</span><span class="params">(<span class="keyword">final</span> BankTransactionFilter filter)</span> &#123;</span><br><span class="line">	<span class="keyword">final</span> List&lt;BankTransaction&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">final</span> BankTransaction bankTransaction : bankTransactions) &#123;</span><br><span class="line">		<span class="keyword">if</span> (filter.test(bankTransaction) &#123;</span><br><span class="line">			result.add(bankTransaction);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Q-인터페이스를-잘게-분리하는-게-좋나-큰-인터페이스는-어떤-문제가-있나"><a href="#Q-인터페이스를-잘게-분리하는-게-좋나-큰-인터페이스는-어떤-문제가-있나" class="headerlink" title="Q. 인터페이스를 잘게 분리하는 게 좋나? 큰 인터페이스는 어떤 문제가 있나?"></a>Q. 인터페이스를 잘게 분리하는 게 좋나? 큰 인터페이스는 어떤 문제가 있나?</h3><p>한 인터페이스가 많은 연산을 제공하면 그 만큼 인터페이스가 변경될 여지가 많아진다. 인터페이스가 변경될 때마다 모든 구현체를 변경해줘야 한다. 변경이 많아지면 문제가 생길 여지가 많아진다. 그리고 인터페이스에 특정 도메인 내부 구현이 드러나면 안된다. 구현이 변경되면 인터페이스에도 변경이 생기고 결과적으로 모든 구현체에 변경해야 할 일이 생긴다.</p>
+<p>하지만 인터페이스를 극단적으로 잘게 나누면 기능이 여러 인터페이스로 분산되서 필요한 기능을 찾기 어려워지는 문제가 생길 수 있다.</p>
+<h3 id="Q-명시적-API-VS-암묵적-API"><a href="#Q-명시적-API-VS-암묵적-API" class="headerlink" title="Q. 명시적 API VS 암묵적 API"></a>Q. 명시적 API VS 암묵적 API</h3><p>개방 폐쇄 원칙으로 하나의 메서드로 기능을 쉽게 확장할 수 있게 했던 <code>findTransactions()</code> 메서드와 같이 유연하지만 처음에 사용하기 어려운 암묵적 API와 구체적으로 어떤 작동을 하는 지 드러나는 <code>findTransactionsGreaterThanEqual()</code> 같은 메서드를 명시적 API라고 한다. 흔하게 사용하는 경우는 명시적 API를 추가해놓는 게 편할 수 있다.</p>
+<h3 id="Q-CheckedException과-UncheckedException-의-차이는-뭘까"><a href="#Q-CheckedException과-UncheckedException-의-차이는-뭘까" class="headerlink" title="Q. CheckedException과 UncheckedException 의 차이는 뭘까?"></a>Q. CheckedException과 UncheckedException 의 차이는 뭘까?</h3><p>CheckedException은 API 사용자가 회복해야 할 예외다. 시그니처에 드러내거나 Try catch로 처리해줘야 한다. 반면 UncheckedException은 프로그램 실행 중 언제든지 발생할 수 있는 예외다.</p>
+<p>이 두가지를 선택하는 기준은 응용 프로그램을 회복시켜야 하는가(혹은 회복 시킬 수 있는가?)이다. 일시적으로 문제가 발생한 경우는 API 사용자가 회복을 하려고 하는 것보다 잠시 뒤에 다시 재요청하는 게 나을 것이다. 그리고 비즈니스 로직 검증 시 발생한 문제는 불필요한 Try catch나 시그니처에 노출하지 않도록 하기 위해서 unchecked로 하는 게 좋다. 마지막으로 시스템 예외가 발생한 경우 API 사용자가 회복 시킬 수 있는 상황이 아닌 경우도 있다. 이럴 때도 unchecked로 처리하는 것이 좋다. 결론은 대부분의 unchecked 예외로 처리해서 불필요한 try catch나 메서드 시그니처에 노출하지 않도록 하는 게 좋다.</p>
+<h3 id="Q-검증-코드는-어디에-두는-것이-좋을까-객체-생성-시-VS-검증자"><a href="#Q-검증-코드는-어디에-두는-것이-좋을까-객체-생성-시-VS-검증자" class="headerlink" title="Q. 검증 코드는 어디에 두는 것이 좋을까? 객체 생성 시 VS 검증자"></a>Q. 검증 코드는 어디에 두는 것이 좋을까? 객체 생성 시 VS 검증자</h3><p>책에서는 검증자를 추천한다. 검증 로직을 재사용할 수 있고 로직을 독립적으로 테스트할 수 잇고 SRP를 지키기 때문이다.</p>
+<h3 id="Q-예외로-흐름을-제어하면-안되는-이유가-무엇인가"><a href="#Q-예외로-흐름을-제어하면-안되는-이유가-무엇인가" class="headerlink" title="Q. 예외로 흐름을 제어하면 안되는 이유가 무엇인가?"></a>Q. 예외로 흐름을 제어하면 안되는 이유가 무엇인가?</h3><p>예외를 처리하는 불필요한 try catch가 코드 가독성을 떨어트린다. try catch는 흐름 제어가 아닌 예외나 오류 처리를 위한 코드라서 흐름 제어에 사용하면 코드 이해하기가 어려워진다. 마지막으로 예외를 생성했을 때 스택 트레이스 생성, 보존과 관련된 부담이 생긴다.</p>
+<h3 id="Q-예외-대신에-사용할-수-있는-기능은-무엇인가"><a href="#Q-예외-대신에-사용할-수-있는-기능은-무엇인가" class="headerlink" title="Q. 예외 대신에 사용할 수 있는 기능은 무엇인가?"></a>Q. 예외 대신에 사용할 수 있는 기능은 무엇인가?</h3><p>Null을 반환하도록 할 수 있다. 다만 어느 시점에서 Null이 반환됐는 지 추적하기가 어렵다. 그리고 API 호출마다 null 체크를 해야 하는 번거로움이 생기고 Null 만으로는 그 어떤 정보도 얻을 수 없어서 추천하지 않는다.</p>
+<p>Null 오브젝트 패턴을 사용할 수 있다. 반환되어야할 인터페이스를 구현하되 바디가 비어있는 형식을 가진 게 Null 오브젝트의 특징이다. 사용자에게 제공하고 싶은 내용을 담을 수 있고 NPE나 null 체크를 하지 않아도 된다. 다만 null 오브젝트는 발생 시 아무 단서를 주지 않기 때문에 문제를 파악하기가 어렵다.</p>
+<p>그 외에 자바 8의 Optional을 사용할 수 있다.</p>
+<h3 id="Q-빌드-도구를-왜-사용하는가"><a href="#Q-빌드-도구를-왜-사용하는가" class="headerlink" title="Q. 빌드 도구를 왜 사용하는가?"></a>Q. 빌드 도구를 왜 사용하는가?</h3><p>프로젝트를 실행하기 위해서는 컴파일해야 한다. 이때 여러 파일을 컴파일하는 명령어를 기억하기 힘들다. 여러 패키지를 컴파일하려면 어떤 명령어를 사용해야 할까? 다른 라이브러리 의존성은 어떻게 관리할 것인가? JAR와 같이 특정한 형식으로 어떻게 패키징할까 등 다양한 문제가 있다. 프로그램을 실행할 때마다 이런 문제를 고민하기 보다는 스크립트를 통해 모든 명령어를 자동화하면 훨씬 편한다. 다음은 빌드 도구 장점을 정리한 내용이다.</p>
+<ul>
+<li>응용 프로그램 빌드하고 실행하는 표준적인 작업 설정</li>
+<li>저수준 설정과 초기화에 들이는 시간을 절약해서 개발에 집중 가능</li>
+<li>설정과 빌드 과정에서의 오류 범위를 줄임</li>
+</ul>
+<h3 id="Q-리스코프-치환-원칙에-대해-설명해보라"><a href="#Q-리스코프-치환-원칙에-대해-설명해보라" class="headerlink" title="Q. 리스코프 치환 원칙에 대해 설명해보라"></a>Q. 리스코프 치환 원칙에 대해 설명해보라</h3><p>리스코프 치환 원칙은 크게 네가지 원칙으로 쉽게 설명할 수 있다.</p>
+<ul>
+<li>하위형식에서 선행조건을 더할 수 없다.<br>자식이 부모보다 더 많은 선행조건을 요구할 수 없다.</li>
+<li>하위형식에서 후행조건을 약화시킬 수 없다.<br>후행조건은 코드를 실행한 다음에 만족해야 하는 규칙이다. 자식은 부모의 후행조건을 반드시 만족해야 한다.</li>
+<li>슈퍼형식의 불변자는 하위형식에서 보존</li>
+<li>히스토리 규칙<br>부모가 허용하지 않은 상태 변화를 허용해서는 안된다. (부모가 불변 객체면 자식도 이를 준수)</li>
+</ul>
+<h3 id="Q-클라이언트-서버-모델에서-서버가-먼저-데이터를-전달하고-싶으면-어떻게-하는가"><a href="#Q-클라이언트-서버-모델에서-서버가-먼저-데이터를-전달하고-싶으면-어떻게-하는가" class="headerlink" title="Q. 클라이언트 서버 모델에서 서버가 먼저 데이터를 전달하고 싶으면 어떻게 하는가?"></a>Q. 클라이언트 서버 모델에서 서버가 먼저 데이터를 전달하고 싶으면 어떻게 하는가?</h3><p>푸시 기반 통신을 사용한다. 리액티브 혹은 이벤트 주도 통신이라고도 한다. 푸시 기반 통신에서는 작성자(publisher)가 이벤트 스트림을 구독하는 상대들에게 데이터를 전달한다. 푸시 기반 통신은 일대다 통신을 지원하고 복잡한 컴포넌트들과 통신해야 할 때 유리하다. </p>
+<p>풀 기반 통신은 푸시 기반 통신의 반대다. 클라이언트가 원하는 데이터를 먼저 서버에게 요청하고 응답받는 방식이다.</p>
+<h3 id="Q-저장소-패턴이란-무엇인가-레포지토리의-책임은-무엇인가"><a href="#Q-저장소-패턴이란-무엇인가-레포지토리의-책임은-무엇인가" class="headerlink" title="Q. 저장소 패턴이란 무엇인가? 레포지토리의 책임은 무엇인가?"></a>Q. 저장소 패턴이란 무엇인가? 레포지토리의 책임은 무엇인가?</h3><p>저장소 패턴은 비즈니스 로직과 저장소 백엔드 간의 인터페이스를 정의한다. 저장소 패턴은 저장소 백엔드를 추상화해서 저장소를 다른 방식으로 구현해도 비즈니스 로직에는 영향이 가지 않도록 한다. 저장소 패턴을 사용하면 도메인 모델 데이터로 매핑하는 로직을 중앙화 할 수 있다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://yangdongjue5510.github.io/2023/07/16/post/" data-id="clj12p40e00003ta08zpl2n4u" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "yangdongjue5510"
+        },
+        "headline": "실전 자바 소프트웨어 개발을 읽고 재밌었던 부분 모음",
+        "image": "https://yangdongjue5510.github.io",
+        "keywords": "",
+        "genre": "",
+        "datePublished": "2023-07-16",
+        "dateCreated": "2023-07-16",
+        "dateModified": "2023-07-16",
+        "url": "https://yangdongjue5510.github.io/2023/07/16/post/",
+        "description": "실전 자바 소프트웨어 개발을 읽고 몇가지 재밌는 포인트를 적어본다.
+Q. 유지보수에 유리한 코드는 어떤 코드인가?특정 기능을 담당하는 코드를 빠르게 찾을 수 있어야 한다. 코드가 어떤 일을 수행하는 지 쉽게 파악할 수 있어야 한다. 새로운 기능을 추가하기 쉽고 기존의 기능을 제거하기 쉬워야 한다. 캡슐화가 잘 되어 있어야 한다. 사용자가 내부 구현을 몰라도",
+        "wordCount": 1420
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/yangdongjue5510" target="_blank" rel="external nofollow noopener noreferrer">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2023/07/02/systemDesign-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">가상 면접 사례로 배우는 대규모 시스템 설계 - part 1</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">Computer Science</a><span class="category-list-count">81</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/">Algorithm</a><span class="category-list-count">29</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/problem-solving/">Problem Solving</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/algorithm/theory/">Theory</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/computer-structure/">Computer Structure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/data-structure/">Data Structure</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/database/">Database</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/infra/">Infra</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/network/">Network</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/os/">OS</a><span class="category-list-count">15</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/infra/">Infra</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jpa/">JPA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">Java</a><span class="category-list-count">60</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/design-pattern/">Design Pattern</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/java-basic/">Java Basic</a><span class="category-list-count">22</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">Spring</a><span class="category-list-count">46</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/spring/boot/">Boot</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/project/">Project</a><span class="category-list-count">23</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/clean-code/" style="font-size: 11.43px;">Clean Code</a> <a href="/tags/clean-software/" style="font-size: 10px;">Clean Software</a> <a href="/tags/effective-java/" style="font-size: 15.71px;">Effective Java</a> <a href="/tags/kotlin-in-action/" style="font-size: 18.57px;">Kotlin in Action</a> <a href="/tags/modern-java-in-action/" style="font-size: 17.14px;">Modern Java in Action</a> <a href="/tags/software-engineering-at-google/" style="font-size: 10px;">Software Engineering At Google</a> <a href="/tags/greedy/" style="font-size: 10px;">greedy</a> <a href="/tags/reshapi-project/" style="font-size: 10px;">reshapi project</a> <a href="/tags/sable-project/" style="font-size: 10px;">sable project</a> <a href="/tags/troubleshooting/" style="font-size: 12.86px;">troubleShooting</a> <a href="/tags/%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8/" style="font-size: 14.29px;">오브젝트</a> <a href="/tags/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4/" style="font-size: 20px;">우아한테크코스</a> <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%99%80-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0%EC%9D%98-%EC%9B%90%EB%A6%AC/" style="font-size: 10px;">운영체제와 정보기술의 원리</a> <a href="/tags/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="font-size: 10px;">자바 ORM 표준 JPA 프로그래밍</a> <a href="/tags/%ED%9A%8C%EA%B3%A0/" style="font-size: 10px;">회고</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 yangdongjue5510</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank" rel="external nofollow noopener noreferrer">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://yangdongjue5510.github.io/2023/07/16/post/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
