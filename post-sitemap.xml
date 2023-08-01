@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2023/07/31/girigiri-member-check/</loc>
+        <lastmod>2023-08-01T13:00:43.560Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2023/07/31/girigiri-db/</loc>
         <lastmod>2023-08-01T11:23:57.695Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -35,14 +43,6 @@
     <url>
         <loc>https://yangdongjue5510.github.io/2023/07/31/girigiri-page-api/</loc>
         <lastmod>2023-08-01T00:50:26.998Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2023/07/31/girigiri-member-check/</loc>
-        <lastmod>2023-07-31T13:22:21.177Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
