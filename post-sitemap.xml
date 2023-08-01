@@ -9,8 +9,16 @@
 
 
     <url>
+        <loc>https://yangdongjue5510.github.io/2023/07/31/girigiri-db/</loc>
+        <lastmod>2023-08-01T11:23:57.695Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yangdongjue5510.github.io/2023/07/31/girigiri-rent-refactor/</loc>
-        <lastmod>2023-08-01T04:13:38.081Z</lastmod>
+        <lastmod>2023-08-01T04:29:52.394Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -35,14 +43,6 @@
     <url>
         <loc>https://yangdongjue5510.github.io/2023/07/31/girigiri-member-check/</loc>
         <lastmod>2023-07-31T13:22:21.177Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://yangdongjue5510.github.io/2023/07/31/girigiri-db/</loc>
-        <lastmod>2023-07-31T13:13:13.513Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
